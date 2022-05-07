@@ -2,7 +2,10 @@
   "name": "flex-library",
   "version": "1.0.0",
   "private": true,
-  "repository": "git@github.com:Notekunn/flex-library.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Notekunn/flex-library.git"
+  },
   "license": "MIT",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
