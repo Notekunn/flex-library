@@ -1,3 +1,6 @@
+import { config } from 'dotenv';
+config();
+
 module.exports = {
   expo: {
     name: 'flex-library',
