@@ -4,6 +4,7 @@ import { Search } from '../components/Home/SearchBar';
 import SwipeSlide from '../components/Home/Carsousel';
 import CardList from '../components/Home/CardList';
 import Header from '../components/Header';
+import Categories from '../components/Home/Categories';
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
@@ -12,7 +13,8 @@ export default function HomeScreen() {
       </View>
       <View style={styles.body}>
         <SwipeSlide />
-        <CardList />
+        <Categories />
+        {/* <CardList /> */}
       </View>
     </View>
   );
@@ -30,7 +32,7 @@ const styles = StyleSheet.create({
   body: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    // justssifyContent: 'center',
   },
   title: {
     fontSize: 20,
