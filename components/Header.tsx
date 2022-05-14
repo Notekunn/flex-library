@@ -28,9 +28,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     // alignItems: 'center',
-    paddingTop: 38,
+    paddingTop: 22,
     paddingHorizontal: 20,
-    height: 100,
+    height: 82,
     backgroundColor: '#4C4CD7',
   },
   avatar: {
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
   search: {
     borderRadius: '50%',
-    backgroundColor: '#4C4CD7',
+    backgroundColor: '#A2A9EB',
     justifyContent: 'center',
     alignItems: 'center',
     height: 40,
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   },
   bell: {
     borderRadius: '50%',
-    backgroundColor: '#4C4CD7',
+    backgroundColor: '#A2A9EB',
     justifyContent: 'center',
     alignItems: 'center',
     height: 40,

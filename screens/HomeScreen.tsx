@@ -1,21 +1,25 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, ScrollView } from 'react-native';
 import { Search } from '../components/Home/SearchBar';
 import SwipeSlide from '../components/Home/Carsousel';
 import CardList from '../components/Home/CardList';
 import Header from '../components/Header';
 import Categories from '../components/Home/Categories';
+import BookList from '../components/Home/BookList';
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Header avatarUrl='https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg' />
       </View>
-      <View style={styles.body}>
-        <SwipeSlide />
-        <Categories />
-        {/* <CardList /> */}
-      </View>
+      <ScrollView>
+        <View style={styles.body}>
+          <SwipeSlide />
+          <Categories />
+          <BookList />
+          {/* <CardList /> */}
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -31,6 +35,7 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 1,
+    flexDirection: 'column',
     alignItems: 'center',
     // justssifyContent: 'center',
   },
