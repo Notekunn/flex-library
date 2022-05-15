@@ -1,5 +1,7 @@
 import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import React from 'react';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
 
 const { width, height } = Dimensions.get('window');
 interface props {
@@ -7,12 +9,15 @@ interface props {
 }
 
 const BookCard: React.FC<props> = ({ data }) => {
+  const navigation = useNavigation();
   return (
-    <View style={styles.container}>
-      <Image source={{ uri: data.imageUrl }} style={styles.image} />
-      <Text>{data.name}</Text>
-      <Text>{data.price}</Text>
-    </View>
+    <TouchableOpacity onPress={() => navigation.navigate('ModalItem')}>
+      <View style={styles.container}>
+        <Image source={{ uri: data.imageUrl }} style={styles.image} />
+        {/* <Text >{data.name}</Text> */}
+        <Text style={styles.price}>{data.price}</Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -33,8 +38,13 @@ const styles = StyleSheet.create({
   },
   image: {
     resizeMode: 'stretch',
-    height: 100,
-    width: (width - 100) / 4,
+    height: 120,
+    width: (width - 90) / 4,
     borderRadius: 10,
+  },
+  price: {
+    // alignSelf: 'flex-start',
+    // marginLeft: 5,
+    marginTop: 5,
   },
 });

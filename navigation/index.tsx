@@ -27,6 +27,7 @@ import ScanScreen from '../screens/ScanScreen';
 import StoreScreen from '../screens/StoreScreen';
 import AccountScreen from '../screens/AccountScreen';
 import { StatusBar } from 'react-native';
+import ModalItem from '../modals/ModalItem';
 
 export default function Navigation({
   colorScheme,
@@ -63,13 +64,12 @@ function RootNavigator() {
         component={SignInScreen}
         options={{ headerShown: false }}
       />
-      <Stack.Screen
-        name='NotFound'
-        component={NotFoundScreen}
-        options={{ title: 'Oops!' }}
-      />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
-        <Stack.Screen name='Modal' component={ModalScreen} />
+        <Stack.Screen
+          name='ModalItem'
+          options={{ headerShown: false }}
+          component={ModalItem}
+        />
       </Stack.Group>
     </Stack.Navigator>
   );
