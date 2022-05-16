@@ -7,7 +7,7 @@ import {
 } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
-import { ColorSchemeName, Pressable } from 'react-native';
+import { ColorSchemeName, Pressable, Text } from 'react-native';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import {
@@ -16,6 +16,7 @@ import {
   RootTabScreenProps,
 } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
+import { Feather, Fontisto, Entypo, FontAwesome5 } from '@expo/vector-icons';
 
 import IntroScreen from '../screens/IntroScreen';
 import ModalScreen from '../screens/ModalScreen';
@@ -26,8 +27,11 @@ import MyIdScreen from '../screens/MyIdScreen';
 import ScanScreen from '../screens/ScanScreen';
 import StoreScreen from '../screens/StoreScreen';
 import AccountScreen from '../screens/AccountScreen';
-import { StatusBar } from 'react-native';
+import { StatusBar, TextInput, View } from 'react-native';
 import ModalItem from '../modals/ModalItem';
+import ItemScreen from '../screens/ItemScreen';
+import { ScreenStackHeaderBackButtonImage } from 'react-native-screens';
+// import { View } from '../components/Themed';
 
 export default function Navigation({
   colorScheme,
@@ -63,6 +67,62 @@ function RootNavigator() {
         name='SignIn'
         component={SignInScreen}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name='Item'
+        component={ItemScreen}
+        options={{
+          headerShown: true,
+          headerTitle: '',
+          headerTintColor: '#4C4CD7',
+          headerBackTitle: '',
+          headerRight: () => (
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}
+            >
+              <View
+                style={{
+                  height: 30,
+                  width: 250,
+                  borderWidth: 1,
+                  paddingHorizontal: 8,
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                  borderRadius: 10,
+                  // left: -30,
+                }}
+              >
+                <FontAwesome5 name='search' size={16} color='gray' />
+                <Text style={{ color: 'gray', marginLeft: 5 }}>
+                  Tìm kiếm trên FL
+                </Text>
+              </View>
+              <View style={{ flexDirection: 'row', paddingLeft: 15 }}>
+                <Fontisto
+                  style={{ marginHorizontal: 5 }}
+                  name='share-a'
+                  size={24}
+                  color='#4C4CD7'
+                />
+                <Feather
+                  style={{ marginHorizontal: 5 }}
+                  name='shopping-cart'
+                  size={24}
+                  color='#4C4CD7'
+                />
+                <Entypo
+                  style={{ marginLeft: 5 }}
+                  name='dots-three-vertical'
+                  size={24}
+                  color='#4C4CD7'
+                />
+              </View>
+            </View>
+          ),
+        }}
       />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen

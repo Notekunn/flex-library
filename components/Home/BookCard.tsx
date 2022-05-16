@@ -11,7 +11,7 @@ interface props {
 const BookCard: React.FC<props> = ({ data }) => {
   const navigation = useNavigation();
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('ModalItem')}>
+    <TouchableOpacity onPress={() => navigation.navigate('Item')}>
       <View style={styles.container}>
         <Image source={{ uri: data.imageUrl }} style={styles.image} />
         {/* <Text >{data.name}</Text> */}
