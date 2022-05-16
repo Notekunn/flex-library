@@ -35,6 +35,7 @@ export type RootTabParamList = {
   Account: undefined;
   Home: undefined;
   Store: undefined;
+  Intro: undefined;
   SignIn: undefined;
 };
 

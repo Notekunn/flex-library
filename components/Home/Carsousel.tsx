@@ -1,18 +1,6 @@
-import {
-  Dimensions,
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  FlatList,
-  Animated,
-} from 'react-native';
+import { Dimensions, StyleSheet, View, Text, Image, FlatList, Animated } from 'react-native';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import {
-  Directions,
-  FlingGestureHandler,
-  State,
-} from 'react-native-gesture-handler';
+import { Directions, FlingGestureHandler, State } from 'react-native-gesture-handler';
 
 // import CarsouselItem from './CarsouselItem';
 const { width, height } = Dimensions.get('window');
@@ -54,7 +42,7 @@ const SwipeSlide = () => {
   });
   return (
     <FlingGestureHandler
-      key='left'
+      key="left"
       direction={Directions.LEFT}
       onHandlerStateChange={(ev) => {
         if (ev.nativeEvent.state === State.END) {
@@ -64,7 +52,7 @@ const SwipeSlide = () => {
       }}
     >
       <FlingGestureHandler
-        key='right'
+        key="right"
         direction={Directions.RIGHT}
         onHandlerStateChange={(ev) => {
           if (ev.nativeEvent.state === State.END) {
@@ -109,13 +97,7 @@ const SwipeSlide = () => {
             }}
             scrollEnabled={false}
             removeClippedSubviews={false}
-            CellRendererComponent={({
-              item,
-              index,
-              children,
-              style,
-              ...props
-            }) => {
+            CellRendererComponent={({ item, index, children, style, ...props }) => {
               const newStyle = [style, { zIndex: listImage.length - index }];
               return (
                 <View style={newStyle} index={index} {...props}>
@@ -159,11 +141,7 @@ const SwipeSlide = () => {
 
           <View style={styles.dotView}>
             {listImage.map((_, index) => {
-              const inputRange = [
-                (index - 1) * width,
-                index * width,
-                (index + 1) * width,
-              ];
+              const inputRange = [(index - 1) * width, index * width, (index + 1) * width];
               let dotWidth = scrollXIndex.interpolate({
                 inputRange,
                 outputRange: [10, 20, 10],

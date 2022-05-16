@@ -36,10 +36,10 @@ const styles = StyleSheet.create({
   avatar: {
     height: 40,
     width: 40,
-    borderRadius: '50%',
+    borderRadius: 20,
   },
   search: {
-    borderRadius: '50%',
+    borderRadius: 20,
     backgroundColor: '#A2A9EB',
     justifyContent: 'center',
     alignItems: 'center',
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   bell: {
-    borderRadius: '50%',
+    borderRadius: 20,
     backgroundColor: '#A2A9EB',
     justifyContent: 'center',
     alignItems: 'center',
