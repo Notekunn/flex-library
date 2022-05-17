@@ -1,9 +1,10 @@
 import { Dimensions, StyleSheet, Text, View, Image } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { RootStackScreenProps, RootTabScreenProps } from '../types';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import { stringLength } from '@firebase/util';
+import BookList from '../components/Home/BookList';
 
 const listImage = [
   'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg',
@@ -15,6 +16,7 @@ const listImage = [
 const { width } = Dimensions.get('window');
 
 const ItemScreen = ({ navigation }: RootStackScreenProps<'Item'>) => {
+  const [showDetail, setShowDetail] = useState(false);
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -89,6 +91,65 @@ const ItemScreen = ({ navigation }: RootStackScreenProps<'Item'>) => {
               <Text>Phản hồi Chat</Text>
             </View>
           </View>
+        </View>
+        <BookList />
+        <View style={styles.detail}>
+          <View style={styles.detail_header}>
+            <Text style={{ marginRight: 10 }}>Chi tiết sản phẩm</Text>
+            <AntDesign name='clockcircleo' size={12} color='black' />
+            <Text>4 tháng</Text>
+          </View>
+          <View style={styles.detail_center}>
+            <View style={styles.detail_center_infor}>
+              <Text style={{ width: 130 }}>Kho</Text>
+              <Text style={{ flex: 1 }}>2605</Text>
+            </View>
+            <View style={styles.detail_center_infor}>
+              <Text style={{ width: 130 }}>Loại sách</Text>
+              <Text style={{ flex: 1 }}>Truyện màu</Text>
+            </View>
+            <View style={styles.detail_center_infor}>
+              <Text style={{ width: 130 }}>Tác giả</Text>
+              <Text style={{ flex: 1 }}>CLA</Text>
+            </View>
+            <View style={styles.detail_center_infor}>
+              <Text style={{ width: 130 }}>Xuất bản năm</Text>
+              <Text style={{ flex: 1 }}>2000</Text>
+            </View>
+          </View>
+          <View
+            style={showDetail ? styles.detail_bottom_T : styles.detail_bottom_F}
+          >
+            <Text>
+              ✅ Sản phẩm arm nâng, tay nâng máy tính bảng, điện thoại (iPad,
+              Galaxy Tab, Mi Pad, Kindle....) chân kẹp cố định vào mặt bàn, giúp
+              mở rộng không gian cho bàn làm việc + vững hơn trên mặt bàn chiều
+              cao giá đỡ lớn, linh hoạt hơn cho mọi nhu cầu và vị trí ✅ Độ dày
+              của mặt bàn cần phù hợp độ rộng khe kẹp: - P60 PLus : dưới 6.4cm
+              ✅ Kích thước tablet cần phù hợp với độ rộng của kẹp: - P60 PLUS:
+              độ rộng kẹp 13 ~ 22cm (phù hợp tablet 4~12.9 inch) ✅ Chất liệu:
+              hợp kim ✅ Trọng lượng: khoảng ~ 800 gram ✅ Có các khớp chỉnh góc
+              tiện lợi, chắc chắn ✅ Đệm cao su chống trơn trượt và trầy xước
+              máy tính bảng, điện thoại ✅ Kích thước: chi tiết hình đính kèm
+              #giáđỡ #giáđỡlaptop #giáđỡipad #giáđỡmacbook #giáđỡtablet
+              #giáđỡmáytínhbảng
+            </Text>
+          </View>
+          <TouchableOpacity onPress={() => setShowDetail(!showDetail)}>
+            <View style={styles.detail_button}>
+              {showDetail ? (
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Text style={{ color: '#4C4CD7' }}>Thu gọn</Text>
+                  <AntDesign name='up' size={20} color='#4C4CD7' />
+                </View>
+              ) : (
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Text style={{ color: '#4C4CD7' }}>Xem thêm</Text>
+                  <AntDesign name='down' size={20} color='#4C4CD7' />
+                </View>
+              )}
+            </View>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
@@ -173,5 +234,48 @@ const styles = StyleSheet.create({
   store_bottom: {
     flexDirection: 'row',
     marginTop: 10,
+  },
+  detail: {
+    flex: 1,
+    backgroundColor: '#FADBD8',
+    borderRadius: 10,
+    marginHorizontal: 10,
+    marginTop: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+  },
+  detail_header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: 40,
+    borderBottomWidth: 1,
+    borderColor: 'gray',
+  },
+  detail_center: {
+    paddingVertical: 15,
+    borderBottomWidth: 1,
+    borderColor: 'gray',
+  },
+  detail_bottom_F: {
+    height: 100,
+    overflow: 'hidden',
+    paddingVertical: 15,
+    borderBottomWidth: 1,
+    borderColor: 'gray',
+  },
+  detail_bottom_T: {
+    paddingVertical: 15,
+    borderBottomWidth: 1,
+    borderColor: 'gray',
+  },
+  detail_center_infor: {
+    flexDirection: 'row',
+    height: 40,
+    alignItems: 'center',
+  },
+  detail_button: {
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
