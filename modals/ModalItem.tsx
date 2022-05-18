@@ -14,13 +14,24 @@ const { width } = Dimensions.get('window');
 const ModalItem = ({ navigation }: RootStackScreenProps<'ModalItem'>) => {
   return (
     <View style={styles.container}>
-      <View>
-        <Image style={styles.image} source={{ uri: listImage[0] }} />
+      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <Text
+          style={{
+            fontSize: 30,
+            marginVertical: 20,
+            color: '#fff',
+            fontWeight: 'bold',
+          }}
+        >
+          Your Code
+        </Text>
+        <Image
+          style={styles.image}
+          source={{
+            uri: 'https://printgo.vn/uploads/media/790919/tao-ma-qr-code-san-pham-1_1620927223.jpg',
+          }}
+        />
       </View>
-      <Text style={styles.title}>
-        Truyện tranh Connan version VIP pro MAX ULTRA WIDE
-      </Text>
-      <Text style={styles.price}>395.000đ</Text>
     </View>
   );
 };
@@ -31,23 +42,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#4C4CD7',
   },
   image: {
-    height: 400,
+    height: 250,
     width: width,
     resizeMode: 'contain',
-  },
-  title: {
-    alignSelf: 'flex-start',
-    fontSize: 23,
-    marginTop: 10,
-    paddingHorizontal: 15,
-  },
-  price: {
-    alignSelf: 'flex-start',
-    fontSize: 25,
-    paddingHorizontal: 15,
-    color: '#E74C3C',
-    marginTop: 10,
   },
 });

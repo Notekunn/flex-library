@@ -4,6 +4,7 @@ import {
   NavigationContainer,
   DefaultTheme,
   DarkTheme,
+  useNavigation,
 } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
@@ -138,7 +139,7 @@ const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 function BottomTabNavigator() {
   const colorScheme = useColorScheme();
-
+  const navigation = useNavigation<any>();
   return (
     <BottomTab.Navigator
       initialRouteName='Home'
@@ -168,6 +169,12 @@ function BottomTabNavigator() {
             <TabBarIcon name='id-badge' color={color} />
           ),
         }}
+        listeners={() => ({
+          tabPress: (event) => {
+            event.preventDefault();
+            navigation.navigate('ModalItem');
+          },
+        })}
       />
       <BottomTab.Screen
         name='Scan'
