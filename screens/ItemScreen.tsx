@@ -5,6 +5,7 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import { stringLength } from '@firebase/util';
 import BookList from '../components/Home/BookList';
+import BookCardFlex from '../components/BookCardFlex';
 
 const listImage = [
   'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg',
@@ -13,6 +14,8 @@ const listImage = [
   'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-4/anh-bia.jpg',
   'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-5/anh-bia.jpg',
 ];
+
+const arrTest = [];
 const { width } = Dimensions.get('window');
 
 const ItemScreen = ({ navigation }: RootStackScreenProps<'Item'>) => {
@@ -151,6 +154,11 @@ const ItemScreen = ({ navigation }: RootStackScreenProps<'Item'>) => {
             </View>
           </TouchableOpacity>
         </View>
+        <View style={styles.otherBooks}>
+          {Array.from(Array(10)).map(() => {
+            return <BookCardFlex />;
+          })}
+        </View>
       </ScrollView>
     </View>
   );
@@ -277,5 +285,12 @@ const styles = StyleSheet.create({
     height: 40,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  otherBooks: {
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    paddingHorizontal: 10,
+    paddingTop: 10,
+    justifyContent: 'space-between',
   },
 });
