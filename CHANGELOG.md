@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/Notekunn/flex-library/compare/v1.0.0...v1.1.0) (2022-05-20)
+
+
+### Features
+
+* add cart screen ([#12](https://github.com/Notekunn/flex-library/issues/12)) ([7a4845e](https://github.com/Notekunn/flex-library/commit/7a4845e0c63a38973def9bd860eb988f61747934))
+
 # 1.0.0 (2022-05-19)
 
 
