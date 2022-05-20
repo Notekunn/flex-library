@@ -138,7 +138,11 @@ function RootNavigator() {
             <Stack.Screen
                 name="Cart"
                 component={CartScreen}
-                options={{ headerShown: false }}
+                options={{
+                    headerShown: true,
+                    headerTitleAlign: 'center',
+                    headerTintColor: '#ce4144',
+                }}
             />
             <Stack.Group screenOptions={{ presentation: 'modal' }}>
                 <Stack.Screen
