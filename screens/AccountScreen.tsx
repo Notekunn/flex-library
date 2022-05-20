@@ -1,8 +1,11 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Icon, Image } from '@rneui/themed';
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const AccountScreen = () => {
+    const nav = useNavigation();
     return (
         <View style={styles.container}>
             <View
@@ -27,7 +30,10 @@ const AccountScreen = () => {
                 <View>
                     <Text style={styles.title}>Account</Text>
                     <View style={styles.listItem}>
-                        <View style={styles.item}>
+                        <TouchableOpacity
+                            style={styles.item}
+                            activeOpacity={0.6}
+                        >
                             <View
                                 style={{
                                     backgroundColor: '#00ff0885',
@@ -45,7 +51,6 @@ const AccountScreen = () => {
                                     solid={true}
                                 />
                             </View>
-
                             <View
                                 style={{
                                     flex: 2,
@@ -59,8 +64,48 @@ const AccountScreen = () => {
                                 type="font-awesome"
                                 color="#c1c1c1"
                             />
-                        </View>
-                        <View style={styles.item}>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.item}
+                            activeOpacity={0.8}
+                            onPress={() => nav.navigate('Cart')}
+                        >
+                            <View
+                                style={{
+                                    backgroundColor: '#fff700b8',
+                                    borderRadius: 5,
+                                    padding: 5,
+                                    width: 30,
+                                    height: 30,
+                                }}
+                            >
+                                <Icon
+                                    name="shopping-cart"
+                                    type="feather"
+                                    color="#fff"
+                                    size={20}
+                                    solid={true}
+                                />
+                            </View>
+                            <View
+                                style={{
+                                    flex: 2,
+                                    marginLeft: 30,
+                                }}
+                            >
+                                <Text style={styles.text}>Cart</Text>
+                            </View>
+                            <Icon
+                                name="angle-right"
+                                type="font-awesome"
+                                style={{ flex: 1 }}
+                                color="#c1c1c1"
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.item}
+                            activeOpacity={0.8}
+                        >
                             <View
                                 style={{
                                     backgroundColor: '#ff000085',
@@ -92,8 +137,11 @@ const AccountScreen = () => {
                                 style={{ flex: 1 }}
                                 color="#c1c1c1"
                             />
-                        </View>
-                        <View style={styles.item}>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.item}
+                            activeOpacity={0.8}
+                        >
                             <View
                                 style={{
                                     backgroundColor: '#ff00e885',
@@ -125,16 +173,19 @@ const AccountScreen = () => {
                                 style={{ flex: 1 }}
                                 color="#c1c1c1"
                             />
-                        </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
                 <View>
                     <Text style={styles.title}>Orther</Text>
                     <View style={styles.listItem}>
-                        <View style={styles.item}>
+                        <TouchableOpacity
+                            style={styles.item}
+                            activeOpacity={0.8}
+                        >
                             <View
                                 style={{
-                                    backgroundColor: '#f6ff1182',
+                                    backgroundColor: '#c3b666b8',
                                     borderRadius: 5,
                                     padding: 5,
                                     width: 30,
@@ -161,8 +212,11 @@ const AccountScreen = () => {
                                 type="font-awesome"
                                 color="#c1c1c1"
                             />
-                        </View>
-                        <View style={styles.item}>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.item}
+                            activeOpacity={0.8}
+                        >
                             <View
                                 style={{
                                     backgroundColor: '#cbcbcb82',
@@ -193,7 +247,7 @@ const AccountScreen = () => {
                                 style={{ flex: 1 }}
                                 color="#c1c1c1"
                             />
-                        </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>
