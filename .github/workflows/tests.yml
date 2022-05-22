@@ -1,11 +1,10 @@
 name: ✨
 
 on:
-  workflow_dispatch:
-  # push:
-  #   branches:
-  #     - '**'
-  #     - '!main'
+  push:
+    branches:
+      - '**'
+      - '!main'
 
 jobs:
   main:
@@ -20,4 +19,4 @@ jobs:
         with:
           node-version: '16'
       - run: yarn
-      - run: yarn test
+      - run: yarn format:check
