@@ -6,11 +6,16 @@ import CardList from '../components/Home/CardList';
 import Header from '../components/Header';
 import Categories from '../components/Home/Categories';
 import BookList from '../components/Home/BookList';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
 export default function HomeScreen() {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Header avatarUrl="https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg" />
+        <TouchableOpacity onPress={() => navigation.navigate('Store')}>
+          <Header avatarUrl="https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg" />
+        </TouchableOpacity>
       </View>
       <ScrollView>
         <View style={styles.body}>

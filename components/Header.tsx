@@ -8,10 +8,10 @@ const Header = ({ avatarUrl }: any) => {
     <View style={styles.container}>
       <View style={styles.action}>
         <View style={styles.bell}>
-          <MaterialCommunityIcons name='bell' size={24} color='white' />
+          <MaterialCommunityIcons name="bell" size={24} color="white" />
         </View>
         <View style={styles.search}>
-          <FontAwesome name='search' size={24} color='white' />
+          <FontAwesome name="search" size={24} color="white" />
         </View>
         <Image source={{ uri: avatarUrl }} style={styles.avatar} />
       </View>

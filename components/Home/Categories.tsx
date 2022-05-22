@@ -73,7 +73,7 @@ const Categories = () => {
             // padding: SPACING * 2,
           }
         }
-        snapToAlignment='start'
+        snapToAlignment="start"
         decelerationRate={0.5}
         scrollEventThrottle={160}
         // showsHorizontalScrollIndicator={false}

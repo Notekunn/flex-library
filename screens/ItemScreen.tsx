@@ -27,35 +27,23 @@ const ItemScreen = ({ navigation }: RootStackScreenProps<'Item'>) => {
           <Image style={styles.image} source={{ uri: listImage[0] }} />
         </View>
         <View style={styles.desc}>
-          <Text style={styles.title}>
-            Truyện tranh Connan version VIP pro MAX ULTRA WIDE
-          </Text>
+          <Text style={styles.title}>Truyện tranh Connan version VIP pro MAX ULTRA WIDE</Text>
           <Text style={styles.price}>395.000đ</Text>
           <View style={styles.extensions}>
             <View style={styles.rate}>
-              <AntDesign name='star' size={17} color='yellow' />
-              <AntDesign name='star' size={17} color='yellow' />
-              <AntDesign name='star' size={17} color='yellow' />
-              <AntDesign name='star' size={17} color='yellow' />
-              <AntDesign name='star' size={17} color='yellow' />
+              <AntDesign name="star" size={17} color="yellow" />
+              <AntDesign name="star" size={17} color="yellow" />
+              <AntDesign name="star" size={17} color="yellow" />
+              <AntDesign name="star" size={17} color="yellow" />
+              <AntDesign name="star" size={17} color="yellow" />
               <Text style={{ paddingLeft: 7, fontSize: 15 }}>5</Text>
             </View>
             <View style={styles.border}></View>
             <Text style={{ fontSize: 15 }}>Đã bán 2605</Text>
             <View style={styles.action}>
-              <AntDesign name='hearto' size={25} color='gray' />
-              <MaterialCommunityIcons
-                style={{ marginLeft: 10 }}
-                name='share-outline'
-                size={35}
-                color='gray'
-              />
-              <MaterialCommunityIcons
-                style={{ marginLeft: 10 }}
-                name='facebook-messenger'
-                size={25}
-                color='blue'
-              />
+              <AntDesign name="hearto" size={25} color="gray" />
+              <MaterialCommunityIcons style={{ marginLeft: 10 }} name="share-outline" size={35} color="gray" />
+              <MaterialCommunityIcons style={{ marginLeft: 10 }} name="facebook-messenger" size={25} color="blue" />
             </View>
           </View>
         </View>
@@ -72,9 +60,7 @@ const ItemScreen = ({ navigation }: RootStackScreenProps<'Item'>) => {
             />
             <View style={styles.text}>
               <Text style={{ fontSize: 20 }}>FlexLib.vip.vn</Text>
-              <Text style={{ fontSize: 12, color: 'gray' }}>
-                Online 11 giờ trước
-              </Text>
+              <Text style={{ fontSize: 12, color: 'gray' }}>Online 11 giờ trước</Text>
             </View>
             <View style={styles.button}>
               <Text style={{ color: '#4C4CD7' }}>Xem Shop</Text>
@@ -99,7 +85,7 @@ const ItemScreen = ({ navigation }: RootStackScreenProps<'Item'>) => {
         <View style={styles.detail}>
           <View style={styles.detail_header}>
             <Text style={{ marginRight: 10 }}>Chi tiết sản phẩm</Text>
-            <AntDesign name='clockcircleo' size={12} color='black' />
+            <AntDesign name="clockcircleo" size={12} color="black" />
             <Text>4 tháng</Text>
           </View>
           <View style={styles.detail_center}>
@@ -120,22 +106,15 @@ const ItemScreen = ({ navigation }: RootStackScreenProps<'Item'>) => {
               <Text style={{ flex: 1 }}>2000</Text>
             </View>
           </View>
-          <View
-            style={showDetail ? styles.detail_bottom_T : styles.detail_bottom_F}
-          >
+          <View style={showDetail ? styles.detail_bottom_T : styles.detail_bottom_F}>
             <Text>
-              ✅ Sản phẩm arm nâng, tay nâng máy tính bảng, điện thoại (iPad,
-              Galaxy Tab, Mi Pad, Kindle....) chân kẹp cố định vào mặt bàn, giúp
-              mở rộng không gian cho bàn làm việc + vững hơn trên mặt bàn chiều
-              cao giá đỡ lớn, linh hoạt hơn cho mọi nhu cầu và vị trí ✅ Độ dày
-              của mặt bàn cần phù hợp độ rộng khe kẹp: - P60 PLus : dưới 6.4cm
-              ✅ Kích thước tablet cần phù hợp với độ rộng của kẹp: - P60 PLUS:
-              độ rộng kẹp 13 ~ 22cm (phù hợp tablet 4~12.9 inch) ✅ Chất liệu:
-              hợp kim ✅ Trọng lượng: khoảng ~ 800 gram ✅ Có các khớp chỉnh góc
-              tiện lợi, chắc chắn ✅ Đệm cao su chống trơn trượt và trầy xước
-              máy tính bảng, điện thoại ✅ Kích thước: chi tiết hình đính kèm
-              #giáđỡ #giáđỡlaptop #giáđỡipad #giáđỡmacbook #giáđỡtablet
-              #giáđỡmáytínhbảng
+              ✅ Sản phẩm arm nâng, tay nâng máy tính bảng, điện thoại (iPad, Galaxy Tab, Mi Pad, Kindle....) chân kẹp
+              cố định vào mặt bàn, giúp mở rộng không gian cho bàn làm việc + vững hơn trên mặt bàn chiều cao giá đỡ
+              lớn, linh hoạt hơn cho mọi nhu cầu và vị trí ✅ Độ dày của mặt bàn cần phù hợp độ rộng khe kẹp: - P60 PLus
+              : dưới 6.4cm ✅ Kích thước tablet cần phù hợp với độ rộng của kẹp: - P60 PLUS: độ rộng kẹp 13 ~ 22cm (phù
+              hợp tablet 4~12.9 inch) ✅ Chất liệu: hợp kim ✅ Trọng lượng: khoảng ~ 800 gram ✅ Có các khớp chỉnh góc
+              tiện lợi, chắc chắn ✅ Đệm cao su chống trơn trượt và trầy xước máy tính bảng, điện thoại ✅ Kích thước:
+              chi tiết hình đính kèm #giáđỡ #giáđỡlaptop #giáđỡipad #giáđỡmacbook #giáđỡtablet #giáđỡmáytínhbảng
             </Text>
           </View>
           <TouchableOpacity onPress={() => setShowDetail(!showDetail)}>
@@ -143,12 +122,12 @@ const ItemScreen = ({ navigation }: RootStackScreenProps<'Item'>) => {
               {showDetail ? (
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                   <Text style={{ color: '#4C4CD7' }}>Thu gọn</Text>
-                  <AntDesign name='up' size={20} color='#4C4CD7' />
+                  <AntDesign name="up" size={20} color="#4C4CD7" />
                 </View>
               ) : (
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                   <Text style={{ color: '#4C4CD7' }}>Xem thêm</Text>
-                  <AntDesign name='down' size={20} color='#4C4CD7' />
+                  <AntDesign name="down" size={20} color="#4C4CD7" />
                 </View>
               )}
             </View>
@@ -156,7 +135,7 @@ const ItemScreen = ({ navigation }: RootStackScreenProps<'Item'>) => {
         </View>
         <View style={styles.otherBooks}>
           {Array.from(Array(10)).map(() => {
-            return <BookCardFlex />;
+            return <BookCardFlex url="https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg" />;
           })}
         </View>
       </ScrollView>

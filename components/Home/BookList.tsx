@@ -6,50 +6,42 @@ const listImage = [
   {
     name: 'Truyện tranh conan',
     price: '3,000/ngày',
-    imageUrl:
-      'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg',
+    imageUrl: 'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg',
   },
   {
     name: 'Truyện tranh conan',
     price: '3,000/ngày',
-    imageUrl:
-      'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-2/anh-bia.jpg',
+    imageUrl: 'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-2/anh-bia.jpg',
   },
   {
     name: 'Truyện tranh conan',
     price: '3,000/ngày',
-    imageUrl:
-      'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-3/anh-bia.jpg',
+    imageUrl: 'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-3/anh-bia.jpg',
   },
   {
     name: 'Truyện tranh conan',
     price: '3,000/ngày',
-    imageUrl:
-      'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-4/anh-bia.jpg',
+    imageUrl: 'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-4/anh-bia.jpg',
   },
   {
     name: 'Truyện tranh conan',
     price: '3,000/ngày',
-    imageUrl:
-      'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-5/anh-bia.jpg',
+    imageUrl: 'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-5/anh-bia.jpg',
   },
   {
     name: 'Truyện tranh conan',
     price: '3,000/ngày',
-    imageUrl:
-      'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-6/anh-bia.jpg',
+    imageUrl: 'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-6/anh-bia.jpg',
   },
   {
     name: 'Truyện tranh conan',
     price: '3,000/ngày',
-    imageUrl:
-      'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-7/anh-bia.jpg',
+    imageUrl: 'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-7/anh-bia.jpg',
   },
   {
     name: 'Truyện tranh conan',
     price: '3,000/ngày',
-    imageUrl:
-      'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-8/anh-bia.jpg',
+    imageUrl: 'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-8/anh-bia.jpg',
   },
 ];
 const { width, height } = Dimensions.get('window');
