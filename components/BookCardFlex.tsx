@@ -1,18 +1,14 @@
-import {
-  Dimensions,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import Navigation from '../navigation';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackScreenProps, RootTabScreenProps } from '../types';
 
 const { height, width } = Dimensions.get('window');
-const BookCardFlex = () => {
+interface BookCardFlexProps {
+  url: string;
+}
+const BookCardFlex: React.FC<BookCardFlexProps> = ({ url }) => {
   const navigation = useNavigation<any>();
   return (
     <TouchableOpacity onPress={() => navigation.push('Item', { id: 8 })}>
@@ -20,7 +16,7 @@ const BookCardFlex = () => {
         <Image
           style={styles.image}
           source={{
-            uri: 'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg',
+            uri: url,
           }}
         />
         <View style={styles.desc}>

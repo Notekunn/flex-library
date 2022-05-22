@@ -4,9 +4,7 @@ import { StyleSheet, Image, Text, View } from 'react-native';
 
 import { RootTabScreenProps } from '../types';
 
-export default function SignInScreen({
-  navigation,
-}: RootTabScreenProps<'SignIn'>) {
+export default function SignInScreen({ navigation }: RootTabScreenProps<'SignIn'>) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [hidePassword, setHidePassword] = React.useState(true);
@@ -16,15 +14,12 @@ export default function SignInScreen({
   return (
     <View style={styles.container}>
       <View style={styles.image}>
-        <Image
-          source={require('../assets/images/logo.png')}
-          style={{ width: '100%', height: '100%' }}
-        />
+        <Image source={require('../assets/images/logo.png')} style={{ width: '100%', height: '100%' }} />
       </View>
       {/* <Text style={styles.title}>Sign In To Your Account</Text> */}
       <View style={styles.form}>
         <Input
-          placeholder='Email'
+          placeholder="Email"
           leftIcon={{
             type: 'font-awesome',
             name: 'envelope',
@@ -34,7 +29,7 @@ export default function SignInScreen({
           onChangeText={(text) => setEmail(text)}
         ></Input>
         <Input
-          placeholder='Password'
+          placeholder="Password"
           secureTextEntry={hidePassword}
           leftIcon={{
             type: 'font-awesome',
@@ -53,7 +48,7 @@ export default function SignInScreen({
         ></Input>
       </View>
       <Button
-        title='Submit'
+        title="Submit"
         onPress={() => {
           onsubmit(email, password);
         }}
