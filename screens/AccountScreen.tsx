@@ -3,6 +3,7 @@ import { Icon, Image } from '@rneui/themed';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { mainColor } from '../constants/Colors';
 
 const AccountScreen = () => {
   const nav = useNavigation();
@@ -52,6 +53,7 @@ const AccountScreen = () => {
               </View>
               <Icon name="angle-right" type="font-awesome" color="#c1c1c1" />
             </TouchableOpacity>
+
             <TouchableOpacity style={styles.item} activeOpacity={0.8} onPress={() => nav.navigate('InfoCart')}>
               <View
                 style={{
@@ -193,7 +195,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginTop: 10,
     marginBottom: 10,
-    color: '#c1c1c1',
+    color: mainColor,
   },
   listItem: {
     flexDirection: 'column',
@@ -213,7 +215,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#858585',
+    color: '#000',
     flexWrap: 'wrap',
   },
 });

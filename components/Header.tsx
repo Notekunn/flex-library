@@ -1,19 +1,27 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
-import { FontAwesome } from '@expo/vector-icons';
+import { Feather, FontAwesome } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 const Header = ({ avatarUrl }: any) => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <View style={styles.action}>
-        <View style={styles.bell}>
-          <MaterialCommunityIcons name="bell" size={24} color="white" />
-        </View>
-        <View style={styles.search}>
-          <FontAwesome name="search" size={24} color="white" />
-        </View>
-        <Image source={{ uri: avatarUrl }} style={styles.avatar} />
+        <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
+          <View style={styles.cart}>
+            <FontAwesome name="shopping-cart" size={26} color="white" />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Search')}>
+          <View style={styles.search}>
+            <FontAwesome name="search" size={24} color="white" />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Store')}>
+          <Image source={{ uri: avatarUrl }} style={styles.avatar} />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -47,7 +55,7 @@ const styles = StyleSheet.create({
     width: 40,
     marginHorizontal: 10,
   },
-  bell: {
+  cart: {
     borderRadius: 20,
     backgroundColor: '#A2A9EB',
     justifyContent: 'center',
