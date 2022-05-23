@@ -52,7 +52,7 @@ const AccountScreen = () => {
               </View>
               <Icon name="angle-right" type="font-awesome" color="#c1c1c1" />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.item} activeOpacity={0.8} onPress={() => nav.navigate('Card')}>
+            <TouchableOpacity style={styles.item} activeOpacity={0.8} onPress={() => nav.navigate('InfoCart')}>
               <View
                 style={{
                   backgroundColor: '#fff700b8',

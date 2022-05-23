@@ -23,6 +23,7 @@ import { StatusBar, TextInput, View } from 'react-native';
 import ModalItem from '../modals/ModalItem';
 import ItemScreen from '../screens/ItemScreen';
 import { ScreenStackHeaderBackButtonImage } from 'react-native-screens';
+import TopBarNavigatorCart from './topBarNavigatorCart';
 import CartScreen from '../screens/CartScreen';
 // import { View } from '../components/Themed';
 
@@ -81,13 +82,27 @@ function RootNavigator() {
                 <FontAwesome5 name="search" size={16} color="gray" />
                 <Text style={{ color: 'gray', marginLeft: 5 }}>Tìm kiếm trên FL</Text>
               </View>
-              <View style={{ flexDirection: 'row', paddingLeft: 15 }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  paddingLeft: 15,
+                }}
+              >
                 <Fontisto style={{ marginHorizontal: 5 }} name="share-a" size={24} color="#4C4CD7" />
                 <Feather style={{ marginHorizontal: 5 }} name="shopping-cart" size={24} color="#4C4CD7" />
                 <Entypo style={{ marginLeft: 5 }} name="dots-three-vertical" size={24} color="#4C4CD7" />
               </View>
             </View>
           ),
+        }}
+      />
+      <Stack.Screen
+        name="InfoCart"
+        component={TopBarNavigatorCart}
+        options={{
+          headerShown: true,
+          headerTintColor: '#ce4144',
+          headerTitle: 'Cart',
         }}
       />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
