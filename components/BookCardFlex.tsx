@@ -7,6 +7,7 @@ import { RootStackScreenProps, RootTabScreenProps } from '../types';
 const { height, width } = Dimensions.get('window');
 interface BookCardFlexProps {
   url: string;
+  key: any;
 }
 const BookCardFlex: React.FC<BookCardFlexProps> = ({ url }) => {
   const navigation = useNavigation<any>();

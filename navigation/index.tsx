@@ -4,7 +4,7 @@ import { NavigationContainer, DefaultTheme, DarkTheme, useNavigation } from '@re
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 import { ColorSchemeName, Pressable, Text } from 'react-native';
-import Colors from '../constants/Colors';
+import Colors, { mainColor } from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
@@ -25,6 +25,7 @@ import ItemScreen from '../screens/ItemScreen';
 import { ScreenStackHeaderBackButtonImage } from 'react-native-screens';
 import TopBarNavigatorCart from './topBarNavigatorCart';
 import CartScreen from '../screens/CartScreen';
+import SearchScreen from '../screens/SearchScreen';
 // import { View } from '../components/Themed';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
@@ -44,19 +45,26 @@ function RootNavigator() {
       <Stack.Screen name="Intro" component={IntroScreen} options={{ headerShown: false }} />
       <Stack.Screen name="SignIn" component={SignInScreen} options={{ headerShown: false }} />
       <Stack.Screen
-        name="Card"
+        name="Cart"
         component={CartScreen}
         options={{
           headerShown: true,
+          headerStyle: {
+            backgroundColor: mainColor,
+          },
+          headerTitleStyle: {
+            color: '#FFF',
+          },
+          headerBackTitle: '',
           headerTitleAlign: 'center',
-          headerTintColor: '#ce4144',
+          headerTintColor: '#fff',
         }}
       />
       <Stack.Screen
         name="Item"
         component={ItemScreen}
         options={{
-          headerShown: true,
+          headerShown: false,
           headerTitle: '',
           headerTintColor: '#4C4CD7',
           headerBackTitle: '',
@@ -105,6 +113,7 @@ function RootNavigator() {
           headerTitle: 'Cart',
         }}
       />
+      <Stack.Screen name="Search" component={SearchScreen} options={{ headerShown: false, animation: 'fade' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="ModalItem" options={{ headerShown: false }} component={ModalItem} />
       </Stack.Group>
@@ -154,6 +163,13 @@ function BottomTabNavigator() {
         name="Scan"
         component={ScanScreen}
         options={{
+          headerStyle: {
+            backgroundColor: mainColor,
+          },
+          headerTitleStyle: {
+            color: '#fff',
+            fontSize: 20,
+          },
           title: 'Scan Code',
           tabBarIcon: ({ color }) => <TabBarIcon name="qrcode" color={color} />,
         }}
@@ -172,6 +188,13 @@ function BottomTabNavigator() {
         component={AccountScreen}
         options={{
           title: 'Account',
+          headerStyle: {
+            backgroundColor: mainColor,
+          },
+          headerTitleStyle: {
+            color: '#fff',
+            fontSize: 20,
+          },
           tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
         }}
       />

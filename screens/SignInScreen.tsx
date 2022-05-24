@@ -1,6 +1,7 @@
 import { Button, Input } from '@rneui/themed';
 import React from 'react';
-import { StyleSheet, Image, Text, View } from 'react-native';
+import { StyleSheet, Image, Text, View, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { mainColor } from '../constants/Colors';
 
 import { RootTabScreenProps } from '../types';
 
@@ -12,56 +13,61 @@ export default function SignInScreen({ navigation }: RootTabScreenProps<'SignIn'
     navigation.navigate('Root');
   };
   return (
-    <View style={styles.container}>
-      <View style={styles.image}>
-        <Image source={require('../assets/images/logo.png')} style={{ width: '100%', height: '100%' }} />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={true}>
+      <View style={styles.container}>
+        <View style={styles.image}>
+          <Image
+            source={require('../assets/images/spy.png')}
+            style={{ alignSelf: 'center', justifyContent: 'center', width: 350, height: 350, resizeMode: 'contain' }}
+          />
+        </View>
+        {/* <Text style={styles.title}>Sign In To Your Account</Text> */}
+        <View style={styles.form}>
+          <Input
+            placeholder="Email"
+            leftIcon={{
+              type: 'font-awesome',
+              name: 'envelope',
+              color: '#FFF',
+              size: 20,
+            }}
+            onChangeText={(text) => setEmail(text)}
+          ></Input>
+          <Input
+            placeholder="Password"
+            secureTextEntry={hidePassword}
+            leftIcon={{
+              type: 'font-awesome',
+              name: 'lock',
+              color: '#FFF',
+              size: 30,
+            }}
+            rightIcon={{
+              type: 'font-awesome',
+              name: hidePassword ? 'eye' : 'eye-slash',
+              color: '#FFF',
+              size: 25,
+              onPress: () => setHidePassword(!hidePassword),
+            }}
+            onChangeText={(text) => setPassword(text)}
+          ></Input>
+        </View>
+        <Button
+          title="Submit"
+          onPress={() => {
+            onsubmit(email, password);
+          }}
+          loading={false}
+          loadingProps={{ size: 'small', color: 'white' }}
+          buttonStyle={{
+            backgroundColor: 'rgba(111, 202, 186, 1)',
+            borderRadius: 60,
+            height: 45,
+            width: 150,
+          }}
+        />
       </View>
-      {/* <Text style={styles.title}>Sign In To Your Account</Text> */}
-      <View style={styles.form}>
-        <Input
-          placeholder="Email"
-          leftIcon={{
-            type: 'font-awesome',
-            name: 'envelope',
-            color: '#f50',
-            size: 20,
-          }}
-          onChangeText={(text) => setEmail(text)}
-        ></Input>
-        <Input
-          placeholder="Password"
-          secureTextEntry={hidePassword}
-          leftIcon={{
-            type: 'font-awesome',
-            name: 'lock',
-            color: '#f50',
-            size: 30,
-          }}
-          rightIcon={{
-            type: 'font-awesome',
-            name: hidePassword ? 'eye' : 'eye-slash',
-            color: '#f50',
-            size: 25,
-            onPress: () => setHidePassword(!hidePassword),
-          }}
-          onChangeText={(text) => setPassword(text)}
-        ></Input>
-      </View>
-      <Button
-        title="Submit"
-        onPress={() => {
-          onsubmit(email, password);
-        }}
-        loading={false}
-        loadingProps={{ size: 'small', color: 'white' }}
-        buttonStyle={{
-          backgroundColor: 'rgba(111, 202, 186, 1)',
-          borderRadius: 60,
-          height: 45,
-          width: 150,
-        }}
-      />
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -69,8 +75,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#fff',
+    // justifyContent: 'center',
+    paddingTop: 100,
+    backgroundColor: mainColor,
   },
   title: {
     fontSize: 20,
@@ -78,9 +85,10 @@ const styles = StyleSheet.create({
   },
   form: {
     width: '100%',
+    paddingHorizontal: 50,
   },
   image: {
-    width: 200,
-    height: 200,
+    width: 350,
+    height: 350,
   },
 });

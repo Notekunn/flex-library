@@ -1,11 +1,11 @@
-import { Dimensions, StyleSheet, Text, View, Image } from 'react-native';
+import { Dimensions, StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { RootStackScreenProps, RootTabScreenProps } from '../types';
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
+import { AntDesign, Entypo, Feather, FontAwesome5, Fontisto, MaterialCommunityIcons } from '@expo/vector-icons';
 import { stringLength } from '@firebase/util';
 import BookList from '../components/Home/BookList';
 import BookCardFlex from '../components/BookCardFlex';
+import { mainColor } from '../constants/Colors';
 
 const listImage = [
   'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg',
@@ -22,6 +22,35 @@ const ItemScreen = ({ navigation }: RootStackScreenProps<'Item'>) => {
   const [showDetail, setShowDetail] = useState(false);
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Entypo style={{ marginLeft: 10 }} name="chevron-left" size={35} color="#4C4CD7" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Search')}>
+          <View
+            style={{
+              height: 30,
+              width: 250,
+              borderWidth: 1,
+              paddingHorizontal: 8,
+              alignItems: 'center',
+              flexDirection: 'row',
+              borderRadius: 10,
+              // left: -30,
+            }}
+          >
+            <FontAwesome5 name="search" size={16} color="gray" />
+            <Text style={{ color: 'gray', marginLeft: 5 }}>Tìm kiếm trên FL</Text>
+          </View>
+        </TouchableOpacity>
+        <View style={{ flexDirection: 'row', paddingLeft: 15 }}>
+          <Fontisto style={{ marginHorizontal: 5 }} name="share-a" size={24} color="#4C4CD7" />
+          <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
+            <Feather style={{ marginHorizontal: 5 }} name="shopping-cart" size={24} color="#4C4CD7" />
+          </TouchableOpacity>
+          <Entypo style={{ marginLeft: 5 }} name="dots-three-vertical" size={24} color="#4C4CD7" />
+        </View>
+      </View>
       <ScrollView>
         <View>
           <Image style={styles.image} source={{ uri: listImage[0] }} />
@@ -134,8 +163,13 @@ const ItemScreen = ({ navigation }: RootStackScreenProps<'Item'>) => {
           </TouchableOpacity>
         </View>
         <View style={styles.otherBooks}>
-          {Array.from(Array(10)).map(() => {
-            return <BookCardFlex url="https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg" />;
+          {Array.from(Array(10)).map((_, index) => {
+            return (
+              <BookCardFlex
+                key={index}
+                url="https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg"
+              />
+            );
           })}
         </View>
       </ScrollView>
@@ -148,7 +182,7 @@ export default ItemScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    // alignItems: 'center',
   },
   image: {
     height: 400,
@@ -271,5 +305,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingTop: 10,
     justifyContent: 'space-between',
+  },
+  header: {
+    paddingTop: 50,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#E5E6F8',
+    paddingBottom: 10,
   },
 });
