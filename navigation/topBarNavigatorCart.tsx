@@ -4,6 +4,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import CartScreen from '../screens/CartScreen';
 import HistoryScreen from '../screens/HistoryScreen';
 import { RootTabParamList } from '../types';
+import { mainColor } from '../constants/Colors';
 
 const Tab = createMaterialTopTabNavigator<RootTabParamList>();
 
@@ -19,10 +20,10 @@ const TopBarNavigatorCart = () => {
             fontSize: 12,
             fontWeight: 'bold',
           },
-          tabBarActiveTintColor: '#ce4144',
+          tabBarActiveTintColor: mainColor,
           tabBarInactiveTintColor: '#ccc',
           tabBarIndicatorStyle: {
-            backgroundColor: '#ce4144',
+            backgroundColor: mainColor,
           },
         }}
       />
@@ -35,10 +36,10 @@ const TopBarNavigatorCart = () => {
             fontSize: 12,
             fontWeight: 'bold',
           },
-          tabBarActiveTintColor: '#ce4144',
+          tabBarActiveTintColor: mainColor,
           tabBarInactiveTintColor: '#ccc',
           tabBarIndicatorStyle: {
-            backgroundColor: '#ce4144',
+            backgroundColor: mainColor,
           },
         }}
       />

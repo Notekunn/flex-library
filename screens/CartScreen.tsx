@@ -50,7 +50,9 @@ const ItemInCart = () => (
               style={styles.image}
             />
             <View style={styles.detail}>
-              <Text style={styles.text}>truyen conan tap 1</Text>
+              <Text style={[styles.text, { color: '#000', marginBottom: 10, fontWeight: '600', fontSize: 17 }]}>
+                truyen conan tap 1
+              </Text>
               <Text style={styles.text}>$3000</Text>
             </View>
           </View>
@@ -188,83 +190,6 @@ const CartScreen = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={{ marginBottom: 5 }}>
-        <ListItem.Swipeable
-          leftContent={(reset) => (
-            <Button
-              title="Info"
-              onPress={() => reset()}
-              icon={{
-                name: 'info',
-                type: 'feather',
-                color: 'white',
-              }}
-              buttonStyle={{
-                minHeight: '100%',
-                backgroundColor: '#0052d1',
-              }}
-            />
-          )}
-          rightContent={(reset) => (
-            <Button
-              title="Delete"
-              onPress={() => reset()}
-              icon={{
-                name: 'trash',
-                type: 'feather',
-                color: 'white',
-              }}
-              buttonStyle={{
-                minHeight: '100%',
-                backgroundColor: '#f84b2f',
-              }}
-            />
-          )}
-        >
-          <ListItem.Content>
-            <View style={styles.item}>
-              <View style={styles.info}>
-                <Image
-                  source={{
-                    uri: 'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg',
-                  }}
-                  style={styles.image}
-                />
-                <View style={styles.detail}>
-                  <Text style={styles.text}>truyen conan tap 1</Text>
-                  <Text style={styles.text}>$3000</Text>
-                </View>
-              </View>
-              <View style={styles.quantity}>
-                <Button
-                  icon={{
-                    name: 'minus',
-                    type: 'font-awesome',
-                    color: 'white',
-                  }}
-                  buttonStyle={{
-                    backgroundColor: '#f9ccad',
-                    padding: 0,
-                  }}
-                />
-
-                <Text style={{ margin: 10 }}>1</Text>
-                <Button
-                  icon={{
-                    name: 'plus',
-                    type: 'font-awesome',
-                    color: 'white',
-                  }}
-                  buttonStyle={{
-                    backgroundColor: '#f9ccad',
-                    padding: 0,
-                  }}
-                />
-              </View>
-            </View>
-          </ListItem.Content>
-        </ListItem.Swipeable>
-      </View>
     </ScrollView>
   );
 };
@@ -289,6 +214,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 15,
+    color: mainColor,
     fontWeight: '500',
     textTransform: 'capitalize',
   },

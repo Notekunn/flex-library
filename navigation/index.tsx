@@ -109,8 +109,12 @@ function RootNavigator() {
         component={TopBarNavigatorCart}
         options={{
           headerShown: true,
-          headerTintColor: '#ce4144',
+          headerLargeStyle: {
+            backgroundColor: mainColor,
+          },
+          headerTintColor: '#fff',
           headerTitle: 'Cart',
+          headerBackTitle: '',
         }}
       />
       <Stack.Screen name="Search" component={SearchScreen} options={{ headerShown: false, animation: 'fade' }} />
