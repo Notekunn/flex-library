@@ -3,7 +3,7 @@ import { Icon, Image } from '@rneui/themed';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { mainColor } from '../constants/Colors';
+import { mainColor, seconColor } from '../constants/Colors';
 
 const AccountScreen = () => {
   const nav = useNavigation();
@@ -31,7 +31,7 @@ const AccountScreen = () => {
         <View>
           <Text style={styles.title}>Account</Text>
           <View style={styles.listItem}>
-            <TouchableOpacity style={styles.item} activeOpacity={0.6}>
+            <TouchableOpacity style={styles.item} activeOpacity={0.6} onPress={() => nav.navigate('AddItem')}>
               <View
                 style={{
                   backgroundColor: '#00ff0885',
@@ -181,6 +181,7 @@ export default AccountScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: seconColor,
   },
   avatar: {
     justifyContent: 'center',

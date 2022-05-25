@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
   },
   detail: {
     flex: 1,
-    backgroundColor: '#FADBD8',
+    backgroundColor: '#FAD8',
     borderRadius: 10,
     marginHorizontal: 10,
     marginTop: 10,

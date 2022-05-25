@@ -121,7 +121,14 @@ function RootNavigator() {
       <Stack.Screen name="AddItem" component={AddItem} options={{ headerShown: false }} />
       <Stack.Screen name="Search" component={SearchScreen} options={{ headerShown: false, animation: 'fade' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
-        <Stack.Screen name="ModalItem" options={{ headerShown: false }} component={ModalItem} />
+        <Stack.Screen
+          name="ModalItem"
+          options={{
+            headerShown: false,
+            animation: 'flip',
+          }}
+          component={ModalItem}
+        />
       </Stack.Group>
     </Stack.Navigator>
   );
