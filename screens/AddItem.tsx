@@ -1,13 +1,24 @@
-import { Alert, Button, Modal, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Alert,
+  Button,
+  FlatList,
+  Image,
+  Modal,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { mainColor, seconColor, whiteColor } from '../constants/Colors';
-import { Entypo } from '@expo/vector-icons';
+import { Entypo, Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 const AddItem = () => {
   const navigation = useNavigation();
   const [status, requestPermission] = ImagePicker.useCameraPermissions();
-  const [image, setImage] = useState(null);
+  const [imageList, setImageList] = useState<any>([]);
   const [modalVisible, setModalVisible] = useState(false);
   // useEffect(() => {
   //   const check = async () => {
@@ -32,7 +43,7 @@ const AddItem = () => {
     console.log(result);
 
     if (!result.cancelled) {
-      setImage(result.uri);
+      setImageList([...imageList, result.uri]);
     }
   };
   const pickImageWithGallery = async () => {
@@ -45,17 +56,65 @@ const AddItem = () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [9, 3],
       quality: 1,
+      allowsMultipleSelection: true,
     });
 
     console.log(result);
 
     if (!result.cancelled) {
-      setImage(result.uri);
+      setImageList([...imageList, result.uri]);
     }
   };
+  interface ImageFrameProps {
+    uri: any;
+    index: number;
+  }
+  const deleteImage = (index: number) => {
+    const result = imageList.filter((_: any, i: number) => i !== index);
+    console.log(index);
 
+    setImageList([...result]);
+  };
+  const ImageFrame: React.FC<ImageFrameProps> = ({ uri, index }) => {
+    return (
+      <View
+        style={{
+          width: 100,
+          height: 100,
+          justifyContent: 'center',
+          alignItems: 'center',
+          ...styles.frameImage,
+          borderWidth: 0.6,
+          borderColor: mainColor,
+          // shadowColor: mainColor,
+          // shadowOffset: {
+          //   width: 5,
+          //   height: 5,
+          // },
+          // shadowOpacity: 0.6,
+          // shadowRadius: 6.27,
+          // elevation: 10,
+        }}
+      >
+        <TouchableOpacity
+          style={{ position: 'absolute', top: 0, right: 0, zIndex: 1 }}
+          onPress={() => {
+            deleteImage(index);
+          }}
+        >
+          <Ionicons
+            name="md-close-circle"
+            size={18}
+            color="gray"
+            // style={{ position: 'absolute', top: -9, right: -10, zIndex: 1 }}
+          />
+        </TouchableOpacity>
+        <Image source={{ uri: uri }} style={{ width: 80, resizeMode: 'contain', height: 80, position: 'relative' }} />
+      </View>
+    );
+  };
   const ModalPopUp = () => {
     return (
       <Modal
@@ -107,11 +166,20 @@ const AddItem = () => {
       </View>
       <View style={styles.content}>
         <View style={styles.addImage}>
+          {/* {imageList.map((e: any, index: number) => {
+            return <ImageFrame uri={e} index={index} />;
+          })} */}
           <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-            <View style={styles.frameAdd}>
+            <View style={[styles.frameAdd, styles.frameImage]}>
               <Text style={{ color: mainColor, fontWeight: 'bold' }}>Add Picture</Text>
             </View>
           </TouchableOpacity>
+          <FlatList
+            data={imageList}
+            horizontal={true}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item, index }) => <ImageFrame uri={item} index={index} />}
+          />
         </View>
       </View>
     </View>
@@ -210,5 +278,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     // flex: 1,
     width: '100%',
+  },
+  frameImage: {
+    marginRight: 30,
   },
 });
