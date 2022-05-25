@@ -177,6 +177,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     height: 455,
     width: 450,
+
     // backgroundColor: 'brown',
 
     // top: 10,

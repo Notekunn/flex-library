@@ -26,6 +26,7 @@ import { ScreenStackHeaderBackButtonImage } from 'react-native-screens';
 import TopBarNavigatorCart from './topBarNavigatorCart';
 import CartScreen from '../screens/CartScreen';
 import SearchScreen from '../screens/SearchScreen';
+import AddItem from '../screens/AddItem';
 // import { View } from '../components/Themed';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
@@ -117,6 +118,7 @@ function RootNavigator() {
           headerBackTitle: '',
         }}
       />
+      <Stack.Screen name="AddItem" component={AddItem} options={{ headerShown: false }} />
       <Stack.Screen name="Search" component={SearchScreen} options={{ headerShown: false, animation: 'fade' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="ModalItem" options={{ headerShown: false }} component={ModalItem} />
