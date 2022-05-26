@@ -1,3 +1,4 @@
+
 import {
   Alert,
   Button,
@@ -31,6 +32,7 @@ const AddItem = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [name, setName] = useState('');
   const [desc, setDesc] = useState('');
+
   // useEffect(() => {
   //   const check = async () => {
   //     if (status?.status !== 'granted') requestPermission();
@@ -54,7 +56,9 @@ const AddItem = () => {
     console.log(result);
 
     if (!result.cancelled) {
+
       setImageList([...imageList, result.uri]);
+
     }
   };
   const pickImageWithGallery = async () => {
@@ -67,14 +71,17 @@ const AddItem = () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
+
       aspect: [9, 3],
       quality: 1,
       allowsMultipleSelection: true,
+
     });
 
     console.log(result);
 
     if (!result.cancelled) {
+
       setImageList([...imageList, result.uri]);
     }
   };
@@ -158,6 +165,7 @@ const AddItem = () => {
       </View>
     );
   };
+
   const ModalPopUp = () => {
     return (
       <Modal
@@ -207,6 +215,7 @@ const AddItem = () => {
           Thêm sản phẩm
         </Text>
       </View>
+
       <ScrollView>
         <View style={styles.content}>
           <View style={styles.addImage}>
@@ -313,6 +322,16 @@ const AddItem = () => {
             <Text>Lưu</Text>
           </View>
         </TouchableOpacity>
+
+      <View style={styles.content}>
+        <View style={styles.addImage}>
+          <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+            <View style={styles.frameAdd}>
+              <Text style={{ color: mainColor, fontWeight: 'bold' }}>Add Picture</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+
       </View>
     </View>
   );
@@ -321,7 +340,9 @@ const AddItem = () => {
 export default AddItem;
 
 const styles = StyleSheet.create({
+
   container: { flex: 1, position: 'relative' },
+
   header: {
     paddingHorizontal: 10,
     height: 90,
@@ -338,7 +359,9 @@ const styles = StyleSheet.create({
     backgroundColor: whiteColor,
     alignItems: 'center',
     paddingHorizontal: 15,
+
     position: 'relative',
+
   },
   frameAdd: {
     borderWidth: 1.5,
@@ -365,7 +388,10 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
+
     // overflow: 'hidden',
+
+
     width: 300,
     height: 220,
     shadowOpacity: 0.25,
@@ -412,6 +438,7 @@ const styles = StyleSheet.create({
     // flex: 1,
     width: '100%',
   },
+
   frameImage: {
     marginRight: 10,
   },

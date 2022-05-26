@@ -1,3 +1,17 @@
+# [1.5.0](https://github.com/Notekunn/flex-library/compare/v1.4.1...v1.5.0) (2022-05-26)
+
+
+### Features
+
+* add item screen ([#17](https://github.com/Notekunn/flex-library/issues/17)) ([398a20e](https://github.com/Notekunn/flex-library/commit/398a20ed100aa1724656bf3ffca62d8d76b6a4a4))
+
+## [1.4.1](https://github.com/Notekunn/flex-library/compare/v1.4.0...v1.4.1) (2022-05-24)
+
+
+### Bug Fixes
+
+* color-cart ([#16](https://github.com/Notekunn/flex-library/issues/16)) ([ad9528a](https://github.com/Notekunn/flex-library/commit/ad9528af8e7b72e900959bd3e7c7796c629a2815))
+
 # [1.4.0](https://github.com/Notekunn/flex-library/compare/v1.3.0...v1.4.0) (2022-05-24)
 
 
