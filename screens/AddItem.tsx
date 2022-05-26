@@ -1,4 +1,3 @@
-
 import {
   Alert,
   Button,
@@ -56,9 +55,7 @@ const AddItem = () => {
     console.log(result);
 
     if (!result.cancelled) {
-
       setImageList([...imageList, result.uri]);
-
     }
   };
   const pickImageWithGallery = async () => {
@@ -75,13 +72,11 @@ const AddItem = () => {
       aspect: [9, 3],
       quality: 1,
       allowsMultipleSelection: true,
-
     });
 
     console.log(result);
 
     if (!result.cancelled) {
-
       setImageList([...imageList, result.uri]);
     }
   };
@@ -323,24 +318,22 @@ const AddItem = () => {
           </View>
         </TouchableOpacity>
 
-      <View style={styles.content}>
-        <View style={styles.addImage}>
-          <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-            <View style={styles.frameAdd}>
-              <Text style={{ color: mainColor, fontWeight: 'bold' }}>Add Picture</Text>
-            </View>
-          </TouchableOpacity>
+        <View style={styles.content}>
+          <View style={styles.addImage}>
+            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+              <View style={styles.frameAdd}>
+                <Text style={{ color: mainColor, fontWeight: 'bold' }}>Add Picture</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
-
       </View>
     </View>
   );
 };
-
 export default AddItem;
 
 const styles = StyleSheet.create({
-
   container: { flex: 1, position: 'relative' },
 
   header: {
@@ -361,7 +354,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
 
     position: 'relative',
-
   },
   frameAdd: {
     borderWidth: 1.5,
@@ -390,7 +382,6 @@ const styles = StyleSheet.create({
     },
 
     // overflow: 'hidden',
-
 
     width: 300,
     height: 220,
