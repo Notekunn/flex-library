@@ -139,7 +139,7 @@ const SwipeSlide = () => {
             }}
           />
 
-          <View style={styles.dotView}>
+          {/* <View style={styles.dotView}>
             {listImage.map((_, index) => {
               const inputRange = [(index - 1) * width, index * width, (index + 1) * width];
               let dotWidth = scrollXIndex.interpolate({
@@ -166,7 +166,7 @@ const SwipeSlide = () => {
                 />
               );
             })}
-          </View>
+          </View> */}
         </View>
       </FlingGestureHandler>
     </FlingGestureHandler>
@@ -176,7 +176,8 @@ const styles = StyleSheet.create({
   container: {
     position: 'relative',
     height: 455,
-    width: 450,
+    width: width,
+
     // backgroundColor: 'brown',
 
     // top: 10,
@@ -184,7 +185,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginLeft: 20,
+    marginLeft: 10,
     top: 5,
   },
   dotView: {

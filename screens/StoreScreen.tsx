@@ -13,7 +13,7 @@ import { AntDesign, Feather, Fontisto, Entypo, FontAwesome5 } from '@expo/vector
 import { useNavigation } from '@react-navigation/native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import BookList from '../components/Store/BookList';
-import { mainColor } from '../constants/Colors';
+import { mainColor, seconColor } from '../constants/Colors';
 const initialLayout = { width: Dimensions.get('window').width };
 const renderTabBar = (props: any) => (
   <TabBar {...props} indicatorStyle={{ backgroundColor: '#FFF' }} style={{ backgroundColor: mainColor }} />
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   },
   header: {
     paddingTop: 50,
-    backgroundColor: '#E5E6F8',
+    backgroundColor: seconColor,
   },
   store_bottom: {
     flexDirection: 'row',
