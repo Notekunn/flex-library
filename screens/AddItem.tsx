@@ -7,19 +7,30 @@ import {
   Pressable,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { mainColor, seconColor, whiteColor } from '../constants/Colors';
-import { Entypo, Ionicons } from '@expo/vector-icons';
+import { AntDesign, Entypo, Foundation, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
+import { PanGestureHandler, PanGestureHandlerGestureEvent, ScrollView } from 'react-native-gesture-handler';
+import Animated, {
+  useSharedValue,
+  withSpring,
+  useAnimatedStyle,
+  useAnimatedGestureHandler,
+} from 'react-native-reanimated';
+
 const AddItem = () => {
   const navigation = useNavigation();
   const [status, requestPermission] = ImagePicker.useCameraPermissions();
   const [imageList, setImageList] = useState<any>([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [name, setName] = useState('');
+  const [desc, setDesc] = useState('');
   // useEffect(() => {
   //   const check = async () => {
   //     if (status?.status !== 'granted') requestPermission();
@@ -78,7 +89,39 @@ const AddItem = () => {
     setImageList([...result]);
   };
   const ImageFrame: React.FC<ImageFrameProps> = ({ uri, index }) => {
+    // const translateX = useSharedValue(0);
+    // const translateY = useSharedValue(0);
+    // const onPanGestureEvent = useAnimatedGestureHandler<PanGestureHandlerGestureEvent>({
+    //   onActive: (event) => {
+    //     translateX.value = event.translationX;
+    //     translateY.value = event.translationY;
+    //   },
+    //   onEnd: () => {
+    //     translateX.value = withSpring(0, { stiffness: 100 });
+    //     translateY.value = withSpring(0, { stiffness: 100 });
+    //   },
+    // });
+    // const rStyle = useAnimatedStyle(() => {
+    //   return {
+    //     transform: [{ translateX: translateX.value }, { translateY: translateY.value }],
+    //   };
+    // }, []);
     return (
+      //       <PanGestureHandler onGestureEvent={onPanGestureEvent}>
+      //         <Animated.View
+      //           style={{
+      //             width: 100,
+      //             height: 100,
+      //             justifyContent: 'center',
+      //             alignItems: 'center',
+      //             ...styles.frameImage,
+      //             borderWidth: 0.6,
+      //             borderColor: mainColor,
+      //             ...rStyle,
+      //           }}
+      //         >
+      //  </Animated.View>
+      //       </PanGestureHandler>
       <View
         style={{
           width: 100,
@@ -88,18 +131,10 @@ const AddItem = () => {
           ...styles.frameImage,
           borderWidth: 0.6,
           borderColor: mainColor,
-          // shadowColor: mainColor,
-          // shadowOffset: {
-          //   width: 5,
-          //   height: 5,
-          // },
-          // shadowOpacity: 0.6,
-          // shadowRadius: 6.27,
-          // elevation: 10,
         }}
       >
         <TouchableOpacity
-          style={{ position: 'absolute', top: 0, right: 0, zIndex: 1 }}
+          style={{ position: 'absolute', top: 0, right: 0, zIndex: 10 }}
           onPress={() => {
             deleteImage(index);
           }}
@@ -111,7 +146,15 @@ const AddItem = () => {
             // style={{ position: 'absolute', top: -9, right: -10, zIndex: 1 }}
           />
         </TouchableOpacity>
-        <Image source={{ uri: uri }} style={{ width: 80, resizeMode: 'contain', height: 80, position: 'relative' }} />
+        <Image
+          source={{ uri: uri }}
+          style={{
+            width: 80,
+            resizeMode: 'contain',
+            height: 80,
+            position: 'relative',
+          }}
+        />
       </View>
     );
   };
@@ -164,23 +207,112 @@ const AddItem = () => {
           Thêm sản phẩm
         </Text>
       </View>
-      <View style={styles.content}>
-        <View style={styles.addImage}>
-          {/* {imageList.map((e: any, index: number) => {
+      <ScrollView>
+        <View style={styles.content}>
+          <View style={styles.addImage}>
+            {/* {imageList.map((e: any, index: number) => {
             return <ImageFrame uri={e} index={index} />;
           })} */}
-          <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-            <View style={[styles.frameAdd, styles.frameImage]}>
-              <Text style={{ color: mainColor, fontWeight: 'bold' }}>Add Picture</Text>
+            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+              <View style={[styles.frameAdd, styles.frameImage]}>
+                <Text style={{ color: mainColor, fontWeight: 'bold' }}>Add Picture</Text>
+              </View>
+            </TouchableOpacity>
+            <FlatList
+              data={imageList}
+              horizontal={true}
+              style={{ position: 'relative', flex: 1, height: 100 }}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({ item, index }) => <ImageFrame uri={item} index={index} />}
+            />
+          </View>
+          <View style={styles.inputFrame}>
+            <View style={styles.inputFrame_header}>
+              <Text>Tên sách</Text>
+              <Text>{name.length}/120</Text>
             </View>
-          </TouchableOpacity>
-          <FlatList
-            data={imageList}
-            horizontal={true}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item, index }) => <ImageFrame uri={item} index={index} />}
-          />
+            <TextInput style={styles.textInput} placeholder="Nhập tên sách" onChangeText={(value) => setName(value)} />
+          </View>
+          <View style={styles.inputFrame}>
+            <View style={styles.inputFrame_header}>
+              <Text>Mô tả về sách</Text>
+              <Text>{desc.length}/3000</Text>
+            </View>
+            <TextInput
+              style={styles.textInput}
+              placeholder="Tri thức có gì?"
+              onChangeText={(value) => setDesc(value)}
+            />
+          </View>
+          <View style={styles.optionFrame}>
+            <View style={styles.optionItem}>
+              <AntDesign
+                name="menu-fold"
+                size={24}
+                color={mainColor}
+                style={{ width: 30, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
+              />
+              <Text style={{ padding: 10 }}>Danh mục</Text>
+              <MaterialIcons
+                name="arrow-forward-ios"
+                size={24}
+                color="black"
+                style={{ position: 'absolute', right: 0 }}
+              />
+            </View>
+            <View style={styles.optionItem}>
+              <MaterialCommunityIcons
+                name="newspaper-variant-outline"
+                size={24}
+                color={mainColor}
+                style={{ width: 30, alignItems: 'center', justifyContent: 'center' }}
+              />
+              <Text style={{ padding: 10 }}>Phân loại hàng</Text>
+              <MaterialIcons
+                name="arrow-forward-ios"
+                size={24}
+                color="black"
+                style={{ position: 'absolute', right: 0 }}
+              />
+            </View>
+            <View style={styles.optionItem}>
+              <Foundation
+                name="pricetag-multiple"
+                size={24}
+                color={mainColor}
+                style={{ width: 30, alignItems: 'center', justifyContent: 'center' }}
+              />
+              <Text style={{ padding: 10, minWidth: 100 }}>Giá thuê</Text>
+              <TextInput
+                placeholder="Đặt"
+                style={{ flexDirection: 'row', justifyContent: 'flex-end', marginLeft: 100, flex: 1 }}
+                keyboardType="number-pad"
+                accessibilityElementsHidden={true}
+              />
+            </View>
+            <View style={[styles.optionItem, styles.optionItemLast]}>
+              <AntDesign
+                name="dropbox"
+                size={24}
+                color={mainColor}
+                style={{ width: 30, alignItems: 'center', justifyContent: 'center' }}
+              />
+              <Text style={{ padding: 10, minWidth: 100 }}>Số lượng</Text>
+              <TextInput
+                placeholder="Đặt"
+                keyboardType="number-pad"
+                style={{ flexDirection: 'row', justifyContent: 'flex-end', marginLeft: 100, flex: 1 }}
+              />
+            </View>
+          </View>
         </View>
+      </ScrollView>
+      <View style={styles.buttonFrame}>
+        <TouchableOpacity>
+          <View style={styles.submitBtn}>
+            <Text>Lưu</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -189,7 +321,7 @@ const AddItem = () => {
 export default AddItem;
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1, position: 'relative' },
   header: {
     paddingHorizontal: 10,
     height: 90,
@@ -206,6 +338,7 @@ const styles = StyleSheet.create({
     backgroundColor: whiteColor,
     alignItems: 'center',
     paddingHorizontal: 15,
+    position: 'relative',
   },
   frameAdd: {
     borderWidth: 1.5,
@@ -232,7 +365,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
-    overflow: 'hidden',
+    // overflow: 'hidden',
     width: 300,
     height: 220,
     shadowOpacity: 0.25,
@@ -280,6 +413,47 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   frameImage: {
-    marginRight: 30,
+    marginRight: 10,
+  },
+  inputFrame: {
+    marginTop: 10,
+    backgroundColor: whiteColor,
+    height: 80,
+    padding: 10,
+  },
+  inputFrame_header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingBottom: 10,
+  },
+  textInput: {
+    flex: 1,
+  },
+  optionFrame: { marginTop: 10, backgroundColor: whiteColor, paddingHorizontal: 10 },
+  optionItem: {
+    height: 50,
+    flexDirection: 'row',
+    alignItems: 'center',
+    position: 'relative',
+    borderBottomWidth: 0.2,
+  },
+  optionItemLast: {
+    borderBottomWidth: 0,
+  },
+  buttonFrame: {
+    bottom: 0,
+    backgroundColor: whiteColor,
+    flexDirection: 'row',
+    height: 90,
+    justifyContent: 'center',
+    paddingTop: 15,
+  },
+  submitBtn: {
+    height: 50,
+    width: 150,
+    backgroundColor: mainColor,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
