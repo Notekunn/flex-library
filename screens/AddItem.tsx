@@ -317,16 +317,6 @@ const AddItem = () => {
             <Text>Lưu</Text>
           </View>
         </TouchableOpacity>
-
-        <View style={styles.content}>
-          <View style={styles.addImage}>
-            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-              <View style={styles.frameAdd}>
-                <Text style={{ color: mainColor, fontWeight: 'bold' }}>Add Picture</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </View>
       </View>
     </View>
   );
