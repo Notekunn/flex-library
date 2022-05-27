@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/Notekunn/flex-library/compare/v1.6.0...v1.6.1) (2022-05-27)
+
+
+### Bug Fixes
+
+* delete code in addScreen ([#19](https://github.com/Notekunn/flex-library/issues/19)) ([fcc2a48](https://github.com/Notekunn/flex-library/commit/fcc2a486481105eb0ab213998b6ea00f1627867a))
+
 # [1.6.0](https://github.com/Notekunn/flex-library/compare/v1.5.0...v1.6.0) (2022-05-27)
 
 
