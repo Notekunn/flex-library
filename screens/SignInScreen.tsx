@@ -1,6 +1,7 @@
 import { Button, Input } from '@rneui/themed';
 import React from 'react';
-import { StyleSheet, Image, Text, View, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { StyleSheet, Image, Text, View, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
+import { apiInstance } from '../config/axios';
 import { mainColor } from '../constants/Colors';
 
 import { RootTabScreenProps } from '../types';
@@ -10,7 +11,21 @@ export default function SignInScreen({ navigation }: RootTabScreenProps<'SignIn'
   const [password, setPassword] = React.useState('');
   const [hidePassword, setHidePassword] = React.useState(true);
   const onsubmit = (email: string, password: string) => {
-    navigation.navigate('Root');
+    apiInstance
+      .post(
+        '/auth/login',
+        JSON.stringify({
+          email,
+          password,
+        }),
+      )
+      .then(({ data }) => {
+        Alert.alert(`Welcome back, ${data.user.name}`);
+        navigation.navigate('Root');
+      })
+      .catch((error) => {
+        Alert.alert(`Loggin failed: ${error.message}`);
+      });
   };
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={true}>
@@ -31,7 +46,9 @@ export default function SignInScreen({ navigation }: RootTabScreenProps<'SignIn'
               color: '#FFF',
               size: 20,
             }}
+            keyboardType="email-address"
             onChangeText={(text) => setEmail(text)}
+            autoCapitalize="none"
           ></Input>
           <Input
             placeholder="Password"
