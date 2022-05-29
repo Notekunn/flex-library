@@ -16,7 +16,7 @@ declare global {
 export type RootStackParamList = {
   // SignIn: NavigatorScreenParams<RootTabParamList> | undefined;
   ModalItem: undefined;
-  Intro: undefined;
+  Splash: undefined;
   Home: undefined;
   SignIn: undefined;
   Setting: undefined;
@@ -37,11 +37,11 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> = Nati
 
 export type RootTabParamList = {
   MyID: undefined;
+  Splash: undefined;
   Scan: undefined;
   Account: undefined;
   Home: undefined;
   Store: undefined;
-  Intro: undefined;
   SignIn: undefined;
   InfoCart: undefined;
   Cart: undefined;
@@ -52,3 +52,10 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> = Composit
   BottomTabScreenProps<RootTabParamList, Screen>,
   NativeStackScreenProps<RootStackParamList>
 >;
+
+export interface IUser {
+  id: string;
+  name: string;
+  email: string;
+  avatarURL?: string;
+}

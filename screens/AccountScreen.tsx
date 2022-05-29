@@ -1,12 +1,25 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Alert, Button, StyleSheet, Text, View } from 'react-native';
 import { Icon, Image } from '@rneui/themed';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { mainColor, seconColor } from '../constants/Colors';
+import { useAppDispatch, useAppSelector } from '../app/hook';
+import { logoutAction, selectUser } from '../reducers/authSlice';
 
 const AccountScreen = () => {
   const nav = useNavigation();
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUser);
+  const handleLogout = () => {
+    Alert.alert('Logout', 'Are you sure?', [
+      { text: 'OK', onPress: () => dispatch(logoutAction()) },
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+    ]);
+  };
   return (
     <View style={styles.container}>
       <View
@@ -19,12 +32,12 @@ const AccountScreen = () => {
       >
         <Image
           source={{
-            uri: 'https://bloganchoi.com/wp-content/uploads/2021/08/avatar-vit-vang-trend-15.jpg',
+            uri: user?.avatarURL || 'https://bloganchoi.com/wp-content/uploads/2021/08/avatar-vit-vang-trend-15.jpg',
           }}
           style={styles.avatar}
         />
         <View>
-          <Text style={styles.text}>Vit vang</Text>
+          <Text style={styles.text}>{user?.name}</Text>
         </View>
       </View>
       <View style={{ padding: 10 }}>
@@ -165,7 +178,9 @@ const AccountScreen = () => {
                   marginLeft: 30,
                 }}
               >
-                <Text style={styles.text}>Logout</Text>
+                <Text style={styles.text} onPress={handleLogout}>
+                  Logout
+                </Text>
               </View>
               <Icon name="angle-right" type="font-awesome" style={{ flex: 1 }} color="#c1c1c1" />
             </TouchableOpacity>

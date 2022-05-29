@@ -1,16 +1,20 @@
 import { Button, Input } from '@rneui/themed';
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Image, Text, View, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { useAppDispatch, useAppSelector } from '../app/hook';
 import { mainColor } from '../constants/Colors';
+import { loginAction, selectError } from '../reducers/authSlice';
 
 import { RootTabScreenProps } from '../types';
 
 export default function SignInScreen({ navigation }: RootTabScreenProps<'SignIn'>) {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [hidePassword, setHidePassword] = React.useState(true);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [hidePassword, setHidePassword] = useState(true);
+  const dispatch = useAppDispatch();
+  const error = useAppSelector(selectError);
   const onsubmit = (email: string, password: string) => {
-    navigation.navigate('Root');
+    dispatch(loginAction({ email, password }));
   };
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={true}>
@@ -31,7 +35,9 @@ export default function SignInScreen({ navigation }: RootTabScreenProps<'SignIn'
               color: '#FFF',
               size: 20,
             }}
+            keyboardType="email-address"
             onChangeText={(text) => setEmail(text)}
+            autoCapitalize="none"
           ></Input>
           <Input
             placeholder="Password"
@@ -52,6 +58,7 @@ export default function SignInScreen({ navigation }: RootTabScreenProps<'SignIn'
             onChangeText={(text) => setPassword(text)}
           ></Input>
         </View>
+        {error && <Text style={styles.error}>{error}</Text>}
         <Button
           title="Submit"
           onPress={() => {
@@ -90,5 +97,9 @@ const styles = StyleSheet.create({
   image: {
     width: 350,
     height: 350,
+  },
+  error: {
+    color: 'red',
+    padding: 5,
   },
 });
