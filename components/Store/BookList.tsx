@@ -1,8 +1,8 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React, { useState } from 'react';
-import BookCardFlex from '../BookCardFlex';
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import { mainColor } from '../../constants/Colors';
+import { StyleSheet, Text, View } from 'react-native'
+import React, { useState } from 'react'
+import BookCardFlex from '../BookCardFlex'
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
+import { mainColor } from '../../constants/Colors'
 
 const BookList = () => {
   const listOptions = [
@@ -18,15 +18,15 @@ const BookList = () => {
     {
       option: 'Giá cao',
     },
-  ];
+  ]
   const [imageUrl, setImageUrl] = useState(
     'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg',
-  );
+  )
   const handleOption = (option: string) => {
-    setStatus(option);
-    setImageUrl('https://loremflickr.com/320/240');
-  };
-  const [status, setStatus] = useState('Mới nhất');
+    setStatus(option)
+    setImageUrl('https://loremflickr.com/320/240')
+  }
+  const [status, setStatus] = useState('Mới nhất')
   return (
     <View style={styles.container}>
       <View style={styles.options}>
@@ -34,26 +34,26 @@ const BookList = () => {
           return (
             <TouchableOpacity
               onPress={() => {
-                handleOption(e.option);
+                handleOption(e.option)
               }}
             >
               <Text style={[styles.option_title, status === e.option && styles.option_title_color]}>{e.option}</Text>
             </TouchableOpacity>
-          );
+          )
         })}
       </View>
       <ScrollView>
         <View style={styles.listItem}>
           {Array.from(Array(10)).map(() => {
-            return <BookCardFlex url={imageUrl} />;
+            return <BookCardFlex url={imageUrl} />
           })}
         </View>
       </ScrollView>
     </View>
-  );
-};
+  )
+}
 
-export default BookList;
+export default BookList
 
 const styles = StyleSheet.create({
   column: {
@@ -87,4 +87,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     color: mainColor,
   },
-});
+})

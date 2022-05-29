@@ -1,12 +1,12 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import CartScreen from '../screens/CartScreen';
-import HistoryScreen from '../screens/HistoryScreen';
-import { RootTabParamList } from '../types';
-import { mainColor } from '../constants/Colors';
+import { StyleSheet, Text, View } from 'react-native'
+import React from 'react'
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
+import CartScreen from '../screens/CartScreen'
+import HistoryScreen from '../screens/HistoryScreen'
+import { RootTabParamList } from '../types'
+import { mainColor } from '../constants/Colors'
 
-const Tab = createMaterialTopTabNavigator<RootTabParamList>();
+const Tab = createMaterialTopTabNavigator<RootTabParamList>()
 
 const TopBarNavigatorCart = () => {
   return (
@@ -44,9 +44,9 @@ const TopBarNavigatorCart = () => {
         }}
       />
     </Tab.Navigator>
-  );
-};
+  )
+}
 
-export default TopBarNavigatorCart;
+export default TopBarNavigatorCart
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({})

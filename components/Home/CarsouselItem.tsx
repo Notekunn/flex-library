@@ -1,6 +1,6 @@
-import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
-import React from 'react';
-const { width, height } = Dimensions.get('window');
+import { View, Text, Image, StyleSheet, Dimensions } from 'react-native'
+import React from 'react'
+const { width, height } = Dimensions.get('window')
 const CarsouselItem = ({ imageUrl, style }: any) => {
   return (
     <View style={styles.cardView}>
@@ -11,8 +11,8 @@ const CarsouselItem = ({ imageUrl, style }: any) => {
         <Text>Tác giả Gosho Aoyama</Text>
       </View> */}
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   image: {
@@ -39,6 +39,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
   },
-});
+})
 
-export default CarsouselItem;
+export default CarsouselItem

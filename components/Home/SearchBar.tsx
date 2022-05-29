@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import { SearchBar } from '@rneui/themed';
-import { View, Text, StyleSheet } from 'react-native';
-import { ResultSearch } from './ResultSearch';
+import React, { useState } from 'react'
+import { SearchBar } from '@rneui/themed'
+import { View, Text, StyleSheet } from 'react-native'
+import { ResultSearch } from './ResultSearch'
 
-type SearchBarComponentProps = {};
+type SearchBarComponentProps = {}
 
-const listItem = [''];
+const listItem = ['']
 
 export const Search: React.FunctionComponent<SearchBarComponentProps> = () => {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState('')
 
   const updateSearch = (search: string) => {
-    setSearch(search);
-  };
+    setSearch(search)
+  }
 
   return (
     <View style={styles.view}>
@@ -41,10 +41,10 @@ export const Search: React.FunctionComponent<SearchBarComponentProps> = () => {
       />
       {/* {listItem && <ResultSearch listItem={listItem} />} */}
     </View>
-  );
-};
+  )
+}
 const styles = StyleSheet.create({
   view: {
     width: '100%',
   },
-});
+})

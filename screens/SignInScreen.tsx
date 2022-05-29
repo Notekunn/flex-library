@@ -1,15 +1,15 @@
-import { Button, Input } from '@rneui/themed';
-import React from 'react';
-import { StyleSheet, Image, Text, View, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
-import { apiInstance } from '../config/axios';
-import { mainColor } from '../constants/Colors';
+import { Button, Input } from '@rneui/themed'
+import React from 'react'
+import { StyleSheet, Image, Text, View, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native'
+import { apiInstance } from '../app/axiosClient'
+import { mainColor } from '../constants/Colors'
 
-import { RootTabScreenProps } from '../types';
+import { RootTabScreenProps } from '../types'
 
 export default function SignInScreen({ navigation }: RootTabScreenProps<'SignIn'>) {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [hidePassword, setHidePassword] = React.useState(true);
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
+  const [hidePassword, setHidePassword] = React.useState(true)
   const onsubmit = (email: string, password: string) => {
     apiInstance
       .post(
@@ -20,13 +20,13 @@ export default function SignInScreen({ navigation }: RootTabScreenProps<'SignIn'
         }),
       )
       .then(({ data }) => {
-        Alert.alert(`Welcome back, ${data.user.name}`);
-        navigation.navigate('Root');
+        Alert.alert(`Welcome back, ${data.user.name}`)
+        navigation.navigate('Root')
       })
       .catch((error) => {
-        Alert.alert(`Loggin failed: ${error.message}`);
-      });
-  };
+        Alert.alert(`Loggin failed: ${error.message}`)
+      })
+  }
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={true}>
       <View style={styles.container}>
@@ -72,7 +72,7 @@ export default function SignInScreen({ navigation }: RootTabScreenProps<'SignIn'
         <Button
           title="Submit"
           onPress={() => {
-            onsubmit(email, password);
+            onsubmit(email, password)
           }}
           loading={false}
           loadingProps={{ size: 'small', color: 'white' }}
@@ -85,7 +85,7 @@ export default function SignInScreen({ navigation }: RootTabScreenProps<'SignIn'
         />
       </View>
     </TouchableWithoutFeedback>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -108,4 +108,4 @@ const styles = StyleSheet.create({
     width: 350,
     height: 350,
   },
-});
+})

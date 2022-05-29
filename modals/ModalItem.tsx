@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
-import React from 'react';
-import { RootStackScreenProps } from '../types';
+import { StyleSheet, Text, View, Image, Dimensions } from 'react-native'
+import React from 'react'
+import { RootStackScreenProps } from '../types'
 
 const listImage = [
   'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg',
@@ -8,8 +8,8 @@ const listImage = [
   'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-3/anh-bia.jpg',
   'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-4/anh-bia.jpg',
   'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-5/anh-bia.jpg',
-];
-const { width } = Dimensions.get('window');
+]
+const { width } = Dimensions.get('window')
 
 const ModalItem = ({ navigation }: RootStackScreenProps<'ModalItem'>) => {
   return (
@@ -33,10 +33,10 @@ const ModalItem = ({ navigation }: RootStackScreenProps<'ModalItem'>) => {
         />
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default ModalItem;
+export default ModalItem
 
 const styles = StyleSheet.create({
   container: {
@@ -50,4 +50,4 @@ const styles = StyleSheet.create({
     width: width,
     resizeMode: 'contain',
   },
-});
+})

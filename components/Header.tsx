@@ -1,11 +1,11 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import React from 'react';
-import { Feather, FontAwesome } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import React from 'react'
+import { Feather, FontAwesome } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
 
 const Header = ({ avatarUrl }: any) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation()
   return (
     <View style={styles.container}>
       <View style={styles.action}>
@@ -24,10 +24,10 @@ const Header = ({ avatarUrl }: any) => {
         </TouchableOpacity>
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header
 
 const styles = StyleSheet.create({
   container: {
@@ -68,4 +68,4 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     paddingVertical: 15,
   },
-});
+})

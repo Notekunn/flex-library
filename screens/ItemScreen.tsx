@@ -1,11 +1,11 @@
-import { Dimensions, StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
-import { RootStackScreenProps, RootTabScreenProps } from '../types';
-import { AntDesign, Entypo, Feather, FontAwesome5, Fontisto, MaterialCommunityIcons } from '@expo/vector-icons';
-import { stringLength } from '@firebase/util';
-import BookList from '../components/Home/BookList';
-import BookCardFlex from '../components/BookCardFlex';
-import { mainColor } from '../constants/Colors';
+import { Dimensions, StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native'
+import React, { useState } from 'react'
+import { RootStackScreenProps, RootTabScreenProps } from '../types'
+import { AntDesign, Entypo, Feather, FontAwesome5, Fontisto, MaterialCommunityIcons } from '@expo/vector-icons'
+import { stringLength } from '@firebase/util'
+import BookList from '../components/Home/BookList'
+import BookCardFlex from '../components/BookCardFlex'
+import { mainColor } from '../constants/Colors'
 
 const listImage = [
   'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg',
@@ -13,13 +13,13 @@ const listImage = [
   'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-3/anh-bia.jpg',
   'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-4/anh-bia.jpg',
   'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-5/anh-bia.jpg',
-];
+]
 
-const arrTest = [];
-const { width } = Dimensions.get('window');
+const arrTest = []
+const { width } = Dimensions.get('window')
 
 const ItemScreen = ({ navigation }: RootStackScreenProps<'Item'>) => {
-  const [showDetail, setShowDetail] = useState(false);
+  const [showDetail, setShowDetail] = useState(false)
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -169,15 +169,15 @@ const ItemScreen = ({ navigation }: RootStackScreenProps<'Item'>) => {
                 key={index}
                 url="https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg"
               />
-            );
+            )
           })}
         </View>
       </ScrollView>
     </View>
-  );
-};
+  )
+}
 
-export default ItemScreen;
+export default ItemScreen
 
 const styles = StyleSheet.create({
   container: {
@@ -313,4 +313,4 @@ const styles = StyleSheet.create({
     backgroundColor: '#E5E6F8',
     paddingBottom: 10,
   },
-});
+})

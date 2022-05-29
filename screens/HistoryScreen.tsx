@@ -1,10 +1,10 @@
-import { ScrollView, StyleSheet, Text, View, Image } from 'react-native';
-import React from 'react';
-import { Button, ListItem } from '@rneui/base';
-import { useNavigation } from '@react-navigation/native';
+import { ScrollView, StyleSheet, Text, View, Image } from 'react-native'
+import React from 'react'
+import { Button, ListItem } from '@rneui/base'
+import { useNavigation } from '@react-navigation/native'
 
 const HistoryScreen = () => {
-  const nav = useNavigation();
+  const nav = useNavigation()
   return (
     // chưa có data
     // <View style={styles.container}>
@@ -79,10 +79,10 @@ const HistoryScreen = () => {
         </View>
       </View>
     </ScrollView>
-  );
-};
+  )
+}
 
-export default HistoryScreen;
+export default HistoryScreen
 
 const styles = StyleSheet.create({
   container: {
@@ -125,4 +125,4 @@ const styles = StyleSheet.create({
   price: {
     color: '#ce4144',
   },
-});
+})

@@ -1,5 +1,5 @@
-import { config } from 'dotenv';
-config();
+import { config } from 'dotenv'
+config()
 
 module.exports = {
   expo: {
@@ -38,7 +38,7 @@ module.exports = {
       storageBucket: process.env.STORAGE_BUCKET,
       messagingSenderId: process.env.MESSAGING_SENDER_ID,
       appId: process.env.APP_ID,
-      apiURL: process.env.API_URL
+      apiURL: process.env.API_URL,
     },
   },
-};
+}

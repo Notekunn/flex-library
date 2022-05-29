@@ -1,15 +1,15 @@
-import React from 'react';
-import { StyleSheet, View, Text, ScrollView } from 'react-native';
-import { Search } from '../components/Home/SearchBar';
-import SwipeSlide from '../components/Home/Carsousel';
-import CardList from '../components/Home/CardList';
-import Header from '../components/Header';
-import Categories from '../components/Home/Categories';
-import BookList from '../components/Home/BookList';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useNavigation } from '@react-navigation/native';
+import React from 'react'
+import { StyleSheet, View, Text, ScrollView } from 'react-native'
+import { Search } from '../components/Home/SearchBar'
+import SwipeSlide from '../components/Home/Carsousel'
+import CardList from '../components/Home/CardList'
+import Header from '../components/Header'
+import Categories from '../components/Home/Categories'
+import BookList from '../components/Home/BookList'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { useNavigation } from '@react-navigation/native'
 export default function HomeScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation()
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -24,7 +24,7 @@ export default function HomeScreen() {
         </View>
       </ScrollView>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -51,4 +51,4 @@ const styles = StyleSheet.create({
     height: 1,
     width: '80%',
   },
-});
+})

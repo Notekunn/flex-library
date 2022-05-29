@@ -1,12 +1,12 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { Icon, Image } from '@rneui/themed';
-import React from 'react';
-import { TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { mainColor, seconColor } from '../constants/Colors';
+import { StyleSheet, Text, View } from 'react-native'
+import { Icon, Image } from '@rneui/themed'
+import React from 'react'
+import { TouchableOpacity } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import { mainColor, seconColor } from '../constants/Colors'
 
 const AccountScreen = () => {
-  const nav = useNavigation();
+  const nav = useNavigation()
   return (
     <View style={styles.container}>
       <View
@@ -173,10 +173,10 @@ const AccountScreen = () => {
         </View>
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default AccountScreen;
+export default AccountScreen
 
 const styles = StyleSheet.create({
   container: {
@@ -219,4 +219,4 @@ const styles = StyleSheet.create({
     color: '#000',
     flexWrap: 'wrap',
   },
-});
+})

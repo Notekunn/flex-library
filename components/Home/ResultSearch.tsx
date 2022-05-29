@@ -1,10 +1,10 @@
-import React, { FC, useState } from 'react';
-import { SearchBar } from '@rneui/themed';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { FC, useState } from 'react'
+import { SearchBar } from '@rneui/themed'
+import { View, Text, StyleSheet } from 'react-native'
 
 type PropResult = {
-  listItem: string[];
-};
+  listItem: string[]
+}
 
 export const ResultSearch: FC<PropResult> = ({ listItem }) => {
   return (
@@ -15,12 +15,12 @@ export const ResultSearch: FC<PropResult> = ({ listItem }) => {
             <View key={index} style={styles.item}>
               <Text>{item}</Text>
             </View>
-          );
+          )
         })}
       </View>
     </View>
-  );
-};
+  )
+}
 const styles = StyleSheet.create({
   view: {
     width: '100%',
@@ -42,4 +42,4 @@ const styles = StyleSheet.create({
     borderColor: '#f0f0f0',
     borderBottomWidth: 1,
   },
-});
+})

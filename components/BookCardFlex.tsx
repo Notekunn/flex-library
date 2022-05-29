@@ -1,16 +1,16 @@
-import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React from 'react';
-import Navigation from '../navigation';
-import { useNavigation } from '@react-navigation/native';
-import { RootStackScreenProps, RootTabScreenProps } from '../types';
+import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React from 'react'
+import Navigation from '../navigation'
+import { useNavigation } from '@react-navigation/native'
+import { RootStackScreenProps, RootTabScreenProps } from '../types'
 
-const { height, width } = Dimensions.get('window');
+const { height, width } = Dimensions.get('window')
 interface BookCardFlexProps {
-  url: string;
-  key: any;
+  url: string
+  key: any
 }
 const BookCardFlex: React.FC<BookCardFlexProps> = ({ url }) => {
-  const navigation = useNavigation<any>();
+  const navigation = useNavigation<any>()
   return (
     <TouchableOpacity onPress={() => navigation.push('Item', { id: 8 })}>
       <View style={styles.container}>
@@ -29,10 +29,10 @@ const BookCardFlex: React.FC<BookCardFlexProps> = ({ url }) => {
         </View>
       </View>
     </TouchableOpacity>
-  );
-};
+  )
+}
 
-export default BookCardFlex;
+export default BookCardFlex
 
 const styles = StyleSheet.create({
   container: {
@@ -69,4 +69,4 @@ const styles = StyleSheet.create({
   rented: {
     fontSize: 10,
   },
-});
+})

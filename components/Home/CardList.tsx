@@ -1,6 +1,6 @@
-import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
-import CardItem from './CardItem';
+import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native'
+import React from 'react'
+import CardItem from './CardItem'
 
 const categories = [
   {
@@ -23,7 +23,7 @@ const categories = [
     id: 5,
     title: 'Đồ đạc',
   },
-];
+]
 
 const CardList = () => {
   return (
@@ -34,10 +34,10 @@ const CardList = () => {
         ))}
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default CardList;
+export default CardList
 
 const styles = StyleSheet.create({
   contaner: {
@@ -55,4 +55,4 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     width: '100%',
   },
-});
+})

@@ -1,8 +1,8 @@
-import { Dimensions, FlatList, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
-import Category from './Category';
+import { Dimensions, FlatList, StyleSheet, Text, View } from 'react-native'
+import React from 'react'
+import Category from './Category'
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window')
 const data = [
   {
     id: 1,
@@ -54,7 +54,7 @@ const data = [
     name: 'Khoa học',
     icon: 'home',
   },
-];
+]
 const Categories = () => {
   return (
     <View style={styles.container}>
@@ -80,10 +80,10 @@ const Categories = () => {
         renderItem={({ item }) => <Category data={item} />}
       />
     </View>
-  );
-};
+  )
+}
 
-export default Categories;
+export default Categories
 
 const styles = StyleSheet.create({
   container: {
@@ -96,4 +96,4 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginBottom: 10,
   },
-});
+})

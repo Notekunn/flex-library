@@ -1,7 +1,7 @@
-import { StyleSheet, View } from 'react-native';
-import LottieView from 'lottie-react-native';
-import React from 'react';
-import { RootTabScreenProps } from '../types';
+import { StyleSheet, View } from 'react-native'
+import LottieView from 'lottie-react-native'
+import React from 'react'
+import { RootTabScreenProps } from '../types'
 
 export default function IntroScreen({ navigation }: RootTabScreenProps<'Intro'>) {
   return (
@@ -12,11 +12,11 @@ export default function IntroScreen({ navigation }: RootTabScreenProps<'Intro'>)
         loop={false}
         speed={1}
         onAnimationFinish={() => {
-          navigation.navigate('SignIn');
+          navigation.navigate('SignIn')
         }}
       />
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -25,4 +25,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-});
+})
