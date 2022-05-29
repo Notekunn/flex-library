@@ -8,10 +8,8 @@ import Colors, { mainColor } from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
-import { Feather, Fontisto, Entypo, FontAwesome5 } from '@expo/vector-icons';
 
 import SplashScreen from '../screens/SplashScreen';
-import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import SignInScreen from '../screens/SignInScreen';
 import HomeScreen from '../screens/HomeScreen';
@@ -19,17 +17,16 @@ import MyIdScreen from '../screens/MyIdScreen';
 import ScanScreen from '../screens/ScanScreen';
 import StoreScreen from '../screens/StoreScreen';
 import AccountScreen from '../screens/AccountScreen';
-import { StatusBar, TextInput, View } from 'react-native';
+import { StatusBar, View } from 'react-native';
 import ModalItem from '../modals/ModalItem';
 import ItemScreen from '../screens/ItemScreen';
-import { ScreenStackHeaderBackButtonImage } from 'react-native-screens';
 import TopBarNavigatorCart from './topBarNavigatorCart';
 import CartScreen from '../screens/CartScreen';
 import SearchScreen from '../screens/SearchScreen';
 import AddItem from '../screens/AddItem';
 import { useAppDispatch, useAppSelector } from '../app/hook';
 import { profileAction, selectIsLoggedIn, selectLoading } from '../reducers/authSlice';
-// import { View } from '../components/Themed';
+import { ItemHeaderRight } from '../components/Item/HeaderRight';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -91,40 +88,7 @@ function RootNavigator() {
               headerTitle: '',
               headerTintColor: '#4C4CD7',
               headerBackTitle: '',
-              headerRight: () => (
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                  }}
-                >
-                  <View
-                    style={{
-                      height: 30,
-                      width: 250,
-                      borderWidth: 1,
-                      paddingHorizontal: 8,
-                      alignItems: 'center',
-                      flexDirection: 'row',
-                      borderRadius: 10,
-                      // left: -30,
-                    }}
-                  >
-                    <FontAwesome5 name="search" size={16} color="gray" />
-                    <Text style={{ color: 'gray', marginLeft: 5 }}>Tìm kiếm trên FL</Text>
-                  </View>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      paddingLeft: 15,
-                    }}
-                  >
-                    <Fontisto style={{ marginHorizontal: 5 }} name="share-a" size={24} color="#4C4CD7" />
-                    <Feather style={{ marginHorizontal: 5 }} name="shopping-cart" size={24} color="#4C4CD7" />
-                    <Entypo style={{ marginLeft: 5 }} name="dots-three-vertical" size={24} color="#4C4CD7" />
-                  </View>
-                </View>
-              ),
+              headerRight: ItemHeaderRight,
             }}
           />
           <Stack.Screen

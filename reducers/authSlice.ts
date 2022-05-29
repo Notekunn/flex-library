@@ -30,16 +30,21 @@ const initialState: AuthState = {
   loading: 'idle',
 };
 
-export const loginAction = createAsyncThunk('login', async (payload: LoginPayload) => {
+export const loginAction = createAsyncThunk('auth/login', async (payload: LoginPayload) => {
   const { data } = await apiInstance.post<LoginOKResponse>('/auth/login', payload);
   console.log(data);
 
   return data;
 });
 
-export const profileAction = createAsyncThunk('profile', async () => {
+export const profileAction = createAsyncThunk('auth/profile', async () => {
   const { data } = await apiInstance.get<IUser>('/user/me');
   return data;
+});
+
+export const logoutAction = createAsyncThunk('auth/logout', async () => {
+  await AsyncStorage.removeItem(TOKEN_STORAGE_KEY);
+  await AsyncStorage.removeItem(TOKEN_EXPIRED_STORAGE_KEY);
 });
 
 export const authSlice = createSlice({
@@ -75,6 +80,18 @@ export const authSlice = createSlice({
       .addCase(profileAction.rejected, (state, payload) => {
         state.loading = 'error';
         state.isLoggedIn = false;
+      });
+
+    buidler
+      .addCase(logoutAction.pending, (state) => {
+        state.loading = 'loading';
+      })
+      .addCase(logoutAction.fulfilled, (state) => {
+        state.isLoggedIn = false;
+        state.loading = 'success';
+      })
+      .addCase(logoutAction.rejected, (state) => {
+        state.loading = 'error';
       });
   },
 });
