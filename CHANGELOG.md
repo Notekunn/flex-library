@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/Notekunn/flex-library/compare/v1.6.1...v1.7.0) (2022-05-29)
+
+
+### Features
+
+* add RTK and connect auth api ([#20](https://github.com/Notekunn/flex-library/issues/20)) ([7fccde2](https://github.com/Notekunn/flex-library/commit/7fccde29e9f74db9c9a2eb069b845edff86092d2))
+
 ## [1.6.1](https://github.com/Notekunn/flex-library/compare/v1.6.0...v1.6.1) (2022-05-27)
 
 
