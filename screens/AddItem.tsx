@@ -10,27 +10,27 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-} from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { mainColor, seconColor, whiteColor } from '../constants/Colors'
-import { AntDesign, Entypo, Foundation, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
-import * as ImagePicker from 'expo-image-picker'
-import { PanGestureHandler, PanGestureHandlerGestureEvent, ScrollView } from 'react-native-gesture-handler'
+} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { mainColor, seconColor, whiteColor } from '../constants/Colors';
+import { AntDesign, Entypo, Foundation, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import * as ImagePicker from 'expo-image-picker';
+import { PanGestureHandler, PanGestureHandlerGestureEvent, ScrollView } from 'react-native-gesture-handler';
 import Animated, {
   useSharedValue,
   withSpring,
   useAnimatedStyle,
   useAnimatedGestureHandler,
-} from 'react-native-reanimated'
+} from 'react-native-reanimated';
 
 const AddItem = () => {
-  const navigation = useNavigation()
-  const [status, requestPermission] = ImagePicker.useCameraPermissions()
-  const [imageList, setImageList] = useState<any>([])
-  const [modalVisible, setModalVisible] = useState(false)
-  const [name, setName] = useState('')
-  const [desc, setDesc] = useState('')
+  const navigation = useNavigation();
+  const [status, requestPermission] = ImagePicker.useCameraPermissions();
+  const [imageList, setImageList] = useState<any>([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [name, setName] = useState('');
+  const [desc, setDesc] = useState('');
 
   // useEffect(() => {
   //   const check = async () => {
@@ -39,7 +39,7 @@ const AddItem = () => {
   //   check();
   // }, []);
   const pickImageWithCamera = async () => {
-    console.log('âsas')
+    console.log('âsas');
     // await requestPermission();
     // if (status?.granted === false) {
     //   alert('you ko có permissions');
@@ -50,20 +50,20 @@ const AddItem = () => {
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
-    })
-    await setModalVisible(!modalVisible)
-    console.log(result)
+    });
+    await setModalVisible(!modalVisible);
+    console.log(result);
 
     if (!result.cancelled) {
-      setImageList([...imageList, result.uri])
+      setImageList([...imageList, result.uri]);
     }
-  }
+  };
   const pickImageWithGallery = async () => {
-    setModalVisible(!modalVisible)
+    setModalVisible(!modalVisible);
     // await requestPermission();
     if (status?.granted === false) {
-      alert('you ko có permissions')
-      return
+      alert('you ko có permissions');
+      return;
     }
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -72,24 +72,24 @@ const AddItem = () => {
       aspect: [9, 3],
       quality: 1,
       allowsMultipleSelection: true,
-    })
+    });
 
-    console.log(result)
+    console.log(result);
 
     if (!result.cancelled) {
-      setImageList([...imageList, result.uri])
+      setImageList([...imageList, result.uri]);
     }
-  }
+  };
   interface ImageFrameProps {
-    uri: any
-    index: number
+    uri: any;
+    index: number;
   }
   const deleteImage = (index: number) => {
-    const result = imageList.filter((_: any, i: number) => i !== index)
-    console.log(index)
+    const result = imageList.filter((_: any, i: number) => i !== index);
+    console.log(index);
 
-    setImageList([...result])
-  }
+    setImageList([...result]);
+  };
   const ImageFrame: React.FC<ImageFrameProps> = ({ uri, index }) => {
     // const translateX = useSharedValue(0);
     // const translateY = useSharedValue(0);
@@ -138,7 +138,7 @@ const AddItem = () => {
         <TouchableOpacity
           style={{ position: 'absolute', top: 0, right: 0, zIndex: 10 }}
           onPress={() => {
-            deleteImage(index)
+            deleteImage(index);
           }}
         >
           <Ionicons
@@ -158,8 +158,8 @@ const AddItem = () => {
           }}
         />
       </View>
-    )
-  }
+    );
+  };
 
   const ModalPopUp = () => {
     return (
@@ -168,8 +168,8 @@ const AddItem = () => {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert('Modal has been closed.')
-          setModalVisible(!modalVisible)
+          Alert.alert('Modal has been closed.');
+          setModalVisible(!modalVisible);
         }}
       >
         <View style={styles.centeredView}>
@@ -189,8 +189,8 @@ const AddItem = () => {
           </View>
         </View>
       </Modal>
-    )
-  }
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -319,9 +319,9 @@ const AddItem = () => {
         </TouchableOpacity>
       </View>
     </View>
-  )
-}
-export default AddItem
+  );
+};
+export default AddItem;
 
 const styles = StyleSheet.create({
   container: { flex: 1, position: 'relative' },
@@ -464,4 +464,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-})
+});

@@ -1,5 +1,5 @@
-import { config } from 'dotenv'
-config()
+import { config } from 'dotenv';
+config();
 
 module.exports = {
   expo: {
@@ -41,4 +41,4 @@ module.exports = {
       apiURL: process.env.API_URL,
     },
   },
-}
+};

@@ -1,21 +1,21 @@
-import { Button, Input } from '@rneui/themed'
-import React, { useState } from 'react'
-import { StyleSheet, Image, Text, View, TouchableWithoutFeedback, Keyboard } from 'react-native'
-import { useAppDispatch, useAppSelector } from '../app/hook'
-import { mainColor } from '../constants/Colors'
-import { loginAction, selectError } from '../reducers/authSlice'
+import { Button, Input } from '@rneui/themed';
+import React, { useState } from 'react';
+import { StyleSheet, Image, Text, View, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { useAppDispatch, useAppSelector } from '../app/hook';
+import { mainColor } from '../constants/Colors';
+import { loginAction, selectError } from '../reducers/authSlice';
 
-import { RootTabScreenProps } from '../types'
+import { RootTabScreenProps } from '../types';
 
 export default function SignInScreen({ navigation }: RootTabScreenProps<'SignIn'>) {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [hidePassword, setHidePassword] = useState(true)
-  const dispatch = useAppDispatch()
-  const error = useAppSelector(selectError)
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [hidePassword, setHidePassword] = useState(true);
+  const dispatch = useAppDispatch();
+  const error = useAppSelector(selectError);
   const onsubmit = (email: string, password: string) => {
-    dispatch(loginAction({ email, password }))
-  }
+    dispatch(loginAction({ email, password }));
+  };
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={true}>
       <View style={styles.container}>
@@ -62,7 +62,7 @@ export default function SignInScreen({ navigation }: RootTabScreenProps<'SignIn'
         <Button
           title="Submit"
           onPress={() => {
-            onsubmit(email, password)
+            onsubmit(email, password);
           }}
           loading={false}
           loadingProps={{ size: 'small', color: 'white' }}
@@ -75,7 +75,7 @@ export default function SignInScreen({ navigation }: RootTabScreenProps<'SignIn'
         />
       </View>
     </TouchableWithoutFeedback>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -102,4 +102,4 @@ const styles = StyleSheet.create({
     color: 'red',
     padding: 5,
   },
-})
+});

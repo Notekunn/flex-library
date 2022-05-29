@@ -1,6 +1,6 @@
-import { Dimensions, FlatList, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import BookCard from './BookCard'
+import { Dimensions, FlatList, StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import BookCard from './BookCard';
 
 const listImage = [
   {
@@ -43,8 +43,8 @@ const listImage = [
     price: '3,000/ngày',
     imageUrl: 'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-8/anh-bia.jpg',
   },
-]
-const { width, height } = Dimensions.get('window')
+];
+const { width, height } = Dimensions.get('window');
 const BookList = () => {
   return (
     <View style={styles.container}>
@@ -56,10 +56,10 @@ const BookList = () => {
         renderItem={({ item }) => <BookCard data={item} />}
       />
     </View>
-  )
-}
+  );
+};
 
-export default BookList
+export default BookList;
 
 const styles = StyleSheet.create({
   container: {
@@ -76,4 +76,4 @@ const styles = StyleSheet.create({
     // marginLeft: 10,
     marginBottom: 10,
   },
-})
+});

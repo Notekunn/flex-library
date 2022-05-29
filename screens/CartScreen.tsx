@@ -1,10 +1,10 @@
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native'
-import React from 'react'
-import { Button, Icon, ListItem } from '@rneui/themed'
-import { useNavigation } from '@react-navigation/native'
-import { MaterialIcons } from '@expo/vector-icons'
-import { mainColor } from '../constants/Colors'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
+import React from 'react';
+import { Button, Icon, ListItem } from '@rneui/themed';
+import { useNavigation } from '@react-navigation/native';
+import { MaterialIcons } from '@expo/vector-icons';
+import { mainColor } from '../constants/Colors';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const ItemInCart = () => (
   <View style={styles.itemInCart}>
@@ -90,9 +90,9 @@ const ItemInCart = () => (
       </ListItem.Content>
     </ListItem.Swipeable>
   </View>
-)
+);
 const CartScreen = () => {
-  const nav = useNavigation()
+  const nav = useNavigation();
   return (
     // chưa có data
     // <View style={styles.container}>
@@ -191,10 +191,10 @@ const CartScreen = () => {
         </View>
       </View>
     </ScrollView>
-  )
-}
+  );
+};
 
-export default CartScreen
+export default CartScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -281,4 +281,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-})
+});

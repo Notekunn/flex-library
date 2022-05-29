@@ -1,7 +1,7 @@
-import { StyleSheet, View } from 'react-native'
-import React from 'react'
-import { RootTabScreenProps } from '../types'
-import { Text } from '../components/Themed'
+import { StyleSheet, View } from 'react-native';
+import React from 'react';
+import { RootTabScreenProps } from '../types';
+import { Text } from '../components/Themed';
 
 //TODO: make spinner
 export default function SplashScreen({ navigation }: RootTabScreenProps<'Splash'>) {
@@ -9,7 +9,7 @@ export default function SplashScreen({ navigation }: RootTabScreenProps<'Splash'
     <View style={styles.container}>
       <Text>SplashScreen</Text>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -18,4 +18,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-})
+});

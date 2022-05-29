@@ -10,17 +10,17 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
-} from 'react-native'
-import React, { createRef, useRef, useState } from 'react'
-import { Entypo, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
-import { mainColor } from '../constants/Colors'
-const { width } = Dimensions.get('window')
+} from 'react-native';
+import React, { createRef, useRef, useState } from 'react';
+import { Entypo, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { mainColor } from '../constants/Colors';
+const { width } = Dimensions.get('window');
 const SearchScreen = () => {
-  const navigation = useNavigation()
-  const [inputChange, setInputChange] = useState(true)
-  const [searchText, setSearchText] = useState('')
-  const [firstInput, setFirstInput] = useState(true)
+  const navigation = useNavigation();
+  const [inputChange, setInputChange] = useState(true);
+  const [searchText, setSearchText] = useState('');
+  const [firstInput, setFirstInput] = useState(true);
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={true}>
       <View style={styles.container}>
@@ -36,15 +36,15 @@ const SearchScreen = () => {
           <TextInput
             onChangeText={(value) => {
               if (firstInput) {
-                setInputChange(false)
-                setFirstInput(false)
+                setInputChange(false);
+                setFirstInput(false);
               } else if (!firstInput) {
                 if (value == '') {
-                  setFirstInput(true)
-                  setInputChange(true)
+                  setFirstInput(true);
+                  setInputChange(true);
                 }
               }
-              setSearchText(value)
+              setSearchText(value);
             }}
             value={searchText}
             style={{
@@ -104,7 +104,7 @@ const SearchScreen = () => {
                         Hướng dẫn cách đạp vịt
                       </Text>
                     </View>
-                  )
+                  );
                 })}
               </View>
             </View>
@@ -147,7 +147,7 @@ const SearchScreen = () => {
                         />
                       </View>
                     </TouchableOpacity>
-                  )
+                  );
                 })}
               </View>
             </View>
@@ -157,10 +157,10 @@ const SearchScreen = () => {
         )}
       </View>
     </TouchableWithoutFeedback>
-  )
-}
+  );
+};
 
-export default SearchScreen
+export default SearchScreen;
 
 const styles = StyleSheet.create({
   header_top: {
@@ -195,4 +195,4 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
   },
-})
+});

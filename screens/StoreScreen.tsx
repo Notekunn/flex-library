@@ -7,30 +7,30 @@ import {
   TouchableOpacity,
   StatusBar,
   Dimensions,
-} from 'react-native'
-import React, { useState } from 'react'
-import { AntDesign, Feather, Fontisto, Entypo, FontAwesome5 } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
-import { TabView, SceneMap, TabBar } from 'react-native-tab-view'
-import BookList from '../components/Store/BookList'
-import { mainColor, seconColor } from '../constants/Colors'
-const initialLayout = { width: Dimensions.get('window').width }
+} from 'react-native';
+import React, { useState } from 'react';
+import { AntDesign, Feather, Fontisto, Entypo, FontAwesome5 } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import BookList from '../components/Store/BookList';
+import { mainColor, seconColor } from '../constants/Colors';
+const initialLayout = { width: Dimensions.get('window').width };
 const renderTabBar = (props: any) => (
   <TabBar {...props} indicatorStyle={{ backgroundColor: '#FFF' }} style={{ backgroundColor: mainColor }} />
-)
+);
 const renderScene = SceneMap({
   first: BookList,
   second: BookList,
-})
+});
 const StoreScreen = () => {
-  const layout = useWindowDimensions()
+  const layout = useWindowDimensions();
 
-  const [index, setIndex] = useState(0)
+  const [index, setIndex] = useState(0);
   const [routes] = React.useState([
     { key: 'first', title: 'Shop' },
     { key: 'second', title: 'Danh mục' },
-  ])
-  const navigation = useNavigation()
+  ]);
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -123,10 +123,10 @@ const StoreScreen = () => {
         />
       </View>
     </View>
-  )
-}
+  );
+};
 
-export default StoreScreen
+export default StoreScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -175,4 +175,4 @@ const styles = StyleSheet.create({
   scene: {
     flex: 1,
   },
-})
+});

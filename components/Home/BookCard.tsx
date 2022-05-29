@@ -1,15 +1,15 @@
-import { StyleSheet, Text, View, Image, Dimensions } from 'react-native'
-import React from 'react'
-import { TouchableOpacity } from 'react-native-gesture-handler'
-import { useNavigation } from '@react-navigation/native'
+import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+import React from 'react';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
 
-const { width, height } = Dimensions.get('window')
+const { width, height } = Dimensions.get('window');
 interface props {
-  data: any
+  data: any;
 }
 
 const BookCard: React.FC<props> = ({ data }) => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   return (
     <TouchableOpacity onPress={() => navigation.navigate('Item')}>
       <View style={styles.container}>
@@ -18,10 +18,10 @@ const BookCard: React.FC<props> = ({ data }) => {
         <Text style={styles.price}>{data.price}</Text>
       </View>
     </TouchableOpacity>
-  )
-}
+  );
+};
 
-export default BookCard
+export default BookCard;
 
 const styles = StyleSheet.create({
   container: {
@@ -47,4 +47,4 @@ const styles = StyleSheet.create({
     // marginLeft: 5,
     marginTop: 5,
   },
-})
+});

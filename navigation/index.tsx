@@ -1,34 +1,34 @@
-import { FontAwesome } from '@expo/vector-icons'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { NavigationContainer, DefaultTheme, DarkTheme, useNavigation } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import React, { useEffect } from 'react'
-import { ColorSchemeName, Pressable, Text } from 'react-native'
-import Colors, { mainColor } from '../constants/Colors'
-import useColorScheme from '../hooks/useColorScheme'
-import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types'
-import LinkingConfiguration from './LinkingConfiguration'
-import { Feather, Fontisto, Entypo, FontAwesome5 } from '@expo/vector-icons'
+import { FontAwesome } from '@expo/vector-icons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer, DefaultTheme, DarkTheme, useNavigation } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React, { useEffect } from 'react';
+import { ColorSchemeName, Pressable, Text } from 'react-native';
+import Colors, { mainColor } from '../constants/Colors';
+import useColorScheme from '../hooks/useColorScheme';
+import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
+import LinkingConfiguration from './LinkingConfiguration';
+import { Feather, Fontisto, Entypo, FontAwesome5 } from '@expo/vector-icons';
 
-import SplashScreen from '../screens/SplashScreen'
-import ModalScreen from '../screens/ModalScreen'
-import NotFoundScreen from '../screens/NotFoundScreen'
-import SignInScreen from '../screens/SignInScreen'
-import HomeScreen from '../screens/HomeScreen'
-import MyIdScreen from '../screens/MyIdScreen'
-import ScanScreen from '../screens/ScanScreen'
-import StoreScreen from '../screens/StoreScreen'
-import AccountScreen from '../screens/AccountScreen'
-import { StatusBar, TextInput, View } from 'react-native'
-import ModalItem from '../modals/ModalItem'
-import ItemScreen from '../screens/ItemScreen'
-import { ScreenStackHeaderBackButtonImage } from 'react-native-screens'
-import TopBarNavigatorCart from './topBarNavigatorCart'
-import CartScreen from '../screens/CartScreen'
-import SearchScreen from '../screens/SearchScreen'
-import AddItem from '../screens/AddItem'
-import { useAppDispatch, useAppSelector } from '../app/hook'
-import { profileAction, selectIsLoggedIn, selectLoading } from '../reducers/authSlice'
+import SplashScreen from '../screens/SplashScreen';
+import ModalScreen from '../screens/ModalScreen';
+import NotFoundScreen from '../screens/NotFoundScreen';
+import SignInScreen from '../screens/SignInScreen';
+import HomeScreen from '../screens/HomeScreen';
+import MyIdScreen from '../screens/MyIdScreen';
+import ScanScreen from '../screens/ScanScreen';
+import StoreScreen from '../screens/StoreScreen';
+import AccountScreen from '../screens/AccountScreen';
+import { StatusBar, TextInput, View } from 'react-native';
+import ModalItem from '../modals/ModalItem';
+import ItemScreen from '../screens/ItemScreen';
+import { ScreenStackHeaderBackButtonImage } from 'react-native-screens';
+import TopBarNavigatorCart from './topBarNavigatorCart';
+import CartScreen from '../screens/CartScreen';
+import SearchScreen from '../screens/SearchScreen';
+import AddItem from '../screens/AddItem';
+import { useAppDispatch, useAppSelector } from '../app/hook';
+import { profileAction, selectIsLoggedIn, selectLoading } from '../reducers/authSlice';
 // import { View } from '../components/Themed';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
@@ -36,27 +36,27 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
     <NavigationContainer linking={LinkingConfiguration} theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <RootNavigator />
     </NavigationContainer>
-  )
+  );
 }
 
-const Stack = createNativeStackNavigator<RootStackParamList>()
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
-  const loading = useAppSelector(selectLoading)
-  const isLoggedIn = useAppSelector(selectIsLoggedIn)
-  const dispatch = useAppDispatch()
+  const loading = useAppSelector(selectLoading);
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
+  const dispatch = useAppDispatch();
   useEffect(() => {
     if (!isLoggedIn) {
-      dispatch(profileAction())
+      dispatch(profileAction());
     }
-  }, [])
+  }, []);
 
   if (loading == 'loading') {
     return (
       <Stack.Navigator>
-        <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false , animation: 'none'}} />
+        <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false, animation: 'none' }} />
       </Stack.Navigator>
-    )
+    );
   }
   return (
     <Stack.Navigator screenOptions={{ headerShown: false, animation: 'none' }}>
@@ -142,7 +142,7 @@ function RootNavigator() {
           />
           <Stack.Screen name="AddItem" component={AddItem} />
           <Stack.Screen name="Search" component={SearchScreen} options={{ animation: 'fade' }} />
-          <Stack.Group screenOptions={{ presentation: 'modal' , animation: 'fade'}}>
+          <Stack.Group screenOptions={{ presentation: 'modal', animation: 'fade' }}>
             <Stack.Screen
               name="ModalItem"
               options={{
@@ -154,13 +154,13 @@ function RootNavigator() {
         </>
       )}
     </Stack.Navigator>
-  )
+  );
 }
-const BottomTab = createBottomTabNavigator<RootTabParamList>()
+const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 function BottomTabNavigator() {
-  const colorScheme = useColorScheme()
-  const navigation = useNavigation<any>()
+  const colorScheme = useColorScheme();
+  const navigation = useNavigation<any>();
   return (
     <BottomTab.Navigator
       initialRouteName="Home"
@@ -190,8 +190,8 @@ function BottomTabNavigator() {
         }}
         listeners={() => ({
           tabPress: (event) => {
-            event.preventDefault()
-            navigation.navigate('ModalItem')
+            event.preventDefault();
+            navigation.navigate('ModalItem');
           },
         })}
       />
@@ -235,12 +235,12 @@ function BottomTabNavigator() {
         }}
       />
     </BottomTab.Navigator>
-  )
+  );
 }
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
 function TabBarIcon(props: { name: React.ComponentProps<typeof FontAwesome>['name']; color: string }) {
-  return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />
+  return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
 }

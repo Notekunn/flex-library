@@ -1,53 +1,53 @@
-import { Dimensions, StyleSheet, View, Text, Image, FlatList, Animated } from 'react-native'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Directions, FlingGestureHandler, State } from 'react-native-gesture-handler'
+import { Dimensions, StyleSheet, View, Text, Image, FlatList, Animated } from 'react-native';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { Directions, FlingGestureHandler, State } from 'react-native-gesture-handler';
 
 // import CarsouselItem from './CarsouselItem';
-const { width, height } = Dimensions.get('window')
+const { width, height } = Dimensions.get('window');
 const listImage = [
   'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg',
   'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-2/anh-bia.jpg',
   'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-3/anh-bia.jpg',
   'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-4/anh-bia.jpg',
   'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-5/anh-bia.jpg',
-]
-const OVERFLOW_HEIGHT = 70
-const SPACING = 10
-const ITEM_WIDTH = width * 0.6
-const ITEM_HEIGHT = ITEM_WIDTH * 1.6
-const VISIBLE_ITEM = 3
+];
+const OVERFLOW_HEIGHT = 70;
+const SPACING = 10;
+const ITEM_WIDTH = width * 0.6;
+const ITEM_HEIGHT = ITEM_WIDTH * 1.6;
+const VISIBLE_ITEM = 3;
 const SwipeSlide = () => {
   // const scrollX = new Animated.Value(0);
-  const scrollXIndex = useRef(new Animated.Value(0)).current
-  const scrollXAnimated = useRef(new Animated.Value(0)).current
-  const [dataList, setDataList] = React.useState(listImage)
-  const position = Animated.divide(scrollXIndex, width)
-  const flatListRef = useRef<FlatList>(null)
-  const [index, setIndex] = useState(0)
+  const scrollXIndex = useRef(new Animated.Value(0)).current;
+  const scrollXAnimated = useRef(new Animated.Value(0)).current;
+  const [dataList, setDataList] = React.useState(listImage);
+  const position = Animated.divide(scrollXIndex, width);
+  const flatListRef = useRef<FlatList>(null);
+  const [index, setIndex] = useState(0);
 
   const setActiveIndex = useCallback((activeIndex) => {
-    setIndex(activeIndex)
-    scrollXIndex.setValue(activeIndex)
-  }, [])
+    setIndex(activeIndex);
+    scrollXIndex.setValue(activeIndex);
+  }, []);
   useEffect(() => {
     Animated.spring(scrollXAnimated, {
       toValue: scrollXIndex,
       useNativeDriver: true,
-    }).start()
+    }).start();
     // setInterval(() => {
     //   scrollXIndex.setValue(Math.floor(Math.random() * listImage.length));
     // }, 1000);
     // setDataList(listImage);
     // infiniteScroll(dataList);
-  })
+  });
   return (
     <FlingGestureHandler
       key="left"
       direction={Directions.LEFT}
       onHandlerStateChange={(ev) => {
         if (ev.nativeEvent.state === State.END) {
-          if (index === listImage.length - 1) return
-          setActiveIndex(index + 1)
+          if (index === listImage.length - 1) return;
+          setActiveIndex(index + 1);
         }
       }}
     >
@@ -56,8 +56,8 @@ const SwipeSlide = () => {
         direction={Directions.RIGHT}
         onHandlerStateChange={(ev) => {
           if (ev.nativeEvent.state === State.END) {
-            if (index === 0) return
-            setActiveIndex(index - 1)
+            if (index === 0) return;
+            setActiveIndex(index - 1);
           }
         }}
       >
@@ -98,27 +98,27 @@ const SwipeSlide = () => {
             scrollEnabled={false}
             removeClippedSubviews={false}
             CellRendererComponent={({ item, index, children, style, ...props }) => {
-              const newStyle = [style, { zIndex: listImage.length - index }]
+              const newStyle = [style, { zIndex: listImage.length - index }];
               return (
                 <View style={newStyle} index={index} {...props}>
                   {children}
                 </View>
-              )
+              );
             }}
             renderItem={({ item, index }) => {
-              const inputRange = [index - 1, index, index + 1]
+              const inputRange = [index - 1, index, index + 1];
               const translateX = scrollXAnimated.interpolate({
                 inputRange,
                 outputRange: [45, 0, -70],
-              })
+              });
               const scale = scrollXAnimated.interpolate({
                 inputRange,
                 outputRange: [0.8, 1, 1.3],
-              })
+              });
               const opacity = scrollXAnimated.interpolate({
                 inputRange,
                 outputRange: [1 - 1 / VISIBLE_ITEM, 1, 0],
-              })
+              });
               return (
                 <Animated.View
                   style={{
@@ -135,7 +135,7 @@ const SwipeSlide = () => {
                 >
                   <Image style={styles.image} source={{ uri: item }} />
                 </Animated.View>
-              )
+              );
             }}
           />
 
@@ -170,8 +170,8 @@ const SwipeSlide = () => {
         </View>
       </FlingGestureHandler>
     </FlingGestureHandler>
-  )
-}
+  );
+};
 const styles = StyleSheet.create({
   container: {
     position: 'relative',
@@ -211,6 +211,6 @@ const styles = StyleSheet.create({
     height: ITEM_HEIGHT,
     borderRadius: 20,
   },
-})
+});
 
-export default SwipeSlide
+export default SwipeSlide;
