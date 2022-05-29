@@ -2,7 +2,7 @@ import { FontAwesome } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer, DefaultTheme, DarkTheme, useNavigation } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import * as React from 'react'
+import React, { useEffect } from 'react'
 import { ColorSchemeName, Pressable, Text } from 'react-native'
 import Colors, { mainColor } from '../constants/Colors'
 import useColorScheme from '../hooks/useColorScheme'
@@ -10,7 +10,7 @@ import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../typ
 import LinkingConfiguration from './LinkingConfiguration'
 import { Feather, Fontisto, Entypo, FontAwesome5 } from '@expo/vector-icons'
 
-import IntroScreen from '../screens/IntroScreen'
+import SplashScreen from '../screens/SplashScreen'
 import ModalScreen from '../screens/ModalScreen'
 import NotFoundScreen from '../screens/NotFoundScreen'
 import SignInScreen from '../screens/SignInScreen'
@@ -27,6 +27,8 @@ import TopBarNavigatorCart from './topBarNavigatorCart'
 import CartScreen from '../screens/CartScreen'
 import SearchScreen from '../screens/SearchScreen'
 import AddItem from '../screens/AddItem'
+import { useAppDispatch, useAppSelector } from '../app/hook'
+import { profileAction, selectIsLoggedIn, selectLoading } from '../reducers/authSlice'
 // import { View } from '../components/Themed';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
@@ -40,96 +42,117 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
 function RootNavigator() {
+  const loading = useAppSelector(selectLoading)
+  const isLoggedIn = useAppSelector(selectIsLoggedIn)
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    if (!isLoggedIn) {
+      dispatch(profileAction())
+    }
+  }, [])
+
+  if (loading == 'loading') {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false , animation: 'none'}} />
+      </Stack.Navigator>
+    )
+  }
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
-      <Stack.Screen name="Intro" component={IntroScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="SignIn" component={SignInScreen} options={{ headerShown: false }} />
-      <Stack.Screen
-        name="Cart"
-        component={CartScreen}
-        options={{
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: mainColor,
-          },
-          headerTitleStyle: {
-            color: '#FFF',
-          },
-          headerBackTitle: '',
-          headerTitleAlign: 'center',
-          headerTintColor: '#fff',
-        }}
-      />
-      <Stack.Screen
-        name="Item"
-        component={ItemScreen}
-        options={{
-          headerShown: false,
-          headerTitle: '',
-          headerTintColor: '#4C4CD7',
-          headerBackTitle: '',
-          headerRight: () => (
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
+    <Stack.Navigator screenOptions={{ headerShown: false, animation: 'none' }}>
+      {!isLoggedIn ? (
+        <>
+          <Stack.Screen name="SignIn" component={SignInScreen} />
+        </>
+      ) : (
+        <>
+          <Stack.Screen name="Root" component={BottomTabNavigator} />
+          <Stack.Screen
+            name="Cart"
+            component={CartScreen}
+            options={{
+              headerShown: true,
+              headerStyle: {
+                backgroundColor: mainColor,
+              },
+              headerTitleStyle: {
+                color: '#FFF',
+              },
+              headerBackTitle: '',
+              headerTitleAlign: 'center',
+              headerTintColor: '#fff',
+            }}
+          />
+          <Stack.Screen
+            name="Item"
+            component={ItemScreen}
+            options={{
+              headerShown: false,
+              headerTitle: '',
+              headerTintColor: '#4C4CD7',
+              headerBackTitle: '',
+              headerRight: () => (
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}
+                >
+                  <View
+                    style={{
+                      height: 30,
+                      width: 250,
+                      borderWidth: 1,
+                      paddingHorizontal: 8,
+                      alignItems: 'center',
+                      flexDirection: 'row',
+                      borderRadius: 10,
+                      // left: -30,
+                    }}
+                  >
+                    <FontAwesome5 name="search" size={16} color="gray" />
+                    <Text style={{ color: 'gray', marginLeft: 5 }}>Tìm kiếm trên FL</Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      paddingLeft: 15,
+                    }}
+                  >
+                    <Fontisto style={{ marginHorizontal: 5 }} name="share-a" size={24} color="#4C4CD7" />
+                    <Feather style={{ marginHorizontal: 5 }} name="shopping-cart" size={24} color="#4C4CD7" />
+                    <Entypo style={{ marginLeft: 5 }} name="dots-three-vertical" size={24} color="#4C4CD7" />
+                  </View>
+                </View>
+              ),
+            }}
+          />
+          <Stack.Screen
+            name="InfoCart"
+            component={TopBarNavigatorCart}
+            options={{
+              headerShown: true,
+              headerLargeStyle: {
+                backgroundColor: mainColor,
+              },
+              headerTintColor: '#fff',
+              headerTitle: 'Cart',
+              headerBackTitle: '',
+            }}
+          />
+          <Stack.Screen name="AddItem" component={AddItem} />
+          <Stack.Screen name="Search" component={SearchScreen} options={{ animation: 'fade' }} />
+          <Stack.Group screenOptions={{ presentation: 'modal' , animation: 'fade'}}>
+            <Stack.Screen
+              name="ModalItem"
+              options={{
+                animation: 'slide_from_bottom',
               }}
-            >
-              <View
-                style={{
-                  height: 30,
-                  width: 250,
-                  borderWidth: 1,
-                  paddingHorizontal: 8,
-                  alignItems: 'center',
-                  flexDirection: 'row',
-                  borderRadius: 10,
-                  // left: -30,
-                }}
-              >
-                <FontAwesome5 name="search" size={16} color="gray" />
-                <Text style={{ color: 'gray', marginLeft: 5 }}>Tìm kiếm trên FL</Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  paddingLeft: 15,
-                }}
-              >
-                <Fontisto style={{ marginHorizontal: 5 }} name="share-a" size={24} color="#4C4CD7" />
-                <Feather style={{ marginHorizontal: 5 }} name="shopping-cart" size={24} color="#4C4CD7" />
-                <Entypo style={{ marginLeft: 5 }} name="dots-three-vertical" size={24} color="#4C4CD7" />
-              </View>
-            </View>
-          ),
-        }}
-      />
-      <Stack.Screen
-        name="InfoCart"
-        component={TopBarNavigatorCart}
-        options={{
-          headerShown: true,
-          headerLargeStyle: {
-            backgroundColor: mainColor,
-          },
-          headerTintColor: '#fff',
-          headerTitle: 'Cart',
-          headerBackTitle: '',
-        }}
-      />
-      <Stack.Screen name="AddItem" component={AddItem} options={{ headerShown: false }} />
-      <Stack.Screen name="Search" component={SearchScreen} options={{ headerShown: false, animation: 'fade' }} />
-      <Stack.Group screenOptions={{ presentation: 'modal' }}>
-        <Stack.Screen
-          name="ModalItem"
-          options={{
-            headerShown: false,
-            animation: 'flip',
-          }}
-          component={ModalItem}
-        />
-      </Stack.Group>
+              component={ModalItem}
+            />
+          </Stack.Group>
+        </>
+      )}
     </Stack.Navigator>
   )
 }
