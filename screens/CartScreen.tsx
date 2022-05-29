@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
     height: 40,
     width: 40,
     resizeMode: 'cover',
-    borderRadius: '50%',
+    borderRadius: 40 / 2,
   },
   itemInCart: {},
   store_list: {

@@ -36,6 +36,7 @@ const BookList = () => {
               onPress={() => {
                 handleOption(e.option)
               }}
+              key={i}
             >
               <Text style={[styles.option_title, status === e.option && styles.option_title_color]}>{e.option}</Text>
             </TouchableOpacity>
@@ -44,8 +45,8 @@ const BookList = () => {
       </View>
       <ScrollView>
         <View style={styles.listItem}>
-          {Array.from(Array(10)).map(() => {
-            return <BookCardFlex url={imageUrl} />
+          {Array.from(Array(10)).map((e, i) => {
+            return <BookCardFlex url={imageUrl} key={i} />
           })}
         </View>
       </ScrollView>
