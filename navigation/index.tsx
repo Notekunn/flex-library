@@ -27,6 +27,7 @@ import AddItem from '../screens/AddItem';
 import { useAppDispatch, useAppSelector } from '../app/hook';
 import { profileAction, selectIsLoggedIn, selectLoading } from '../reducers/authSlice';
 import { ItemHeaderRight } from '../components/Item/HeaderRight';
+import SignUpScreen from '../screens/SignUpScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -60,6 +61,7 @@ function RootNavigator() {
       {!isLoggedIn ? (
         <>
           <Stack.Screen name="SignIn" component={SignInScreen} />
+          <Stack.Screen name="SignUp" component={SignUpScreen} />
         </>
       ) : (
         <>
@@ -130,9 +132,6 @@ function BottomTabNavigator() {
       initialRouteName="Home"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
-        tabBarStyle: {
-          paddingTop: StatusBar.currentHeight,
-        },
       }}
     >
       <BottomTab.Screen

@@ -32,6 +32,7 @@ const initialState: AuthState = {
 
 export const loginAction = createAsyncThunk('auth/login', async (payload: LoginPayload) => {
   const { data } = await apiInstance.post<LoginOKResponse>('/auth/login', payload);
+  console.log('loginAction', data);
   return data;
 });
 
