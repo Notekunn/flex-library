@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/Notekunn/flex-library/compare/v1.7.0...v1.8.0) (2022-06-06)
+
+
+### Features
+
+* add signup screen ([#21](https://github.com/Notekunn/flex-library/issues/21)) ([177f35b](https://github.com/Notekunn/flex-library/commit/177f35b8544d2cbfcab8d6360ff7f1ba79e8fcfe))
+
 # [1.7.0](https://github.com/Notekunn/flex-library/compare/v1.6.1...v1.7.0) (2022-05-29)
 
 
