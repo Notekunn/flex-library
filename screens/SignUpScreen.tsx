@@ -28,28 +28,22 @@ export default function SignUpScreen() {
   const onsubmit = () => {
     setError([]);
     if (userName.length === 0) {
-      error.push('User name is empty');
-      setError(error);
+      setError((prev) => [...prev, 'User name is empty']);
     }
     if (email.length === 0) {
-      error.push('Email is empty');
-      setError(error);
+      setError((prev) => [...prev, 'Email is empty']);
     }
     if (password.length === 0) {
-      error.push('Password is empty');
-      setError(error);
+      setError((prev) => [...prev, 'Password is empty']);
     }
     if (confirmPassword.length === 0) {
-      error.push('Confirm password is empty');
-      setError(error);
+      setError((prev) => [...prev, 'Confirm password is empty']);
     }
     if (password !== confirmPassword) {
-      error.push('Password not match');
-      setError(error);
+      setError((prev) => [...prev, 'Password and confirm password is not match']);
     }
     if (image === '') {
-      error.push('Image is empty');
-      setError(error);
+      setError((prev) => [...prev, 'Image is empty']);
     }
     console.log(error);
   };

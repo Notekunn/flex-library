@@ -160,7 +160,7 @@ const AccountScreen = () => {
               </View>
               <Icon name="angle-right" type="font-awesome" color="#c1c1c1" />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.item} activeOpacity={0.8}>
+            <TouchableOpacity style={styles.item} activeOpacity={0.8} onPress={handleLogout}>
               <View
                 style={{
                   backgroundColor: '#cbcbcb82',
@@ -178,9 +178,7 @@ const AccountScreen = () => {
                   marginLeft: 30,
                 }}
               >
-                <Text style={styles.text} onPress={handleLogout}>
-                  Logout
-                </Text>
+                <Text style={styles.text}>Logout</Text>
               </View>
               <Icon name="angle-right" type="font-awesome" style={{ flex: 1 }} color="#c1c1c1" />
             </TouchableOpacity>
