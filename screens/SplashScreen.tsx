@@ -7,7 +7,7 @@ import LottieView from 'lottie-react-native';
 export default function SplashScreen({ navigation }: RootTabScreenProps<'Splash'>) {
   return (
     <View style={styles.container}>
-      <LottieView source={require("../assets/intro/94295-loading-animation.json")} autoPlay loop />
+      <LottieView source={require('../assets/intro/94295-loading-animation.json')} autoPlay loop />
     </View>
   );
 }
