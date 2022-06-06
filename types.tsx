@@ -19,6 +19,7 @@ export type RootStackParamList = {
   Splash: undefined;
   Home: undefined;
   SignIn: undefined;
+  SignUp: undefined;
   Setting: undefined;
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
   Item: { id: number };
@@ -46,6 +47,7 @@ export type RootTabParamList = {
   InfoCart: undefined;
   Cart: undefined;
   History: undefined;
+  SignUp: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<

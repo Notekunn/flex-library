@@ -8,6 +8,7 @@ export const apiInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  onUploadProgress: ({ loaded, total }) => loaded / total,
 });
 
 apiInstance.interceptors.request.use(async (config) => {
