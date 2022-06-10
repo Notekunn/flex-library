@@ -8,9 +8,13 @@ import { useNavigation } from '@react-navigation/native';
 export default function SignUpScreen() {
   const nav = useNavigation();
   const [userName, setUserName] = useState('');
+  const [errorUserName, setErrorUserName] = useState('');
   const [email, setEmail] = useState('');
+  const [errorEmail, setErrorEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorPassword, setErrorPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [errorConfirmPassword, setErrorConfirmPassword] = useState('');
   const [image, setImage] = useState('https://bloganchoi.com/wp-content/uploads/2021/08/avatar-vit-vang-trend-15.jpg');
   const [error, setError] = useState([] as String[]);
   const dispatch = useAppDispatch();
@@ -26,26 +30,26 @@ export default function SignUpScreen() {
     }
   };
   const onsubmit = () => {
-    setError([]);
     if (userName.length === 0) {
-      setError((prev) => [...prev, 'User name is empty']);
+      setErrorUserName('User name is required');
+      return;
     }
     if (email.length === 0) {
-      setError((prev) => [...prev, 'Email is empty']);
+      setErrorEmail('Email is required');
+      return;
     }
     if (password.length === 0) {
-      setError((prev) => [...prev, 'Password is empty']);
+      setErrorPassword('Password is required');
+      return;
     }
     if (confirmPassword.length === 0) {
-      setError((prev) => [...prev, 'Confirm password is empty']);
+      setErrorConfirmPassword('Confirm password is required');
+      return;
     }
     if (password !== confirmPassword) {
-      setError((prev) => [...prev, 'Password and confirm password is not match']);
+      setErrorConfirmPassword('Confirm password is not match');
+      return;
     }
-    if (image === '') {
-      setError((prev) => [...prev, 'Image is empty']);
-    }
-    console.log(error);
   };
   return (
     <View style={styles.container}>
@@ -57,6 +61,7 @@ export default function SignUpScreen() {
           placeholder="User Name"
           onChangeText={(text) => setUserName(text)}
           inputStyle={{ color: '#FFF', height: 50 }}
+          errorMessage={errorUserName}
         />
         <Input
           placeholder="Email"
@@ -64,12 +69,14 @@ export default function SignUpScreen() {
           autoFocus={true}
           inputStyle={{ color: '#FFF', height: 50 }}
           pointerEvents="none"
+          errorMessage={errorEmail}
         />
         <Input
           placeholder="Password"
           secureTextEntry={true}
           onChangeText={(text) => setPassword(text)}
           inputStyle={{ color: '#FFF', height: 50 }}
+          errorMessage={errorPassword}
         />
         <Input
           placeholder="Confirm Password"
@@ -78,6 +85,7 @@ export default function SignUpScreen() {
           autoFocus={true}
           inputStyle={{ color: '#FFF', height: 50 }}
           pointerEvents="none"
+          errorMessage={errorConfirmPassword}
         />
         <View style={styles.formImage}>
           <Button
@@ -86,10 +94,9 @@ export default function SignUpScreen() {
             buttonStyle={{
               backgroundColor: '#faad14',
               borderRadius: 15,
-              height: 30,
               width: 100,
             }}
-            titleStyle={{ fontStyle: 'italic', fontSize: 10 }}
+            titleStyle={{ fontSize: 12, fontFamily: 'SansPro' }}
           ></Button>
           <Image
             source={{
