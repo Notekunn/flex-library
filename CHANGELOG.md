@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/Notekunn/flex-library/compare/v1.8.0...v1.9.0) (2022-06-10)
+
+
+### Features
+
+* add screen profile ([#22](https://github.com/Notekunn/flex-library/issues/22)) ([abc4b02](https://github.com/Notekunn/flex-library/commit/abc4b024c16d6695f7169228ce0de2b330d9e24d))
+
 # [1.8.0](https://github.com/Notekunn/flex-library/compare/v1.7.0...v1.8.0) (2022-06-06)
 
 
