@@ -11,13 +11,19 @@ import { RootTabScreenProps } from '../types';
 export default function SignInScreen({ navigation }: RootTabScreenProps<'SignIn'>) {
   const nav = useNavigation();
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const [error, setError] = useState(useAppSelector(selectError));
   const [hidePassword, setHidePassword] = useState(true);
   const dispatch = useAppDispatch();
   const onsubmit = (email: string, password: string) => {
-    if (email.length === 0 || password.length === 0) {
-      setError('Email or password is empty');
+    if (email.length === 0) {
+      setEmailError('Email is required');
+      return;
+    }
+    if (password.length === 0) {
+      setPasswordError('Password is required');
       return;
     }
     dispatch(loginAction({ email, password }));
@@ -43,6 +49,7 @@ export default function SignInScreen({ navigation }: RootTabScreenProps<'SignIn'
           autoFocus={true}
           inputStyle={{ color: '#FFF', height: 50 }}
           pointerEvents="none"
+          errorMessage={emailError}
         />
         <Input
           placeholder="Password"
@@ -62,6 +69,7 @@ export default function SignInScreen({ navigation }: RootTabScreenProps<'SignIn'
           }}
           onChangeText={(text) => setPassword(text)}
           inputStyle={{ color: '#FFF', height: 20 }}
+          errorMessage={passwordError}
         />
       </View>
       <View style={styles.account}>

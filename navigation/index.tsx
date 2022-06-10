@@ -28,6 +28,7 @@ import { useAppDispatch, useAppSelector } from '../app/hook';
 import { profileAction, selectIsLoggedIn, selectLoading } from '../reducers/authSlice';
 import { ItemHeaderRight } from '../components/Item/HeaderRight';
 import SignUpScreen from '../screens/SignUpScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -104,6 +105,21 @@ function RootNavigator() {
               headerTintColor: '#fff',
               headerTitle: 'Cart',
               headerBackTitle: '',
+            }}
+          />
+          <Stack.Screen
+            name="Profile"
+            component={ProfileScreen}
+            options={{
+              headerShown: true,
+              headerTitleAlign: 'center',
+              headerTitleStyle: {
+                fontFamily: 'SansPro',
+              },
+              headerStyle: {
+                backgroundColor: mainColor,
+              },
+              headerTintColor: '#fff',
             }}
           />
           <Stack.Screen name="AddItem" component={AddItem} />

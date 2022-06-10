@@ -12,7 +12,7 @@ const AccountScreen = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const handleLogout = () => {
-    Alert.alert('Logout', 'Are you sure?', [
+    Alert.alert('logout', 'Are you sure?', [
       { text: 'OK', onPress: () => dispatch(logoutAction()) },
       {
         text: 'Cancel',
@@ -44,7 +44,7 @@ const AccountScreen = () => {
         <View>
           <Text style={styles.title}>Account</Text>
           <View style={styles.listItem}>
-            <TouchableOpacity style={styles.item} activeOpacity={0.6} onPress={() => nav.navigate('AddItem')}>
+            <TouchableOpacity style={styles.item} activeOpacity={0.6} onPress={() => nav.navigate('Profile')}>
               <View
                 style={{
                   backgroundColor: '#00ff0885',
@@ -203,6 +203,8 @@ const styles = StyleSheet.create({
     width: 100,
     resizeMode: 'stretch',
     borderRadius: 50,
+    borderWidth: 0.5,
+    borderColor: mainColor,
   },
   title: {
     fontSize: 18,
