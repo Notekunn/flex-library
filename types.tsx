@@ -30,6 +30,7 @@ export type RootStackParamList = {
   Search: undefined;
   AddItem: undefined;
   Profile: undefined;
+  ChangePassword: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
@@ -50,6 +51,7 @@ export type RootTabParamList = {
   History: undefined;
   SignUp: undefined;
   Profile: undefined;
+  ChangePassword: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<
