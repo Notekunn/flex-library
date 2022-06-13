@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/Notekunn/flex-library/compare/v1.9.0...v1.10.0) (2022-06-13)
+
+
+### Features
+
+* add screen change password ([#24](https://github.com/Notekunn/flex-library/issues/24)) ([b91c54e](https://github.com/Notekunn/flex-library/commit/b91c54e6e029322012825638e120146533f89340))
+
 # [1.9.0](https://github.com/Notekunn/flex-library/compare/v1.8.0...v1.9.0) (2022-06-10)
 
 
