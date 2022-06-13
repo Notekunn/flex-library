@@ -29,6 +29,7 @@ import { profileAction, selectIsLoggedIn, selectLoading } from '../reducers/auth
 import { ItemHeaderRight } from '../components/Item/HeaderRight';
 import SignUpScreen from '../screens/SignUpScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import ChangePasswordScreen from '../screens/ChangePasswordScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -122,6 +123,7 @@ function RootNavigator() {
               headerTintColor: '#fff',
             }}
           />
+          <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
           <Stack.Screen name="AddItem" component={AddItem} />
           <Stack.Screen name="Search" component={SearchScreen} options={{ animation: 'fade' }} />
           <Stack.Group screenOptions={{ presentation: 'modal', animation: 'fade' }}>

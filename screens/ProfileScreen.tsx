@@ -98,6 +98,25 @@ const ProfileScreen = () => {
               </View>
             </View>
           </View>
+          <View style={{ flexDirection: 'column', marginBottom: 5 }}>
+            <Text style={styles.textTitle}>Password</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', position: 'relative' }}>
+              <TextInput
+                style={{ backgroundColor: '#fbfbfb', padding: 10, borderRadius: 20, width: '100%' }}
+                placeholder="**********"
+                editable={false}
+              />
+              <View style={{ position: 'absolute', right: 10 }}>
+                <Icon
+                  name="edit-2"
+                  type="feather"
+                  size={18}
+                  color={editPhoneNumber ? mainColor : ''}
+                  onPress={() => nav.navigate('ChangePassword')}
+                />
+              </View>
+            </View>
+          </View>
         </View>
         <View style={styles.groupButton}>
           <Button
