@@ -34,7 +34,7 @@ export default function SignInScreen({ navigation }: RootTabScreenProps<'SignIn'
     <View style={styles.container}>
       <View style={styles.image}>
         <Image
-          source={require('../assets/images/spy.png')}
+          source={require('../../assets/images/spy.png')}
           style={{ alignSelf: 'center', justifyContent: 'center', width: 350, height: 350, resizeMode: 'contain' }}
         />
       </View>

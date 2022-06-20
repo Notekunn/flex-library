@@ -3,12 +3,13 @@ import React, { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { Button, Input } from '@rneui/themed';
 import { mainColor } from '../../constants/Colors';
-import * as ImagePicker from 'expo-image-picker';
+import ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
+import { registerAction, selectError, selectLoading } from '../../reducers/authSlice';
 export default function SignUpScreen() {
   const nav = useNavigation();
-  const [userName, setUserName] = useState('');
-  const [errorUserName, setErrorUserName] = useState('');
+  const [name, setName] = useState('');
+  const [errorName, setErrorName] = useState('');
   const [email, setEmail] = useState('');
   const [errorEmail, setErrorEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,8 +17,10 @@ export default function SignUpScreen() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorConfirmPassword, setErrorConfirmPassword] = useState('');
   const [image, setImage] = useState('https://bloganchoi.com/wp-content/uploads/2021/08/avatar-vit-vang-trend-15.jpg');
-  const [error, setError] = useState([] as String[]);
+
   const dispatch = useAppDispatch();
+  const error = useAppSelector(selectError);
+  const loading = useAppSelector(selectLoading);
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -29,27 +32,31 @@ export default function SignUpScreen() {
       setImage(result.uri);
     }
   };
-  const onsubmit = () => {
-    if (userName.length === 0) {
-      setErrorUserName('User name is required');
-      return;
-    }
-    if (email.length === 0) {
-      setErrorEmail('Email is required');
-      return;
-    }
-    if (password.length === 0) {
-      setErrorPassword('Password is required');
-      return;
-    }
-    if (confirmPassword.length === 0) {
-      setErrorConfirmPassword('Confirm password is required');
-      return;
-    }
-    if (password !== confirmPassword) {
-      setErrorConfirmPassword('Confirm password is not match');
-      return;
-    }
+  const handleSubmit = () => {
+
+    // if (name.length === 0) {      
+    //   setErrorName('Name is required');
+    //   return;
+    // }
+    // if (email.length === 0) {
+    //   setErrorEmail('Email is required');
+    //   return;
+    // }
+    // if (password.length === 0) {
+    //   setErrorPassword('Password is required');
+    //   return;
+    // }
+    // if (password !== confirmPassword && password.length > 0) {
+    //   setErrorConfirmPassword('Confirm password is not match');
+    //   return;
+    // }
+    dispatch(
+      registerAction({
+        email,
+        password,
+        name,
+      }),
+    );
   };
   return (
     <View style={styles.container}>
@@ -58,10 +65,10 @@ export default function SignUpScreen() {
       </View>
       <View style={styles.form}>
         <Input
-          placeholder="User Name"
-          onChangeText={(text) => setUserName(text)}
+          placeholder="Name"
+          onChangeText={(text) => setName(text)}
           inputStyle={{ color: '#FFF', height: 50 }}
-          errorMessage={errorUserName}
+          errorMessage={errorName}
         />
         <Input
           placeholder="Email"
@@ -69,6 +76,8 @@ export default function SignUpScreen() {
           autoFocus={true}
           inputStyle={{ color: '#FFF', height: 50 }}
           pointerEvents="none"
+          keyboardType="email-address"
+          autoCapitalize="none"
           errorMessage={errorEmail}
         />
         <Input
@@ -130,10 +139,8 @@ export default function SignUpScreen() {
         />
         <Button
           title="Submit"
-          onPress={() => {
-            onsubmit();
-          }}
-          loading={false}
+          onPress={handleSubmit}
+          loading={loading === 'loading'}
           loadingProps={{ size: 'small', color: 'white' }}
           buttonStyle={{
             backgroundColor: 'rgba(111, 202, 186, 1)',
@@ -143,11 +150,7 @@ export default function SignUpScreen() {
           }}
         />
       </View>
-      {error.map((item, index) => (
-        <Text key={index} style={styles.error}>
-          {item}
-        </Text>
-      ))}
+      {error && <Text style={styles.error}>{error}</Text>}
     </View>
   );
 }
