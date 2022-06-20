@@ -2,11 +2,11 @@ import { useNavigation } from '@react-navigation/native';
 import { Button, Input } from '@rneui/themed';
 import React, { useState } from 'react';
 import { StyleSheet, Image, Text, View, TouchableOpacity } from 'react-native';
-import { useAppDispatch, useAppSelector } from '../app/hook';
-import { mainColor } from '../constants/Colors';
-import { loginAction, selectError } from '../reducers/authSlice';
+import { useAppDispatch, useAppSelector } from '../../app/hook';
+import { mainColor } from '../../constants/Colors';
+import { loginAction, selectError } from '../../reducers/authSlice';
 
-import { RootTabScreenProps } from '../types';
+import { RootTabScreenProps } from '../../types';
 
 export default function SignInScreen({ navigation }: RootTabScreenProps<'SignIn'>) {
   const nav = useNavigation();
@@ -14,10 +14,12 @@ export default function SignInScreen({ navigation }: RootTabScreenProps<'SignIn'
   const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [error, setError] = useState(useAppSelector(selectError));
+  const error = useAppSelector(selectError);
   const [hidePassword, setHidePassword] = useState(true);
   const dispatch = useAppDispatch();
   const onsubmit = (email: string, password: string) => {
+    setEmailError('')
+    setPasswordError('')
     if (email.length === 0) {
       setEmailError('Email is required');
       return;

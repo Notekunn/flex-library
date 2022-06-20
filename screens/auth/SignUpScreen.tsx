@@ -1,8 +1,8 @@
 import { View, StyleSheet, Image, Text } from 'react-native';
 import React, { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../app/hook';
+import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { Button, Input } from '@rneui/themed';
-import { mainColor } from '../constants/Colors';
+import { mainColor } from '../../constants/Colors';
 import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
 export default function SignUpScreen() {
