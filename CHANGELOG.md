@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/Notekunn/flex-library/compare/v1.10.0...v1.11.0) (2022-06-20)
+
+
+### Features
+
+* implement register api ([#25](https://github.com/Notekunn/flex-library/issues/25)) ([6b8078a](https://github.com/Notekunn/flex-library/commit/6b8078ab123abd002b8813d977026cf2d9d32f84))
+
 # [1.10.0](https://github.com/Notekunn/flex-library/compare/v1.9.0...v1.10.0) (2022-06-13)
 
 
