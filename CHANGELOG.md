@@ -1,3 +1,10 @@
+## [1.11.1](https://github.com/Notekunn/flex-library/compare/v1.11.0...v1.11.1) (2022-06-20)
+
+
+### Bug Fixes
+
+* semantic release don't change version in package.json ([b5a2cff](https://github.com/Notekunn/flex-library/commit/b5a2cff764de3bd04576f56df4b40355dd07e39e))
+
 # [1.11.0](https://github.com/Notekunn/flex-library/compare/v1.10.0...v1.11.0) (2022-06-20)
 
 
