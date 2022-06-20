@@ -101,7 +101,7 @@ const SearchScreen = () => {
                           width: width / 2,
                         }}
                       >
-                        Hướng dẫn cách đạp vịt
+                        Bí kíp qua môn Android
                       </Text>
                     </View>
                   );
@@ -132,7 +132,7 @@ const SearchScreen = () => {
                             flex: 1,
                           }}
                         >
-                          Cách từ chối sát kèo để đi ĐẠP VỊT{' '}
+                          Sách CNTT
                         </Text>
                         <Image
                           style={{

@@ -18,6 +18,10 @@ interface LoginPayload {
   password: string;
 }
 
+interface RegisterPayload extends LoginPayload {
+  name: string;
+}
+
 interface AuthState {
   isLoggedIn: boolean;
   loading: 'idle' | 'loading' | 'success' | 'error';
@@ -33,6 +37,11 @@ const initialState: AuthState = {
 export const loginAction = createAsyncThunk('auth/login', async (payload: LoginPayload) => {
   const { data } = await apiInstance.post<LoginOKResponse>('/auth/login', payload);
   console.log('loginAction', data);
+  return data;
+});
+export const registerAction = createAsyncThunk('auth/register', async (payload: RegisterPayload) => {
+  const { data } = await apiInstance.post<LoginOKResponse>('/auth/register', payload);
+  console.log('registerAction', data);
   return data;
 });
 
@@ -51,21 +60,24 @@ export const authSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (buidler) => {
-    buidler
-      .addCase(loginAction.pending, (state) => {
-        state.loading = 'loading';
-      })
-      .addCase(loginAction.fulfilled, (state, payload) => {
-        state.loading = 'success';
-        state.isLoggedIn = true;
-        state.user = payload.payload.user;
-        AsyncStorage.setItem(TOKEN_STORAGE_KEY, payload.payload.token.accessToken);
-        AsyncStorage.setItem(TOKEN_EXPIRED_STORAGE_KEY, payload.payload.token.accessTokenExpired);
-      })
-      .addCase(loginAction.rejected, (state, payload) => {
-        state.loading = 'error';
-        state.error = payload.error.message;
-      });
+    [loginAction, registerAction].forEach((act) => {
+      buidler
+        .addCase(act.pending, (state) => {
+          state.loading = 'loading';
+          state.error = undefined;
+        })
+        .addCase(act.fulfilled, (state, payload) => {
+          state.loading = 'success';
+          state.isLoggedIn = true;
+          state.user = payload.payload.user;
+          AsyncStorage.setItem(TOKEN_STORAGE_KEY, payload.payload.token.accessToken);
+          AsyncStorage.setItem(TOKEN_EXPIRED_STORAGE_KEY, payload.payload.token.accessTokenExpired);
+        })
+        .addCase(act.rejected, (state, payload) => {
+          state.loading = 'error';
+          state.error = payload.error.message;
+        });
+    });
 
     buidler
       .addCase(profileAction.pending, (state) => {

@@ -11,7 +11,7 @@ import LinkingConfiguration from './LinkingConfiguration';
 
 import SplashScreen from '../screens/SplashScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
-import SignInScreen from '../screens/SignInScreen';
+import SignInScreen from '../screens/auth/SignInScreen';
 import HomeScreen from '../screens/HomeScreen';
 import MyIdScreen from '../screens/MyIdScreen';
 import ScanScreen from '../screens/ScanScreen';
@@ -27,7 +27,7 @@ import AddItem from '../screens/AddItem';
 import { useAppDispatch, useAppSelector } from '../app/hook';
 import { profileAction, selectIsLoggedIn, selectLoading } from '../reducers/authSlice';
 import { ItemHeaderRight } from '../components/Item/HeaderRight';
-import SignUpScreen from '../screens/SignUpScreen';
+import SignUpScreen from '../screens/auth/SignUpScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import ChangePasswordScreen from '../screens/ChangePasswordScreen';
 
