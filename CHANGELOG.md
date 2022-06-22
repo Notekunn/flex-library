@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/Notekunn/flex-library/compare/v1.11.1...v1.12.0) (2022-06-22)
+
+
+### Features
+
+* add screen create store and fix UI ([#26](https://github.com/Notekunn/flex-library/issues/26)) ([89532bf](https://github.com/Notekunn/flex-library/commit/89532bfd3c56cc141fdfe623ed2e9844ec2101b8))
+
 ## [1.11.1](https://github.com/Notekunn/flex-library/compare/v1.11.0...v1.11.1) (2022-06-20)
 
 
