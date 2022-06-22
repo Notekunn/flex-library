@@ -1,12 +1,13 @@
 import { Entypo, Feather, FontAwesome5, Fontisto } from '@expo/vector-icons';
 import { StyleSheet, Text } from 'react-native';
+import { mainColor } from '../../constants/Colors';
 import { View } from '../Themed';
 
 export function ItemHeaderRight() {
   return (
     <View style={styles.container}>
       <View style={styles.searchBox}>
-        <FontAwesome5 name="search" size={16} color="gray" />
+        <FontAwesome5 name="search" size={16} color={mainColor} />
         <Text style={styles.searchText}>Tìm kiếm trên FL</Text>
       </View>
       <View style={styles.iconBox}>

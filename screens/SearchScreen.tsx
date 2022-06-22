@@ -84,7 +84,7 @@ const SearchScreen = () => {
                 <Text style={styles.title}>Tìm kiếm phổ biến</Text>
               </View>
               <View style={styles.listItem}>
-                {Array.from(Array(10)).map((e) => {
+                {Array.from(Array(10)).map((e, i) => {
                   return (
                     <View
                       style={{
@@ -95,6 +95,7 @@ const SearchScreen = () => {
                         height: 50,
                         borderWidth: 0.2,
                       }}
+                      key={i}
                     >
                       <Text
                         style={{
@@ -113,9 +114,9 @@ const SearchScreen = () => {
                 <Text style={styles.title}>Danh mục</Text>
               </View>
               <View style={styles.listItem}>
-                {Array.from(Array(10)).map((e) => {
+                {Array.from(Array(10)).map((e, i) => {
                   return (
-                    <TouchableOpacity>
+                    <TouchableOpacity key={i}>
                       <View
                         style={{
                           width: width / 2,

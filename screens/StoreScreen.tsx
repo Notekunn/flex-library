@@ -48,10 +48,11 @@ const StoreScreen = () => {
                 alignItems: 'center',
                 flexDirection: 'row',
                 borderRadius: 10,
+                borderColor: mainColor,
                 // left: -30,
               }}
             >
-              <FontAwesome5 name="search" size={16} color="gray" />
+              <FontAwesome5 name="search" size={16} color={mainColor} />
               <Text style={{ color: 'gray', marginLeft: 5 }}>Tìm kiếm trên FL</Text>
             </View>
           </TouchableOpacity>
@@ -87,7 +88,7 @@ const StoreScreen = () => {
               />
               <View style={{ paddingLeft: 15 }}>
                 <Text style={{ fontSize: 20 }}>FlexLib.vip.vn</Text>
-                <Text style={{ fontSize: 12, color: 'gray' }}>Online 11 giờsss trước</Text>
+                <Text style={{ fontSize: 12, color: 'gray' }}>Online 11 giờ trước</Text>
               </View>
             </View>
             <View style={styles.button_follow}>
@@ -170,7 +171,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   container1: {
-    marginTop: StatusBar.currentHeight,
+    // marginTop: StatusBar.currentHeight,
   },
   scene: {
     flex: 1,

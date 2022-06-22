@@ -1,24 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View, Text, ScrollView } from 'react-native';
-import { Search } from '../components/Home/SearchBar';
-import SwipeSlide from '../components/Home/Carsousel';
-import CardList from '../components/Home/CardList';
-import Header from '../components/Header';
-import Categories from '../components/Home/Categories';
-import BookList from '../components/Home/BookList';
+import { Search } from '../../components/Home/SearchBar';
+import SwipeSlide from '../../components/Home/Carsousel';
+import CardList from '../../components/Home/CardList';
+import Header from '../../components/Header';
+import Categories from '../../components/Home/Categories';
+import BookList from '../../components/Home/BookList';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
+import { useAppDispatch, useAppSelector } from '../../app/hook';
+import { GetAllCategoryAction, selectData } from '../../reducers/categorySlice';
 export default function HomeScreen() {
   const navigation = useNavigation();
+  const dispatch = useAppDispatch();
+  const CategoriesData = useAppSelector(selectData);
+  useEffect(() => {
+    dispatch(GetAllCategoryAction);
+  });
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Header avatarUrl="https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg" />
+        <Header />
       </View>
       <ScrollView>
         <View style={styles.body}>
           <SwipeSlide />
-          <Categories />
+          <Categories data={CategoriesData} />
           <BookList />
           {/* <CardList /> */}
         </View>

@@ -33,23 +33,26 @@ export default function SignUpScreen() {
     }
   };
   const handleSubmit = () => {
-
-    // if (name.length === 0) {      
-    //   setErrorName('Name is required');
-    //   return;
-    // }
-    // if (email.length === 0) {
-    //   setErrorEmail('Email is required');
-    //   return;
-    // }
-    // if (password.length === 0) {
-    //   setErrorPassword('Password is required');
-    //   return;
-    // }
-    // if (password !== confirmPassword && password.length > 0) {
-    //   setErrorConfirmPassword('Confirm password is not match');
-    //   return;
-    // }
+    setErrorName('');
+    setErrorEmail('');
+    setErrorPassword('');
+    setErrorConfirmPassword('');
+    if (name.length === 0) {
+      setErrorName('Name is required');
+      return;
+    }
+    if (email.length === 0) {
+      setErrorEmail('Email is required');
+      return;
+    }
+    if (password.length === 0) {
+      setErrorPassword('Password is required');
+      return;
+    }
+    if (password !== confirmPassword && password.length > 0) {
+      setErrorConfirmPassword('Confirm password is not match');
+      return;
+    }
     dispatch(
       registerAction({
         email,
@@ -68,15 +71,13 @@ export default function SignUpScreen() {
           placeholder="Name"
           onChangeText={(text) => setName(text)}
           inputStyle={{ color: '#FFF', height: 50 }}
+          autoFocus={true}
           errorMessage={errorName}
         />
         <Input
           placeholder="Email"
-          onChangeText={(text) => setEmail(text.toLowerCase())}
-          autoFocus={true}
+          onChangeText={(text) => setEmail(text)}
           inputStyle={{ color: '#FFF', height: 50 }}
-          pointerEvents="none"
-          keyboardType="email-address"
           autoCapitalize="none"
           errorMessage={errorEmail}
         />

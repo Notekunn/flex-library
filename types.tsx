@@ -31,6 +31,7 @@ export type RootStackParamList = {
   AddItem: undefined;
   Profile: undefined;
   ChangePassword: undefined;
+  CreateStoreScreen: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
@@ -52,16 +53,10 @@ export type RootTabParamList = {
   SignUp: undefined;
   Profile: undefined;
   ChangePassword: undefined;
+  CreateStoreScreen: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<
   BottomTabScreenProps<RootTabParamList, Screen>,
   NativeStackScreenProps<RootStackParamList>
 >;
-
-export interface IUser {
-  id: string;
-  name: string;
-  email: string;
-  avatarURL?: string;
-}
