@@ -18,8 +18,8 @@ export default function SignInScreen({ navigation }: RootTabScreenProps<'SignIn'
   const [hidePassword, setHidePassword] = useState(true);
   const dispatch = useAppDispatch();
   const onsubmit = (email: string, password: string) => {
-    setEmailError('')
-    setPasswordError('')
+    setEmailError('');
+    setPasswordError('');
     if (email.length === 0) {
       setEmailError('Email is required');
       return;

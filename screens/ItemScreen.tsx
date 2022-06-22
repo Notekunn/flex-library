@@ -24,7 +24,7 @@ const ItemScreen = ({ navigation }: RootStackScreenProps<'Item'>) => {
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Entypo style={{ marginLeft: 10 }} name="chevron-left" size={35} color="#4C4CD7" />
+          <Entypo style={{ marginLeft: 10 }} name="chevron-left" size={35} color={mainColor} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Search')}>
           <View
@@ -36,10 +36,11 @@ const ItemScreen = ({ navigation }: RootStackScreenProps<'Item'>) => {
               alignItems: 'center',
               flexDirection: 'row',
               borderRadius: 10,
+              borderColor: mainColor,
               // left: -30,
             }}
           >
-            <FontAwesome5 name="search" size={16} color="gray" />
+            <FontAwesome5 name="search" size={16} color={mainColor} />
             <Text style={{ color: 'gray', marginLeft: 5 }}>Tìm kiếm trên FL</Text>
           </View>
         </TouchableOpacity>

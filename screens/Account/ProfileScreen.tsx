@@ -2,10 +2,12 @@ import { StyleSheet, Text, View, TextInput } from 'react-native';
 import { Button, Icon, Image } from '@rneui/themed';
 import React, { useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
-import { mainColor } from '../constants/Colors';
-import { useNavigation } from '@react-navigation/native';
+import { mainColor } from '../../constants/Colors';
+import { useNavigation, useRoute } from '@react-navigation/native';
+
 const ProfileScreen = () => {
-  const [image, setImage] = useState('https://bloganchoi.com/wp-content/uploads/2021/08/avatar-vit-vang-trend-15.jpg');
+  const route = useRoute<any>();
+  const [image, setImage] = useState(route.params.avatar);
   const nav = useNavigation();
   const [name, setFullName] = useState('');
   const [editName, setEditName] = useState(false);
@@ -55,7 +57,7 @@ const ProfileScreen = () => {
             <Text style={styles.textTitle}>Email</Text>
             <TextInput
               style={{ backgroundColor: '#fbfbfb', padding: 10, borderRadius: 20 }}
-              placeholder="admin@gmail.com"
+              placeholder={route.params.email}
               editable={false}
             />
           </View>
@@ -64,7 +66,7 @@ const ProfileScreen = () => {
             <View style={{ flexDirection: 'row', alignItems: 'center', position: 'relative' }}>
               <TextInput
                 style={{ backgroundColor: '#fbfbfb', padding: 10, borderRadius: 20, width: '100%' }}
-                placeholder="Nguyễn Lam Sơn"
+                placeholder={route.params.name}
                 editable={editName}
               />
               <View style={{ position: 'absolute', right: 10 }}>

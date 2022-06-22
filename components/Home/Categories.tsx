@@ -1,8 +1,14 @@
 import { Dimensions, FlatList, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import Category from './Category';
+import { ICategory } from '../../constants/interface';
 
 const { width, height } = Dimensions.get('window');
+
+interface CategoryProps {
+  data: ICategory[];
+}
+
 const data = [
   {
     id: 1,
@@ -55,7 +61,8 @@ const data = [
     icon: 'home',
   },
 ];
-const Categories = () => {
+
+const Categories: React.FC<CategoryProps> = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Thể loại sách</Text>

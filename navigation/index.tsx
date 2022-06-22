@@ -11,12 +11,12 @@ import LinkingConfiguration from './LinkingConfiguration';
 
 import SplashScreen from '../screens/SplashScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
-import SignInScreen from '../screens/auth/SignInScreen';
-import HomeScreen from '../screens/HomeScreen';
+import SignInScreen from '../screens/Auth/SignInScreen';
+import HomeScreen from '../screens/Home/HomeScreen';
 import MyIdScreen from '../screens/MyIdScreen';
 import ScanScreen from '../screens/ScanScreen';
 import StoreScreen from '../screens/StoreScreen';
-import AccountScreen from '../screens/AccountScreen';
+import AccountScreen from '../screens/Account/AccountScreen';
 import { StatusBar, View } from 'react-native';
 import ModalItem from '../modals/ModalItem';
 import ItemScreen from '../screens/ItemScreen';
@@ -27,9 +27,10 @@ import AddItem from '../screens/AddItem';
 import { useAppDispatch, useAppSelector } from '../app/hook';
 import { profileAction, selectIsLoggedIn, selectLoading } from '../reducers/authSlice';
 import { ItemHeaderRight } from '../components/Item/HeaderRight';
-import SignUpScreen from '../screens/auth/SignUpScreen';
-import ProfileScreen from '../screens/ProfileScreen';
+import SignUpScreen from '../screens/Auth/SignUpScreen';
+import ProfileScreen from '../screens/Account/ProfileScreen';
 import ChangePasswordScreen from '../screens/ChangePasswordScreen';
+import CreateStoreScreen from '../screens/Account/CreateStoreScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -44,6 +45,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootNavigator() {
   const loading = useAppSelector(selectLoading);
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
+  // const isLoggedIn = true;
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (!isLoggedIn) {
@@ -100,12 +102,11 @@ function RootNavigator() {
             component={TopBarNavigatorCart}
             options={{
               headerShown: true,
-              headerLargeStyle: {
+              headerStyle: {
                 backgroundColor: mainColor,
               },
               headerTintColor: '#fff',
               headerTitle: 'Cart',
-              headerBackTitle: '',
             }}
           />
           <Stack.Screen
@@ -123,6 +124,7 @@ function RootNavigator() {
               headerTintColor: '#fff',
             }}
           />
+          <Stack.Screen name="CreateStoreScreen" component={CreateStoreScreen} />
           <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
           <Stack.Screen name="AddItem" component={AddItem} />
           <Stack.Screen name="Search" component={SearchScreen} options={{ animation: 'fade' }} />
@@ -150,6 +152,8 @@ function BottomTabNavigator() {
       initialRouteName="Home"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
+        headerTransparent: true,
+        headerShown: false,
       }}
     >
       <BottomTab.Screen
@@ -158,8 +162,8 @@ function BottomTabNavigator() {
         options={{
           headerShown: false,
           title: 'Home',
-
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+          headerTransparent: true,
         }}
       />
       <BottomTab.Screen

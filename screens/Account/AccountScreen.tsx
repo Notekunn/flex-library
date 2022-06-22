@@ -3,12 +3,12 @@ import { Icon, Image } from '@rneui/themed';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { mainColor, seconColor } from '../constants/Colors';
-import { useAppDispatch, useAppSelector } from '../app/hook';
-import { logoutAction, selectUser } from '../reducers/authSlice';
+import { mainColor, seconColor } from '../../constants/Colors';
+import { useAppDispatch, useAppSelector } from '../../app/hook';
+import { logoutAction, selectUser } from '../../reducers/authSlice';
 
 const AccountScreen = () => {
-  const nav = useNavigation();
+  const nav = useNavigation<any>();
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const handleLogout = () => {
@@ -44,7 +44,7 @@ const AccountScreen = () => {
         <View>
           <Text style={styles.title}>Account</Text>
           <View style={styles.listItem}>
-            <TouchableOpacity style={styles.item} activeOpacity={0.6} onPress={() => nav.navigate('Profile')}>
+            <TouchableOpacity style={styles.item} activeOpacity={0.6} onPress={() => nav.navigate('Profile', user)}>
               <View
                 style={{
                   backgroundColor: '#00ff0885',
@@ -130,6 +130,50 @@ const AccountScreen = () => {
                 }}
               >
                 <Text style={styles.text}>Notification</Text>
+              </View>
+              <Icon name="angle-right" type="font-awesome" style={{ flex: 1 }} color="#c1c1c1" />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.item} activeOpacity={0.8} onPress={() => nav.navigate('CreateStoreScreen')}>
+              <View
+                style={{
+                  backgroundColor: '#ea4335',
+                  borderRadius: 5,
+                  padding: 5,
+                  width: 30,
+                  height: 30,
+                }}
+              >
+                <Icon name="book-open" type="feather" color="#fff" size={20} solid={true} />
+              </View>
+              <View
+                style={{
+                  flex: 2,
+                  marginLeft: 30,
+                }}
+              >
+                <Text style={styles.text}>Create Store</Text>
+              </View>
+              <Icon name="angle-right" type="font-awesome" style={{ flex: 1 }} color="#c1c1c1" />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.item} activeOpacity={0.8} onPress={() => nav.navigate('Store')}>
+              <View
+                style={{
+                  backgroundColor: '#663300',
+                  borderRadius: 5,
+                  padding: 5,
+                  width: 30,
+                  height: 30,
+                }}
+              >
+                <Icon name="store" type="material" color="#fff" size={20} solid={true} />
+              </View>
+              <View
+                style={{
+                  flex: 2,
+                  marginLeft: 30,
+                }}
+              >
+                <Text style={styles.text}>My Store</Text>
               </View>
               <Icon name="angle-right" type="font-awesome" style={{ flex: 1 }} color="#c1c1c1" />
             </TouchableOpacity>

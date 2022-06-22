@@ -2,8 +2,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { apiInstance } from '../app/axiosClient';
 import { RootState } from '../app/store';
+import { IUser } from '../constants/interface';
 import { TOKEN_EXPIRED_STORAGE_KEY, TOKEN_STORAGE_KEY } from '../constants/storageKey';
-import { IUser } from '../types';
 
 interface LoginOKResponse {
   user: IUser;
@@ -55,6 +55,11 @@ export const logoutAction = createAsyncThunk('auth/logout', async () => {
   await AsyncStorage.removeItem(TOKEN_EXPIRED_STORAGE_KEY);
 });
 
+export const updateUserAction = createAsyncThunk('auth/updateUser', async (payload: IUser) => {
+  const { data } = await apiInstance.put<IUser>(`/user/${payload.id}`, payload);
+  return data;
+});
+
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -103,6 +108,18 @@ export const authSlice = createSlice({
       })
       .addCase(logoutAction.rejected, (state) => {
         state.loading = 'error';
+      });
+    buidler
+      .addCase(updateUserAction.pending, (state) => {
+        state.loading = 'loading';
+      })
+      .addCase(updateUserAction.fulfilled, (state, payload) => {
+        state.loading = 'success';
+        state.user = payload.payload;
+      })
+      .addCase(updateUserAction.rejected, (state, payload) => {
+        state.loading = 'error';
+        state.error = payload.error.message;
       });
   },
 });

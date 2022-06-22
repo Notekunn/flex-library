@@ -1,50 +1,37 @@
-import React, { useState } from 'react';
-import { SearchBar } from '@rneui/themed';
-import { View, Text, StyleSheet } from 'react-native';
-import { ResultSearch } from './ResultSearch';
+import { FontAwesome } from '@expo/vector-icons';
+import React from 'react';
+import { View, StyleSheet, TextInput } from 'react-native';
+import { mainColor } from '../../constants/Colors';
 
 type SearchBarComponentProps = {};
 
-const listItem = [''];
-
 export const Search: React.FunctionComponent<SearchBarComponentProps> = () => {
-  const [search, setSearch] = useState('');
-
-  const updateSearch = (search: string) => {
-    setSearch(search);
-  };
-
   return (
     <View style={styles.view}>
-      <SearchBar
-        placeholder="Search"
-        onChangeText={updateSearch}
-        value={search}
-        containerStyle={{
-          backgroundColor: '#fff',
-          borderRadius: 5,
-          margin: 10,
-          borderBottomColor: 'transparent',
-          borderTopColor: 'transparent',
-        }}
-        inputContainerStyle={{
+      <TextInput
+        style={{
+          height: 40,
+          width: 300,
+          borderWidth: 1,
+          paddingHorizontal: 8,
+          alignItems: 'center',
+          flexDirection: 'row',
+          borderRadius: 10,
+          borderColor: mainColor,
           backgroundColor: '#fff',
         }}
-        inputStyle={{
-          color: '#000',
-          fontSize: 16,
-        }}
-        searchIcon={{
-          color: '#000',
-          size: 25,
-        }}
+        placeholder="Tìm kiếm sách"
+        editable={false}
       />
-      {/* {listItem && <ResultSearch listItem={listItem} />} */}
+      <FontAwesome name="search" size={18} color={mainColor} style={{ position: 'absolute', right: 5 }} />
     </View>
   );
 };
 const styles = StyleSheet.create({
   view: {
     width: '100%',
+    flexDirection: 'row',
+    position: 'relative',
+    alignItems: 'center',
   },
 });

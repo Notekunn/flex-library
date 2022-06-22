@@ -1,26 +1,20 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
-import { Feather, FontAwesome } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { Search } from './Home/SearchBar';
 
-const Header = ({ avatarUrl }: any) => {
+const Header = () => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <View style={styles.action}>
-        <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
-          <View style={styles.cart}>
-            <FontAwesome name="shopping-cart" size={26} color="white" />
-          </View>
-        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Cart')}></TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Search')}>
-          <View style={styles.search}>
-            <FontAwesome name="search" size={24} color="white" />
-          </View>
+          <Search />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Store')}>
-          <Image source={{ uri: avatarUrl }} style={styles.avatar} />
+        <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
+          <FontAwesome name="shopping-cart" size={26} color="white" />
         </TouchableOpacity>
       </View>
     </View>
@@ -55,17 +49,11 @@ const styles = StyleSheet.create({
     width: 40,
     marginHorizontal: 10,
   },
-  cart: {
-    borderRadius: 20,
-    backgroundColor: '#A2A9EB',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 40,
-    width: 40,
-  },
   action: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     paddingVertical: 15,
+    alignItems: 'center',
+    width: '100%',
   },
 });
