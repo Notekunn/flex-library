@@ -1,13 +1,13 @@
-import {StyleSheet, View,ScrollView ,TouchableOpacity,Text} from 'react-native'
-import React, { useState } from 'react'
-import { IBook } from '../constants/interface'
-import BookCardFlex from '../components/BookCardFlex'
-import Header from '../components/Header'
-import { useAppDispatch } from '../app/hook'
-import { useRoute } from '@react-navigation/native'
-import { mainColor } from '../constants/Colors'
+import { StyleSheet, View, ScrollView, TouchableOpacity, Text } from 'react-native';
+import React, { useState } from 'react';
+import { IBook } from '../constants/interface';
+import BookCardFlex from '../components/BookCardFlex';
+import Header from '../components/Header';
+import { useAppDispatch } from '../app/hook';
+import { useRoute } from '@react-navigation/native';
+import { mainColor } from '../constants/Colors';
 
-const books:IBook[] = [
+const books: IBook[] = [
   {
     name: 'Book 1',
     price: 100,
@@ -72,7 +72,7 @@ const books:IBook[] = [
     description: 'Description 2',
     image: 'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-8/anh-bia.jpg',
   },
-]
+];
 const listOptions = [
   {
     option: 'Mới nhất',
@@ -87,12 +87,12 @@ const listOptions = [
   {
     option: 'Giá thấp',
     type: 'price',
-    sortBy: 'ASC'
+    sortBy: 'ASC',
   },
   {
     option: 'Giá cao',
     type: 'price',
-    sortBy: 'DESC'
+    sortBy: 'DESC',
   },
 ];
 
@@ -103,34 +103,36 @@ const ListBookScreen = () => {
   const [status, setStatus] = useState('Mới nhất');
   const handleOption = (option: string) => {
     setStatus(option);
-  }
+  };
   return (
     <View>
       <Header />
       <View style={styles.arrange}>
         {listOptions.map((e, i) => {
-            return (
-              <TouchableOpacity
-                onPress={() => {
-                  handleOption(e.option);
-                }}
-                key={i}
-              >
-                <Text style={[styles.option_title, status === e.option && styles.option_title_color]}>{e.option}</Text>
-              </TouchableOpacity>
-            );
-          })}
+          return (
+            <TouchableOpacity
+              onPress={() => {
+                handleOption(e.option);
+              }}
+              key={i}
+            >
+              <Text style={[styles.option_title, status === e.option && styles.option_title_color]}>{e.option}</Text>
+            </TouchableOpacity>
+          );
+        })}
       </View>
       <ScrollView>
         <View style={styles.otherBooks}>
-          {books.map((e, i) => <BookCardFlex book = {e}/>)}
+          {books.map((e, i) => (
+            <BookCardFlex book={e} />
+          ))}
         </View>
       </ScrollView>
     </View>
-  )
-}
+  );
+};
 
-export default ListBookScreen
+export default ListBookScreen;
 
 const styles = StyleSheet.create({
   otherBooks: {
@@ -140,20 +142,20 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     justifyContent: 'space-between',
   },
-  arrange:{
+  arrange: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     paddingVertical: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#e2e2e2',
-    shadowColor: "#e2e2e2",
+    shadowColor: '#e2e2e2',
     shadowOffset: {
       width: 0,
       height: 1,
     },
     shadowOpacity: 0.18,
-    shadowRadius: 1.00,
-    elevation: 1
+    shadowRadius: 1.0,
+    elevation: 1,
   },
   option_title: {
     alignItems: 'center',
@@ -164,4 +166,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     color: mainColor,
   },
-})
+});

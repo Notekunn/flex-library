@@ -90,8 +90,8 @@ const StoreScreen = () => {
                 <Text style={{ fontSize: 12, color: 'gray' }}>Online 11 giờ trước</Text>
               </View>
             </View>
-          {/* Nếu là chủ của shop thì thêm sách không thì chuyển thành theo dõi */}
-            <TouchableOpacity onPress={()=>nav.navigate("AddItem")}>
+            {/* Nếu là chủ của shop thì thêm sách không thì chuyển thành theo dõi */}
+            <TouchableOpacity onPress={() => nav.navigate('AddItem')}>
               <View style={styles.button_follow}>
                 <Text style={{ color: '#4C4CD7' }}>Thêm sách</Text>
               </View>

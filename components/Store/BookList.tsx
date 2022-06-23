@@ -20,9 +20,8 @@ const books = [
     rentPrice: 80,
     description: 'Description 2',
     image: 'https://via.placeholder.com/150',
-  }
-]
-
+  },
+];
 
 const BookList = () => {
   const listOptions = [

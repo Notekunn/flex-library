@@ -26,7 +26,6 @@ const TopBarNavigatorCart = () => {
           tabBarIndicatorStyle: {
             backgroundColor: mainColor,
           },
-          
         }}
       />
       <Tab.Screen

@@ -1,4 +1,14 @@
-import { Dimensions, StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, FlatList, Linking } from 'react-native';
+import {
+  Dimensions,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  FlatList,
+  Linking,
+} from 'react-native';
 import React, { useState } from 'react';
 import { RootStackScreenProps, RootTabScreenProps } from '../types';
 import { AntDesign, Entypo, Feather, FontAwesome5, Fontisto, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -49,9 +59,8 @@ const books = [
     rentPrice: 80,
     description: 'Description 2',
     image: 'https://via.placeholder.com/150',
-  }
-]
-
+  },
+];
 
 const { width } = Dimensions.get('window');
 
@@ -61,7 +70,7 @@ const ItemScreen = ({ navigation }: RootStackScreenProps<'Item'>) => {
     <View style={styles.container}>
       <Header />
       <ScrollView>
-      <View style={{marginTop:10}}>
+        <View style={{ marginTop: 10 }}>
           <Image style={styles.image} source={{ uri: listImage[0] }} />
         </View>
         <View style={styles.desc}>
@@ -81,7 +90,13 @@ const ItemScreen = ({ navigation }: RootStackScreenProps<'Item'>) => {
             <View style={styles.action}>
               <AntDesign name="hearto" size={25} color="gray" />
               <MaterialCommunityIcons style={{ marginLeft: 10 }} name="share-outline" size={35} color="gray" />
-              <MaterialCommunityIcons style={{ marginLeft: 10 }} name="facebook-messenger" size={25} color="blue" onPress={()=> Linking.openURL("https://www.facebook.com/dodac.lip")}/>
+              <MaterialCommunityIcons
+                style={{ marginLeft: 10 }}
+                name="facebook-messenger"
+                size={25}
+                color="blue"
+                onPress={() => Linking.openURL('https://www.facebook.com/dodac.lip')}
+              />
             </View>
           </View>
         </View>
@@ -100,7 +115,7 @@ const ItemScreen = ({ navigation }: RootStackScreenProps<'Item'>) => {
               <Text style={{ fontSize: 20 }}>FlexLib.vip.vn</Text>
               <Text style={{ fontSize: 12, color: 'gray' }}>Online 11 giờ trước</Text>
             </View>
-            <TouchableOpacity onPress={()=>navigation.navigate("Store")}>
+            <TouchableOpacity onPress={() => navigation.navigate('Store')}>
               <View style={styles.button}>
                 <Text style={{ color: '#4C4CD7' }}>Xem Shop</Text>
               </View>
@@ -175,7 +190,7 @@ const ItemScreen = ({ navigation }: RootStackScreenProps<'Item'>) => {
         </View>
         <View style={styles.otherBooks}>
           {books.map((item, index) => (
-            <BookCardFlex book={item} key={index}/> 
+            <BookCardFlex book={item} key={index} />
           ))}
         </View>
       </ScrollView>

@@ -16,7 +16,7 @@ export interface IStore {
   provinceId?: number;
 }
 
-export interface IBook{
+export interface IBook {
   id?: number;
   name: string;
   price: number;

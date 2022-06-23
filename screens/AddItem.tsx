@@ -57,10 +57,9 @@ const AddItem = () => {
       salePrice,
       quantity,
       images: imageList,
-    }
+    };
     console.log(data);
-  }
-
+  };
 
   const [category, setCategory] = useState<number[]>([]);
   // useEffect(() => {
@@ -273,7 +272,11 @@ const AddItem = () => {
               <Text>Tác giả</Text>
               <Text>{name.length}/120</Text>
             </View>
-            <TextInput style={styles.textInput} placeholder="Nhập tên tác giả" onChangeText={(value) => setAuthor(value)} />
+            <TextInput
+              style={styles.textInput}
+              placeholder="Nhập tên tác giả"
+              onChangeText={(value) => setAuthor(value)}
+            />
           </View>
           <View style={styles.inputFrame}>
             <View style={styles.inputFrame_header}>
@@ -287,8 +290,8 @@ const AddItem = () => {
             />
           </View>
           <View style={styles.optionFrame}>
-          <TouchableOpacity onPress={()=> navigation.navigate("Category",{category,setCategory})}>
-            <View style={styles.optionItem}>
+            <TouchableOpacity onPress={() => navigation.navigate('Category', { category, setCategory })}>
+              <View style={styles.optionItem}>
                 <AntDesign
                   name="menu-fold"
                   size={24}
@@ -296,15 +299,15 @@ const AddItem = () => {
                   style={{ width: 30, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
                 />
                 <Text style={{ padding: 10 }}>Danh mục</Text>
-                {category.length ? <Text style={{marginLeft:150}}>{category.length} </Text> : <></>}
+                {category.length ? <Text style={{ marginLeft: 150 }}>{category.length} </Text> : <></>}
                 <MaterialIcons
                   name="arrow-forward-ios"
                   size={24}
                   color="black"
                   style={{ position: 'absolute', right: 0 }}
                 />
-            </View>
-          </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
             <View style={styles.optionItem}>
               <Foundation
                 name="pricetag-multiple"
@@ -314,7 +317,7 @@ const AddItem = () => {
               />
               <Text style={{ padding: 10, minWidth: 100 }}>Giá thuê</Text>
               <TextInput
-                 placeholder={`${rentPrice}`}
+                placeholder={`${rentPrice}`}
                 style={{ flexDirection: 'row', justifyContent: 'flex-end', marginLeft: 100, flex: 1 }}
                 keyboardType="number-pad"
                 accessibilityElementsHidden={true}
@@ -496,7 +499,7 @@ const styles = StyleSheet.create({
     backgroundColor: whiteColor,
     flexDirection: 'row',
     justifyContent: 'center',
-    padding:10,
+    padding: 10,
     alignItems: 'center',
   },
   submitBtn: {

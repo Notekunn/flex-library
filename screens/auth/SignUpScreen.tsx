@@ -16,7 +16,9 @@ export default function SignUpScreen() {
   const [errorPassword, setErrorPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorConfirmPassword, setErrorConfirmPassword] = useState('');
-  const [avatar, setAvatar] = useState('https://bloganchoi.com/wp-content/uploads/2021/08/avatar-vit-vang-trend-15.jpg');
+  const [avatar, setAvatar] = useState(
+    'https://bloganchoi.com/wp-content/uploads/2021/08/avatar-vit-vang-trend-15.jpg',
+  );
 
   const dispatch = useAppDispatch();
   const error = useAppSelector(selectError);

@@ -58,7 +58,7 @@ function RootNavigator() {
   if (loading == 'loading') {
     return (
       <Stack.Navigator>
-        <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false, animation: 'none'}} />
+        <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false, animation: 'none' }} />
       </Stack.Navigator>
     );
   }
@@ -101,7 +101,6 @@ function RootNavigator() {
           />
           <Stack.Screen
             name="InfoCart"
-            
             component={TopBarNavigatorCart}
             options={{
               headerShown: true,

@@ -16,35 +16,33 @@ interface IBookState {
 const initialState: IBookState = {
   data: [],
   loading: 'idle',
-}
+};
 
 const CreateBookAction = createAsyncThunk('book/create', async (payload: IBook) => {
   const { data } = await apiInstance.post('/book', payload);
   return data;
-})
+});
 
 const UpdateBookAction = createAsyncThunk('book/update', async (payload: IUpdateBookPayload) => {
   const { id, ...dataUpdate } = payload;
   const { data } = await apiInstance.put(`/book/${id}`, dataUpdate);
   return data;
-})
+});
 
 const DeleteBookAction = createAsyncThunk('book/delete', async (id: number) => {
   const { data } = await apiInstance.delete(`/book/${id}`);
   return data;
-})
+});
 
 const GetBookAction = createAsyncThunk('book/get', async () => {
   const { data } = await apiInstance.get('/book');
   return data;
-})
+});
 
 const GetBookByIdAction = createAsyncThunk('book/getById', async (id: number) => {
   const { data } = await apiInstance.get(`/book/${id}`);
   return data;
-})
-
-
+});
 
 const BookSlice = createSlice({
   name: 'book',
@@ -65,11 +63,9 @@ const BookSlice = createSlice({
           state.loading = 'error';
           state.message = action.error.message;
         });
-    })
-  }
-})
-
-
+    });
+  },
+});
 
 export default BookSlice.reducer;
 
