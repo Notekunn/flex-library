@@ -1,3 +1,10 @@
+# [1.13.0](https://github.com/Notekunn/flex-library/compare/v1.12.0...v1.13.0) (2022-06-23)
+
+
+### Features
+
+* add screen booklist and fix UI ([#27](https://github.com/Notekunn/flex-library/issues/27)) ([d4e58e1](https://github.com/Notekunn/flex-library/commit/d4e58e17d981d05f2745742bec4d50f1f975b51e))
+
 # [1.12.0](https://github.com/Notekunn/flex-library/compare/v1.11.1...v1.12.0) (2022-06-22)
 
 
