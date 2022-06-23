@@ -3,13 +3,13 @@ import React from 'react';
 import Navigation from '../navigation';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackScreenProps, RootTabScreenProps } from '../types';
+import { IBook } from '../constants/interface';
 
 const { height, width } = Dimensions.get('window');
 interface BookCardFlexProps {
-  url: string;
-  key: any;
+  book: IBook;
 }
-const BookCardFlex: React.FC<BookCardFlexProps> = ({ url }) => {
+const BookCardFlex: React.FC<BookCardFlexProps> = ({ book }) => {
   const navigation = useNavigation<any>();
   return (
     <TouchableOpacity onPress={() => navigation.push('Item', { id: 8 })}>
@@ -17,13 +17,13 @@ const BookCardFlex: React.FC<BookCardFlexProps> = ({ url }) => {
         <Image
           style={styles.image}
           source={{
-            uri: url,
+            uri: book.image,
           }}
         />
         <View style={styles.desc}>
-          <Text style={styles.title}>Truyện tranh siêu cấp vip pro</Text>
+          <Text style={styles.title}>{book.name}</Text>
           <View style={styles.infor}>
-            <Text style={styles.price}>25.000/giờ</Text>
+            <Text style={styles.price}>{book.price}/giờ</Text>
             <Text style={styles.rented}>Đã cho thuê 200</Text>
           </View>
         </View>

@@ -50,18 +50,18 @@ const CreateStoreScreen = () => {
       <View style={styles.body}>
         <View>
           <View style={{ flexDirection: 'column', marginBottom: 5 }}>
-            <Text style={styles.textTitle}>Name</Text>
+            <Text style={styles.textTitle}>Tên cửa hàng</Text>
             <TextInput
               style={{ backgroundColor: '#fbfbfb', padding: 10, borderRadius: 20 }}
-              placeholder="Name Store"
+              placeholder="Nhập tên cửa hàng"
               onChangeText={(text) => setName(text)}
             />
           </View>
           <View style={{ flexDirection: 'column', marginBottom: 5 }}>
-            <Text style={styles.textTitle}>Address</Text>
+            <Text style={styles.textTitle}>Địa chỉ</Text>
             <TextInput
               style={{ backgroundColor: '#fbfbfb', padding: 10, borderRadius: 20 }}
-              placeholder="Address Store Of Your Store"
+              placeholder="Nhập địa chỉ của bạn"
               onChangeText={(text) => setAddress(text)}
             />
           </View>
@@ -86,7 +86,7 @@ const CreateStoreScreen = () => {
               }}
             />
             <Button
-              title={'Choose Image'}
+              title={'Chọn ảnh'}
               containerStyle={{ borderRadius: 20 }}
               onPress={uploadImage}
               titleStyle={{
@@ -101,7 +101,7 @@ const CreateStoreScreen = () => {
         </View>
         <View style={styles.groupButton}>
           <Button
-            title={'Back'}
+            title={'Quay lại'}
             containerStyle={{
               width: 100,
               height: 40,
@@ -116,7 +116,7 @@ const CreateStoreScreen = () => {
             onPress={() => nav.goBack()}
           />
           <Button
-            title={'Create'}
+            title={'Tạo'}
             containerStyle={{
               width: 100,
               height: 40,

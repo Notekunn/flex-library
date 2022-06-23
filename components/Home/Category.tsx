@@ -1,7 +1,6 @@
-import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { AntDesign } from '@expo/vector-icons';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 interface categoryProps {
   data: any;
@@ -12,7 +11,7 @@ const Category: React.FC<categoryProps> = ({ data }) => {
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate('SignIn');
+        navigation.navigate('ListBookCategory');
       }}
     >
       <View style={styles.container}>

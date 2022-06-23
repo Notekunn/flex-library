@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { Button, Input } from '@rneui/themed';
 import { mainColor } from '../../constants/Colors';
-import ImagePicker from 'expo-image-picker';
+import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import { registerAction, selectError, selectLoading } from '../../reducers/authSlice';
 export default function SignUpScreen() {
@@ -16,12 +16,15 @@ export default function SignUpScreen() {
   const [errorPassword, setErrorPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorConfirmPassword, setErrorConfirmPassword] = useState('');
-  const [image, setImage] = useState('https://bloganchoi.com/wp-content/uploads/2021/08/avatar-vit-vang-trend-15.jpg');
+  const [avatar, setAvatar] = useState(
+    'https://bloganchoi.com/wp-content/uploads/2021/08/avatar-vit-vang-trend-15.jpg',
+  );
 
   const dispatch = useAppDispatch();
   const error = useAppSelector(selectError);
   const loading = useAppSelector(selectLoading);
-  const pickImage = async () => {
+  const upLoadAvatar = async () => {
+    console.log('upload avatar');
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -29,7 +32,7 @@ export default function SignUpScreen() {
       quality: 1,
     });
     if (!result.cancelled) {
-      setImage(result.uri);
+      setAvatar(result.uri);
     }
   };
   const handleSubmit = () => {
@@ -58,6 +61,7 @@ export default function SignUpScreen() {
         email,
         password,
         name,
+        avatar,
       }),
     );
   };
@@ -100,7 +104,7 @@ export default function SignUpScreen() {
         <View style={styles.formImage}>
           <Button
             title="Upload Image"
-            onPress={pickImage}
+            onPress={upLoadAvatar}
             buttonStyle={{
               backgroundColor: '#faad14',
               borderRadius: 15,
@@ -110,7 +114,7 @@ export default function SignUpScreen() {
           ></Button>
           <Image
             source={{
-              uri: image,
+              uri: avatar,
             }}
             style={{
               alignSelf: 'center',

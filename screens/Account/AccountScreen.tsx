@@ -12,10 +12,10 @@ const AccountScreen = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const handleLogout = () => {
-    Alert.alert('logout', 'Are you sure?', [
-      { text: 'OK', onPress: () => dispatch(logoutAction()) },
+    Alert.alert('Đăng xuất', 'Bạn có chắc muốn đăng xuất?', [
+      { text: 'Đồng ý', onPress: () => dispatch(logoutAction()) },
       {
-        text: 'Cancel',
+        text: 'Hủy bỏ',
         style: 'cancel',
       },
     ]);
@@ -32,7 +32,7 @@ const AccountScreen = () => {
       >
         <Image
           source={{
-            uri: user?.avatarURL || 'https://bloganchoi.com/wp-content/uploads/2021/08/avatar-vit-vang-trend-15.jpg',
+            uri: user?.avatar || 'https://bloganchoi.com/wp-content/uploads/2021/08/avatar-vit-vang-trend-15.jpg',
           }}
           style={styles.avatar}
         />
@@ -42,7 +42,7 @@ const AccountScreen = () => {
       </View>
       <View style={{ padding: 10 }}>
         <View>
-          <Text style={styles.title}>Account</Text>
+          <Text style={styles.title}>Tài khoản</Text>
           <View style={styles.listItem}>
             <TouchableOpacity style={styles.item} activeOpacity={0.6} onPress={() => nav.navigate('Profile', user)}>
               <View
@@ -62,7 +62,7 @@ const AccountScreen = () => {
                   marginLeft: 30,
                 }}
               >
-                <Text style={styles.text}>Profile</Text>
+                <Text style={styles.text}>Hồ sơ</Text>
               </View>
               <Icon name="angle-right" type="font-awesome" color="#c1c1c1" />
             </TouchableOpacity>
@@ -85,7 +85,7 @@ const AccountScreen = () => {
                   marginLeft: 30,
                 }}
               >
-                <Text style={styles.text}>Cart</Text>
+                <Text style={styles.text}>Giỏ hàng</Text>
               </View>
               <Icon name="angle-right" type="font-awesome" style={{ flex: 1 }} color="#c1c1c1" />
             </TouchableOpacity>
@@ -107,7 +107,7 @@ const AccountScreen = () => {
                   marginLeft: 30,
                 }}
               >
-                <Text style={styles.text}>Like</Text>
+                <Text style={styles.text}>Yêu thích</Text>
               </View>
               <Icon name="angle-right" type="font-awesome" style={{ flex: 1 }} color="#c1c1c1" />
             </TouchableOpacity>
@@ -129,11 +129,11 @@ const AccountScreen = () => {
                   marginLeft: 30,
                 }}
               >
-                <Text style={styles.text}>Notification</Text>
+                <Text style={styles.text}>Thông báo</Text>
               </View>
               <Icon name="angle-right" type="font-awesome" style={{ flex: 1 }} color="#c1c1c1" />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.item} activeOpacity={0.8} onPress={() => nav.navigate('CreateStoreScreen')}>
+            <TouchableOpacity style={styles.item} activeOpacity={0.8} onPress={() => nav.navigate('CreateStore')}>
               <View
                 style={{
                   backgroundColor: '#ea4335',
@@ -151,36 +151,14 @@ const AccountScreen = () => {
                   marginLeft: 30,
                 }}
               >
-                <Text style={styles.text}>Create Store</Text>
-              </View>
-              <Icon name="angle-right" type="font-awesome" style={{ flex: 1 }} color="#c1c1c1" />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.item} activeOpacity={0.8} onPress={() => nav.navigate('Store')}>
-              <View
-                style={{
-                  backgroundColor: '#663300',
-                  borderRadius: 5,
-                  padding: 5,
-                  width: 30,
-                  height: 30,
-                }}
-              >
-                <Icon name="store" type="material" color="#fff" size={20} solid={true} />
-              </View>
-              <View
-                style={{
-                  flex: 2,
-                  marginLeft: 30,
-                }}
-              >
-                <Text style={styles.text}>My Store</Text>
+                <Text style={styles.text}>Tạo cửa hàng</Text>
               </View>
               <Icon name="angle-right" type="font-awesome" style={{ flex: 1 }} color="#c1c1c1" />
             </TouchableOpacity>
           </View>
         </View>
         <View>
-          <Text style={styles.title}>Orther</Text>
+          <Text style={styles.title}>Khác</Text>
           <View style={styles.listItem}>
             <TouchableOpacity style={styles.item} activeOpacity={0.8}>
               <View
@@ -200,7 +178,7 @@ const AccountScreen = () => {
                   marginLeft: 30,
                 }}
               >
-                <Text style={styles.text}>Help & Feedback</Text>
+                <Text style={styles.text}>Trợ giúp & Phản hồi</Text>
               </View>
               <Icon name="angle-right" type="font-awesome" color="#c1c1c1" />
             </TouchableOpacity>
@@ -222,7 +200,7 @@ const AccountScreen = () => {
                   marginLeft: 30,
                 }}
               >
-                <Text style={styles.text}>Logout</Text>
+                <Text style={styles.text}>Đăng xuất</Text>
               </View>
               <Icon name="angle-right" type="font-awesome" style={{ flex: 1 }} color="#c1c1c1" />
             </TouchableOpacity>
@@ -238,7 +216,6 @@ export default AccountScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: seconColor,
   },
   avatar: {
     justifyContent: 'center',
@@ -247,7 +224,7 @@ const styles = StyleSheet.create({
     width: 100,
     resizeMode: 'stretch',
     borderRadius: 50,
-    borderWidth: 0.5,
+    borderWidth: 0.25,
     borderColor: mainColor,
   },
   title: {

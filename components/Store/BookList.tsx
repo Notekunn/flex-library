@@ -4,6 +4,25 @@ import BookCardFlex from '../BookCardFlex';
 import { ScrollView, TouchableOpacity } from 'react-native';
 import { mainColor } from '../../constants/Colors';
 
+const books = [
+  {
+    name: 'Book 1',
+    price: 100,
+    salePrice: 90,
+    rentPrice: 80,
+    description: 'Description 1',
+    image: 'https://via.placeholder.com/150',
+  },
+  {
+    name: 'Book 2',
+    price: 100,
+    salePrice: 90,
+    rentPrice: 80,
+    description: 'Description 2',
+    image: 'https://via.placeholder.com/150',
+  },
+];
+
 const BookList = () => {
   const listOptions = [
     {
@@ -45,8 +64,8 @@ const BookList = () => {
       </View>
       <ScrollView>
         <View style={styles.listItem}>
-          {Array.from(Array(10)).map((e, i) => {
-            return <BookCardFlex url={imageUrl} key={i} />;
+          {books.map((e, i) => {
+            return <BookCardFlex book={e} key={i} />;
           })}
         </View>
       </ScrollView>

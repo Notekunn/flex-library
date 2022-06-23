@@ -20,32 +20,32 @@ const ChangePasswordScreen = () => {
   return (
     <View style={styles.container}>
       <View>
-        <Text style={styles.title}>Change Password</Text>
+        <Text style={styles.title}>Đổi mật khẩu</Text>
       </View>
       <View style={{ flexDirection: 'column', width: '100%', padding: 40 }}>
         <View>
-          <Text style={styles.text}>Old Password</Text>
+          <Text style={styles.text}>Mật khẩu cũ</Text>
           <TextInput
             style={styles.input}
-            placeholder="Old Password"
+            placeholder="**********"
             secureTextEntry={true}
             onChangeText={(e) => setOldPassword(e)}
           />
         </View>
         <View>
-          <Text style={styles.text}>New Password</Text>
+          <Text style={styles.text}>Mật khẩu mới</Text>
           <TextInput
             style={styles.input}
-            placeholder="New Password"
+            placeholder="**********"
             secureTextEntry={true}
             onChangeText={(e) => setNewPassword(e)}
           />
         </View>
         <View>
-          <Text style={styles.text}>Confirm Password</Text>
+          <Text style={styles.text}>Xác nhận mật khẩu</Text>
           <TextInput
             style={styles.input}
-            placeholder="Confirm Password"
+            placeholder="**********"
             secureTextEntry={true}
             onChangeText={(e) => setConfirmPassword(e)}
           />
@@ -53,7 +53,7 @@ const ChangePasswordScreen = () => {
       </View>
       <View style={styles.groupButton}>
         <Button
-          title={'Back'}
+          title={'Quay lại'}
           containerStyle={{
             width: 100,
             height: 40,
@@ -66,7 +66,7 @@ const ChangePasswordScreen = () => {
           onPress={() => nav.goBack()}
         />
         <Button
-          title={'Save'}
+          title={'Lưu'}
           containerStyle={{
             width: 100,
             height: 40,

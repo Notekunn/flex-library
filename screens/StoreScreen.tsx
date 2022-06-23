@@ -23,8 +23,7 @@ const renderScene = SceneMap({
   second: BookList,
 });
 const StoreScreen = () => {
-  const layout = useWindowDimensions();
-
+  const nav = useNavigation();
   const [index, setIndex] = useState(0);
   const [routes] = React.useState([
     { key: 'first', title: 'Shop' },
@@ -91,9 +90,12 @@ const StoreScreen = () => {
                 <Text style={{ fontSize: 12, color: 'gray' }}>Online 11 giờ trước</Text>
               </View>
             </View>
-            <View style={styles.button_follow}>
-              <Text style={{ color: '#4C4CD7' }}>Xem Shop</Text>
-            </View>
+            {/* Nếu là chủ của shop thì thêm sách không thì chuyển thành theo dõi */}
+            <TouchableOpacity onPress={() => nav.navigate('AddItem')}>
+              <View style={styles.button_follow}>
+                <Text style={{ color: '#4C4CD7' }}>Thêm sách</Text>
+              </View>
+            </TouchableOpacity>
           </View>
           <View style={styles.store_bottom}>
             <View style={styles.store_analysis}>

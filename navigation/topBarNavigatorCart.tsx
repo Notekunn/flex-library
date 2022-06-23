@@ -15,6 +15,7 @@ const TopBarNavigatorCart = () => {
         name="Cart"
         component={CartScreen}
         options={{
+          title: 'Giỏ hàng',
           swipeEnabled: false,
           tabBarLabelStyle: {
             fontSize: 12,
@@ -31,6 +32,7 @@ const TopBarNavigatorCart = () => {
         name="History"
         component={HistoryScreen}
         options={{
+          title: 'Lịch sử',
           swipeEnabled: false,
           tabBarLabelStyle: {
             fontSize: 12,

@@ -62,7 +62,7 @@ const ProfileScreen = () => {
             />
           </View>
           <View style={{ flexDirection: 'column', marginBottom: 5 }}>
-            <Text style={styles.textTitle}>Full Name</Text>
+            <Text style={styles.textTitle}>Họ & Tên</Text>
             <View style={{ flexDirection: 'row', alignItems: 'center', position: 'relative' }}>
               <TextInput
                 style={{ backgroundColor: '#fbfbfb', padding: 10, borderRadius: 20, width: '100%' }}
@@ -81,7 +81,7 @@ const ProfileScreen = () => {
             </View>
           </View>
           <View style={{ flexDirection: 'column', marginBottom: 5 }}>
-            <Text style={styles.textTitle}>Phone Number</Text>
+            <Text style={styles.textTitle}>Số điện thoại</Text>
             <View style={{ flexDirection: 'row', alignItems: 'center', position: 'relative' }}>
               <TextInput
                 style={{ backgroundColor: '#fbfbfb', padding: 10, borderRadius: 20, width: '100%' }}
@@ -101,7 +101,7 @@ const ProfileScreen = () => {
             </View>
           </View>
           <View style={{ flexDirection: 'column', marginBottom: 5 }}>
-            <Text style={styles.textTitle}>Password</Text>
+            <Text style={styles.textTitle}>Mật khẩu</Text>
             <View style={{ flexDirection: 'row', alignItems: 'center', position: 'relative' }}>
               <TextInput
                 style={{ backgroundColor: '#fbfbfb', padding: 10, borderRadius: 20, width: '100%' }}
