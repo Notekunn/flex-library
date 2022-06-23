@@ -25,13 +25,44 @@ import Animated, {
 } from 'react-native-reanimated';
 
 const AddItem = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
   const [status, requestPermission] = ImagePicker.useCameraPermissions();
   const [imageList, setImageList] = useState<any>([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [name, setName] = useState('');
+  const [author, setAuthor] = useState('');
   const [desc, setDesc] = useState('');
+  const [rentPrice, setRentPrice] = useState(0);
+  const [salePrice, setSalePrice] = useState(0);
+  const [quantity, setQuantity] = useState(0);
 
+  const onSubmit = () => {
+    if (!name) {
+      alert('Name is required');
+      return;
+    }
+    if (!author) {
+      alert('Author is required');
+      return;
+    }
+    if (!desc) {
+      alert('Description is required');
+      return;
+    }
+    const data = {
+      name,
+      author,
+      desc,
+      rentPrice,
+      salePrice,
+      quantity,
+      images: imageList,
+    }
+    console.log(data);
+  }
+
+
+  const [category, setCategory] = useState<number[]>([]);
   // useEffect(() => {
   //   const check = async () => {
   //     if (status?.status !== 'granted') requestPermission();
@@ -51,7 +82,7 @@ const AddItem = () => {
       aspect: [4, 3],
       quality: 1,
     });
-    await setModalVisible(!modalVisible);
+    setModalVisible(!modalVisible);
     console.log(result);
 
     if (!result.cancelled) {
@@ -77,7 +108,7 @@ const AddItem = () => {
     console.log(result);
 
     if (!result.cancelled) {
-      setImageList([...imageList, result.uri]);
+      setImageList([...imageList, result]);
     }
   };
   interface ImageFrameProps {
@@ -239,6 +270,13 @@ const AddItem = () => {
           </View>
           <View style={styles.inputFrame}>
             <View style={styles.inputFrame_header}>
+              <Text>Tác giả</Text>
+              <Text>{name.length}/120</Text>
+            </View>
+            <TextInput style={styles.textInput} placeholder="Nhập tên tác giả" onChangeText={(value) => setAuthor(value)} />
+          </View>
+          <View style={styles.inputFrame}>
+            <View style={styles.inputFrame_header}>
               <Text>Mô tả về sách</Text>
               <Text>{desc.length}/3000</Text>
             </View>
@@ -249,36 +287,24 @@ const AddItem = () => {
             />
           </View>
           <View style={styles.optionFrame}>
+          <TouchableOpacity onPress={()=> navigation.navigate("Category",{category,setCategory})}>
             <View style={styles.optionItem}>
-              <AntDesign
-                name="menu-fold"
-                size={24}
-                color={mainColor}
-                style={{ width: 30, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
-              />
-              <Text style={{ padding: 10 }}>Danh mục</Text>
-              <MaterialIcons
-                name="arrow-forward-ios"
-                size={24}
-                color="black"
-                style={{ position: 'absolute', right: 0 }}
-              />
+                <AntDesign
+                  name="menu-fold"
+                  size={24}
+                  color={mainColor}
+                  style={{ width: 30, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
+                />
+                <Text style={{ padding: 10 }}>Danh mục</Text>
+                {category.length ? <Text style={{marginLeft:150}}>{category.length} </Text> : <></>}
+                <MaterialIcons
+                  name="arrow-forward-ios"
+                  size={24}
+                  color="black"
+                  style={{ position: 'absolute', right: 0 }}
+                />
             </View>
-            <View style={styles.optionItem}>
-              <MaterialCommunityIcons
-                name="newspaper-variant-outline"
-                size={24}
-                color={mainColor}
-                style={{ width: 30, alignItems: 'center', justifyContent: 'center' }}
-              />
-              <Text style={{ padding: 10 }}>Phân loại hàng</Text>
-              <MaterialIcons
-                name="arrow-forward-ios"
-                size={24}
-                color="black"
-                style={{ position: 'absolute', right: 0 }}
-              />
-            </View>
+          </TouchableOpacity>
             <View style={styles.optionItem}>
               <Foundation
                 name="pricetag-multiple"
@@ -288,10 +314,27 @@ const AddItem = () => {
               />
               <Text style={{ padding: 10, minWidth: 100 }}>Giá thuê</Text>
               <TextInput
-                placeholder="Đặt"
+                 placeholder={`${rentPrice}`}
                 style={{ flexDirection: 'row', justifyContent: 'flex-end', marginLeft: 100, flex: 1 }}
                 keyboardType="number-pad"
                 accessibilityElementsHidden={true}
+                onChangeText={(value) => setRentPrice(parseInt(value))}
+              />
+            </View>
+            <View style={styles.optionItem}>
+              <Foundation
+                name="pricetag-multiple"
+                size={24}
+                color={mainColor}
+                style={{ width: 30, alignItems: 'center', justifyContent: 'center' }}
+              />
+              <Text style={{ padding: 10, minWidth: 100 }}>Giá bán</Text>
+              <TextInput
+                placeholder={`${salePrice}`}
+                style={{ flexDirection: 'row', justifyContent: 'flex-end', marginLeft: 100, flex: 1 }}
+                keyboardType="number-pad"
+                accessibilityElementsHidden={true}
+                onChangeText={(value) => setSalePrice(parseInt(value))}
               />
             </View>
             <View style={[styles.optionItem, styles.optionItemLast]}>
@@ -303,16 +346,17 @@ const AddItem = () => {
               />
               <Text style={{ padding: 10, minWidth: 100 }}>Số lượng</Text>
               <TextInput
-                placeholder="Đặt"
+                placeholder={`${quantity}`}
                 keyboardType="number-pad"
                 style={{ flexDirection: 'row', justifyContent: 'flex-end', marginLeft: 100, flex: 1 }}
+                onChangeText={(value) => setQuantity(parseInt(value))}
               />
             </View>
           </View>
         </View>
       </ScrollView>
       <View style={styles.buttonFrame}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onSubmit}>
           <View style={styles.submitBtn}>
             <Text>Lưu</Text>
           </View>
@@ -426,7 +470,6 @@ const styles = StyleSheet.create({
   inputFrame: {
     marginTop: 10,
     backgroundColor: whiteColor,
-    height: 80,
     padding: 10,
   },
   inputFrame_header: {
@@ -452,9 +495,9 @@ const styles = StyleSheet.create({
     bottom: 0,
     backgroundColor: whiteColor,
     flexDirection: 'row',
-    height: 90,
     justifyContent: 'center',
-    paddingTop: 15,
+    padding:10,
+    alignItems: 'center',
   },
   submitBtn: {
     height: 50,

@@ -20,6 +20,7 @@ interface LoginPayload {
 
 interface RegisterPayload extends LoginPayload {
   name: string;
+  avatar: string;
 }
 
 interface AuthState {

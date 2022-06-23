@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { Dimensions, StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, FlatList, Linking } from 'react-native';
 import React, { useState } from 'react';
 import { RootStackScreenProps, RootTabScreenProps } from '../types';
 import { AntDesign, Entypo, Feather, FontAwesome5, Fontisto, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -6,6 +6,8 @@ import { stringLength } from '@firebase/util';
 import BookList from '../components/Home/BookList';
 import BookCardFlex from '../components/BookCardFlex';
 import { mainColor } from '../constants/Colors';
+import { IBook } from '../constants/interface';
+import Header from '../components/Header';
 
 const listImage = [
   'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg',
@@ -15,45 +17,51 @@ const listImage = [
   'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-5/anh-bia.jpg',
 ];
 
-const arrTest = [];
+const books = [
+  {
+    name: 'Book 1',
+    price: 100,
+    salePrice: 90,
+    rentPrice: 80,
+    description: 'Description 1',
+    image: 'https://via.placeholder.com/150',
+  },
+  {
+    name: 'Book 2',
+    price: 100,
+    salePrice: 90,
+    rentPrice: 80,
+    description: 'Description 2',
+    image: 'https://via.placeholder.com/150',
+  },
+  {
+    name: 'Book 1',
+    price: 100,
+    salePrice: 90,
+    rentPrice: 80,
+    description: 'Description 1',
+    image: 'https://via.placeholder.com/150',
+  },
+  {
+    name: 'Book 2',
+    price: 100,
+    salePrice: 90,
+    rentPrice: 80,
+    description: 'Description 2',
+    image: 'https://via.placeholder.com/150',
+  }
+]
+
+
 const { width } = Dimensions.get('window');
 
 const ItemScreen = ({ navigation }: RootStackScreenProps<'Item'>) => {
   const [showDetail, setShowDetail] = useState(false);
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Entypo style={{ marginLeft: 10 }} name="chevron-left" size={35} color={mainColor} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Search')}>
-          <View
-            style={{
-              height: 30,
-              width: 250,
-              borderWidth: 1,
-              paddingHorizontal: 8,
-              alignItems: 'center',
-              flexDirection: 'row',
-              borderRadius: 10,
-              borderColor: mainColor,
-              // left: -30,
-            }}
-          >
-            <FontAwesome5 name="search" size={16} color={mainColor} />
-            <Text style={{ color: 'gray', marginLeft: 5 }}>Tìm kiếm trên FL</Text>
-          </View>
-        </TouchableOpacity>
-        <View style={{ flexDirection: 'row', paddingLeft: 15 }}>
-          <Fontisto style={{ marginHorizontal: 5 }} name="share-a" size={24} color="#4C4CD7" />
-          <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
-            <Feather style={{ marginHorizontal: 5 }} name="shopping-cart" size={24} color="#4C4CD7" />
-          </TouchableOpacity>
-          <Entypo style={{ marginLeft: 5 }} name="dots-three-vertical" size={24} color="#4C4CD7" />
-        </View>
-      </View>
+      <Header />
       <ScrollView>
-        <View>
+      <View style={{marginTop:10}}>
           <Image style={styles.image} source={{ uri: listImage[0] }} />
         </View>
         <View style={styles.desc}>
@@ -73,7 +81,7 @@ const ItemScreen = ({ navigation }: RootStackScreenProps<'Item'>) => {
             <View style={styles.action}>
               <AntDesign name="hearto" size={25} color="gray" />
               <MaterialCommunityIcons style={{ marginLeft: 10 }} name="share-outline" size={35} color="gray" />
-              <MaterialCommunityIcons style={{ marginLeft: 10 }} name="facebook-messenger" size={25} color="blue" />
+              <MaterialCommunityIcons style={{ marginLeft: 10 }} name="facebook-messenger" size={25} color="blue" onPress={()=> Linking.openURL("https://www.facebook.com/dodac.lip")}/>
             </View>
           </View>
         </View>
@@ -92,9 +100,11 @@ const ItemScreen = ({ navigation }: RootStackScreenProps<'Item'>) => {
               <Text style={{ fontSize: 20 }}>FlexLib.vip.vn</Text>
               <Text style={{ fontSize: 12, color: 'gray' }}>Online 11 giờ trước</Text>
             </View>
-            <View style={styles.button}>
-              <Text style={{ color: '#4C4CD7' }}>Xem Shop</Text>
-            </View>
+            <TouchableOpacity onPress={()=>navigation.navigate("Store")}>
+              <View style={styles.button}>
+                <Text style={{ color: '#4C4CD7' }}>Xem Shop</Text>
+              </View>
+            </TouchableOpacity>
           </View>
           <View style={styles.store_bottom}>
             <View style={{ flexDirection: 'row', marginRight: 10 }}>
@@ -164,14 +174,9 @@ const ItemScreen = ({ navigation }: RootStackScreenProps<'Item'>) => {
           </TouchableOpacity>
         </View>
         <View style={styles.otherBooks}>
-          {Array.from(Array(10)).map((_, index) => {
-            return (
-              <BookCardFlex
-                key={index}
-                url="https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg"
-              />
-            );
-          })}
+          {books.map((item, index) => (
+            <BookCardFlex book={item} key={index}/> 
+          ))}
         </View>
       </ScrollView>
     </View>
@@ -306,12 +311,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingTop: 10,
     justifyContent: 'space-between',
-  },
-  header: {
-    paddingTop: 50,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#E5E6F8',
-    paddingBottom: 10,
   },
 });

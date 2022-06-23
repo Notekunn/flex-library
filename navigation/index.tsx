@@ -31,6 +31,9 @@ import SignUpScreen from '../screens/Auth/SignUpScreen';
 import ProfileScreen from '../screens/Account/ProfileScreen';
 import ChangePasswordScreen from '../screens/ChangePasswordScreen';
 import CreateStoreScreen from '../screens/Account/CreateStoreScreen';
+import IntroScreen from '../screens/IntroScreen';
+import CategoryScreen from '../screens/CategoryScreen';
+import ListBookScreen from '../screens/ListBookScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -52,11 +55,10 @@ function RootNavigator() {
       dispatch(profileAction());
     }
   }, []);
-
   if (loading == 'loading') {
     return (
       <Stack.Navigator>
-        <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false, animation: 'none' }} />
+        <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false, animation: 'none'}} />
       </Stack.Navigator>
     );
   }
@@ -99,6 +101,7 @@ function RootNavigator() {
           />
           <Stack.Screen
             name="InfoCart"
+            
             component={TopBarNavigatorCart}
             options={{
               headerShown: true,
@@ -106,7 +109,7 @@ function RootNavigator() {
                 backgroundColor: mainColor,
               },
               headerTintColor: '#fff',
-              headerTitle: 'Cart',
+              headerTitle: 'Giỏ hàng',
             }}
           />
           <Stack.Screen
@@ -124,9 +127,11 @@ function RootNavigator() {
               headerTintColor: '#fff',
             }}
           />
-          <Stack.Screen name="CreateStoreScreen" component={CreateStoreScreen} />
+          <Stack.Screen name="CreateStore" component={CreateStoreScreen} />
           <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
           <Stack.Screen name="AddItem" component={AddItem} />
+          <Stack.Screen name="Category" component={CategoryScreen} />
+          <Stack.Screen name="ListBookCategory" component={ListBookScreen} />
           <Stack.Screen name="Search" component={SearchScreen} options={{ animation: 'fade' }} />
           <Stack.Group screenOptions={{ presentation: 'modal', animation: 'fade' }}>
             <Stack.Screen
@@ -195,6 +200,8 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => <TabBarIcon name="qrcode" color={color} />,
         }}
       />
+
+      {/* Nếu user có store thì hiện */}
       <BottomTab.Screen
         name="Store"
         component={StoreScreen}

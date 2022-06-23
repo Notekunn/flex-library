@@ -15,6 +15,7 @@ const TopBarNavigatorCart = () => {
         name="Cart"
         component={CartScreen}
         options={{
+          title: 'Giỏ hàng',
           swipeEnabled: false,
           tabBarLabelStyle: {
             fontSize: 12,
@@ -25,12 +26,14 @@ const TopBarNavigatorCart = () => {
           tabBarIndicatorStyle: {
             backgroundColor: mainColor,
           },
+          
         }}
       />
       <Tab.Screen
         name="History"
         component={HistoryScreen}
         options={{
+          title: 'Lịch sử',
           swipeEnabled: false,
           tabBarLabelStyle: {
             fontSize: 12,

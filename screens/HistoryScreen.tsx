@@ -63,20 +63,6 @@ const HistoryScreen = () => {
             <Text style={styles.price}>$3000</Text>
           </View>
         </View>
-        <View style={styles.item}>
-          <View>
-            <Image
-              source={{
-                uri: 'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg',
-              }}
-              style={styles.image}
-            />
-          </View>
-          <View style={styles.itemInfo}>
-            <Text style={styles.itemName}>Truyện conan đặc biệt tập 1 âs</Text>
-            <Text style={styles.price}>$3000</Text>
-          </View>
-        </View>
       </View>
     </ScrollView>
   );
