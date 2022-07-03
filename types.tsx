@@ -25,6 +25,7 @@ export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
   Item: { id: number };
   Store: undefined;
+  MyStore: undefined;
   InfoCart: undefined;
   BookCategory: undefined;
   Cart: undefined;
@@ -34,6 +35,7 @@ export type RootStackParamList = {
   Profile: undefined;
   ChangePassword: undefined;
   CreateStore: undefined;
+  ViewMyStore: undefined;
   Category: undefined;
   ListBookCategory: undefined;
 };
@@ -51,6 +53,7 @@ export type RootTabParamList = {
   Account: undefined;
   Home: undefined;
   Store: undefined;
+  MyStore: undefined;
   SignIn: undefined;
   InfoCart: undefined;
   BookCategory: undefined;
@@ -60,6 +63,7 @@ export type RootTabParamList = {
   Profile: undefined;
   ChangePassword: undefined;
   CreateStore: undefined;
+  ViewMyStore: undefined;
   ListBookCategory: undefined;
 };
 

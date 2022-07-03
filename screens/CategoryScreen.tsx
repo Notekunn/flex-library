@@ -11,13 +11,13 @@ const CategoryScreen = () => {
   const dispatch = useAppDispatch();
   const data = useAppSelector(selectData);
   useEffect(() => {
-    dispatch(GetAllCategoryAction);
+    dispatch(GetAllCategoryAction());
   }, []);
   const route = useRoute<any>();
   const nav = useNavigation();
-  const [choose, setChoose] = React.useState<number[]>(route.params.category);
+  const [choose, setChoose] = React.useState<number[]>(route.params.chooseCategories);
   useEffect(() => {
-    route.params.setCategory(choose);
+    route.params.setChooseCategories(choose);
   }, [choose]);
   return (
     <View style={styles.container}>

@@ -1,78 +1,13 @@
 import { StyleSheet, View, ScrollView, TouchableOpacity, Text } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IBook } from '../constants/interface';
 import BookCardFlex from '../components/BookCardFlex';
 import Header from '../components/Header';
-import { useAppDispatch } from '../app/hook';
+import { useAppDispatch, useAppSelector } from '../app/hook';
 import { useRoute } from '@react-navigation/native';
 import { mainColor } from '../constants/Colors';
+import { GetBookByCategoryAction, selectBook } from '../reducers/bookSlice';
 
-const books: IBook[] = [
-  {
-    name: 'Book 1',
-    price: 100,
-    salePrice: 90,
-    rentPrice: 80,
-    description: 'Description 1',
-    image: 'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-8/anh-bia.jpg',
-  },
-  {
-    name: 'Book 2',
-    price: 100,
-    salePrice: 90,
-    rentPrice: 80,
-    description: 'Description 2',
-    image: 'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-8/anh-bia.jpg',
-  },
-  {
-    name: 'Book 1',
-    price: 100,
-    salePrice: 90,
-    rentPrice: 80,
-    description: 'Description 1',
-    image: 'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-8/anh-bia.jpg',
-  },
-  {
-    name: 'Book 2',
-    price: 100,
-    salePrice: 90,
-    rentPrice: 80,
-    description: 'Description 2',
-    image: 'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-8/anh-bia.jpg',
-  },
-  {
-    name: 'Book 1',
-    price: 100,
-    salePrice: 90,
-    rentPrice: 80,
-    description: 'Description 1',
-    image: 'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-8/anh-bia.jpg',
-  },
-  {
-    name: 'Book 2',
-    price: 100,
-    salePrice: 90,
-    rentPrice: 80,
-    description: 'Description 2',
-    image: 'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-8/anh-bia.jpg',
-  },
-  {
-    name: 'Book 1',
-    price: 100,
-    salePrice: 90,
-    rentPrice: 80,
-    description: 'Description 1',
-    image: 'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-8/anh-bia.jpg',
-  },
-  {
-    name: 'Book 2',
-    price: 100,
-    salePrice: 90,
-    rentPrice: 80,
-    description: 'Description 2',
-    image: 'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-8/anh-bia.jpg',
-  },
-];
 const listOptions = [
   {
     option: 'Mới nhất',
@@ -99,7 +34,13 @@ const listOptions = [
 const ListBookScreen = () => {
   const dispatch = useAppDispatch();
   const route = useRoute<any>();
-  // lấy ra id category
+  const books = useAppSelector(selectBook);
+  useEffect(() => {
+    if (route.params) {
+      dispatch(GetBookByCategoryAction(route.params.id));
+    }
+  }, []);
+
   const [status, setStatus] = useState('Mới nhất');
   const handleOption = (option: string) => {
     setStatus(option);
@@ -122,10 +63,12 @@ const ListBookScreen = () => {
         })}
       </View>
       <ScrollView>
-        <View style={styles.otherBooks}>
-          {books.map((e, i) => (
-            <BookCardFlex book={e} />
-          ))}
+        <View>
+          <View style={styles.otherBooks}>
+            {books.map((e, i) => (
+              <BookCardFlex book={e} key={i} />
+            ))}
+          </View>
         </View>
       </ScrollView>
     </View>

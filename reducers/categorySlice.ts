@@ -23,6 +23,11 @@ export const GetAllCategoryAction = createAsyncThunk('category/get', async () =>
   return data;
 });
 
+export const GetOneCategoryAction = createAsyncThunk('category/getOne', async (id: number) => {
+  const { data } = await apiInstance.get(`/category/${id}`);
+  return data;
+});
+
 export const CreateCategoryAction = createAsyncThunk('category/create', async (payload: ICategory) => {
   const { data } = await apiInstance.post('/category', payload);
   return data;
@@ -44,7 +49,13 @@ const CategorySlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    [GetAllCategoryAction, CreateCategoryAction, UpdateCategoryAction, DeleteCategoryAction].forEach((action) => {
+    [
+      GetAllCategoryAction,
+      GetOneCategoryAction,
+      CreateCategoryAction,
+      UpdateCategoryAction,
+      DeleteCategoryAction,
+    ].forEach((action) => {
       builder
         .addCase(action.pending, (state, action) => {
           state.loading = 'idle';

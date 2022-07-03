@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-nati
 import React from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { ICategory } from '../Store/CategoryItem';
 interface categoryProps {
   data: any;
 }
@@ -11,7 +12,7 @@ const Category: React.FC<categoryProps> = ({ data }) => {
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate('ListBookCategory');
+        navigation.navigate('ListBookCategory', data);
       }}
     >
       <View style={styles.container}>
@@ -34,5 +35,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 10,
   },
 });

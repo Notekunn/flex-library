@@ -37,12 +37,10 @@ const initialState: AuthState = {
 
 export const loginAction = createAsyncThunk('auth/login', async (payload: LoginPayload) => {
   const { data } = await apiInstance.post<LoginOKResponse>('/auth/login', payload);
-  console.log('loginAction', data);
   return data;
 });
 export const registerAction = createAsyncThunk('auth/register', async (payload: RegisterPayload) => {
   const { data } = await apiInstance.post<LoginOKResponse>('/auth/register', payload);
-  console.log('registerAction', data);
   return data;
 });
 

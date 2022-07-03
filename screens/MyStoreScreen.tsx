@@ -8,31 +8,33 @@ import {
   StatusBar,
   Dimensions,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { Profiler, useEffect, useState } from 'react';
 import { AntDesign, Feather, Fontisto, Entypo, FontAwesome5 } from '@expo/vector-icons';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import BookList from '../components/Store/BookList';
 import { mainColor, seconColor } from '../constants/Colors';
 import { useAppDispatch, useAppSelector } from '../app/hook';
 import { GetStoreByIdAction, GetStoreByUserAction, selectOwner, selectUserStore } from '../reducers/storeSlice';
 import { GetBookByStoreAction, selectBook } from '../reducers/bookSlice';
-import { selectUser } from '../reducers/authSlice';
+import { store } from '../app/store';
 const initialLayout = { width: Dimensions.get('window').width };
 
-const StoreScreen = () => {
-  const route = useRoute<any>();
+const MyStoreScreen = () => {
+  const nav = useNavigation();
   const dispatch = useAppDispatch();
+  const mystore = useAppSelector(selectUserStore);
   const books = useAppSelector(selectBook);
-  const store = route.params;
   const ownerStore = useAppSelector(selectOwner);
+  useEffect(() => {
+    dispatch(GetStoreByUserAction());
+  }, [books]);
 
   useEffect(() => {
-    dispatch(GetStoreByIdAction(store.id));
-  }, [store]);
-
-  useEffect(() => {
-    dispatch(GetBookByStoreAction(store.id));
+    if (mystore && mystore.id) {
+      dispatch(GetBookByStoreAction(mystore.id));
+      dispatch(GetStoreByIdAction(mystore.id));
+    }
   }, []);
 
   const renderTabBar = (props: any) => (
@@ -104,13 +106,13 @@ const StoreScreen = () => {
                 }}
               />
               <View style={{ paddingLeft: 15 }}>
-                <Text style={{ fontSize: 20 }}>{store.name}</Text>
+                <Text style={{ fontSize: 20 }}>{mystore?.name}</Text>
                 <Text style={{ fontSize: 12, color: 'gray' }}>Online 11 giờ trước</Text>
               </View>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => nav.navigate('AddItem')}>
               <View style={styles.button_follow}>
-                <Text style={{ color: '#4C4CD7' }}>Theo dõi</Text>
+                <Text style={{ color: '#4C4CD7' }}>Thêm sách</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -149,7 +151,7 @@ const StoreScreen = () => {
   );
 };
 
-export default StoreScreen;
+export default MyStoreScreen;
 
 const styles = StyleSheet.create({
   container: {

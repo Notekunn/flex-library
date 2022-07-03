@@ -1,7 +1,15 @@
 import React from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
-const GoogleMap = () => {
+
+export interface GoogleMapProps {
+  region: {
+    latitude: number;
+    longitude: number;
+  };
+}
+
+const GoogleMap: React.FC<GoogleMapProps> = ({ region }) => {
   return (
     <View>
       <MapView

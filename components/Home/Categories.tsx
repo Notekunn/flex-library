@@ -9,83 +9,32 @@ interface CategoryProps {
   data: ICategory[];
 }
 
-const data = [
-  {
-    id: 1,
-    name: 'Khoa học',
-    icon: 'home',
-  },
-  {
-    id: 1,
-    name: 'Khoa học',
-    icon: 'home',
-  },
-  {
-    id: 1,
-    name: 'Khoa học',
-    icon: 'home',
-  },
-  {
-    id: 1,
-    name: 'Khoa học',
-    icon: 'home',
-  },
-  {
-    id: 1,
-    name: 'Khoa học',
-    icon: 'home',
-  },
-  {
-    id: 1,
-    name: 'Khoa học',
-    icon: 'home',
-  },
-  {
-    id: 1,
-    name: 'Khoa học',
-    icon: 'home',
-  },
-  {
-    id: 1,
-    name: 'Khoa học',
-    icon: 'home',
-  },
-  {
-    id: 1,
-    name: 'Khoa học',
-    icon: 'home',
-  },
-  {
-    id: 1,
-    name: 'Khoa học',
-    icon: 'home',
-  },
-];
-
-const Categories: React.FC<CategoryProps> = () => {
+const Categories: React.FC<CategoryProps> = ({ data }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Thể loại sách</Text>
-      <FlatList
-        data={data}
-        horizontal={true}
-        keyExtractor={(item, index) => index.toString()}
-        // pagingEnabled={false}
-        // scrollEnabled={false}
-        contentContainerStyle={
-          {
-            // flex: 1,
-            // justifyContent: 'center',
-            // top: -10,
-            // padding: SPACING * 2,
+      <View>
+        <FlatList
+          data={data}
+          horizontal={true}
+          keyExtractor={(item, index) => index.toString()}
+          // pagingEnabled={false}
+          // scrollEnabled={false}
+          contentContainerStyle={
+            {
+              // flex: 1,
+              // justifyContent: 'center',
+              // top: -10,
+              // padding: SPACING * 2,
+            }
           }
-        }
-        snapToAlignment="start"
-        decelerationRate={0.5}
-        scrollEventThrottle={160}
-        // showsHorizontalScrollIndicator={false}
-        renderItem={({ item }) => <Category data={item} />}
-      />
+          snapToAlignment="start"
+          decelerationRate={0.5}
+          scrollEventThrottle={160}
+          // showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => <Category data={item} />}
+        />
+      </View>
     </View>
   );
 };
@@ -94,8 +43,10 @@ export default Categories;
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     width: width,
-    // flexDirection: 'row',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
   },
   title: {
     fontSize: 20,

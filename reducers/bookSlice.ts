@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { apiInstance } from '../app/axiosClient';
 import { RootState } from '../app/store';
-import { IBook } from '../constants/interface';
+import { IBook, IStore } from '../constants/interface';
 
 interface IUpdateBookPayload extends IBook {
   id: number;
@@ -9,38 +9,50 @@ interface IUpdateBookPayload extends IBook {
 
 interface IBookState {
   data: IBook[];
+  store: IStore;
   loading: 'idle' | 'loading' | 'success' | 'error';
   message?: string;
 }
 
 const initialState: IBookState = {
   data: [],
+  store: {} as IStore,
   loading: 'idle',
 };
 
-const CreateBookAction = createAsyncThunk('book/create', async (payload: IBook) => {
+export const CreateBookAction = createAsyncThunk('book/create', async (payload: IBook) => {
   const { data } = await apiInstance.post('/book', payload);
   return data;
 });
 
-const UpdateBookAction = createAsyncThunk('book/update', async (payload: IUpdateBookPayload) => {
+export const UpdateBookAction = createAsyncThunk('book/update', async (payload: IUpdateBookPayload) => {
   const { id, ...dataUpdate } = payload;
   const { data } = await apiInstance.put(`/book/${id}`, dataUpdate);
   return data;
 });
 
-const DeleteBookAction = createAsyncThunk('book/delete', async (id: number) => {
+export const DeleteBookAction = createAsyncThunk('book/delete', async (id: number) => {
   const { data } = await apiInstance.delete(`/book/${id}`);
   return data;
 });
 
-const GetBookAction = createAsyncThunk('book/get', async () => {
+export const GetBookAction = createAsyncThunk('book/get', async () => {
   const { data } = await apiInstance.get('/book');
   return data;
 });
 
-const GetBookByIdAction = createAsyncThunk('book/getById', async (id: number) => {
+export const GetBookByIdAction = createAsyncThunk('book/getById', async (id: number) => {
   const { data } = await apiInstance.get(`/book/${id}`);
+  return data;
+});
+
+export const GetBookByStoreAction = createAsyncThunk('book/getByStore', async (id: number) => {
+  const { data } = await apiInstance.get(`/store/${id}/books`);
+  return data;
+});
+
+export const GetBookByCategoryAction = createAsyncThunk('book/getByCategory', async (id: number) => {
+  const { data } = await apiInstance.get(`/book/category/${id}`);
   return data;
 });
 
@@ -49,7 +61,14 @@ const BookSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    [CreateBookAction, UpdateBookAction, DeleteBookAction, GetBookAction, GetBookByIdAction].forEach((action) => {
+    [
+      CreateBookAction,
+      UpdateBookAction,
+      DeleteBookAction,
+      GetBookAction,
+      GetBookByStoreAction,
+      GetBookByCategoryAction,
+    ].forEach((action) => {
       builder
         .addCase(action.pending, (state, action) => {
           state.loading = 'idle';
@@ -64,11 +83,24 @@ const BookSlice = createSlice({
           state.message = action.error.message;
         });
     });
+    builder.addCase(GetBookByIdAction.pending, (state, action) => {
+      state.loading = 'idle';
+      state.message = undefined;
+    });
+    builder.addCase(GetBookByIdAction.fulfilled, (state, action) => {
+      state.loading = 'success';
+      state.store = action.payload.store;
+    });
+    builder.addCase(GetBookByIdAction.rejected, (state, action) => {
+      state.loading = 'error';
+      state.message = action.error.message;
+    });
   },
 });
 
 export default BookSlice.reducer;
 
-const selectBook = (state: RootState) => state.book.data;
-const selectBookLoading = (state: RootState) => state.book.loading;
-const selectBookMessage = (state: RootState) => state.book.message;
+export const selectBook = (state: RootState) => state.book.data;
+export const selectBookLoading = (state: RootState) => state.book.loading;
+export const selectBookMessage = (state: RootState) => state.book.message;
+export const selectBookStore = (state: RootState) => state.book.store;

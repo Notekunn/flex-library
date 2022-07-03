@@ -32,7 +32,7 @@ const CategoryItem: React.FC<ICategoryItemProps> = ({ category, choose, setChoos
         </TouchableOpacity>
       ) : (
         <TouchableOpacity key={category.id} style={{ width: '100%' }} onPress={() => handleChoose(category.id)}>
-          <View>
+          <View style={{ backgroundColor: '#F5FCFF' }}>
             <Text style={styles.name}>{category.name}</Text>
           </View>
         </TouchableOpacity>
@@ -48,15 +48,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
   name: {
     fontSize: 20,
     fontFamily: 'SansPro',
     color: '#000',
     padding: 10,
-    backgroundColor: '#fff',
     textTransform: 'uppercase',
     width: '100%',
+    backgroundColor: '#F5FCFF',
+    borderBottomWidth: 0.2,
+    borderColor: '#c1c1c1',
   },
 });

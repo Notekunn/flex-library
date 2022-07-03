@@ -175,9 +175,9 @@ const SwipeSlide = () => {
 const styles = StyleSheet.create({
   container: {
     position: 'relative',
-    height: 455,
+    height: 500,
     width: width,
-
+    marginTop: 20,
     // backgroundColor: 'brown',
 
     // top: 10,

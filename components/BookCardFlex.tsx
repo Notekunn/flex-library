@@ -12,18 +12,18 @@ interface BookCardFlexProps {
 const BookCardFlex: React.FC<BookCardFlexProps> = ({ book }) => {
   const navigation = useNavigation<any>();
   return (
-    <TouchableOpacity onPress={() => navigation.push('Item', { id: 8 })}>
+    <TouchableOpacity onPress={() => navigation.push('Item', book)}>
       <View style={styles.container}>
         <Image
           style={styles.image}
           source={{
-            uri: book.image,
+            uri: book.images[0] || 'https://via.placeholder.com/150',
           }}
         />
         <View style={styles.desc}>
           <Text style={styles.title}>{book.name}</Text>
           <View style={styles.infor}>
-            <Text style={styles.price}>{book.price}/giờ</Text>
+            <Text style={styles.price}>{book.salePrice}/giờ</Text>
             <Text style={styles.rented}>Đã cho thuê 200</Text>
           </View>
         </View>
@@ -36,7 +36,6 @@ export default BookCardFlex;
 
 const styles = StyleSheet.create({
   container: {
-    // justifyContent: 'center',
     alignItems: 'center',
     width: (width - 30) / 2,
     backgroundColor: '#E5E6F8',
