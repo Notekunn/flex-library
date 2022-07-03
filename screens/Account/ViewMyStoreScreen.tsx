@@ -1,31 +1,25 @@
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import React, { useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
-import { Button, Image } from '@rneui/themed';
+import { Button, Icon, Image } from '@rneui/themed';
 import { mainColor } from '../../constants/Colors';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import GoogleMap from '../../components/Map/GoogleMap';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
-import {
-  CreateStoreAction,
-  selectData,
-  selectLoading,
-  selectMessage,
-  selectUserStore,
-} from '../../reducers/storeSlice';
+import { CreateStoreAction, selectData, selectLoading, selectMessage } from '../../reducers/storeSlice';
 
-const CreateStoreScreen = () => {
+const ViewMyStoreScreen = () => {
   const dispatch = useAppDispatch();
+  const mystore = useRoute<any>().params;
   const nav = useNavigation();
-  const error = useAppSelector(selectMessage);
-  const loading = useAppSelector(selectLoading);
-  const mystore = useAppSelector(selectUserStore);
   const [name, setName] = useState('');
   const [errorName, setErrorName] = useState('');
+  const [editName, setEditName] = useState(false);
   const [address, setAddress] = useState('');
   const [errorAddress, setErrorAddress] = useState('');
+  const [editAddress, setEditAddress] = useState(false);
 
-  const btnCreateStore = async () => {
+  const btnUpdateStore = async () => {
     dispatch(
       CreateStoreAction({
         name,
@@ -37,39 +31,45 @@ const CreateStoreScreen = () => {
     );
   };
 
-  if (mystore) {
-    nav.navigate('Home');
-  }
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <GoogleMap
           region={{
-            latitude: 20.980194953622984,
-            longitude: 105.79615346430842,
+            latitude: mystore.latitude,
+            longitude: mystore.longitude,
           }}
         />
       </View>
       <View style={styles.body}>
-        <View>
-          <View style={{ flexDirection: 'column', marginBottom: 5 }}>
-            <Text style={styles.textTitle}>Tên cửa hàng</Text>
+        <View style={{ flexDirection: 'column', marginBottom: 5 }}>
+          <Text style={styles.textTitle}>Tên cửa hàng</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', position: 'relative' }}>
             <TextInput
-              style={{ backgroundColor: '#fbfbfb', padding: 10, borderRadius: 20 }}
-              placeholder="Nhập tên cửa hàng"
-              onChangeText={(text) => setName(text)}
+              style={{ backgroundColor: '#fbfbfb', padding: 10, borderRadius: 20, width: '100%' }}
+              placeholder={mystore.name}
+              editable={editName}
             />
-          </View>
-          <View style={{ flexDirection: 'column', marginBottom: 5 }}>
-            <Text style={styles.textTitle}>Địa chỉ</Text>
-            <TextInput
-              style={{ backgroundColor: '#fbfbfb', padding: 10, borderRadius: 20 }}
-              placeholder="Nhập địa chỉ của bạn"
-              onChangeText={(text) => setAddress(text)}
-            />
+            <View style={{ position: 'absolute', right: 10 }}>
+              <Icon name="edit-2" type="feather" size={18} onPress={() => setEditName(!editName)} />
+            </View>
           </View>
         </View>
+
+        <View style={{ flexDirection: 'column', marginBottom: 5 }}>
+          <Text style={styles.textTitle}>Địa chỉ</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', position: 'relative' }}>
+            <TextInput
+              style={{ backgroundColor: '#fbfbfb', padding: 10, borderRadius: 20, width: '100%' }}
+              placeholder={mystore.address}
+              editable={editAddress}
+            />
+            <View style={{ position: 'absolute', right: 10 }}>
+              <Icon name="edit-2" type="feather" size={18} onPress={() => setEditAddress(!editAddress)} />
+            </View>
+          </View>
+        </View>
+
         <View style={styles.groupButton}>
           <Button
             title={'Quay lại'}
@@ -87,7 +87,7 @@ const CreateStoreScreen = () => {
             onPress={() => nav.goBack()}
           />
           <Button
-            title={'Tạo'}
+            title={'Cập nhập'}
             containerStyle={{
               width: 100,
               height: 40,
@@ -96,7 +96,7 @@ const CreateStoreScreen = () => {
             buttonStyle={{
               backgroundColor: '#faad14',
             }}
-            onPress={btnCreateStore}
+            onPress={btnUpdateStore}
           />
         </View>
       </View>
@@ -104,7 +104,7 @@ const CreateStoreScreen = () => {
   );
 };
 
-export default CreateStoreScreen;
+export default ViewMyStoreScreen;
 
 const styles = StyleSheet.create({
   container: {

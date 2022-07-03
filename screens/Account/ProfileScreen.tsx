@@ -4,9 +4,13 @@ import React, { useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import { mainColor } from '../../constants/Colors';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { useAppDispatch, useAppSelector } from '../../app/hook';
+import { selectUser, updateUserAction } from '../../reducers/authSlice';
 
 const ProfileScreen = () => {
   const route = useRoute<any>();
+  const dispatch = useAppDispatch();
+  const infoUpdate = useAppSelector(selectUser);
   const [image, setImage] = useState(route.params.avatar);
   const nav = useNavigation();
   const [name, setFullName] = useState('');
@@ -25,6 +29,16 @@ const ProfileScreen = () => {
       setImage(result.uri);
     }
   };
+
+  const updateProfile = async () => {
+    const data = {
+      ...route.params,
+      avatar: image,
+      name: name,
+    };
+    dispatch(updateUserAction(data));
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -143,6 +157,7 @@ const ProfileScreen = () => {
             buttonStyle={{
               backgroundColor: '#faad14',
             }}
+            onPress={updateProfile}
           />
         </View>
       </View>

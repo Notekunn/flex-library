@@ -3,27 +3,13 @@ import React, { useState } from 'react';
 import BookCardFlex from '../BookCardFlex';
 import { ScrollView, TouchableOpacity } from 'react-native';
 import { mainColor } from '../../constants/Colors';
+import { IBook } from '../../constants/interface';
 
-const books = [
-  {
-    name: 'Book 1',
-    price: 100,
-    salePrice: 90,
-    rentPrice: 80,
-    description: 'Description 1',
-    image: 'https://via.placeholder.com/150',
-  },
-  {
-    name: 'Book 2',
-    price: 100,
-    salePrice: 90,
-    rentPrice: 80,
-    description: 'Description 2',
-    image: 'https://via.placeholder.com/150',
-  },
-];
+export interface BookListProps {
+  books: IBook[];
+}
 
-const BookList = () => {
+const BookList: React.FC<BookListProps> = ({ books }) => {
   const listOptions = [
     {
       option: 'Mới nhất',
@@ -48,27 +34,31 @@ const BookList = () => {
   const [status, setStatus] = useState('Mới nhất');
   return (
     <View style={styles.container}>
-      <View style={styles.options}>
-        {listOptions.map((e, i) => {
-          return (
-            <TouchableOpacity
-              onPress={() => {
-                handleOption(e.option);
-              }}
-              key={i}
-            >
-              <Text style={[styles.option_title, status === e.option && styles.option_title_color]}>{e.option}</Text>
-            </TouchableOpacity>
-          );
-        })}
-      </View>
-      <ScrollView>
-        <View style={styles.listItem}>
-          {books.map((e, i) => {
-            return <BookCardFlex book={e} key={i} />;
+      <View>
+        <View style={styles.options}>
+          {listOptions.map((e, i) => {
+            return (
+              <TouchableOpacity
+                onPress={() => {
+                  handleOption(e.option);
+                }}
+                key={i}
+              >
+                <Text style={[styles.option_title, status === e.option && styles.option_title_color]}>{e.option}</Text>
+              </TouchableOpacity>
+            );
           })}
         </View>
-      </ScrollView>
+      </View>
+      {books && (
+        <ScrollView>
+          <View style={{ paddingHorizontal: 10, marginTop: 10 }}>
+            <View style={styles.listItem}>
+              {books.length > 0 && books.map((e, i) => <BookCardFlex book={e} key={i} />)}
+            </View>
+          </View>
+        </ScrollView>
+      )}
     </View>
   );
 };
@@ -95,8 +85,8 @@ const styles = StyleSheet.create({
   listItem: {
     flexWrap: 'wrap',
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    paddingTop: 10,
+    justifyContent: 'space-between',
+    marginBottom: 40,
   },
   option_title: {
     alignItems: 'center',

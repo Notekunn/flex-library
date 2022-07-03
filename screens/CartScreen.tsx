@@ -1,195 +1,200 @@
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
-import React from 'react';
+import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native';
+import React, { useEffect } from 'react';
 import { Button, Icon, ListItem } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { mainColor } from '../constants/Colors';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useAppDispatch, useAppSelector } from '../app/hook';
+import { GetOrderByUserAction, selectOrder } from '../reducers/orderSlice';
+import { store } from '../app/store';
 
-const ItemInCart = () => (
-  <View style={styles.itemInCart}>
-    <ListItem.Swipeable
-      leftContent={(reset) => (
-        <Button
-          title="Info"
-          onPress={() => reset()}
-          icon={{
-            name: 'info',
-            type: 'feather',
-            color: 'white',
-          }}
-          buttonStyle={{
-            minHeight: '100%',
-            backgroundColor: '#0052d1',
-          }}
-        />
-      )}
-      rightContent={(reset) => (
-        <Button
-          title="Delete"
-          onPress={() => reset()}
-          icon={{
-            name: 'trash',
-            type: 'feather',
-            color: 'white',
-          }}
-          buttonStyle={{
-            minHeight: '100%',
-            backgroundColor: '#f84b2f',
-          }}
-        />
-      )}
-    >
-      <ListItem.Content>
-        <View style={styles.item}>
-          <View style={styles.info}>
-            <Image
-              source={{
-                uri: 'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg',
-              }}
-              style={styles.image}
-            />
-            <View style={styles.detail}>
-              <Text style={[styles.text, { color: '#000', marginBottom: 10, fontWeight: '600', fontSize: 17 }]}>
-                truyen conan tap 1
-              </Text>
-              <Text style={styles.text}>$3000</Text>
-            </View>
-          </View>
-          <View style={styles.quantity}>
-            <Button
-              icon={{
-                name: 'minus',
-                type: 'font-awesome',
-                color: 'white',
-              }}
-              buttonStyle={{
-                backgroundColor: mainColor,
-                padding: 0,
-                height: 30,
-                width: 30,
-              }}
-            />
-
-            <Text style={{ margin: 10, fontSize: 20 }}>1</Text>
-            <Button
-              icon={{
-                name: 'plus',
-                type: 'font-awesome',
-                color: 'white',
-              }}
-              buttonStyle={{
-                backgroundColor: mainColor,
-                padding: 0,
-                height: 30,
-                width: 30,
-              }}
-            />
-          </View>
-        </View>
-      </ListItem.Content>
-    </ListItem.Swipeable>
-  </View>
-);
-const CartScreen = () => {
-  const nav = useNavigation();
+interface IItemCarProps {
+  item: any;
+}
+const ItemInCart: React.FC<IItemCarProps> = ({ item }) => {
+  const nav = useNavigation<any>();
   return (
-    // chưa có data
-    // <View style={styles.container}>
-    //     <View>
-    //         <Text style={styles.title}>Your Shopping cart is empty</Text>
-    //     </View>
-    //     <View
-    //         style={{
-    //             alignItems: 'center',
-    //             justifyContent: 'center',
-    //             width: '100%',
-    //             marginTop: 20,
-    //             marginBottom: 20,
-    //         }}
-    //     >
-    //         <Image
-    //             source={{
-    //                 uri: 'https://cdni.iconscout.com/illustration/premium/thumb/empty-cart-2130356-1800917.png',
-    //             }}
-    //             style={styles.imageLogoEmty}
-    //         />
-    //     </View>
-    //     <Button
-    //         title="Shoping now"
-    //         buttonStyle={{ backgroundColor: '#f84b2f' }}
-    //         containerStyle={{
-    //             marginHorizontal: 50,
-    //             marginVertical: 20,
-    //             borderRadius: 15,
-    //         }}
-    //         titleStyle={{
-    //             color: 'white',
-    //             marginHorizontal: 20,
-    //             fontSize: 20,
-    //         }}
-    //         onPress={() => {
-    //             nav.navigate('Home');
-    //         }}
-    //     />
-    // </View>
-    //có data
+    <View style={styles.itemInCart}>
+      <ListItem.Swipeable
+        leftContent={(reset) => (
+          <Button
+            title="Info"
+            onPress={() => reset()}
+            icon={{
+              name: 'info',
+              type: 'feather',
+              color: 'white',
+            }}
+            buttonStyle={{
+              minHeight: '100%',
+              backgroundColor: '#0052d1',
+            }}
+          />
+        )}
+        rightContent={(reset) => (
+          <Button
+            title="Delete"
+            onPress={() => reset()}
+            icon={{
+              name: 'trash',
+              type: 'feather',
+              color: 'white',
+            }}
+            buttonStyle={{
+              minHeight: '100%',
+              backgroundColor: '#f84b2f',
+            }}
+          />
+        )}
+      >
+        <ListItem.Content>
+          <View style={styles.item}>
+            <TouchableOpacity onPress={() => nav.push('Item', item.book)}>
+              <View style={styles.info}>
+                <Image
+                  source={{
+                    uri:
+                      item.book.images[0] ||
+                      'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg',
+                  }}
+                  style={styles.image}
+                />
+                <View style={styles.detail}>
+                  <Text
+                    style={[
+                      styles.text,
+                      {
+                        color: '#000',
+                        marginBottom: 10,
+                        fontWeight: '600',
+                        fontSize: 16,
+                        flexWrap: 'wrap',
+                        textTransform: 'capitalize',
+                      },
+                    ]}
+                  >
+                    {item.book.name}
+                  </Text>
+                  <Text style={styles.text}>{item.book.rentPrice} đ</Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+            <View style={styles.quantity}>
+              <Button
+                icon={{
+                  name: 'minus',
+                  type: 'font-awesome',
+                  color: 'white',
+                }}
+                buttonStyle={{
+                  backgroundColor: mainColor,
+                  padding: 0,
+                  height: 30,
+                  width: 30,
+                }}
+              />
+              <Text style={{ margin: 10, fontSize: 20 }}>{item.quantity}</Text>
+              <Button
+                icon={{
+                  name: 'plus',
+                  type: 'font-awesome',
+                  color: 'white',
+                }}
+                buttonStyle={{
+                  backgroundColor: mainColor,
+                  padding: 0,
+                  height: 30,
+                  width: 30,
+                }}
+              />
+            </View>
+          </View>
+        </ListItem.Content>
+      </ListItem.Swipeable>
+    </View>
+  );
+};
+const CartScreen = () => {
+  const nav = useNavigation<any>();
+  const dispatch = useAppDispatch();
+  const myOrder = useAppSelector(selectOrder);
+  useEffect(() => {
+    dispatch(GetOrderByUserAction());
+  }, []);
 
+  if (!myOrder) {
+    return (
+      <View style={styles.container}>
+        <View>
+          <Text style={styles.title}>Your Shopping cart is empty</Text>
+        </View>
+        <View
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '100%',
+            marginTop: 20,
+            marginBottom: 20,
+          }}
+        >
+          <Image
+            source={{
+              uri: 'https://cdni.iconscout.com/illustration/premium/thumb/empty-cart-2130356-1800917.png',
+            }}
+            style={styles.imageLogoEmty}
+          />
+        </View>
+        <Button
+          title="Đi thuê ngay"
+          buttonStyle={{ backgroundColor: mainColor }}
+          containerStyle={{
+            marginHorizontal: 50,
+            marginVertical: 20,
+            borderRadius: 15,
+          }}
+          titleStyle={{
+            color: 'white',
+            marginHorizontal: 20,
+            fontSize: 20,
+          }}
+          onPress={() => {
+            nav.navigate('Home');
+          }}
+        />
+      </View>
+    );
+  }
+  return (
     <ScrollView>
-      <View style={styles.store}>
-        <TouchableOpacity onPress={() => nav.navigate('Store')}>
-          <View style={styles.store_infor}>
-            <Image
-              style={styles.store_img}
-              source={{ uri: 'https://tse1.mm.bing.net/th?q=solo%20leveling%20manga%20rock' }}
-            />
-            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>SPY Library</Text>
-            <MaterialIcons name="arrow-forward-ios" size={20} color="black" />
-          </View>
-        </TouchableOpacity>
-        <View style={styles.store_list}>
-          <ItemInCart />
-          <ItemInCart />
-        </View>
-        <View style={styles.price}>
-          <Text style={{ marginRight: 10 }}>
-            Tổng thanh toán <Text style={{ color: mainColor, fontWeight: '900', fontSize: 16 }}>26.500 đ</Text>
-          </Text>
-          <TouchableOpacity>
-            <View style={styles.pay}>
-              <Text style={{ color: '#fff', fontSize: 17, fontWeight: 'bold' }}>Thuê truyện</Text>
+      {myOrder.map((item: any, index: number) => (
+        <View style={styles.store} key={index}>
+          <TouchableOpacity onPress={() => nav.navigate('Store', item.store)}>
+            <View style={styles.store_infor}>
+              <Image
+                style={styles.store_img}
+                source={{ uri: 'https://tse1.mm.bing.net/th?q=solo%20leveling%20manga%20rock' }}
+              />
+              <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{item.store.name}</Text>
+              <MaterialIcons name="arrow-forward-ios" size={20} color="black" />
             </View>
           </TouchableOpacity>
-        </View>
-      </View>
-      <View style={styles.store}>
-        <TouchableOpacity onPress={() => nav.navigate('Store')}>
-          <View style={styles.store_infor}>
-            <Image
-              style={styles.store_img}
-              source={{
-                uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBHluYKcqYORBaNCxuK676aCNlaUw1pAtn1V7lPocfiGD9k7lphgKJigDR1efV1DlS0jI&usqp=CAU',
-              }}
-            />
-            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>KMA Library</Text>
-            <MaterialIcons name="arrow-forward-ios" size={20} color="black" />
+          <View style={styles.store_list}>
+            {item.orderDetails.map((e: any, i: number) => (
+              <ItemInCart item={e} key={i} />
+            ))}
           </View>
-        </TouchableOpacity>
-        <View style={styles.store_list}>
-          <ItemInCart />
-          <ItemInCart />
+          <View style={styles.price}>
+            <Text style={{ marginRight: 10 }}>
+              Tổng thanh toán <Text style={{ color: mainColor, fontWeight: '900', fontSize: 16 }}>26.500 đ</Text>
+            </Text>
+            <TouchableOpacity>
+              <View style={styles.pay}>
+                <Text style={{ color: '#fff', fontSize: 17, fontWeight: 'bold' }}>Thuê truyện</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.price}>
-          <Text style={{ marginRight: 10 }}>
-            Tổng thanh toán <Text style={{ color: mainColor, fontWeight: '900', fontSize: 16 }}>26.500 đ</Text>
-          </Text>
-          <TouchableOpacity>
-            <View style={styles.pay}>
-              <Text style={{ color: '#fff', fontSize: 17, fontWeight: 'bold' }}>Thuê truyện</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </View>
+      ))}
     </ScrollView>
   );
 };
@@ -213,10 +218,9 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   text: {
-    fontSize: 15,
+    fontSize: 13,
     color: mainColor,
     fontWeight: '500',
-    textTransform: 'capitalize',
   },
   item: {
     flexDirection: 'row',
@@ -237,7 +241,6 @@ const styles = StyleSheet.create({
   },
   detail: {
     flexDirection: 'column',
-    flexWrap: 'wrap',
     marginLeft: 10,
     padding: 10,
   },

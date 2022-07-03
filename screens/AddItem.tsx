@@ -16,25 +16,23 @@ import { mainColor, seconColor, whiteColor } from '../constants/Colors';
 import { AntDesign, Entypo, Foundation, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
-import { PanGestureHandler, PanGestureHandlerGestureEvent, ScrollView } from 'react-native-gesture-handler';
-import Animated, {
-  useSharedValue,
-  withSpring,
-  useAnimatedStyle,
-  useAnimatedGestureHandler,
-} from 'react-native-reanimated';
+import { ScrollView } from 'react-native-gesture-handler';
+import { useAppDispatch, useAppSelector } from '../app/hook';
+import { CreateBookAction } from '../reducers/bookSlice';
 
 const AddItem = () => {
   const navigation = useNavigation<any>();
+  const dispatch = useAppDispatch();
   const [status, requestPermission] = ImagePicker.useCameraPermissions();
-  const [imageList, setImageList] = useState<any>([]);
+  const [imageList, setImageList] = useState<string[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [name, setName] = useState('');
   const [author, setAuthor] = useState('');
   const [desc, setDesc] = useState('');
+  const [chooseCategories, setChooseCategories] = useState<number[]>([]);
   const [rentPrice, setRentPrice] = useState(0);
   const [salePrice, setSalePrice] = useState(0);
-  const [quantity, setQuantity] = useState(0);
+  const [numOfCopies, setNumOfCopies] = useState(0);
 
   const onSubmit = () => {
     if (!name) {
@@ -45,23 +43,19 @@ const AddItem = () => {
       alert('Author is required');
       return;
     }
-    if (!desc) {
-      alert('Description is required');
-      return;
-    }
     const data = {
       name,
       author,
-      desc,
       rentPrice,
       salePrice,
-      quantity,
+      numOfCopies,
       images: imageList,
+      categoryIds: chooseCategories,
     };
-    console.log(data);
+    dispatch(CreateBookAction(data));
+    navigation.goBack();
   };
 
-  const [category, setCategory] = useState<number[]>([]);
   // useEffect(() => {
   //   const check = async () => {
   //     if (status?.status !== 'granted') requestPermission();
@@ -69,7 +63,6 @@ const AddItem = () => {
   //   check();
   // }, []);
   const pickImageWithCamera = async () => {
-    console.log('âsas');
     // await requestPermission();
     // if (status?.granted === false) {
     //   alert('you ko có permissions');
@@ -82,7 +75,6 @@ const AddItem = () => {
       quality: 1,
     });
     setModalVisible(!modalVisible);
-    console.log(result);
 
     if (!result.cancelled) {
       setImageList([...imageList, result.uri]);
@@ -92,22 +84,18 @@ const AddItem = () => {
     setModalVisible(!modalVisible);
     // await requestPermission();
     if (status?.granted === false) {
-      alert('you ko có permissions');
+      alert('Bạn chưa cấp quyền');
       return;
     }
-    let result = await ImagePicker.launchImageLibraryAsync({
+    let result = (await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-
       aspect: [9, 3],
       quality: 1,
       allowsMultipleSelection: true,
-    });
-
-    console.log(result);
-
+    })) as any;
     if (!result.cancelled) {
-      setImageList([...imageList, result]);
+      setImageList([...imageList, result.uri]);
     }
   };
   interface ImageFrameProps {
@@ -116,7 +104,6 @@ const AddItem = () => {
   }
   const deleteImage = (index: number) => {
     const result = imageList.filter((_: any, i: number) => i !== index);
-    console.log(index);
 
     setImageList([...result]);
   };
@@ -290,7 +277,9 @@ const AddItem = () => {
             />
           </View>
           <View style={styles.optionFrame}>
-            <TouchableOpacity onPress={() => navigation.navigate('Category', { category, setCategory })}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Category', { chooseCategories, setChooseCategories })}
+            >
               <View style={styles.optionItem}>
                 <AntDesign
                   name="menu-fold"
@@ -299,7 +288,7 @@ const AddItem = () => {
                   style={{ width: 30, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
                 />
                 <Text style={{ padding: 10 }}>Danh mục</Text>
-                {category.length ? <Text style={{ marginLeft: 150 }}>{category.length} </Text> : <></>}
+                {chooseCategories.length ? <Text style={{ marginLeft: 150 }}>{chooseCategories.length} </Text> : <></>}
                 <MaterialIcons
                   name="arrow-forward-ios"
                   size={24}
@@ -349,10 +338,10 @@ const AddItem = () => {
               />
               <Text style={{ padding: 10, minWidth: 100 }}>Số lượng</Text>
               <TextInput
-                placeholder={`${quantity}`}
+                placeholder={`${numOfCopies}`}
                 keyboardType="number-pad"
                 style={{ flexDirection: 'row', justifyContent: 'flex-end', marginLeft: 100, flex: 1 }}
-                onChangeText={(value) => setQuantity(parseInt(value))}
+                onChangeText={(value) => setNumOfCopies(parseInt(value))}
               />
             </View>
           </View>

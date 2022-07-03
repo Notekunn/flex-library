@@ -1,16 +1,24 @@
 import { Alert, Button, StyleSheet, Text, View } from 'react-native';
 import { Icon, Image } from '@rneui/themed';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { mainColor, seconColor } from '../../constants/Colors';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { logoutAction, selectUser } from '../../reducers/authSlice';
+import { GetStoreByUserAction, selectUserStore } from '../../reducers/storeSlice';
+import ViewMyStoreScreen from './ViewMyStoreScreen';
 
 const AccountScreen = () => {
   const nav = useNavigation<any>();
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
+  const mystore = useAppSelector(selectUserStore);
+
+  useEffect(() => {
+    dispatch(GetStoreByUserAction());
+  }, []);
+
   const handleLogout = () => {
     Alert.alert('Đăng xuất', 'Bạn có chắc muốn đăng xuất?', [
       { text: 'Đồng ý', onPress: () => dispatch(logoutAction()) },
@@ -133,28 +141,57 @@ const AccountScreen = () => {
               </View>
               <Icon name="angle-right" type="font-awesome" style={{ flex: 1 }} color="#c1c1c1" />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.item} activeOpacity={0.8} onPress={() => nav.navigate('CreateStore')}>
-              <View
-                style={{
-                  backgroundColor: '#ea4335',
-                  borderRadius: 5,
-                  padding: 5,
-                  width: 30,
-                  height: 30,
-                }}
+            {!mystore ? (
+              <TouchableOpacity style={styles.item} activeOpacity={0.8} onPress={() => nav.navigate('CreateStore')}>
+                <View
+                  style={{
+                    backgroundColor: '#ea4335',
+                    borderRadius: 5,
+                    padding: 5,
+                    width: 30,
+                    height: 30,
+                  }}
+                >
+                  <Icon name="book-open" type="feather" color="#fff" size={20} solid={true} />
+                </View>
+                <View
+                  style={{
+                    flex: 2,
+                    marginLeft: 30,
+                  }}
+                >
+                  <Text style={styles.text}>Tạo cửa hàng</Text>
+                </View>
+                <Icon name="angle-right" type="font-awesome" style={{ flex: 1 }} color="#c1c1c1" />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                style={styles.item}
+                activeOpacity={0.8}
+                onPress={() => nav.navigate('ViewMyStore', mystore)}
               >
-                <Icon name="book-open" type="feather" color="#fff" size={20} solid={true} />
-              </View>
-              <View
-                style={{
-                  flex: 2,
-                  marginLeft: 30,
-                }}
-              >
-                <Text style={styles.text}>Tạo cửa hàng</Text>
-              </View>
-              <Icon name="angle-right" type="font-awesome" style={{ flex: 1 }} color="#c1c1c1" />
-            </TouchableOpacity>
+                <View
+                  style={{
+                    backgroundColor: '#ea4335',
+                    borderRadius: 5,
+                    padding: 5,
+                    width: 30,
+                    height: 30,
+                  }}
+                >
+                  <Icon name="book-open" type="feather" color="#fff" size={20} solid={true} />
+                </View>
+                <View
+                  style={{
+                    flex: 2,
+                    marginLeft: 30,
+                  }}
+                >
+                  <Text style={styles.text}>Cửa hàng của bạn</Text>
+                </View>
+                <Icon name="angle-right" type="font-awesome" style={{ flex: 1 }} color="#c1c1c1" />
+              </TouchableOpacity>
+            )}
           </View>
         </View>
         <View>

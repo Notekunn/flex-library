@@ -18,9 +18,10 @@ apiInstance.interceptors.request.use(async (config) => {
     config.headers = {
       ...(config.headers || {}),
       Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
     };
   }
-  if (config.method === 'POST' && typeof config.data === 'object') {
+  if (config.method?.toUpperCase() === 'POST' && typeof config.data === 'object') {
     config.data = JSON.stringify(config.data);
   }
 
@@ -30,6 +31,7 @@ apiInstance.interceptors.request.use(async (config) => {
 apiInstance.interceptors.response.use(
   (e) => e,
   (error) => {
+    console.log(error);
     const status = error?.response?.status && `[${error.response.status}] `;
     if (error?.response?.data?.message) {
       return Promise.reject(status + error.response.data.message);

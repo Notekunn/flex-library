@@ -9,8 +9,9 @@ import {
   FlatList,
   Linking,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RootStackScreenProps, RootTabScreenProps } from '../types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AntDesign, Entypo, Feather, FontAwesome5, Fontisto, MaterialCommunityIcons } from '@expo/vector-icons';
 import { stringLength } from '@firebase/util';
 import BookList from '../components/Home/BookList';
@@ -18,64 +19,65 @@ import BookCardFlex from '../components/BookCardFlex';
 import { mainColor } from '../constants/Colors';
 import { IBook } from '../constants/interface';
 import Header from '../components/Header';
-
-const listImage = [
-  'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg',
-  'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-2/anh-bia.jpg',
-  'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-3/anh-bia.jpg',
-  'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-4/anh-bia.jpg',
-  'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-5/anh-bia.jpg',
-];
-
-const books = [
-  {
-    name: 'Book 1',
-    price: 100,
-    salePrice: 90,
-    rentPrice: 80,
-    description: 'Description 1',
-    image: 'https://via.placeholder.com/150',
-  },
-  {
-    name: 'Book 2',
-    price: 100,
-    salePrice: 90,
-    rentPrice: 80,
-    description: 'Description 2',
-    image: 'https://via.placeholder.com/150',
-  },
-  {
-    name: 'Book 1',
-    price: 100,
-    salePrice: 90,
-    rentPrice: 80,
-    description: 'Description 1',
-    image: 'https://via.placeholder.com/150',
-  },
-  {
-    name: 'Book 2',
-    price: 100,
-    salePrice: 90,
-    rentPrice: 80,
-    description: 'Description 2',
-    image: 'https://via.placeholder.com/150',
-  },
-];
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { Button } from '@rneui/themed';
+import { useAppDispatch, useAppSelector } from '../app/hook';
+import { GetBookByIdAction, selectBookStore } from '../reducers/bookSlice';
+import { OrderStatus } from '../constants/enum';
+import { GetStoreByIdAction, selectOwner } from '../reducers/storeSlice';
+import { CreateOrderDetailAction } from '../reducers/orderDetailSlice';
+import { selectOrder, GetOrderByUserAction, selectOrderLoading } from '../reducers/orderSlice';
 
 const { width } = Dimensions.get('window');
 
-const ItemScreen = ({ navigation }: RootStackScreenProps<'Item'>) => {
+const ItemScreen = () => {
+  const nav = useNavigation<any>();
   const [showDetail, setShowDetail] = useState(false);
+  const dispatch = useAppDispatch();
+  const store = useAppSelector(selectBookStore);
+  const owner = useAppSelector(selectOwner);
+  const book = useRoute<any>().params;
+
+  const handlePress = async () => {
+    dispatch(CreateOrderDetailAction({ bookId: book.id, quantity: 1 }));
+    dispatch(GetOrderByUserAction());
+    nav.navigate('Cart');
+  };
+
+  useEffect(() => {
+    if (book && book.id) {
+      dispatch(GetBookByIdAction(book.id));
+    }
+  }, [book]);
+
+  useEffect(() => {
+    if (store && store.id) {
+      dispatch(GetStoreByIdAction(store.id));
+    }
+  }, [store]);
+
   return (
     <View style={styles.container}>
       <Header />
       <ScrollView>
         <View style={{ marginTop: 10 }}>
-          <Image style={styles.image} source={{ uri: listImage[0] }} />
+          <Image style={styles.image} source={{ uri: book.images[0] }} />
         </View>
         <View style={styles.desc}>
-          <Text style={styles.title}>Truyện tranh Connan version VIP pro MAX ULTRA WIDE</Text>
-          <Text style={styles.price}>395.000đ</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+            <View>
+              <Text style={styles.title}>{book.name}</Text>
+              <Text style={styles.price}>{book.salePrice}</Text>
+            </View>
+            <Button
+              title={'Thuê ngay'}
+              titleStyle={{ color: 'white' }}
+              buttonStyle={{ backgroundColor: mainColor, marginRight: 10 }}
+              onPress={() => {
+                handlePress();
+              }}
+            />
+          </View>
           <View style={styles.extensions}>
             <View style={styles.rate}>
               <AntDesign name="star" size={17} color="yellow" />
@@ -109,13 +111,15 @@ const ItemScreen = ({ navigation }: RootStackScreenProps<'Item'>) => {
                 resizeMode: 'contain',
                 borderRadius: 30,
               }}
-              source={{ uri: listImage[1] }}
+              source={{
+                uri: owner?.avatar || 'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg',
+              }}
             />
             <View style={styles.text}>
-              <Text style={{ fontSize: 20 }}>FlexLib.vip.vn</Text>
+              <Text style={{ fontSize: 20 }}>{store.name}</Text>
               <Text style={{ fontSize: 12, color: 'gray' }}>Online 11 giờ trước</Text>
             </View>
-            <TouchableOpacity onPress={() => navigation.navigate('Store')}>
+            <TouchableOpacity onPress={() => nav.navigate('Store', store)}>
               <View style={styles.button}>
                 <Text style={{ color: '#4C4CD7' }}>Xem Shop</Text>
               </View>
@@ -187,12 +191,13 @@ const ItemScreen = ({ navigation }: RootStackScreenProps<'Item'>) => {
               )}
             </View>
           </TouchableOpacity>
+          <View></View>
         </View>
-        <View style={styles.otherBooks}>
+        {/* <View style={styles.otherBooks}>
           {books.map((item, index) => (
             <BookCardFlex book={item} key={index} />
           ))}
-        </View>
+        </View> */}
       </ScrollView>
     </View>
   );

@@ -16,6 +16,7 @@ import HomeScreen from '../screens/Home/HomeScreen';
 import MyIdScreen from '../screens/MyIdScreen';
 import ScanScreen from '../screens/ScanScreen';
 import StoreScreen from '../screens/StoreScreen';
+import MyStoreScreen from '../screens/MyStoreScreen';
 import AccountScreen from '../screens/Account/AccountScreen';
 import { StatusBar, View } from 'react-native';
 import ModalItem from '../modals/ModalItem';
@@ -34,6 +35,8 @@ import CreateStoreScreen from '../screens/Account/CreateStoreScreen';
 import IntroScreen from '../screens/IntroScreen';
 import CategoryScreen from '../screens/CategoryScreen';
 import ListBookScreen from '../screens/ListBookScreen';
+import { GetStoreByUserAction, selectUserStore } from '../reducers/storeSlice';
+import ViewMyStoreScreen from '../screens/Account/ViewMyStoreScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -55,6 +58,7 @@ function RootNavigator() {
       dispatch(profileAction());
     }
   }, []);
+
   if (loading == 'loading') {
     return (
       <Stack.Navigator>
@@ -99,6 +103,7 @@ function RootNavigator() {
               headerRight: ItemHeaderRight,
             }}
           />
+          <Stack.Screen name="Store" component={StoreScreen} />
           <Stack.Screen
             name="InfoCart"
             component={TopBarNavigatorCart}
@@ -127,6 +132,7 @@ function RootNavigator() {
             }}
           />
           <Stack.Screen name="CreateStore" component={CreateStoreScreen} />
+          <Stack.Screen name="ViewMyStore" component={ViewMyStoreScreen} />
           <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
           <Stack.Screen name="AddItem" component={AddItem} />
           <Stack.Screen name="Category" component={CategoryScreen} />
@@ -149,8 +155,15 @@ function RootNavigator() {
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 function BottomTabNavigator() {
+  const mystore = useAppSelector(selectUserStore);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(GetStoreByUserAction());
+  }, []);
+
   const colorScheme = useColorScheme();
   const navigation = useNavigation<any>();
+
   return (
     <BottomTab.Navigator
       initialRouteName="Home"
@@ -200,16 +213,18 @@ function BottomTabNavigator() {
         }}
       />
 
-      {/* Nếu user có store thì hiện */}
-      <BottomTab.Screen
-        name="Store"
-        component={StoreScreen}
-        options={{
-          headerShown: false,
-          title: 'Store',
-          tabBarIcon: ({ color }) => <TabBarIcon name="shopping-cart" color={color} />,
-        }}
-      />
+      {mystore && (
+        <BottomTab.Screen
+          name="MyStore"
+          component={MyStoreScreen}
+          options={{
+            headerShown: false,
+            title: 'MyStore',
+            tabBarIcon: ({ color }) => <TabBarIcon name="shopping-cart" color={color} />,
+          }}
+        />
+      )}
+
       <BottomTab.Screen
         name="Account"
         component={AccountScreen}

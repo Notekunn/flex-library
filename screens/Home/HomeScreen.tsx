@@ -15,21 +15,22 @@ export default function HomeScreen() {
   const dispatch = useAppDispatch();
   const CategoriesData = useAppSelector(selectData);
   useEffect(() => {
-    dispatch(GetAllCategoryAction);
-  });
+    dispatch(GetAllCategoryAction());
+  }, []);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Header />
       </View>
-      <ScrollView>
-        <View style={styles.body}>
-          <SwipeSlide />
-          <Categories data={CategoriesData} />
-          <BookList />
-          {/* <CardList /> */}
-        </View>
-      </ScrollView>
+      {/* <ScrollView>
+        
+      </ScrollView> */}
+      <View style={styles.body}>
+        <SwipeSlide />
+        <Categories data={CategoriesData} />
+        {/* <BookList /> */}
+        {/* <CardList /> */}
+      </View>
     </View>
   );
 }
@@ -47,7 +48,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    // justssifyContent: 'center',
   },
   title: {
     fontSize: 20,
