@@ -1,3 +1,10 @@
+## [1.13.1](https://github.com/Notekunn/flex-library/compare/v1.13.0...v1.13.1) (2022-07-04)
+
+
+### Bug Fixes
+
+* rename directory ([#29](https://github.com/Notekunn/flex-library/issues/29)) ([0614e57](https://github.com/Notekunn/flex-library/commit/0614e57badd928174bb7d50d0b8193e717af21b9))
+
 # [1.13.0](https://github.com/Notekunn/flex-library/compare/v1.12.0...v1.13.0) (2022-06-23)
 
 
