@@ -15,54 +15,66 @@ import React, { createRef, useRef, useState } from 'react';
 import { Entypo, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { mainColor } from '../constants/Colors';
+import { useAppDispatch, useAppSelector } from '../app/hook';
+import { SearchBookAction, selectBook } from '../reducers/bookSlice';
+import { IBook } from '../constants/interface';
 const { width } = Dimensions.get('window');
+
 const SearchScreen = () => {
-  const navigation = useNavigation();
-  const [inputChange, setInputChange] = useState(true);
-  const [searchText, setSearchText] = useState('');
-  const [firstInput, setFirstInput] = useState(true);
+  const navigation = useNavigation<any>();
+  const dispatch = useAppDispatch();
+  const dataSearch = useAppSelector(selectBook);
+  const [query, setQuery] = useState('');
+  const [data, setData] = useState<IBook[]>([]);
+
+  let timeout = useRef<any>(null);
+
+  const handleChange = (text: string) => {
+    setQuery(text);
+    timeout.current = setTimeout(() => {
+      handleSubmit(text);
+    }, 300);
+  };
+
+  const handleSubmit = (query: string) => {
+    dispatch(
+      SearchBookAction({
+        query,
+        sort: 'name:asc',
+        page: 1,
+        take: 10,
+      }),
+    );
+    setData(dataSearch);
+  };
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={true}>
       <View style={styles.container}>
         <View style={styles.header_top}>
-          {/* <Entypo
-          onPress={() => navigation.goBack()}
-          style={{ flex: 1, marginLeft: 10 }}
-          name="chevron-left"
-          size={35}
-          color="#4C4CD7"
-        /> */}
-
-          <TextInput
-            onChangeText={(value) => {
-              if (firstInput) {
-                setInputChange(false);
-                setFirstInput(false);
-              } else if (!firstInput) {
-                if (value == '') {
-                  setFirstInput(true);
-                  setInputChange(true);
-                }
-              }
-              setSearchText(value);
-            }}
-            value={searchText}
-            style={{
-              height: 30,
-              width: 320,
-              paddingHorizontal: 8,
-              backgroundColor: '#fff',
-              alignItems: 'center',
-              flexDirection: 'row',
-              borderRadius: 10,
-              // left: -30,
-            }}
-            placeholder="Bạn đang tìm kiếm tri thức phải không ?"
-          >
-            {/* <FontAwesome5 name="search" size={16} color="gray" />
-            <Text style={{ color: 'gray', marginLeft: 5 }}>Tìm kiếm trên FL</Text> */}
-          </TextInput>
-
+          <View style={{ position: 'relative', alignItems: 'center' }}>
+            <TextInput
+              onChangeText={(text) => handleChange(text)}
+              value={query}
+              style={{
+                height: 40,
+                width: 300,
+                borderWidth: 1,
+                paddingHorizontal: 8,
+                alignItems: 'center',
+                flexDirection: 'row',
+                borderRadius: 10,
+                borderColor: mainColor,
+                backgroundColor: '#fff',
+              }}
+              placeholder="Bạn đang tìm kiếm tri thức phải không ?"
+            />
+            <View style={{ position: 'absolute', right: 10, bottom: 20 }}>
+              <TouchableOpacity onPress={() => navigation.navigate('ResultSearch', data)}>
+                <FontAwesome5 name="search" color={mainColor} size={15} />
+              </TouchableOpacity>
+            </View>
+          </View>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Text
               style={{
@@ -77,7 +89,7 @@ const SearchScreen = () => {
             </Text>
           </TouchableOpacity>
         </View>
-        {inputChange ? (
+        {!data.length ? (
           <View>
             <View style={styles.list}>
               <View style={styles.title_box}>
@@ -154,7 +166,17 @@ const SearchScreen = () => {
             </View>
           </View>
         ) : (
-          <Text></Text>
+          <View>
+            <View style={styles.listResult}>
+              {data.map((item, index) => (
+                <TouchableOpacity key={index} onPress={() => navigation.push('Item', item)}>
+                  <View style={styles.itemResult}>
+                    <Text>{item.name}</Text>
+                  </View>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
         )}
       </View>
     </TouchableWithoutFeedback>
@@ -179,6 +201,15 @@ const styles = StyleSheet.create({
   list: {
     marginTop: 10,
     backgroundColor: '#FFF',
+  },
+  listResult: {
+    backgroundColor: '#FFF',
+    flexDirection: 'column',
+  },
+  itemResult: {
+    borderWidth: 0.2,
+    borderColor: '#E5E6F8',
+    padding: 10,
   },
   listItem: {
     flexDirection: 'row',

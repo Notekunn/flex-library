@@ -6,7 +6,6 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { mainColor } from '../constants/Colors';
 import { useAppDispatch, useAppSelector } from '../app/hook';
 import { GetOrderByUserAction, selectOrder } from '../reducers/orderSlice';
-import { store } from '../app/store';
 
 interface IItemCarProps {
   item: any;
@@ -185,7 +184,10 @@ const CartScreen = () => {
           </View>
           <View style={styles.price}>
             <Text style={{ marginRight: 10 }}>
-              Tổng thanh toán <Text style={{ color: mainColor, fontWeight: '900', fontSize: 16 }}>26.500 đ</Text>
+              Tổng thanh toán{' '}
+              <Text style={{ color: mainColor, fontWeight: '900', fontSize: 16 }}>
+                {console.log(item.orderDetails)} đ
+              </Text>
             </Text>
             <TouchableOpacity>
               <View style={styles.pay}>

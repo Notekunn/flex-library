@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { apiInstance } from '../app/axiosClient';
 import { RootState } from '../app/store';
-import { IBook, IStore } from '../constants/interface';
+import { IBook, ISearchBook, IStore } from '../constants/interface';
 
 interface IUpdateBookPayload extends IBook {
   id: number;
@@ -56,6 +56,13 @@ export const GetBookByCategoryAction = createAsyncThunk('book/getByCategory', as
   return data;
 });
 
+export const SearchBookAction = createAsyncThunk('book/search', async (payload: ISearchBook) => {
+  const { data } = await apiInstance.get(
+    `/book?page=${payload.page}&take=${payload.take}&q=${payload.query}&sort=${payload.sort}`,
+  );
+  return data;
+});
+
 const BookSlice = createSlice({
   name: 'book',
   initialState,
@@ -68,6 +75,7 @@ const BookSlice = createSlice({
       GetBookAction,
       GetBookByStoreAction,
       GetBookByCategoryAction,
+      SearchBookAction,
     ].forEach((action) => {
       builder
         .addCase(action.pending, (state, action) => {

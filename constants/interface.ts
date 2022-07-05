@@ -49,3 +49,10 @@ export interface IOrderDetail {
   bookId: number;
   quantity: number;
 }
+
+export interface ISearchBook {
+  page: number;
+  take: number;
+  query: string;
+  sort: string;
+}
