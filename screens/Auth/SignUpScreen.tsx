@@ -31,7 +31,6 @@ export default function SignUpScreen() {
       aspect: [1, 1],
       quality: 1,
       base64: true,
-      
     });
 
     if (!result.cancelled) {

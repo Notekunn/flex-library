@@ -19,6 +19,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useAppDispatch, useAppSelector } from '../app/hook';
 import { CreateBookAction } from '../reducers/bookSlice';
+import { uploadImage } from '../app/cloudinary';
 
 const AddItem = () => {
   const navigation = useNavigation<any>();
@@ -64,20 +65,22 @@ const AddItem = () => {
   // }, []);
   const pickImageWithCamera = async () => {
     // await requestPermission();
-    // if (status?.granted === false) {
-    //   alert('you ko có permissions');
-    //   return;
-    // }
+    if (status?.granted === false) {
+      alert('No permission');
+      return;
+    }
     let result = await ImagePicker.launchCameraAsync({
-      // mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [1, 1],
       quality: 1,
+      base64: true,
     });
     setModalVisible(!modalVisible);
 
     if (!result.cancelled) {
-      setImageList([...imageList, result.uri]);
+      const { secure_url: newImageUrl } = await uploadImage(result);
+      setImageList([...imageList, newImageUrl]);
     }
   };
   const pickImageWithGallery = async () => {
@@ -87,15 +90,16 @@ const AddItem = () => {
       alert('Bạn chưa cấp quyền');
       return;
     }
-    let result = (await ImagePicker.launchImageLibraryAsync({
+    const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [9, 3],
+      aspect: [1, 1],
       quality: 1,
-      allowsMultipleSelection: true,
-    })) as any;
+      base64: true,
+    });
     if (!result.cancelled) {
-      setImageList([...imageList, result.uri]);
+      const { secure_url: newImageUrl } = await uploadImage(result);
+      setImageList([...imageList, newImageUrl]);
     }
   };
   interface ImageFrameProps {
