@@ -6,6 +6,7 @@ import { mainColor } from '../../constants/Colors';
 import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import { registerAction, selectError, selectLoading } from '../../reducers/authSlice';
+import { cloudinaryConfig, makeUploadFormData, uploadImage } from '../../app/cloudinary';
 export default function SignUpScreen() {
   const nav = useNavigation();
   const [name, setName] = useState('');
@@ -24,15 +25,18 @@ export default function SignUpScreen() {
   const error = useAppSelector(selectError);
   const loading = useAppSelector(selectLoading);
   const upLoadAvatar = async () => {
-    console.log('upload avatar');
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [1, 1],
       quality: 1,
+      base64: true,
+      
     });
+
     if (!result.cancelled) {
-      setAvatar(result.uri);
+      const { secure_url } = await uploadImage(result);
+      setAvatar(secure_url);
     }
   };
   const handleSubmit = () => {
