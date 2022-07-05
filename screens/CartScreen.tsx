@@ -5,11 +5,13 @@ import { useNavigation } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { mainColor } from '../constants/Colors';
 import { useAppDispatch, useAppSelector } from '../app/hook';
-import { GetOrderByUserAction, OrderDetailResponse, selectOrder } from '../reducers/orderSlice';
+import { GetOrderByUserAction, selectOrder } from '../reducers/orderSlice';
 import { moneyFormat } from '../constants/Money';
+import { RootStackScreenProps } from '../types';
+import { IOrderDetail } from '../constants/interface';
 
 interface IItemCarProps {
-  item: OrderDetailResponse;
+  item: IOrderDetail;
 }
 const CardItem: React.FC<IItemCarProps> = ({ item }) => {
   const nav = useNavigation<any>();
@@ -54,7 +56,7 @@ const CardItem: React.FC<IItemCarProps> = ({ item }) => {
                 <Image
                   source={{
                     uri:
-                      item.book.images.shift() ||
+                      item.book.images[0] ||
                       'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg',
                   }}
                   style={styles.image}
@@ -114,7 +116,7 @@ const CardItem: React.FC<IItemCarProps> = ({ item }) => {
     </View>
   );
 };
-const CartScreen = () => {
+const CartScreen: React.FC<RootStackScreenProps<'Cart'>> = ({ navigation }) => {
   const nav = useNavigation<any>();
   const dispatch = useAppDispatch();
   const orders = useAppSelector(selectOrder);
@@ -166,27 +168,31 @@ const CartScreen = () => {
   }
   return (
     <ScrollView>
-      {orders.map((item, index: number) => (
+      {orders.map((order, index) => (
         <View style={styles.store} key={index}>
-          <TouchableOpacity onPress={() => nav.navigate('Store', item.store)}>
+          <TouchableOpacity onPress={() => navigation.navigate('Store', { id: order.store.id })}>
             <View style={styles.store_infor}>
               <Image
                 style={styles.store_img}
-                source={{ uri: 'https://tse1.mm.bing.net/th?q=solo%20leveling%20manga%20rock' }}
+                source={{
+                  uri: order.store.avatarURL || 'https://tse1.mm.bing.net/th?q=solo%20leveling%20manga%20rock',
+                }}
               />
-              <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{item.store.name}</Text>
+              <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{order.store.name}</Text>
               <MaterialIcons name="arrow-forward-ios" size={20} color="black" />
             </View>
           </TouchableOpacity>
           <View style={styles.store_list}>
-            {item.orderDetails.map((e: any, i: number) => (
+            {order.orderDetails.map((e, i) => (
               <CardItem item={e} key={i} />
             ))}
           </View>
           <View style={styles.price}>
             <Text style={{ marginRight: 10 }}>
               Tổng thanh toán{' '}
-              <Text style={{ color: mainColor, fontWeight: '900', fontSize: 16 }}>{moneyFormat(item.totalAmount)}</Text>
+              <Text style={{ color: mainColor, fontWeight: '900', fontSize: 16 }}>
+                {moneyFormat(order.totalAmount)}
+              </Text>
             </Text>
             <TouchableOpacity>
               <View style={styles.pay}>

@@ -24,7 +24,7 @@ export type RootStackParamList = {
   Setting: undefined;
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
   Item: { id: number };
-  Store: undefined;
+  Store: { id: number };
   MyStore: undefined;
   InfoCart: undefined;
   BookCategory: undefined;

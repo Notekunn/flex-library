@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { apiInstance } from '../app/axiosClient';
 import { RootState } from '../app/store';
-import { IOrderDetail, IStore, IUser } from '../constants/interface';
+import { IOrder } from '../constants/interface';
 
 interface OrderState {
-  data: OrderResponse[];
+  data: IOrder[];
   loading: 'idle' | 'loading' | 'success' | 'error';
   message?: string;
 }
@@ -15,28 +15,8 @@ const initialState: OrderState = {
   message: undefined,
 };
 
-export interface OrderDetailResponse {
-  quantity: number;
-  book: {
-    id: number;
-    name: string;
-    images: string[];
-    author: string;
-    rentPrice: number;
-  };
-}
-export interface OrderResponse {
-  store: {
-    name: string;
-    address: string;
-    avatarURL?: string;
-  };
-  orderDetails: Array<OrderDetailResponse>;
-  totalAmount: number;
-}
-
 export const GetOrderByUserAction = createAsyncThunk('order/get-by-user', async () => {
-  const { data } = await apiInstance.get<OrderResponse[]>('/order');
+  const { data } = await apiInstance.get<IOrder[]>('/order');
   return data.filter((e) => e.orderDetails.length > 0);
 });
 
