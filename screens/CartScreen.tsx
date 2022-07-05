@@ -5,12 +5,13 @@ import { useNavigation } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { mainColor } from '../constants/Colors';
 import { useAppDispatch, useAppSelector } from '../app/hook';
-import { GetOrderByUserAction, selectOrder } from '../reducers/orderSlice';
+import { GetOrderByUserAction, OrderDetailResponse, selectOrder } from '../reducers/orderSlice';
+import { moneyFormat } from '../constants/Money';
 
 interface IItemCarProps {
-  item: any;
+  item: OrderDetailResponse;
 }
-const ItemInCart: React.FC<IItemCarProps> = ({ item }) => {
+const CardItem: React.FC<IItemCarProps> = ({ item }) => {
   const nav = useNavigation<any>();
   return (
     <View style={styles.itemInCart}>
@@ -53,7 +54,7 @@ const ItemInCart: React.FC<IItemCarProps> = ({ item }) => {
                 <Image
                   source={{
                     uri:
-                      item.book.images[0] ||
+                      item.book.images.shift() ||
                       'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg',
                   }}
                   style={styles.image}
@@ -74,7 +75,7 @@ const ItemInCart: React.FC<IItemCarProps> = ({ item }) => {
                   >
                     {item.book.name}
                   </Text>
-                  <Text style={styles.text}>{item.book.rentPrice} đ</Text>
+                  <Text style={styles.text}>{moneyFormat(item.book.rentPrice)}</Text>
                 </View>
               </View>
             </TouchableOpacity>
@@ -116,12 +117,12 @@ const ItemInCart: React.FC<IItemCarProps> = ({ item }) => {
 const CartScreen = () => {
   const nav = useNavigation<any>();
   const dispatch = useAppDispatch();
-  const myOrder = useAppSelector(selectOrder);
+  const orders = useAppSelector(selectOrder);
   useEffect(() => {
     dispatch(GetOrderByUserAction());
   }, []);
 
-  if (!myOrder) {
+  if (!orders) {
     return (
       <View style={styles.container}>
         <View>
@@ -165,7 +166,7 @@ const CartScreen = () => {
   }
   return (
     <ScrollView>
-      {myOrder.map((item: any, index: number) => (
+      {orders.map((item, index: number) => (
         <View style={styles.store} key={index}>
           <TouchableOpacity onPress={() => nav.navigate('Store', item.store)}>
             <View style={styles.store_infor}>
@@ -179,15 +180,13 @@ const CartScreen = () => {
           </TouchableOpacity>
           <View style={styles.store_list}>
             {item.orderDetails.map((e: any, i: number) => (
-              <ItemInCart item={e} key={i} />
+              <CardItem item={e} key={i} />
             ))}
           </View>
           <View style={styles.price}>
             <Text style={{ marginRight: 10 }}>
               Tổng thanh toán{' '}
-              <Text style={{ color: mainColor, fontWeight: '900', fontSize: 16 }}>
-                {console.log(item.orderDetails)} đ
-              </Text>
+              <Text style={{ color: mainColor, fontWeight: '900', fontSize: 16 }}>{moneyFormat(item.totalAmount)}</Text>
             </Text>
             <TouchableOpacity>
               <View style={styles.pay}>

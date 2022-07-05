@@ -4,7 +4,7 @@ import { RootState } from '../app/store';
 import { IOrderDetail, IStore, IUser } from '../constants/interface';
 
 interface OrderState {
-  data: any;
+  data: OrderResponse[];
   loading: 'idle' | 'loading' | 'success' | 'error';
   message?: string;
 }
@@ -15,9 +15,29 @@ const initialState: OrderState = {
   message: undefined,
 };
 
+export interface OrderDetailResponse {
+  quantity: number;
+  book: {
+    id: number;
+    name: string;
+    images: string[];
+    author: string;
+    rentPrice: number;
+  };
+}
+export interface OrderResponse {
+  store: {
+    name: string;
+    address: string;
+    avatarURL?: string;
+  };
+  orderDetails: Array<OrderDetailResponse>;
+  totalAmount: number;
+}
+
 export const GetOrderByUserAction = createAsyncThunk('order/get-by-user', async () => {
-  const { data } = await apiInstance.get('/order');
-  return data;
+  const { data } = await apiInstance.get<OrderResponse[]>('/order');
+  return data.filter((e) => e.orderDetails.length > 0);
 });
 
 const OrderSlice = createSlice({
