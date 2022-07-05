@@ -1,3 +1,10 @@
+## [1.15.1](https://github.com/Notekunn/flex-library/compare/v1.15.0...v1.15.1) (2022-07-05)
+
+
+### Bug Fixes
+
+* order screen ([#32](https://github.com/Notekunn/flex-library/issues/32)) ([a5a3f9c](https://github.com/Notekunn/flex-library/commit/a5a3f9c488b9896a989ff0dcba7a5df7213528c6))
+
 # [1.15.0](https://github.com/Notekunn/flex-library/compare/v1.14.0...v1.15.0) (2022-07-05)
 
 
