@@ -1,3 +1,10 @@
+# [1.17.0](https://github.com/Notekunn/flex-library/compare/v1.16.1...v1.17.0) (2022-07-05)
+
+
+### Features
+
+* implement search title ([#35](https://github.com/Notekunn/flex-library/issues/35)) ([51dbc59](https://github.com/Notekunn/flex-library/commit/51dbc597a58e76930b4da6f68660303b95e89241))
+
 ## [1.16.1](https://github.com/Notekunn/flex-library/compare/v1.16.0...v1.16.1) (2022-07-05)
 
 
