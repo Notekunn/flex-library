@@ -39,6 +39,12 @@ module.exports = {
       messagingSenderId: process.env.MESSAGING_SENDER_ID,
       appId: process.env.APP_ID,
       apiURL: process.env.API_URL,
+      cloudinary: {
+        cloudName: process.env.CLOUDINARY_CLOUD_NAME,
+        apiKey: process.env.CLOUDINARY_API_KEY,
+        apiSecret: process.env.CLOUDINARY_API_SECRET,
+        uploadPreset: process.env.CLOUDINARY_UPLOAD_PRESET,
+      },
     },
   },
 };
