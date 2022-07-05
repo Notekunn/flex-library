@@ -1,3 +1,10 @@
+## [1.16.1](https://github.com/Notekunn/flex-library/compare/v1.16.0...v1.16.1) (2022-07-05)
+
+
+### Bug Fixes
+
+* intl ([#34](https://github.com/Notekunn/flex-library/issues/34)) ([1733e9a](https://github.com/Notekunn/flex-library/commit/1733e9a629e6c3cdeb3db02aa0413088c6bf1ab2))
+
 # [1.16.0](https://github.com/Notekunn/flex-library/compare/v1.15.1...v1.16.0) (2022-07-05)
 
 
