@@ -6,11 +6,15 @@ import { mainColor } from '../../constants/Colors';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { selectUser, updateUserAction } from '../../reducers/authSlice';
+import { uploadImage } from '../../app/cloudinary';
 
 const ProfileScreen = () => {
+  const checkUrl = (image: string) => {
+    const regx = /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
+    return regx.test(image);
+  };
   const route = useRoute<any>();
   const dispatch = useAppDispatch();
-  const infoUpdate = useAppSelector(selectUser);
   const [image, setImage] = useState(route.params.avatar);
   const nav = useNavigation();
   const [name, setFullName] = useState('');
@@ -22,18 +26,20 @@ const ProfileScreen = () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [1, 1],
       quality: 1,
+      base64: true,
     });
     if (!result.cancelled) {
-      setImage(result.uri);
+      setImage(result);
     }
   };
 
   const updateProfile = async () => {
+    const avaterUrl = await uploadImage(image);
     const data = {
       ...route.params,
-      avatar: image,
+      avatar: avaterUrl.url,
       name: name,
     };
     dispatch(updateUserAction(data));
@@ -55,7 +61,7 @@ const ProfileScreen = () => {
           }}
         >
           <Image
-            source={{ uri: image || 'https://bloganchoi.com/wp-content/uploads/2021/08/avatar-vit-vang-trend-15.jpg' }}
+            source={{ uri: checkUrl(image) ? image : `data:image/png;base64,${image.base64}` }}
             style={styles.avatar}
           />
           <View
@@ -81,6 +87,7 @@ const ProfileScreen = () => {
               <TextInput
                 style={{ backgroundColor: '#fbfbfb', padding: 10, borderRadius: 20, width: '100%' }}
                 placeholder={route.params.name}
+                onChangeText={(text) => setFullName(text)}
                 editable={editName}
               />
               <View style={{ position: 'absolute', right: 10 }}>
@@ -130,7 +137,7 @@ const ProfileScreen = () => {
         </View>
         <View style={styles.groupButton}>
           <Button
-            title={'Back'}
+            title={'Quay lại'}
             containerStyle={{
               width: 100,
               height: 40,
@@ -142,7 +149,7 @@ const ProfileScreen = () => {
             onPress={() => nav.goBack()}
           />
           <Button
-            title={'Save'}
+            title={'Lưu'}
             containerStyle={{
               width: 100,
               height: 40,

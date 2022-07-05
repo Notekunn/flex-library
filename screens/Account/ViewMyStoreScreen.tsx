@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { Alert, StyleSheet, Text, TextInput, View } from 'react-native';
 import React, { useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import { Button, Icon, Image } from '@rneui/themed';
@@ -6,29 +6,34 @@ import { mainColor } from '../../constants/Colors';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import GoogleMap from '../../components/Map/GoogleMap';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
-import { CreateStoreAction, selectData, selectLoading, selectMessage } from '../../reducers/storeSlice';
+import { CreateStoreAction, selectLoading, selectMessage, UpdateStoreAction } from '../../reducers/storeSlice';
 
 const ViewMyStoreScreen = () => {
   const dispatch = useAppDispatch();
   const mystore = useRoute<any>().params;
   const nav = useNavigation();
   const [name, setName] = useState('');
-  const [errorName, setErrorName] = useState('');
   const [editName, setEditName] = useState(false);
   const [address, setAddress] = useState('');
-  const [errorAddress, setErrorAddress] = useState('');
   const [editAddress, setEditAddress] = useState(false);
 
-  const btnUpdateStore = async () => {
+  const btnUpdateStore = () => {
+    if (!name) {
+      Alert.alert('Thông báo', 'Vui lòng nhập tên cửa hàng');
+      return;
+    }
+    if (!address) {
+      Alert.alert('Thông báo', 'Vui lòng nhập địa chỉ cửa hàng');
+      return;
+    }
     dispatch(
-      CreateStoreAction({
+      UpdateStoreAction({
+        id: mystore.id,
         name,
         address,
-        latitude: 20.980194953622984,
-        longitude: 105.79615346430842,
-        provinceId: 1,
       }),
     );
+    nav.navigate('Home');
   };
 
   return (
@@ -49,9 +54,16 @@ const ViewMyStoreScreen = () => {
               style={{ backgroundColor: '#fbfbfb', padding: 10, borderRadius: 20, width: '100%' }}
               placeholder={mystore.name}
               editable={editName}
+              onChangeText={(text) => setName(text)}
             />
             <View style={{ position: 'absolute', right: 10 }}>
-              <Icon name="edit-2" type="feather" size={18} onPress={() => setEditName(!editName)} />
+              <Icon
+                name="edit-2"
+                type="feather"
+                color={editName ? mainColor : ''}
+                size={18}
+                onPress={() => setEditName(!editName)}
+              />
             </View>
           </View>
         </View>
@@ -63,9 +75,16 @@ const ViewMyStoreScreen = () => {
               style={{ backgroundColor: '#fbfbfb', padding: 10, borderRadius: 20, width: '100%' }}
               placeholder={mystore.address}
               editable={editAddress}
+              onChangeText={(text) => setAddress(text)}
             />
             <View style={{ position: 'absolute', right: 10 }}>
-              <Icon name="edit-2" type="feather" size={18} onPress={() => setEditAddress(!editAddress)} />
+              <Icon
+                name="edit-2"
+                type="feather"
+                color={editAddress ? mainColor : ''}
+                size={18}
+                onPress={() => setEditAddress(!editAddress)}
+              />
             </View>
           </View>
         </View>
@@ -96,7 +115,7 @@ const ViewMyStoreScreen = () => {
             buttonStyle={{
               backgroundColor: '#faad14',
             }}
-            onPress={btnUpdateStore}
+            onPress={() => btnUpdateStore()}
           />
         </View>
       </View>

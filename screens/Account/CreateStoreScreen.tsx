@@ -6,13 +6,7 @@ import { mainColor } from '../../constants/Colors';
 import { useNavigation } from '@react-navigation/native';
 import GoogleMap from '../../components/Map/GoogleMap';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
-import {
-  CreateStoreAction,
-  selectData,
-  selectLoading,
-  selectMessage,
-  selectUserStore,
-} from '../../reducers/storeSlice';
+import { CreateStoreAction, selectLoading, selectMessage, selectUserStore } from '../../reducers/storeSlice';
 
 const CreateStoreScreen = () => {
   const dispatch = useAppDispatch();
@@ -21,9 +15,9 @@ const CreateStoreScreen = () => {
   const loading = useAppSelector(selectLoading);
   const mystore = useAppSelector(selectUserStore);
   const [name, setName] = useState('');
-  const [errorName, setErrorName] = useState('');
+  const [editName, setEditName] = useState(false);
   const [address, setAddress] = useState('');
-  const [errorAddress, setErrorAddress] = useState('');
+  const [editAddress, setEditAddress] = useState(false);
 
   const btnCreateStore = async () => {
     dispatch(

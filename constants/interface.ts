@@ -13,7 +13,7 @@ export interface IUser {
 }
 
 export interface IStore {
-  id: number;
+  id?: number;
   name: string;
   address: string;
   latitude: number;

@@ -3,10 +3,12 @@ import React, { useState } from 'react';
 import { mainColor } from '../constants/Colors';
 import { Button } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
+import { useAppDispatch } from '../app/hook';
+import { changePasswordAction } from '../reducers/authSlice';
 
 const ChangePasswordScreen = () => {
   const nav = useNavigation();
-  const [oldPassword, setOldPassword] = useState('');
+  const dispatch = useAppDispatch();
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -15,6 +17,7 @@ const ChangePasswordScreen = () => {
       alert('New password and confirm password not match');
       return;
     }
+    dispatch(changePasswordAction({ password: newPassword }));
   };
 
   return (
@@ -23,15 +26,6 @@ const ChangePasswordScreen = () => {
         <Text style={styles.title}>Đổi mật khẩu</Text>
       </View>
       <View style={{ flexDirection: 'column', width: '100%', padding: 40 }}>
-        <View>
-          <Text style={styles.text}>Mật khẩu cũ</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="**********"
-            secureTextEntry={true}
-            onChangeText={(e) => setOldPassword(e)}
-          />
-        </View>
         <View>
           <Text style={styles.text}>Mật khẩu mới</Text>
           <TextInput

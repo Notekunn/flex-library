@@ -7,7 +7,6 @@ import { mainColor, seconColor } from '../../constants/Colors';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { logoutAction, selectUser } from '../../reducers/authSlice';
 import { GetStoreByUserAction, selectUserStore } from '../../reducers/storeSlice';
-import ViewMyStoreScreen from './ViewMyStoreScreen';
 
 const AccountScreen = () => {
   const nav = useNavigation<any>();
