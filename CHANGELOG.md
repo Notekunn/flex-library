@@ -1,3 +1,10 @@
+# [1.15.0](https://github.com/Notekunn/flex-library/compare/v1.14.0...v1.15.0) (2022-07-05)
+
+
+### Features
+
+* upload image to cloudinary ([#31](https://github.com/Notekunn/flex-library/issues/31)) ([0158d57](https://github.com/Notekunn/flex-library/commit/0158d57036f60707f014ab1e3f9a10bc9a542c1b))
+
 # [1.14.0](https://github.com/Notekunn/flex-library/compare/v1.13.1...v1.14.0) (2022-07-05)
 
 
