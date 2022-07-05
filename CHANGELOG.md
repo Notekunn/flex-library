@@ -1,3 +1,10 @@
+# [1.14.0](https://github.com/Notekunn/flex-library/compare/v1.13.1...v1.14.0) (2022-07-05)
+
+
+### Features
+
+* search result and sort book ([#30](https://github.com/Notekunn/flex-library/issues/30)) ([5399c19](https://github.com/Notekunn/flex-library/commit/5399c199da1963355cbd8328fc579abc90805fcb))
+
 ## [1.13.1](https://github.com/Notekunn/flex-library/compare/v1.13.0...v1.13.1) (2022-07-04)
 
 
