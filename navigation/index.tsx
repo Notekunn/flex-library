@@ -18,12 +18,11 @@ import ScanScreen from '../screens/ScanScreen';
 import StoreScreen from '../screens/StoreScreen';
 import MyStoreScreen from '../screens/MyStoreScreen';
 import AccountScreen from '../screens/Account/AccountScreen';
-import { StatusBar, View } from 'react-native';
 import ModalItem from '../modals/ModalItem';
 import ItemScreen from '../screens/ItemScreen';
 import TopBarNavigatorCart from './topBarNavigatorCart';
 import CartScreen from '../screens/CartScreen';
-import SearchScreen from '../screens/SearchScreen';
+import SearchScreen from '../screens/Search/SearchScreen';
 import AddItem from '../screens/AddItem';
 import { useAppDispatch, useAppSelector } from '../app/hook';
 import { profileAction, selectIsLoggedIn, selectLoading } from '../reducers/authSlice';
@@ -32,12 +31,11 @@ import SignUpScreen from '../screens/Auth/SignUpScreen';
 import ProfileScreen from '../screens/Account/ProfileScreen';
 import ChangePasswordScreen from '../screens/ChangePasswordScreen';
 import CreateStoreScreen from '../screens/Account/CreateStoreScreen';
-import IntroScreen from '../screens/IntroScreen';
 import CategoryScreen from '../screens/CategoryScreen';
 import ListBookScreen from '../screens/ListBookScreen';
 import { GetStoreByUserAction, selectUserStore } from '../reducers/storeSlice';
 import ViewMyStoreScreen from '../screens/Account/ViewMyStoreScreen';
-import SearchResultScreen from '../screens/SearchResultScreen';
+import SearchResultScreen from '../screens/Search/SearchResultScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (

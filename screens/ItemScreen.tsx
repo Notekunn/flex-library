@@ -18,7 +18,7 @@ import BookList from '../components/Home/BookList';
 import BookCardFlex from '../components/BookCardFlex';
 import { mainColor } from '../constants/Colors';
 import { IBook } from '../constants/interface';
-import Header from '../components/Header';
+import SearchHeader from '../components/Header';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Button } from '@rneui/themed';
 import { useAppDispatch, useAppSelector } from '../app/hook';
@@ -58,7 +58,7 @@ const ItemScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Header />
+      <SearchHeader />
       <ScrollView>
         <View style={{ marginTop: 10 }}>
           <Image style={styles.image} source={{ uri: book.images[0] }} />

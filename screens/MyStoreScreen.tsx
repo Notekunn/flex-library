@@ -16,7 +16,7 @@ import BookList from '../components/Store/BookList';
 import { mainColor, seconColor } from '../constants/Colors';
 import { useAppDispatch, useAppSelector } from '../app/hook';
 import { GetStoreByIdAction, GetStoreByUserAction, selectOwner, selectUserStore } from '../reducers/storeSlice';
-import { GetBookByStoreAction, selectBook } from '../reducers/bookSlice';
+import { GetBookByStoreAction, selectBooks } from '../reducers/bookSlice';
 import { store } from '../app/store';
 const initialLayout = { width: Dimensions.get('window').width };
 
@@ -24,7 +24,7 @@ const MyStoreScreen = () => {
   const nav = useNavigation();
   const dispatch = useAppDispatch();
   const mystore = useAppSelector(selectUserStore);
-  const books = useAppSelector(selectBook);
+  const books = useAppSelector(selectBooks);
   const ownerStore = useAppSelector(selectOwner);
   useEffect(() => {
     dispatch(GetStoreByUserAction());

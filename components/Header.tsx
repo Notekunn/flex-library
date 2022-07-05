@@ -4,15 +4,17 @@ import { FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { Search } from './Home/SearchBar';
 
-const Header = () => {
+const SearchHeader = () => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <View style={styles.action}>
-        <TouchableOpacity onPress={() => navigation.navigate('Cart')}></TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Search')}>
-          <Search />
+        <TouchableOpacity onPress={() => navigation.canGoBack() && navigation.goBack()}>
+          {navigation.canGoBack() && <FontAwesome name="chevron-left" size={26} color="white" />}
         </TouchableOpacity>
+        <View>
+          <Search />
+        </View>
         <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
           <FontAwesome name="shopping-cart" size={26} color="white" />
         </TouchableOpacity>
@@ -21,7 +23,7 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default SearchHeader;
 
 const styles = StyleSheet.create({
   container: {

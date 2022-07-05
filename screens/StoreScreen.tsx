@@ -16,14 +16,14 @@ import BookList from '../components/Store/BookList';
 import { mainColor, seconColor } from '../constants/Colors';
 import { useAppDispatch, useAppSelector } from '../app/hook';
 import { GetStoreByIdAction, selectCurrentStore } from '../reducers/storeSlice';
-import { GetBookByStoreAction, selectBook } from '../reducers/bookSlice';
+import { GetBookByStoreAction, selectBooks } from '../reducers/bookSlice';
 import { RootStackScreenProps } from '../types';
 const initialLayout = { width: Dimensions.get('window').width };
 
 const StoreScreen: React.FC<RootStackScreenProps<'Store'>> = ({ route }) => {
   const { id: storeId } = route.params;
   const dispatch = useAppDispatch();
-  const books = useAppSelector(selectBook);
+  const books = useAppSelector(selectBooks);
   const store = useAppSelector(selectCurrentStore);
 
   useEffect(() => {
