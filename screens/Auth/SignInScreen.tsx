@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { Button, Input } from '@rneui/themed';
 import React, { useState } from 'react';
-import { StyleSheet, Image, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Image, Text, View, TouchableOpacity, Alert } from 'react-native';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { mainColor } from '../../constants/Colors';
 import { loginAction, selectError } from '../../reducers/authSlice';
@@ -80,7 +80,7 @@ export default function SignInScreen({ navigation }: RootTabScreenProps<'SignIn'
             <Text>You haven't an account ?</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => Alert.alert('Thông báo', 'Vui lòng đến flex-library để lấy lại mật khẩu')}>
           <View>
             <Text>Forgot password ?</Text>
           </View>

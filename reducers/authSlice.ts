@@ -55,7 +55,13 @@ export const logoutAction = createAsyncThunk('auth/logout', async () => {
 });
 
 export const updateUserAction = createAsyncThunk('auth/updateUser', async (payload: IUser) => {
-  const { data } = await apiInstance.put<IUser>(`/user/${payload.id}`, payload);
+  console.log(payload);
+  const { data } = await apiInstance.post<IUser>(`/user/me`, payload);
+  return data;
+});
+
+export const changePasswordAction = createAsyncThunk('auth/changePassword', async (payload: { password: string }) => {
+  const { data } = await apiInstance.post<IUser>(`/user/me`, payload);
   return data;
 });
 
@@ -117,6 +123,18 @@ export const authSlice = createSlice({
         state.user = payload.payload;
       })
       .addCase(updateUserAction.rejected, (state, payload) => {
+        state.loading = 'error';
+        state.error = payload.error.message;
+      });
+    buidler
+      .addCase(changePasswordAction.pending, (state) => {
+        state.loading = 'loading';
+      })
+      .addCase(changePasswordAction.fulfilled, (state, payload) => {
+        state.loading = 'success';
+        state.user = payload.payload;
+      })
+      .addCase(changePasswordAction.rejected, (state, payload) => {
         state.loading = 'error';
         state.error = payload.error.message;
       });

@@ -30,6 +30,11 @@ export const GetStoreByUserAction = createAsyncThunk('store/my-store', async () 
   return data;
 });
 
+export const UpdateStoreAction = createAsyncThunk('store/update', async (payload: Partial<IStore>) => {
+  const { data } = await apiInstance.patch<IStore>(`/stores/${payload.id}`, payload);
+  return data;
+});
+
 const StoreSlice = createSlice({
   name: 'store',
   initialState,
@@ -70,6 +75,19 @@ const StoreSlice = createSlice({
         state.currentStore = action.payload;
       })
       .addCase(GetStoreByIdAction.rejected, (state, action) => {
+        state.loading = 'error';
+        state.message = action.error.message;
+      });
+    builder
+      .addCase(UpdateStoreAction.pending, (state, action) => {
+        state.loading = 'idle';
+        state.message = undefined;
+      })
+      .addCase(UpdateStoreAction.fulfilled, (state, action) => {
+        state.loading = 'success';
+        state.myStore = action.payload;
+      })
+      .addCase(UpdateStoreAction.rejected, (state, action) => {
         state.loading = 'error';
         state.message = action.error.message;
       });
