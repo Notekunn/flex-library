@@ -20,7 +20,7 @@ const initialState: IBookState = {
   loading: 'idle',
 };
 
-export const CreateBookAction = createAsyncThunk('book/create', async (payload: IBook) => {
+export const CreateBookAction = createAsyncThunk('book/create', async (payload: Omit<IBook, 'id'>) => {
   const { data } = await apiInstance.post('/book', payload);
   return data;
 });

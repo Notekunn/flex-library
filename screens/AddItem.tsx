@@ -51,7 +51,7 @@ const AddItem = () => {
       salePrice,
       numOfCopies,
       images: imageList,
-      categoryIds: chooseCategories,
+      categories: chooseCategories,
     };
     dispatch(CreateBookAction(data));
     navigation.goBack();

@@ -12,16 +12,17 @@ export interface IUser {
 }
 
 export interface IStore {
-  id?: number;
+  id: number;
   name: string;
   address: string;
   latitude: number;
   longitude: number;
   provinceId?: number;
+  avatarURL?: string;
 }
 
 export interface IBook {
-  id?: number;
+  id: number;
   name: string;
   author: string;
   salePrice: number;
@@ -29,25 +30,20 @@ export interface IBook {
   numOfCopies: number;
   // description: string;
   images: string[];
-  categoryIds: number[];
+  categories: number[];
 }
 
 export interface IOrder {
-  id?: number;
-  status: OrderStatus;
-  storeId: number;
+  id: number;
+  store: IStore;
+  orderDetails: Array<IOrderDetail>;
+  totalAmount: number;
 }
 
 export interface IOrderDetail {
-  id?: number;
+  id: number;
   quantity: number;
-  bookId: number;
-}
-
-export interface IOrderDetail {
-  id?: number;
-  bookId: number;
-  quantity: number;
+  book: IBook;
 }
 
 export interface ISearchBook {

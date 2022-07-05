@@ -123,13 +123,7 @@ const ProfileScreen = () => {
                 editable={false}
               />
               <View style={{ position: 'absolute', right: 10 }}>
-                <Icon
-                  name="edit-2"
-                  type="feather"
-                  size={18}
-                  color={editPhoneNumber ? mainColor : ''}
-                  onPress={() => nav.navigate('ChangePassword')}
-                />
+                <Icon name="edit-2" type="feather" size={18} onPress={() => nav.navigate('ChangePassword')} />
               </View>
             </View>
           </View>

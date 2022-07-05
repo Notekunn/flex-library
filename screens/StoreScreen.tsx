@@ -15,25 +15,21 @@ import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import BookList from '../components/Store/BookList';
 import { mainColor, seconColor } from '../constants/Colors';
 import { useAppDispatch, useAppSelector } from '../app/hook';
-import { GetStoreByIdAction, GetStoreByUserAction, selectOwner, selectUserStore } from '../reducers/storeSlice';
+import { GetStoreByIdAction, selectCurrentStore } from '../reducers/storeSlice';
 import { GetBookByStoreAction, selectBook } from '../reducers/bookSlice';
-import { selectUser } from '../reducers/authSlice';
+import { RootStackScreenProps } from '../types';
 const initialLayout = { width: Dimensions.get('window').width };
 
-const StoreScreen = () => {
-  const route = useRoute<any>();
+const StoreScreen: React.FC<RootStackScreenProps<'Store'>> = ({ route }) => {
+  const { id: storeId } = route.params;
   const dispatch = useAppDispatch();
   const books = useAppSelector(selectBook);
-  const store = route.params;
-  const ownerStore = useAppSelector(selectOwner);
+  const store = useAppSelector(selectCurrentStore);
 
   useEffect(() => {
-    dispatch(GetStoreByIdAction(store.id));
-  }, [store]);
-
-  useEffect(() => {
-    dispatch(GetBookByStoreAction(store.id));
-  }, []);
+    dispatch(GetBookByStoreAction(storeId));
+    dispatch(GetStoreByIdAction(storeId));
+  }, [storeId]);
 
   const renderTabBar = (props: any) => (
     <TabBar {...props} indicatorStyle={{ backgroundColor: '#FFF' }} style={{ backgroundColor: mainColor }} />
@@ -99,12 +95,12 @@ const StoreScreen = () => {
                 }}
                 source={{
                   uri:
-                    ownerStore?.avatar ||
+                    store?.avatarURL ||
                     'https://cdn.realsport101.com/images/ncavvykf/epicstream/4496c3fab7ca90b76d0069f0d671f2cad7dbe565-1920x1080.jpg?rect=1,0,1919,1080&w=700&h=394&dpr=2',
                 }}
               />
               <View style={{ paddingLeft: 15 }}>
-                <Text style={{ fontSize: 20 }}>{store.name}</Text>
+                <Text style={{ fontSize: 20 }}>{store?.name}</Text>
                 <Text style={{ fontSize: 12, color: 'gray' }}>Online 11 giờ trước</Text>
               </View>
             </View>
