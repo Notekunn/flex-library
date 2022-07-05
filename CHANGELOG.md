@@ -1,3 +1,10 @@
+# [1.16.0](https://github.com/Notekunn/flex-library/compare/v1.15.1...v1.16.0) (2022-07-05)
+
+
+### Features
+
+* update typescript ([#33](https://github.com/Notekunn/flex-library/issues/33)) ([d28865c](https://github.com/Notekunn/flex-library/commit/d28865c22863080971753786a4afac8886d70054))
+
 ## [1.15.1](https://github.com/Notekunn/flex-library/compare/v1.15.0...v1.15.1) (2022-07-05)
 
 
