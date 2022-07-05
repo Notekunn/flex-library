@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, ScrollView } from 'react-native';
 import { Search } from '../../components/Home/SearchBar';
 import SwipeSlide from '../../components/Home/Carsousel';
 import CardList from '../../components/Home/CardList';
-import Header from '../../components/Header';
+import SearchHeader from '../../components/Header';
 import Categories from '../../components/Home/Categories';
 import BookList from '../../components/Home/BookList';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -20,7 +20,7 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Header />
+        <SearchHeader />
       </View>
       {/* <ScrollView>
         

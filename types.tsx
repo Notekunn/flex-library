@@ -6,6 +6,7 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { SearchSortTypes } from './constants/SearchSort';
 
 declare global {
   namespace ReactNavigation {
@@ -31,7 +32,7 @@ export type RootStackParamList = {
   Cart: undefined;
   History: undefined;
   Search: undefined;
-  ResultSearch: undefined;
+  ResultSearch: { sort?: SearchSortTypes; store?: number };
   AddItem: undefined;
   Profile: undefined;
   ChangePassword: undefined;

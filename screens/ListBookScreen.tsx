@@ -2,11 +2,11 @@ import { StyleSheet, View, ScrollView, TouchableOpacity, Text } from 'react-nati
 import React, { useEffect, useState } from 'react';
 import { IBook } from '../constants/interface';
 import BookCardFlex from '../components/BookCardFlex';
-import Header from '../components/Header';
+import SearchHeader from '../components/Header';
 import { useAppDispatch, useAppSelector } from '../app/hook';
 import { useRoute } from '@react-navigation/native';
 import { mainColor } from '../constants/Colors';
-import { GetBookByCategoryAction, selectBook } from '../reducers/bookSlice';
+import { GetBookByCategoryAction, selectBooks } from '../reducers/bookSlice';
 
 const listOptions = [
   {
@@ -34,7 +34,7 @@ const listOptions = [
 const ListBookScreen = () => {
   const dispatch = useAppDispatch();
   const route = useRoute<any>();
-  const books = useAppSelector(selectBook);
+  const books = useAppSelector(selectBooks);
   useEffect(() => {
     if (route.params) {
       dispatch(GetBookByCategoryAction(route.params.id));
@@ -47,7 +47,7 @@ const ListBookScreen = () => {
   };
   return (
     <View>
-      <Header />
+      <SearchHeader />
       <View style={styles.arrange}>
         {listOptions.map((e, i) => {
           return (

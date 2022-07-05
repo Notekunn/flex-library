@@ -1,4 +1,5 @@
 import { OrderStatus } from './enum';
+import { SearchSortTypes } from './SearchSort';
 
 export interface ICategory {
   id?: number;
@@ -49,6 +50,6 @@ export interface IOrderDetail {
 export interface ISearchBook {
   page: number;
   take: number;
-  query: string;
-  sort: string;
+  q: string;
+  sort: SearchSortTypes;
 }

@@ -1,23 +1,21 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { apiInstance } from '../app/axiosClient';
 import { RootState } from '../app/store';
 import { IBook, ISearchBook, IStore } from '../constants/interface';
 
-interface IUpdateBookPayload extends IBook {
-  id: number;
-}
-
 interface IBookState {
-  data: IBook[];
+  books: IBook[];
   store: IStore;
   loading: 'idle' | 'loading' | 'success' | 'error';
   message?: string;
+  searchQuery: string;
 }
 
 const initialState: IBookState = {
-  data: [],
+  books: [],
   store: {} as IStore,
   loading: 'idle',
+  searchQuery: '',
 };
 
 export const CreateBookAction = createAsyncThunk('book/create', async (payload: Omit<IBook, 'id'>) => {
@@ -25,7 +23,7 @@ export const CreateBookAction = createAsyncThunk('book/create', async (payload: 
   return data;
 });
 
-export const UpdateBookAction = createAsyncThunk('book/update', async (payload: IUpdateBookPayload) => {
+export const UpdateBookAction = createAsyncThunk('book/update', async (payload: IBook) => {
   const { id, ...dataUpdate } = payload;
   const { data } = await apiInstance.put(`/book/${id}`, dataUpdate);
   return data;
@@ -57,16 +55,22 @@ export const GetBookByCategoryAction = createAsyncThunk('book/getByCategory', as
 });
 
 export const SearchBookAction = createAsyncThunk('book/search', async (payload: ISearchBook) => {
-  const { data } = await apiInstance.get(
-    `/book?page=${payload.page}&take=${payload.take}&q=${payload.query}&sort=${payload.sort}`,
-  );
+  console.log(payload);
+
+  const { data } = await apiInstance.get(`/book`, {
+    params: payload,
+  });
   return data;
 });
 
 const BookSlice = createSlice({
   name: 'book',
   initialState,
-  reducers: {},
+  reducers: {
+    setSearchQuery: (state, action: PayloadAction<string>) => {
+      state.searchQuery = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     [
       CreateBookAction,
@@ -84,11 +88,12 @@ const BookSlice = createSlice({
         })
         .addCase(action.fulfilled, (state, action) => {
           state.loading = 'success';
-          state.data = action.payload;
+          state.books = action.payload;
         })
         .addCase(action.rejected, (state, action) => {
           state.loading = 'error';
           state.message = action.error.message;
+          state.books = [];
         });
     });
     builder.addCase(GetBookByIdAction.pending, (state, action) => {
@@ -106,9 +111,12 @@ const BookSlice = createSlice({
   },
 });
 
+export const { setSearchQuery } = BookSlice.actions;
+
 export default BookSlice.reducer;
 
-export const selectBook = (state: RootState) => state.book.data;
+export const selectSearchQuery = (state: RootState) => state.book.searchQuery;
+export const selectBooks = (state: RootState) => state.book.books;
 export const selectBookLoading = (state: RootState) => state.book.loading;
 export const selectBookMessage = (state: RootState) => state.book.message;
 export const selectBookStore = (state: RootState) => state.book.store;
