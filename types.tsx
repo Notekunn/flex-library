@@ -31,6 +31,7 @@ export type RootStackParamList = {
   Cart: undefined;
   History: undefined;
   Search: undefined;
+  ResultSearch: undefined;
   AddItem: undefined;
   Profile: undefined;
   ChangePassword: undefined;
@@ -49,6 +50,7 @@ export type RootTabParamList = {
   Intro: undefined;
   MyID: undefined;
   Splash: undefined;
+  ResultSearch: undefined;
   Scan: undefined;
   Account: undefined;
   Home: undefined;

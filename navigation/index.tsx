@@ -37,6 +37,7 @@ import CategoryScreen from '../screens/CategoryScreen';
 import ListBookScreen from '../screens/ListBookScreen';
 import { GetStoreByUserAction, selectUserStore } from '../reducers/storeSlice';
 import ViewMyStoreScreen from '../screens/Account/ViewMyStoreScreen';
+import SearchResultScreen from '../screens/SearchResultScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -136,6 +137,7 @@ function RootNavigator() {
           <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
           <Stack.Screen name="AddItem" component={AddItem} />
           <Stack.Screen name="Category" component={CategoryScreen} />
+          <Stack.Screen name="ResultSearch" component={SearchResultScreen} />
           <Stack.Screen name="ListBookCategory" component={ListBookScreen} />
           <Stack.Screen name="Search" component={SearchScreen} options={{ animation: 'fade' }} />
           <Stack.Group screenOptions={{ presentation: 'modal', animation: 'fade' }}>
