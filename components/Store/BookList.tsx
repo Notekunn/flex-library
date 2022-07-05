@@ -1,56 +1,47 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import BookCardFlex from '../BookCardFlex';
 import { ScrollView, TouchableOpacity } from 'react-native';
 import { mainColor } from '../../constants/Colors';
 import { IBook } from '../../constants/interface';
+import { SearchSortOptions, SearchSortTypes } from '../../constants/SearchSort';
+import { useAppDispatch, useAppSelector } from '../../app/hook';
+import { GetBookByStoreAction, selectBooks } from '../../reducers/bookSlice';
 
 export interface BookListProps {
-  books: IBook[];
+  storeId?: number;
 }
 
-const BookList: React.FC<BookListProps> = ({ books }) => {
-  const listOptions = [
-    {
-      option: 'Mới nhất',
-    },
-    {
-      option: 'Bán chạy',
-    },
-    {
-      option: 'Giá thấp',
-    },
-    {
-      option: 'Giá cao',
-    },
-  ];
-  const [imageUrl, setImageUrl] = useState(
-    'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg',
-  );
-  const handleOption = (option: string) => {
-    setStatus(option);
-    setImageUrl('https://loremflickr.com/320/240');
-  };
-  const [status, setStatus] = useState('Mới nhất');
+const BookList: React.FC<BookListProps> = ({ storeId }) => {
+  const books = useAppSelector(selectBooks);
+  const dispatch = useAppDispatch();
+  const [sort, setSort] = useState(SearchSortTypes.NEWEST);
+  useEffect(() => {
+    if (storeId && storeId > 0) {
+      dispatch(
+        GetBookByStoreAction({
+          id: storeId,
+          sort,
+        }),
+      );
+    }
+  }, [sort, storeId]);
   return (
     <View style={styles.container}>
       <View>
         <View style={styles.options}>
-          {listOptions.map((e, i) => {
+          {SearchSortOptions.map((option, i) => {
             return (
-              <TouchableOpacity
-                onPress={() => {
-                  handleOption(e.option);
-                }}
-                key={i}
-              >
-                <Text style={[styles.option_title, status === e.option && styles.option_title_color]}>{e.option}</Text>
+              <TouchableOpacity onPress={() => setSort(option.sortBy)} key={i}>
+                <Text style={[styles.option_title, sort === option.sortBy && styles.option_title_color]}>
+                  {option.title}
+                </Text>
               </TouchableOpacity>
             );
           })}
         </View>
       </View>
-      {books && (
+      {books.length > 0 && (
         <ScrollView>
           <View style={{ paddingHorizontal: 10, marginTop: 10 }}>
             <View style={styles.listItem}>

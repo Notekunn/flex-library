@@ -1,41 +1,23 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  useWindowDimensions,
-  TouchableOpacity,
-  StatusBar,
-  Dimensions,
-} from 'react-native';
-import React, { Profiler, useEffect, useState } from 'react';
-import { AntDesign, Feather, Fontisto, Entypo, FontAwesome5 } from '@expo/vector-icons';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Feather, Fontisto, Entypo, FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
-import BookList from '../components/Store/BookList';
-import { mainColor, seconColor } from '../constants/Colors';
-import { useAppDispatch, useAppSelector } from '../app/hook';
-import { GetStoreByIdAction, GetStoreByUserAction, selectOwner, selectUserStore } from '../reducers/storeSlice';
-import { GetBookByStoreAction, selectBooks } from '../reducers/bookSlice';
-import { store } from '../app/store';
+import BookList from '../../components/Store/BookList';
+import { mainColor, seconColor } from '../../constants/Colors';
+import { useAppDispatch, useAppSelector } from '../../app/hook';
+import { GetStoreByIdAction, selectCurrentStore } from '../../reducers/storeSlice';
+import { RootStackScreenProps } from '../../types';
 const initialLayout = { width: Dimensions.get('window').width };
 
-const MyStoreScreen = () => {
-  const nav = useNavigation();
+const StoreScreen: React.FC<RootStackScreenProps<'Store'>> = ({ route }) => {
+  const { id: storeId } = route.params;
   const dispatch = useAppDispatch();
-  const mystore = useAppSelector(selectUserStore);
-  const books = useAppSelector(selectBooks);
-  const ownerStore = useAppSelector(selectOwner);
-  useEffect(() => {
-    dispatch(GetStoreByUserAction());
-  }, [books]);
+  const store = useAppSelector(selectCurrentStore);
 
   useEffect(() => {
-    if (mystore && mystore.id) {
-      dispatch(GetBookByStoreAction(mystore.id));
-      dispatch(GetStoreByIdAction(mystore.id));
-    }
-  }, []);
+    dispatch(GetStoreByIdAction(storeId));
+  }, [storeId]);
 
   const renderTabBar = (props: any) => (
     <TabBar {...props} indicatorStyle={{ backgroundColor: '#FFF' }} style={{ backgroundColor: mainColor }} />
@@ -45,7 +27,7 @@ const MyStoreScreen = () => {
 
   const [routes] = React.useState([
     { key: 'first', title: 'Shop' },
-    { key: 'second', title: 'Danh mục' },
+    { key: 'second', title: 'Nhận xét' },
   ]);
   const navigation = useNavigation();
   return (
@@ -101,18 +83,18 @@ const MyStoreScreen = () => {
                 }}
                 source={{
                   uri:
-                    ownerStore?.avatar ||
+                    store?.avatarURL ||
                     'https://cdn.realsport101.com/images/ncavvykf/epicstream/4496c3fab7ca90b76d0069f0d671f2cad7dbe565-1920x1080.jpg?rect=1,0,1919,1080&w=700&h=394&dpr=2',
                 }}
               />
               <View style={{ paddingLeft: 15 }}>
-                <Text style={{ fontSize: 20 }}>{mystore?.name}</Text>
+                <Text style={{ fontSize: 20 }}>{store?.name}</Text>
                 <Text style={{ fontSize: 12, color: 'gray' }}>Online 11 giờ trước</Text>
               </View>
             </View>
-            <TouchableOpacity onPress={() => nav.navigate('AddItem')}>
+            <TouchableOpacity>
               <View style={styles.button_follow}>
-                <Text style={{ color: '#4C4CD7' }}>Thêm sách</Text>
+                <Text style={{ color: '#4C4CD7' }}>Theo dõi</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -139,7 +121,7 @@ const MyStoreScreen = () => {
           renderTabBar={renderTabBar}
           navigationState={{ index, routes }}
           renderScene={SceneMap({
-            first: () => <BookList books={books} />,
+            first: () => <BookList storeId={store?.id} />,
             second: BookList,
           })}
           onIndexChange={setIndex}
@@ -151,7 +133,7 @@ const MyStoreScreen = () => {
   );
 };
 
-export default MyStoreScreen;
+export default StoreScreen;
 
 const styles = StyleSheet.create({
   container: {
