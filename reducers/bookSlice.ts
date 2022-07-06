@@ -44,10 +44,16 @@ export const GetBookByIdAction = createAsyncThunk('book/getById', async (id: num
   return data;
 });
 
-export const GetBookByStoreAction = createAsyncThunk('book/getByStore', async (id: number) => {
-  const { data } = await apiInstance.get(`/store/${id}/books`);
-  return data;
-});
+export const GetBookByStoreAction = createAsyncThunk(
+  'book/getByStore',
+  async (payload: Partial<ISearchBook> & { id: number }) => {
+    const { id, ...searchPayload } = payload;
+    const { data } = await apiInstance.get(`/store/${id}/books`, {
+      params: searchPayload,
+    });
+    return data;
+  },
+);
 
 export const GetBookByCategoryAction = createAsyncThunk('book/getByCategory', async (id: number) => {
   const { data } = await apiInstance.get(`/book/category/${id}`);
@@ -55,8 +61,6 @@ export const GetBookByCategoryAction = createAsyncThunk('book/getByCategory', as
 });
 
 export const SearchBookAction = createAsyncThunk('book/search', async (payload: ISearchBook) => {
-  console.log(payload);
-
   const { data } = await apiInstance.get(`/book`, {
     params: payload,
   });

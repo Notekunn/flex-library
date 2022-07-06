@@ -31,20 +31,9 @@ apiInstance.interceptors.request.use(async (config) => {
 apiInstance.interceptors.response.use(
   (e) => e,
   (error) => {
-    console.log(error);
-    const status = error?.response?.status && `[${error.response.status}] `;
-    if (error?.response?.data?.message) {
-      return Promise.reject(status + error.response.data.message);
-    }
-    if (error?.response?.data?.error?.message) {
-      return Promise.reject(status + error.response.data.error.message);
-    }
-    if (error?.response?.data?.error?.errors) {
-      return Promise.reject(status + error.response.data.error.errors);
-    }
-    if (error?.response?.data?.error) {
-      return Promise.reject(status + error.response.data.error);
-    }
-    return Promise.reject(error);
+    const { status, data } = error?.response || {};
+    console.log(`Error with status ${status}`);
+    const errorMessage = `${data.message}`;
+    return Promise.reject(new Error(errorMessage));
   },
 );

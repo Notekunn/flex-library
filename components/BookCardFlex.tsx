@@ -4,13 +4,14 @@ import Navigation from '../navigation';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackScreenProps, RootTabScreenProps } from '../types';
 import { IBook } from '../constants/interface';
+import { moneyFormat } from '../constants/Money';
 
 const { height, width } = Dimensions.get('window');
 interface BookCardFlexProps {
   book: IBook;
 }
 const BookCardFlex: React.FC<BookCardFlexProps> = ({ book }) => {
-  const navigation = useNavigation<any>();
+  const navigation = useNavigation<RootStackScreenProps<'Cart'>['navigation']>();
   return (
     <TouchableOpacity onPress={() => navigation.push('Item', book)}>
       <View style={styles.container}>
@@ -23,8 +24,8 @@ const BookCardFlex: React.FC<BookCardFlexProps> = ({ book }) => {
         <View style={styles.desc}>
           <Text style={styles.title}>{book.name}</Text>
           <View style={styles.infor}>
-            <Text style={styles.price}>{book.salePrice}/giờ</Text>
-            <Text style={styles.rented}>Đã cho thuê 200</Text>
+            <Text style={styles.price}>{moneyFormat(book.rentPrice)}/tuần</Text>
+            <Text style={styles.rented}>Đã cho thuê 1000</Text>
           </View>
         </View>
       </View>
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   price: {
-    fontSize: 18,
+    fontSize: 14,
     color: '#4C4CD7',
   },
   rented: {

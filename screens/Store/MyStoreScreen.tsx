@@ -1,35 +1,22 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  useWindowDimensions,
-  TouchableOpacity,
-  StatusBar,
-  Dimensions,
-} from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { AntDesign, Feather, Fontisto, Entypo, FontAwesome5 } from '@expo/vector-icons';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { Feather, Fontisto, Entypo, FontAwesome5 } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
-import BookList from '../components/Store/BookList';
-import { mainColor, seconColor } from '../constants/Colors';
-import { useAppDispatch, useAppSelector } from '../app/hook';
-import { GetStoreByIdAction, selectCurrentStore } from '../reducers/storeSlice';
-import { GetBookByStoreAction, selectBooks } from '../reducers/bookSlice';
-import { RootStackScreenProps } from '../types';
+import BookList from '../../components/Store/BookList';
+import { mainColor, seconColor } from '../../constants/Colors';
+import { useAppDispatch, useAppSelector } from '../../app/hook';
+import { GetStoreByIdAction, GetStoreByUserAction, selectOwner, selectUserStore } from '../../reducers/storeSlice';
+import { GetBookByStoreAction, selectBooks } from '../../reducers/bookSlice';
+import { RootStackScreenProps } from '../../types';
 const initialLayout = { width: Dimensions.get('window').width };
 
-const StoreScreen: React.FC<RootStackScreenProps<'Store'>> = ({ route }) => {
-  const { id: storeId } = route.params;
+const MyStoreScreen: React.FC<RootStackScreenProps<'MyStore'>> = ({ navigation }) => {
   const dispatch = useAppDispatch();
-  const books = useAppSelector(selectBooks);
-  const store = useAppSelector(selectCurrentStore);
-
+  const myStore = useAppSelector(selectUserStore);
   useEffect(() => {
-    dispatch(GetBookByStoreAction(storeId));
-    dispatch(GetStoreByIdAction(storeId));
-  }, [storeId]);
+    dispatch(GetStoreByUserAction());
+  }, []);
 
   const renderTabBar = (props: any) => (
     <TabBar {...props} indicatorStyle={{ backgroundColor: '#FFF' }} style={{ backgroundColor: mainColor }} />
@@ -41,15 +28,16 @@ const StoreScreen: React.FC<RootStackScreenProps<'Store'>> = ({ route }) => {
     { key: 'first', title: 'Shop' },
     { key: 'second', title: 'Danh mục' },
   ]);
-  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.header_top}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Entypo style={{ marginLeft: 10 }} name="chevron-left" size={35} color="#4C4CD7" />
+          <TouchableOpacity onPress={() => navigation.canGoBack() && navigation.goBack()}>
+            {navigation.canGoBack() && (
+              <Entypo style={{ marginLeft: 10 }} name="chevron-left" size={35} color="#4C4CD7" />
+            )}
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Search')}>
+          <TouchableOpacity>
             <View
               style={{
                 height: 30,
@@ -64,7 +52,7 @@ const StoreScreen: React.FC<RootStackScreenProps<'Store'>> = ({ route }) => {
               }}
             >
               <FontAwesome5 name="search" size={16} color={mainColor} />
-              <Text style={{ color: 'gray', marginLeft: 5 }}>Tìm kiếm trên FL</Text>
+              <Text style={{ color: 'gray', marginLeft: 5 }}>Tìm kiếm trên cửa hàng</Text>
             </View>
           </TouchableOpacity>
           <View style={{ flexDirection: 'row', paddingLeft: 15 }}>
@@ -95,18 +83,18 @@ const StoreScreen: React.FC<RootStackScreenProps<'Store'>> = ({ route }) => {
                 }}
                 source={{
                   uri:
-                    store?.avatarURL ||
+                    myStore?.avatarURL ||
                     'https://cdn.realsport101.com/images/ncavvykf/epicstream/4496c3fab7ca90b76d0069f0d671f2cad7dbe565-1920x1080.jpg?rect=1,0,1919,1080&w=700&h=394&dpr=2',
                 }}
               />
               <View style={{ paddingLeft: 15 }}>
-                <Text style={{ fontSize: 20 }}>{store?.name}</Text>
+                <Text style={{ fontSize: 20 }}>{myStore?.name}</Text>
                 <Text style={{ fontSize: 12, color: 'gray' }}>Online 11 giờ trước</Text>
               </View>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('AddItem')}>
               <View style={styles.button_follow}>
-                <Text style={{ color: '#4C4CD7' }}>Theo dõi</Text>
+                <Text style={{ color: '#4C4CD7' }}>Thêm sách</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -133,7 +121,7 @@ const StoreScreen: React.FC<RootStackScreenProps<'Store'>> = ({ route }) => {
           renderTabBar={renderTabBar}
           navigationState={{ index, routes }}
           renderScene={SceneMap({
-            first: () => <BookList books={books} />,
+            first: () => <BookList storeId={myStore?.id} />,
             second: BookList,
           })}
           onIndexChange={setIndex}
@@ -145,7 +133,7 @@ const StoreScreen: React.FC<RootStackScreenProps<'Store'>> = ({ route }) => {
   );
 };
 
-export default StoreScreen;
+export default MyStoreScreen;
 
 const styles = StyleSheet.create({
   container: {
