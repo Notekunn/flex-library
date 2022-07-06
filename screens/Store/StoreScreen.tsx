@@ -2,21 +2,26 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'rea
 import React, { useEffect, useState } from 'react';
 import { Feather, Fontisto, Entypo, FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import { TabView, SceneMap, TabBar, SceneRendererProps } from 'react-native-tab-view';
 import BookList from '../../components/Store/BookList';
 import { mainColor, seconColor } from '../../constants/Colors';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { GetStoreByIdAction, selectCurrentStore } from '../../reducers/storeSlice';
 import { RootStackScreenProps } from '../../types';
+import NotFoundScreen from '../NotFoundScreen';
+import { TextInput } from 'react-native-gesture-handler';
 const initialLayout = { width: Dimensions.get('window').width };
 
 const StoreScreen: React.FC<RootStackScreenProps<'Store'>> = ({ route }) => {
   const { id: storeId } = route.params;
   const dispatch = useAppDispatch();
   const store = useAppSelector(selectCurrentStore);
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
-    dispatch(GetStoreByIdAction(storeId));
+    if (storeId) {
+      dispatch(GetStoreByIdAction(storeId));
+    }
   }, [storeId]);
 
   const renderTabBar = (props: any) => (
@@ -29,7 +34,20 @@ const StoreScreen: React.FC<RootStackScreenProps<'Store'>> = ({ route }) => {
     { key: 'first', title: 'Shop' },
     { key: 'second', title: 'Nhận xét' },
   ]);
+  const renderScene = ({ route }: { route: any }) => {
+    switch (route.key) {
+      case 'first':
+      case 'second':
+        return <BookList storeId={store?.id} q={query} />;
+      default:
+        return null;
+    }
+  };
+
   const navigation = useNavigation();
+  if (!storeId || !store) {
+    return <NotFoundScreen />;
+  }
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -37,7 +55,7 @@ const StoreScreen: React.FC<RootStackScreenProps<'Store'>> = ({ route }) => {
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Entypo style={{ marginLeft: 10 }} name="chevron-left" size={35} color="#4C4CD7" />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Search')}>
+          <TouchableOpacity>
             <View
               style={{
                 height: 30,
@@ -52,7 +70,12 @@ const StoreScreen: React.FC<RootStackScreenProps<'Store'>> = ({ route }) => {
               }}
             >
               <FontAwesome5 name="search" size={16} color={mainColor} />
-              <Text style={{ color: 'gray', marginLeft: 5 }}>Tìm kiếm trên FL</Text>
+              <TextInput
+                style={{ color: 'gray', marginLeft: 5 }}
+                placeholder="Tìm kiếm trên cửa hàng"
+                value={query}
+                onChangeText={setQuery}
+              />
             </View>
           </TouchableOpacity>
           <View style={{ flexDirection: 'row', paddingLeft: 15 }}>
@@ -120,10 +143,7 @@ const StoreScreen: React.FC<RootStackScreenProps<'Store'>> = ({ route }) => {
         <TabView
           renderTabBar={renderTabBar}
           navigationState={{ index, routes }}
-          renderScene={SceneMap({
-            first: () => <BookList storeId={store?.id} />,
-            second: BookList,
-          })}
+          renderScene={renderScene}
           onIndexChange={setIndex}
           initialLayout={initialLayout}
           style={styles.container1}

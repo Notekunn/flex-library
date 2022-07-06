@@ -10,9 +10,10 @@ import { GetBookByStoreAction, selectBooks } from '../../reducers/bookSlice';
 
 export interface BookListProps {
   storeId?: number;
+  q?: string;
 }
 
-const BookList: React.FC<BookListProps> = ({ storeId }) => {
+const BookList: React.FC<BookListProps> = ({ storeId, q }) => {
   const books = useAppSelector(selectBooks);
   const dispatch = useAppDispatch();
   const [sort, setSort] = useState(SearchSortTypes.NEWEST);
@@ -22,10 +23,11 @@ const BookList: React.FC<BookListProps> = ({ storeId }) => {
         GetBookByStoreAction({
           id: storeId,
           sort,
+          q,
         }),
       );
     }
-  }, [sort, storeId]);
+  }, [sort, storeId, q]);
   return (
     <View style={styles.container}>
       <View>
@@ -54,7 +56,9 @@ const BookList: React.FC<BookListProps> = ({ storeId }) => {
   );
 };
 
-export default BookList;
+export default React.memo(BookList, (prevProps, nextProps) => {
+  return prevProps.storeId == nextProps.storeId && prevProps.q == nextProps.q;
+});
 
 const styles = StyleSheet.create({
   column: {
