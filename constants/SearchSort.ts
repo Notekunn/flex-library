@@ -1,8 +1,8 @@
 export enum SearchSortTypes {
-  NEWEST = 'createdAt:asc',
-  HOSTEST = 'id:desc',
-  LOWEST_PRICE = 'rentPrice:desc',
-  HIGHEST_PRICE = 'rentPrice:asc',
+  NEWEST = 'createdAt:desc',
+  HOSTEST = 'id:asc',
+  LOWEST_PRICE = 'rentPrice:asc',
+  HIGHEST_PRICE = 'rentPrice:desc',
 }
 
 export const SearchSortOptions = [
