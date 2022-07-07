@@ -1,3 +1,10 @@
+## [1.19.1](https://github.com/Notekunn/flex-library/compare/v1.19.0...v1.19.1) (2022-07-06)
+
+
+### Bug Fixes
+
+* sort price and newest ([#38](https://github.com/Notekunn/flex-library/issues/38)) ([99e3c66](https://github.com/Notekunn/flex-library/commit/99e3c66d315b0fa02eb34178f903de7edd53d32a))
+
 # [1.19.0](https://github.com/Notekunn/flex-library/compare/v1.18.0...v1.19.0) (2022-07-06)
 
 
