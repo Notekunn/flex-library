@@ -8,13 +8,34 @@ import { useAppDispatch, useAppSelector } from '../app/hook';
 import { GetOrderByUserAction, selectOrder } from '../reducers/orderSlice';
 import { moneyFormat } from '../constants/Money';
 import { RootStackScreenProps } from '../types';
-import { IOrderDetail } from '../constants/interface';
+import { IResPonseOrderDetail } from '../constants/interface';
+import { CreateOrderDetailAction } from '../reducers/orderDetailSlice';
 
 interface IItemCarProps {
-  item: IOrderDetail;
+  item: IResPonseOrderDetail;
 }
 const CardItem: React.FC<IItemCarProps> = ({ item }) => {
+  const dispatch = useAppDispatch();
   const nav = useNavigation<any>();
+  const [quantity, setQuantity] = React.useState(item.quantity);
+  const handleMinus = () => {
+    setQuantity(quantity - 1);
+    dispatch(
+      CreateOrderDetailAction({
+        bookId: item.book.id,
+        quantity: quantity - 1,
+      }),
+    );
+  };
+  const handlePlus = () => {
+    setQuantity(quantity + 1);
+    dispatch(
+      CreateOrderDetailAction({
+        bookId: item.book.id,
+        quantity: quantity + 1,
+      }),
+    );
+  };
   return (
     <View style={styles.itemInCart}>
       <ListItem.Swipeable
@@ -94,8 +115,9 @@ const CardItem: React.FC<IItemCarProps> = ({ item }) => {
                   height: 30,
                   width: 30,
                 }}
+                onPress={handleMinus}
               />
-              <Text style={{ margin: 10, fontSize: 20 }}>{item.quantity}</Text>
+              <Text style={{ fontSize: 20 }}>{quantity}</Text>
               <Button
                 icon={{
                   name: 'plus',
@@ -108,6 +130,7 @@ const CardItem: React.FC<IItemCarProps> = ({ item }) => {
                   height: 30,
                   width: 30,
                 }}
+                onPress={handlePlus}
               />
             </View>
           </View>
@@ -120,6 +143,7 @@ const CartScreen: React.FC<RootStackScreenProps<'Cart'>> = ({ navigation }) => {
   const nav = useNavigation<any>();
   const dispatch = useAppDispatch();
   const orders = useAppSelector(selectOrder);
+
   useEffect(() => {
     dispatch(GetOrderByUserAction());
   }, []);
@@ -254,6 +278,8 @@ const styles = StyleSheet.create({
   quantity: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
+    width: 100,
   },
   store: {
     backgroundColor: '#fff',

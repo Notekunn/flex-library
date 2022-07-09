@@ -1,16 +1,16 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { apiInstance } from '../app/axiosClient';
 import { RootState } from '../app/store';
-import { IOrderDetail, IUser } from '../constants/interface';
+import { IResPonseOrderDetail, IOrderDetail, IUser } from '../constants/interface';
 
 interface orderDetailState {
-  data: IOrderDetail;
+  data: IResPonseOrderDetail;
   loading: 'idle' | 'loading' | 'success' | 'error';
   message?: string;
 }
 
 const initialState: orderDetailState = {
-  data: {} as IOrderDetail,
+  data: {} as IResPonseOrderDetail,
   loading: 'idle',
   message: undefined,
 };
