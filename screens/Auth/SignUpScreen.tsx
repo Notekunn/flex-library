@@ -85,7 +85,6 @@ export default function SignUpScreen() {
           placeholder="Email"
           onChangeText={(text) => setEmail(text)}
           inputStyle={{ color: '#FFF', height: 50 }}
-          autoCapitalize="none"
           errorMessage={errorEmail}
         />
         <Input
@@ -99,9 +98,7 @@ export default function SignUpScreen() {
           placeholder="Confirm Password"
           secureTextEntry={true}
           onChangeText={(text) => setConfirmPassword(text)}
-          autoFocus={true}
           inputStyle={{ color: '#FFF', height: 50 }}
-          pointerEvents="none"
           errorMessage={errorConfirmPassword}
         />
         <View style={styles.formImage}>

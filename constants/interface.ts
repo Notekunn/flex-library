@@ -37,14 +37,19 @@ export interface IBook {
 export interface IOrder {
   id: number;
   store: IStore;
-  orderDetails: Array<IOrderDetail>;
+  orderDetails: Array<IResPonseOrderDetail>;
   totalAmount: number;
 }
 
-export interface IOrderDetail {
+export interface IResPonseOrderDetail {
   id: number;
   quantity: number;
   book: IBook;
+}
+
+export interface IOrderDetail {
+  quantity: number;
+  bookId: number;
 }
 
 export interface ISearchBook {
