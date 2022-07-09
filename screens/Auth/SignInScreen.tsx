@@ -50,7 +50,6 @@ export default function SignInScreen({ navigation }: RootTabScreenProps<'SignIn'
           onChangeText={(text) => setEmail(text.toLowerCase())}
           autoFocus={true}
           inputStyle={{ color: '#FFF', height: 50 }}
-          pointerEvents="none"
           errorMessage={emailError}
         />
         <Input
