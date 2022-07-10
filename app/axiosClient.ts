@@ -32,8 +32,8 @@ apiInstance.interceptors.response.use(
   (e) => e,
   (error) => {
     const { status, data } = error?.response || {};
-    console.log(`Error with status ${status}`);
     const errorMessage = `${data.message}`;
+    console.log(`Error with status ${status}: ${data.message}`);
     return Promise.reject(new Error(errorMessage));
   },
 );

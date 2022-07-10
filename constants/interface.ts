@@ -1,6 +1,10 @@
 import { OrderStatus } from './enum';
 import { SearchSortTypes } from './SearchSort';
 
+export interface BaseEntity {
+  createdAt: string;
+  updatedAt: string;
+}
 export interface ICategory {
   id?: number;
   name: string;
@@ -29,20 +33,20 @@ export interface IBook {
   salePrice: number;
   rentPrice: number;
   numOfCopies: number;
-  // description: string;
+  description: string;
   images: string[];
   categories: number[];
   rentCount: number;
 }
 
-export interface IBookResponse {
+export interface IBookResponse extends BaseEntity {
   id: number;
   name: string;
   author: string;
   salePrice: number;
   rentPrice: number;
   numOfCopies: number;
-  // description: string;
+  description: string;
   images: string[];
   categories: ICategory[];
   store: IStore;
