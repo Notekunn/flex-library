@@ -1,3 +1,10 @@
+# [1.20.0](https://github.com/Notekunn/flex-library/compare/v1.19.2...v1.20.0) (2022-07-10)
+
+
+### Features
+
+* add rent count ([#41](https://github.com/Notekunn/flex-library/issues/41)) ([913460e](https://github.com/Notekunn/flex-library/commit/913460e46d780af92dd5dc2d3efa3de418be8571))
+
 ## [1.19.2](https://github.com/Notekunn/flex-library/compare/v1.19.1...v1.19.2) (2022-07-09)
 
 
