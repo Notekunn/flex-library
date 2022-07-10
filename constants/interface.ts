@@ -52,19 +52,27 @@ export interface IBookResponse {
 export interface IOrder {
   id: number;
   store: IStore;
-  orderDetails: Array<IResPonseOrderDetail>;
+  orderDetails: Array<IResponseOrderDetail>;
   totalAmount: number;
 }
 
-export interface IResPonseOrderDetail {
+export interface IResponseOrderDetail {
   id: number;
   quantity: number;
   book: IBook;
 }
 
+export enum OrderDetailAction {
+  SET = 'set',
+  ADD = 'add',
+  SUB = 'sub',
+  REMOVE = 'remove',
+}
+
 export interface IOrderDetail {
   quantity: number;
   bookId: number;
+  action?: OrderDetailAction;
 }
 
 export interface ISearchBook {
