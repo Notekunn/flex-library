@@ -10,9 +10,9 @@ import { RootTabScreenProps } from '../../types';
 
 export default function SignInScreen({ navigation }: RootTabScreenProps<'SignIn'>) {
   const nav = useNavigation();
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('admin@gmail.com');
   const [emailError, setEmailError] = useState('');
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState('password');
   const [passwordError, setPasswordError] = useState('');
   const error = useAppSelector(selectError);
   const [hidePassword, setHidePassword] = useState(true);

@@ -15,7 +15,7 @@ const ProfileScreen = () => {
   };
   const route = useRoute<any>();
   const dispatch = useAppDispatch();
-  const [image, setImage] = useState(route.params.avatar);
+  const [image, setImage] = useState(route.params?.avatar || '');
   const nav = useNavigation();
   const [name, setFullName] = useState('');
   const [editName, setEditName] = useState(false);

@@ -36,6 +36,7 @@ import ListBookScreen from '../screens/ListBookScreen';
 import { GetStoreByUserAction, selectUserStore } from '../reducers/storeSlice';
 import ViewMyStoreScreen from '../screens/Account/ViewMyStoreScreen';
 import SearchResultScreen from '../screens/Search/SearchResultScreen';
+import InfoCart from '../screens/Account/InfoCart';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -50,7 +51,6 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootNavigator() {
   const loading = useAppSelector(selectLoading);
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
-  // const isLoggedIn = true;
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (!isLoggedIn) {
@@ -105,7 +105,7 @@ function RootNavigator() {
           <Stack.Screen name="Store" component={StoreScreen} />
           <Stack.Screen
             name="InfoCart"
-            component={TopBarNavigatorCart}
+            component={InfoCart}
             options={{
               headerShown: true,
               headerStyle: {
