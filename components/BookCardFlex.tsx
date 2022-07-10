@@ -25,7 +25,7 @@ const BookCardFlex: React.FC<BookCardFlexProps> = ({ book }) => {
           <Text style={styles.title}>{book.name}</Text>
           <View style={styles.infor}>
             <Text style={styles.price}>{moneyFormat(book.rentPrice)}/tuần</Text>
-            <Text style={styles.rented}>Đã cho thuê 1000</Text>
+            <Text style={styles.rented}>{book.rentCount > 0 ? `Đã cho thuê ${book.rentCount}`: ''}</Text>
           </View>
         </View>
       </View>
