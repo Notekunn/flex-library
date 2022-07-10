@@ -32,7 +32,21 @@ export interface IBook {
   // description: string;
   images: string[];
   categories: number[];
-  rentCount: number
+  rentCount: number;
+}
+
+export interface IBookResponse {
+  id: number;
+  name: string;
+  author: string;
+  salePrice: number;
+  rentPrice: number;
+  numOfCopies: number;
+  // description: string;
+  images: string[];
+  categories: ICategory[];
+  store: IStore;
+  rentCount: number;
 }
 
 export interface IOrder {

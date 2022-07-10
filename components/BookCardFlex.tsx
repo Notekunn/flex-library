@@ -11,9 +11,9 @@ interface BookCardFlexProps {
   book: IBook;
 }
 const BookCardFlex: React.FC<BookCardFlexProps> = ({ book }) => {
-  const navigation = useNavigation<RootStackScreenProps<'Cart'>['navigation']>();
+  const navigation = useNavigation<RootStackScreenProps<'Item'>['navigation']>();
   return (
-    <TouchableOpacity onPress={() => navigation.push('Item', book)}>
+    <TouchableOpacity onPress={() => navigation.push('Item', { id: book.id })}>
       <View style={styles.container}>
         <Image
           style={styles.image}
@@ -25,7 +25,7 @@ const BookCardFlex: React.FC<BookCardFlexProps> = ({ book }) => {
           <Text style={styles.title}>{book.name}</Text>
           <View style={styles.infor}>
             <Text style={styles.price}>{moneyFormat(book.rentPrice)}/tuần</Text>
-            <Text style={styles.rented}>{book.rentCount > 0 ? `Đã cho thuê ${book.rentCount}`: ''}</Text>
+            <Text style={styles.rented}>{book.rentCount > 0 ? `Đã cho thuê ${book.rentCount}` : ''}</Text>
           </View>
         </View>
       </View>

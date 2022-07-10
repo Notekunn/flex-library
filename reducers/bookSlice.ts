@@ -1,10 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { apiInstance } from '../app/axiosClient';
 import { RootState } from '../app/store';
-import { IBook, ISearchBook, IStore } from '../constants/interface';
+import { IBook, IBookResponse, ISearchBook, IStore } from '../constants/interface';
 
 interface IBookState {
   books: IBook[];
+  book: IBookResponse;
   store: IStore;
   loading: 'idle' | 'loading' | 'success' | 'error';
   message?: string;
@@ -13,6 +14,7 @@ interface IBookState {
 
 const initialState: IBookState = {
   books: [],
+  book: {} as IBookResponse,
   store: {} as IStore,
   loading: 'idle',
   searchQuery: '',
@@ -106,7 +108,7 @@ const BookSlice = createSlice({
     });
     builder.addCase(GetBookByIdAction.fulfilled, (state, action) => {
       state.loading = 'success';
-      state.store = action.payload.store;
+      state.book = action.payload;
     });
     builder.addCase(GetBookByIdAction.rejected, (state, action) => {
       state.loading = 'error';
@@ -124,3 +126,4 @@ export const selectBooks = (state: RootState) => state.book.books;
 export const selectBookLoading = (state: RootState) => state.book.loading;
 export const selectBookMessage = (state: RootState) => state.book.message;
 export const selectBookStore = (state: RootState) => state.book.store;
+export const selectBook = (state: RootState) => state.book.book;
