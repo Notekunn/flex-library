@@ -17,7 +17,7 @@ import { stringLength } from '@firebase/util';
 import BookList from '../components/Home/BookList';
 import BookCardFlex from '../components/BookCardFlex';
 import { mainColor } from '../constants/Colors';
-import { IBook } from '../constants/interface';
+import { IBook, OrderDetailAction } from '../constants/interface';
 import SearchHeader from '../components/Header';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Button } from '@rneui/themed';
@@ -25,7 +25,7 @@ import { useAppDispatch, useAppSelector } from '../app/hook';
 import { GetBookByIdAction, selectBook, selectBookStore } from '../reducers/bookSlice';
 import { OrderStatus } from '../constants/enum';
 import { GetStoreByIdAction, selectOwner } from '../reducers/storeSlice';
-import { CreateOrderDetailAction } from '../reducers/orderDetailSlice';
+import { UpdateOrderDetailAction } from '../reducers/orderSlice';
 import { selectOrder, GetOrderByUserAction, selectOrderLoading } from '../reducers/orderSlice';
 import { moneyFormat } from '../constants/Money';
 
@@ -39,8 +39,7 @@ const ItemScreen = () => {
   const bookInfo = useRoute<any>().params;
   const book = useAppSelector(selectBook);
   const handlePress = async () => {
-    dispatch(CreateOrderDetailAction({ bookId: book.id, quantity: 1 }));
-    dispatch(GetOrderByUserAction());
+    dispatch(UpdateOrderDetailAction({ bookId: book.id, quantity: 1, action: OrderDetailAction.ADD }));
     nav.navigate('Cart');
   };
 
