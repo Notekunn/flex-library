@@ -7,6 +7,7 @@ import Navigation from './navigation';
 import { store } from './app/store';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
+import { RootSiblingParent } from 'react-native-root-siblings';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -26,8 +27,10 @@ export default function App() {
     return (
       <Provider store={store}>
         <SafeAreaProvider>
-          <Navigation colorScheme={colorScheme} />
-          <StatusBar hidden />
+          <RootSiblingParent>
+            <Navigation colorScheme={colorScheme} />
+            <StatusBar hidden />
+          </RootSiblingParent>
         </SafeAreaProvider>
       </Provider>
     );

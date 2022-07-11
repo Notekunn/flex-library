@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 import { mainColor } from '../constants/Colors';
 import { useAppDispatch, useAppSelector } from '../app/hook';
-import { GetOrderByUserAction, selectOrder } from '../reducers/orderSlice';
+import { GetOrderByUserAction, PurchaseOrderAction, selectOrder } from '../reducers/orderSlice';
 import { moneyFormat } from '../constants/Money';
 import { RootStackScreenProps } from '../types';
 import { IResponseOrderDetail, OrderDetailAction, IOrderDetail } from '../constants/interface';
@@ -20,7 +20,11 @@ const CardItem: React.FC<IItemCarProps> = ({ item }) => {
   const dispatch = useAppDispatch();
   const nav = useNavigation<RootStackScreenProps<'Item'>['navigation']>();
   const [quantity, setQuantity] = React.useState(item.quantity);
+  useEffect(() => {
+    setQuantity(item.quantity);
+  }, [item.quantity]);
   const handleMinus = () => {
+    setQuantity(quantity - 1);
     dispatch(
       UpdateOrderDetailAction({
         bookId: item.book.id,
@@ -30,6 +34,7 @@ const CardItem: React.FC<IItemCarProps> = ({ item }) => {
     );
   };
   const handlePlus = () => {
+    setQuantity(quantity + 1);
     dispatch(
       UpdateOrderDetailAction({
         bookId: item.book.id,
@@ -155,7 +160,7 @@ export interface OrderDetailTabProps {
   status: OrderStatus;
 }
 
-export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status }) => {
+export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status = 'created' }) => {
   const nav = useNavigation<RootStackScreenProps<'InfoCart'>['navigation']>();
   const dispatch = useAppDispatch();
   const [whatDate, setWhatDate] = useState(0);
@@ -226,79 +231,90 @@ export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status }) => {
   return (
     <ScrollView>
       <View>
-        {orders.map((order, index) => (
-          <View style={styles.store} key={index}>
-            <TouchableOpacity onPress={() => nav.navigate('Store', { id: order.store.id })}>
-              <View style={styles.store_infor}>
-                <Image
-                  style={styles.store_img}
-                  source={{
-                    uri: order.store.avatarURL || 'https://tse1.mm.bing.net/th?q=solo%20leveling%20manga%20rock',
-                  }}
-                />
-                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{order.store.name}</Text>
-                <MaterialIcons name="arrow-forward-ios" size={20} color="black" />
-              </View>
-            </TouchableOpacity>
-            <View style={styles.store_list}>
-              {order.orderDetails.map((e, i) => (
-                <CardItem item={e} key={i} />
-              ))}
-            </View>
-            <View>
-              <View style={styles.dates}>
-                <View style={styles.date}>
-                  <Text style={styles.dateText}>Ngày mượn sách :</Text>
-                  <Text style={{ flex: 1 }}>{moment(dateStart).format('DD/MM/YYYY')}</Text>
-                  <TouchableOpacity
-                    onPress={() => {
-                      setWhatDate(0);
-                      showDatePicker();
-                    }}
-                  >
-                    <View style={styles.dateIcon}>
-                      <FontAwesome5 name="calendar-alt" size={35} color={mainColor} />
-                    </View>
-                  </TouchableOpacity>
-                </View>
-                <View style={styles.date}>
-                  <Text style={styles.dateText}>Ngày trả sách :</Text>
-                  <Text style={{ flex: 1 }}>{moment(dateEnd).format('DD/MM/YYYY')}</Text>
-                  <TouchableOpacity
-                    onPress={() => {
-                      setWhatDate(1);
-                      showDatePicker();
-                    }}
-                  >
-                    <View style={styles.dateIcon}>
-                      <FontAwesome5 name="calendar-alt" size={35} color={mainColor} />
-                    </View>
-                  </TouchableOpacity>
-                </View>
-              </View>
-              <DateTimePickerModal
-                isVisible={isDatePickerVisible}
-                mode="date"
-                onConfirm={handleConfirm}
-                onCancel={hideDatePicker}
-              />
-              <View style={styles.price}>
-                <Text style={{ marginRight: 10 }}>
-                  Tổng thanh toán{' '}
-                  <Text style={{ color: mainColor, fontWeight: '900', fontSize: 16 }}>
-                    {moneyFormat(order.totalAmount)}
-                  </Text>
-                </Text>
-                <TouchableOpacity>
-                  <View style={styles.pay}>
-                    <Text style={{ color: '#fff', fontSize: 17, fontWeight: 'bold' }}>Thuê truyện</Text>
+        {orders.map(
+          (order, index) =>
+            order && (
+              <View style={styles.store} key={index}>
+                <TouchableOpacity onPress={() => nav.navigate('Store', { id: order.store.id })}>
+                  <View style={styles.store_infor}>
+                    <Image
+                      style={styles.store_img}
+                      source={{
+                        uri: order.store.avatarURL || 'https://tse1.mm.bing.net/th?q=solo%20leveling%20manga%20rock',
+                      }}
+                    />
+                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{order.store.name}</Text>
+                    <MaterialIcons name="arrow-forward-ios" size={20} color="black" />
                   </View>
                 </TouchableOpacity>
+                <View style={styles.store_list}>
+                  {order.orderDetails.map((e, i) => (
+                    <CardItem item={e} key={i} />
+                  ))}
+                </View>
+
+                <View>
+                  {status === 'created' && (
+                    <>
+                      <View style={styles.dates}>
+                        <View style={styles.date}>
+                          <Text style={styles.dateText}>Ngày mượn sách :</Text>
+                          <Text style={{ flex: 1 }}>{moment(dateStart).format('DD/MM/YYYY')}</Text>
+                          <TouchableOpacity
+                            onPress={() => {
+                              setWhatDate(0);
+                              showDatePicker();
+                            }}
+                          >
+                            <View style={styles.dateIcon}>
+                              <FontAwesome5 name="calendar-alt" size={35} color={mainColor} />
+                            </View>
+                          </TouchableOpacity>
+                        </View>
+                        <View style={styles.date}>
+                          <Text style={styles.dateText}>Ngày trả sách :</Text>
+                          <Text style={{ flex: 1 }}>{moment(dateEnd).format('DD/MM/YYYY')}</Text>
+                          <TouchableOpacity
+                            onPress={() => {
+                              setWhatDate(1);
+                              showDatePicker();
+                            }}
+                          >
+                            <View style={styles.dateIcon}>
+                              <FontAwesome5 name="calendar-alt" size={35} color={mainColor} />
+                            </View>
+                          </TouchableOpacity>
+                        </View>
+                      </View>
+                      <DateTimePickerModal
+                        isVisible={isDatePickerVisible}
+                        mode="date"
+                        onConfirm={handleConfirm}
+                        onCancel={hideDatePicker}
+                      />
+                    </>
+                  )}
+                  <View style={styles.price}>
+                    <Text style={{ marginRight: 10 }}>
+                      Tổng thanh toán{' '}
+                      <Text style={{ color: mainColor, fontWeight: '900', fontSize: 16 }}>
+                        {moneyFormat(order.totalAmount)}
+                      </Text>
+                    </Text>
+                    {status === 'created' && (
+                      <TouchableOpacity onPress={() => dispatch(PurchaseOrderAction(order.id))}>
+                        <View style={styles.pay}>
+                          <Text style={{ color: '#fff', fontSize: 17, fontWeight: 'bold' }}>Thuê truyện</Text>
+                        </View>
+                      </TouchableOpacity>
+                    )}
+                  </View>
+
+                  <View>{/* <Text>selected: {date.toLocaleString()}</Text> */}</View>
+                </View>
               </View>
-              <View>{/* <Text>selected: {date.toLocaleString()}</Text> */}</View>
-            </View>
-          </View>
-        ))}
+            ),
+        )}
       </View>
     </ScrollView>
   );
