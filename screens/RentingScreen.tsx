@@ -2,6 +2,7 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { seconColor } from '../constants/Colors';
 import { Button } from '@rneui/base';
+import { RootStackScreenProps } from '../types';
 
 const RentingBook = () => {
   return (
@@ -70,7 +71,7 @@ const RentingBook = () => {
   );
 };
 
-export default function RentingBooks() {
+export const RentingScreen: React.FC<RootStackScreenProps<'Renting'>> = () => {
   return (
     <View>
       <RentingBook />
@@ -78,7 +79,7 @@ export default function RentingBooks() {
       <RentingBook />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

@@ -29,7 +29,7 @@ export type RootStackParamList = {
   MyStore: undefined;
   InfoCart: undefined;
   BookCategory: undefined;
-  History: undefined;
+  Renting: undefined;
   Search: undefined;
   ResultSearch: { sort?: SearchSortTypes; store?: number };
   AddItem: undefined;
@@ -49,24 +49,14 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> = Nati
 export type RootTabParamList = {
   Intro: undefined;
   MyID: undefined;
-  Splash: undefined;
-  ResultSearch: undefined;
   Scan: undefined;
   Account: undefined;
   Home: undefined;
   Store: undefined;
   MyStore: undefined;
-  SignIn: undefined;
-  InfoCart: undefined;
-  BookCategory: undefined;
-  Cart: undefined;
   History: undefined;
   SignUp: undefined;
   Profile: undefined;
-  ChangePassword: undefined;
-  CreateStore: undefined;
-  ViewMyStore: undefined;
-  ListBookCategory: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<

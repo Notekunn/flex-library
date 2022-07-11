@@ -20,7 +20,6 @@ import MyStoreScreen from '../screens/Store/MyStoreScreen';
 import AccountScreen from '../screens/Account/AccountScreen';
 import ModalItem from '../modals/ModalItem';
 import ItemScreen from '../screens/ItemScreen';
-import TopBarNavigatorCart from './topBarNavigatorCart';
 import SearchScreen from '../screens/Search/SearchScreen';
 import AddItem from '../screens/AddItem';
 import { useAppDispatch, useAppSelector } from '../app/hook';
@@ -36,6 +35,7 @@ import { GetStoreByUserAction, selectUserStore } from '../reducers/storeSlice';
 import ViewMyStoreScreen from '../screens/Account/ViewMyStoreScreen';
 import SearchResultScreen from '../screens/Search/SearchResultScreen';
 import InfoCart from '../screens/Account/InfoCart';
+import { RentingScreen } from '../screens/RentingScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -120,6 +120,18 @@ function RootNavigator() {
           <Stack.Screen name="Category" component={CategoryScreen} />
           <Stack.Screen name="ResultSearch" component={SearchResultScreen} />
           <Stack.Screen name="ListBookCategory" component={ListBookScreen} />
+          <Stack.Screen
+            name="Renting"
+            component={RentingScreen}
+            options={{
+              headerShown: true,
+              headerStyle: {
+                backgroundColor: mainColor,
+              },
+              headerTintColor: '#fff',
+              headerTitle: 'Sách đang mượn',
+            }}
+          />
           <Stack.Screen name="Search" component={SearchScreen} options={{ animation: 'fade' }} />
           <Stack.Group screenOptions={{ presentation: 'modal', animation: 'fade' }}>
             <Stack.Screen
