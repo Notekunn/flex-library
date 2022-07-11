@@ -15,7 +15,7 @@ const SearchHeader = () => {
         <View>
           <Search />
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
+        <TouchableOpacity onPress={() => navigation.navigate('InfoCart')}>
           <FontAwesome name="shopping-cart" size={26} color="white" />
         </TouchableOpacity>
       </View>

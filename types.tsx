@@ -29,7 +29,6 @@ export type RootStackParamList = {
   MyStore: undefined;
   InfoCart: undefined;
   BookCategory: undefined;
-  Cart: undefined;
   History: undefined;
   Search: undefined;
   ResultSearch: { sort?: SearchSortTypes; store?: number };

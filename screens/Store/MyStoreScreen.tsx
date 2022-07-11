@@ -57,7 +57,7 @@ const MyStoreScreen: React.FC<RootStackScreenProps<'MyStore'>> = ({ navigation }
           </TouchableOpacity>
           <View style={{ flexDirection: 'row', paddingLeft: 15 }}>
             <Fontisto style={{ marginHorizontal: 5 }} name="share-a" size={24} color="#4C4CD7" />
-            <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
+            <TouchableOpacity onPress={() => navigation.navigate('InfoCart')}>
               <Feather style={{ marginHorizontal: 5 }} name="shopping-cart" size={24} color="#4C4CD7" />
             </TouchableOpacity>
             <Entypo style={{ marginLeft: 5 }} name="dots-three-vertical" size={24} color="#4C4CD7" />

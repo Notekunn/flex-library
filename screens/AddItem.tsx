@@ -52,6 +52,7 @@ const AddItem = () => {
       numOfCopies,
       images: imageList,
       categories: chooseCategories,
+      description: desc,
     };
     dispatch(CreateBookAction(data));
     navigation.goBack();

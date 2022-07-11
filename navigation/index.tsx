@@ -21,7 +21,6 @@ import AccountScreen from '../screens/Account/AccountScreen';
 import ModalItem from '../modals/ModalItem';
 import ItemScreen from '../screens/ItemScreen';
 import TopBarNavigatorCart from './topBarNavigatorCart';
-import CartScreen from '../screens/CartScreen';
 import SearchScreen from '../screens/Search/SearchScreen';
 import AddItem from '../screens/AddItem';
 import { useAppDispatch, useAppSelector } from '../app/hook';
@@ -76,22 +75,6 @@ function RootNavigator() {
         <>
           <Stack.Screen name="Root" component={BottomTabNavigator} />
           <Stack.Screen
-            name="Cart"
-            component={CartScreen}
-            options={{
-              headerShown: true,
-              headerStyle: {
-                backgroundColor: mainColor,
-              },
-              headerTitleStyle: {
-                color: '#FFF',
-              },
-              headerBackTitle: '',
-              headerTitleAlign: 'center',
-              headerTintColor: '#fff',
-            }}
-          />
-          <Stack.Screen
             name="Item"
             component={ItemScreen}
             options={{
@@ -112,7 +95,7 @@ function RootNavigator() {
                 backgroundColor: mainColor,
               },
               headerTintColor: '#fff',
-              headerTitle: 'Giỏ hàng',
+              headerTitle: 'Đơn hàng',
             }}
           />
           <Stack.Screen
@@ -219,7 +202,7 @@ function BottomTabNavigator() {
           component={MyStoreScreen}
           options={{
             headerShown: false,
-            title: 'MyStore',
+            title: 'Store',
             tabBarIcon: ({ color }) => <TabBarIcon name="shopping-cart" color={color} />,
           }}
         />

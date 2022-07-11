@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import CartScreen from '../screens/CartScreen';
 import HistoryScreen from '../screens/HistoryScreen';
 import { RootTabParamList } from '../types';
 import { mainColor } from '../constants/Colors';
+import InfoCart from '../screens/Account/InfoCart';
 
 const Tab = createMaterialTopTabNavigator<RootTabParamList>();
 
@@ -12,8 +12,8 @@ const TopBarNavigatorCart = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name="Cart"
-        component={CartScreen}
+        name="InfoCart"
+        component={InfoCart}
         options={{
           title: 'Giỏ hàng',
           swipeEnabled: false,

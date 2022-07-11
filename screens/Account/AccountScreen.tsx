@@ -92,7 +92,7 @@ const AccountScreen = () => {
                   marginLeft: 30,
                 }}
               >
-                <Text style={styles.text}>Giỏ hàng</Text>
+                <Text style={styles.text}>Đơn hàng</Text>
               </View>
               <Icon name="angle-right" type="font-awesome" style={{ flex: 1 }} color="#c1c1c1" />
             </TouchableOpacity>

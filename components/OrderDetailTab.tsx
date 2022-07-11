@@ -8,10 +8,9 @@ import { useAppDispatch, useAppSelector } from '../app/hook';
 import { GetOrderByUserAction, selectOrder } from '../reducers/orderSlice';
 import { moneyFormat } from '../constants/Money';
 import { RootStackScreenProps } from '../types';
-import { IResponseOrderDetail, OrderDetailAction } from '../constants/interface';
+import { IResponseOrderDetail, OrderDetailAction, IOrderDetail } from '../constants/interface';
 import { UpdateOrderDetailAction } from '../reducers/orderSlice';
 
-import { IOrderDetail } from '../constants/interface';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import moment from 'moment';
 interface IItemCarProps {
@@ -151,8 +150,13 @@ const CardItem: React.FC<IItemCarProps> = ({ item }) => {
     </View>
   );
 };
-const CartScreen: React.FC<RootStackScreenProps<'Cart'>> = ({ navigation }) => {
-  const nav = useNavigation<any>();
+export type OrderStatus = 'created' | 'purchased' | 'canceled' | 'completed';
+export interface OrderDetailTabProps {
+  status: OrderStatus;
+}
+
+export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status }) => {
+  const nav = useNavigation<RootStackScreenProps<'InfoCart'>['navigation']>();
   const dispatch = useAppDispatch();
   const [whatDate, setWhatDate] = useState(0);
   const [dateStart, setDateStart] = useState(new Date());
@@ -177,7 +181,7 @@ const CartScreen: React.FC<RootStackScreenProps<'Cart'>> = ({ navigation }) => {
     dispatch(GetOrderByUserAction());
   }, []);
 
-  if (!orders) {
+  if (orders.length == 0) {
     return (
       <View style={styles.container}>
         <View>
@@ -213,7 +217,7 @@ const CartScreen: React.FC<RootStackScreenProps<'Cart'>> = ({ navigation }) => {
             fontSize: 20,
           }}
           onPress={() => {
-            nav.navigate('Home');
+            nav.navigate('ResultSearch', {});
           }}
         />
       </View>
@@ -224,7 +228,7 @@ const CartScreen: React.FC<RootStackScreenProps<'Cart'>> = ({ navigation }) => {
       <View>
         {orders.map((order, index) => (
           <View style={styles.store} key={index}>
-            <TouchableOpacity onPress={() => navigation.navigate('Store', { id: order.store.id })}>
+            <TouchableOpacity onPress={() => nav.navigate('Store', { id: order.store.id })}>
               <View style={styles.store_infor}>
                 <Image
                   style={styles.store_img}
@@ -319,8 +323,6 @@ const CartScreen: React.FC<RootStackScreenProps<'Cart'>> = ({ navigation }) => {
   //   </View>
   // );
 };
-
-export default CartScreen;
 
 const styles = StyleSheet.create({
   container: {

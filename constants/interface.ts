@@ -36,7 +36,6 @@ export interface IBook {
   description: string;
   images: string[];
   categories: number[];
-  rentCount: number;
 }
 
 export interface IBookResponse extends BaseEntity {
