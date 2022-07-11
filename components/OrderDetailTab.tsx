@@ -155,7 +155,7 @@ export interface OrderDetailTabProps {
   status: OrderStatus;
 }
 
-export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status }) => {
+export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status = 'created' }) => {
   const nav = useNavigation<RootStackScreenProps<'InfoCart'>['navigation']>();
   const dispatch = useAppDispatch();
   const [whatDate, setWhatDate] = useState(0);
@@ -245,43 +245,48 @@ export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status }) => {
                 <CardItem item={e} key={i} />
               ))}
             </View>
+
             <View>
-              <View style={styles.dates}>
-                <View style={styles.date}>
-                  <Text style={styles.dateText}>Ngày mượn sách :</Text>
-                  <Text style={{ flex: 1 }}>{moment(dateStart).format('DD/MM/YYYY')}</Text>
-                  <TouchableOpacity
-                    onPress={() => {
-                      setWhatDate(0);
-                      showDatePicker();
-                    }}
-                  >
-                    <View style={styles.dateIcon}>
-                      <FontAwesome5 name="calendar-alt" size={35} color={mainColor} />
+              {status === 'created' && (
+                <>
+                  <View style={styles.dates}>
+                    <View style={styles.date}>
+                      <Text style={styles.dateText}>Ngày mượn sách :</Text>
+                      <Text style={{ flex: 1 }}>{moment(dateStart).format('DD/MM/YYYY')}</Text>
+                      <TouchableOpacity
+                        onPress={() => {
+                          setWhatDate(0);
+                          showDatePicker();
+                        }}
+                      >
+                        <View style={styles.dateIcon}>
+                          <FontAwesome5 name="calendar-alt" size={35} color={mainColor} />
+                        </View>
+                      </TouchableOpacity>
                     </View>
-                  </TouchableOpacity>
-                </View>
-                <View style={styles.date}>
-                  <Text style={styles.dateText}>Ngày trả sách :</Text>
-                  <Text style={{ flex: 1 }}>{moment(dateEnd).format('DD/MM/YYYY')}</Text>
-                  <TouchableOpacity
-                    onPress={() => {
-                      setWhatDate(1);
-                      showDatePicker();
-                    }}
-                  >
-                    <View style={styles.dateIcon}>
-                      <FontAwesome5 name="calendar-alt" size={35} color={mainColor} />
+                    <View style={styles.date}>
+                      <Text style={styles.dateText}>Ngày trả sách :</Text>
+                      <Text style={{ flex: 1 }}>{moment(dateEnd).format('DD/MM/YYYY')}</Text>
+                      <TouchableOpacity
+                        onPress={() => {
+                          setWhatDate(1);
+                          showDatePicker();
+                        }}
+                      >
+                        <View style={styles.dateIcon}>
+                          <FontAwesome5 name="calendar-alt" size={35} color={mainColor} />
+                        </View>
+                      </TouchableOpacity>
                     </View>
-                  </TouchableOpacity>
-                </View>
-              </View>
-              <DateTimePickerModal
-                isVisible={isDatePickerVisible}
-                mode="date"
-                onConfirm={handleConfirm}
-                onCancel={hideDatePicker}
-              />
+                  </View>
+                  <DateTimePickerModal
+                    isVisible={isDatePickerVisible}
+                    mode="date"
+                    onConfirm={handleConfirm}
+                    onCancel={hideDatePicker}
+                  />
+                </>
+              )}
               <View style={styles.price}>
                 <Text style={{ marginRight: 10 }}>
                   Tổng thanh toán{' '}
@@ -295,6 +300,7 @@ export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status }) => {
                   </View>
                 </TouchableOpacity>
               </View>
+
               <View>{/* <Text>selected: {date.toLocaleString()}</Text> */}</View>
             </View>
           </View>

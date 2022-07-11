@@ -1,6 +1,6 @@
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import React, { useState } from 'react';
-import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
+import { TabBar, TabView } from 'react-native-tab-view';
 import { mainColor, seconColor, whiteColor } from '../../constants/Colors';
 import { RootStackScreenProps } from '../../types';
 import { OrderDetailTab, OrderStatus } from '../../components/OrderDetailTab';
@@ -40,6 +40,8 @@ const InfoCart: React.FC<RootStackScreenProps<'InfoCart'>> = ({ navigation, rout
         onIndexChange={setIndex}
         initialLayout={initialLayout}
         style={styles.container1}
+        swipeEnabled={false}
+        lazy
       />
     </View>
   );

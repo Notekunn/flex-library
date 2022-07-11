@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Constants from 'expo-constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-root-toast';
 import { TOKEN_STORAGE_KEY } from '../constants/storageKey';
 
 export const apiInstance = axios.create({
@@ -34,6 +35,8 @@ apiInstance.interceptors.response.use(
     const { status, data } = error?.response || {};
     const errorMessage = `${data.message}`;
     console.log(`Error with status ${status}: ${data.message}`);
+
+    Toast.show(data.message || 'Some thing wrong happen', { duration: 1000, shadow: false });
     return Promise.reject(new Error(errorMessage));
   },
 );

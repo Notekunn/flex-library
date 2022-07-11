@@ -4,7 +4,6 @@ import { RootState } from '../app/store';
 import { IOrder, IOrderDetail, IOrderRequest, IResponseOrderDetail } from '../constants/interface';
 
 interface OrderState {
-  orders: IOrder[];
   loading: 'idle' | 'loading' | 'success' | 'error';
   message?: string;
   orderList: {
@@ -13,9 +12,7 @@ interface OrderState {
 }
 
 const initialState: OrderState = {
-  orders: [],
   loading: 'idle',
-  message: undefined,
   orderList: {
     cancelled: [],
     completed: [],
@@ -33,6 +30,11 @@ export const GetOrderByUserAction = createAsyncThunk('order/get-by-user', async 
 
 export const UpdateOrderDetailAction = createAsyncThunk('order-detail/create', async (payload: IOrderDetail) => {
   const { data } = await apiInstance.post<IOrder>('/order-detail', payload);
+  return data;
+});
+
+export const PurchaseOrderAction = createAsyncThunk('order/purchase', async (id: number) => {
+  const { data } = await apiInstance.post<IOrder>(`/order/${id}/purchase`);
   return data;
 });
 
@@ -84,6 +86,22 @@ const OrderSlice = createSlice({
       .addCase(UpdateOrderDetailAction.rejected, (state, action) => {
         state.loading = 'error';
         state.message = action.error.message;
+      });
+
+    builder
+      .addCase(PurchaseOrderAction.pending, (state) => {
+        state.loading = 'loading';
+        state.message = 'null';
+      })
+      .addCase(PurchaseOrderAction.fulfilled, (state, action) => {
+        state.loading = 'success';
+        state.orderList.purchased.push(action.payload);
+        state.orderList.created = state.orderList.created.filter((e) => e.id != action.payload.id);
+      })
+      .addCase(PurchaseOrderAction.rejected, (state, action) => {
+        state.loading = 'error';
+        state.message = action.error.message;
+        alert(action.error.message);
       });
   },
 });
