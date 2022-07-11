@@ -6,7 +6,7 @@ export interface BaseEntity {
   updatedAt: string;
 }
 export interface ICategory {
-  id?: number;
+  id: number;
   name: string;
 }
 export interface IUser {
@@ -36,6 +36,7 @@ export interface IBook {
   description: string;
   images: string[];
   categories: number[];
+  rentCount: number;
 }
 
 export interface IBookResponse extends BaseEntity {

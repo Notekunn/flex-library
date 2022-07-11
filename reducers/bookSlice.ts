@@ -20,14 +20,14 @@ const initialState: IBookState = {
   searchQuery: '',
 };
 
-export const CreateBookAction = createAsyncThunk('book/create', async (payload: Omit<IBook, 'id'>) => {
+export const CreateBookAction = createAsyncThunk('book/create', async (payload: Omit<IBook, 'id' | 'rentCount'>) => {
   const { data } = await apiInstance.post('/book', payload);
   return data;
 });
 
 export const UpdateBookAction = createAsyncThunk('book/update', async (payload: IBook) => {
   const { id, ...dataUpdate } = payload;
-  const { data } = await apiInstance.put(`/book/${id}`, dataUpdate);
+  const { data } = await apiInstance.patch(`/book/${id}`, dataUpdate);
   return data;
 });
 

@@ -31,6 +31,7 @@ import ChangePasswordScreen from '../screens/ChangePasswordScreen';
 import CreateStoreScreen from '../screens/Account/CreateStoreScreen';
 import CategoryScreen from '../screens/CategoryScreen';
 import ListBookScreen from '../screens/ListBookScreen';
+import EditBookScreen from '../screens/EditBookScreen';
 import { GetStoreByUserAction, selectUserStore } from '../reducers/storeSlice';
 import ViewMyStoreScreen from '../screens/Account/ViewMyStoreScreen';
 import SearchResultScreen from '../screens/Search/SearchResultScreen';
@@ -117,6 +118,7 @@ function RootNavigator() {
           <Stack.Screen name="ViewMyStore" component={ViewMyStoreScreen} />
           <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
           <Stack.Screen name="AddItem" component={AddItem} />
+          <Stack.Screen name="EditBook" component={EditBookScreen} />
           <Stack.Screen name="Category" component={CategoryScreen} />
           <Stack.Screen name="ResultSearch" component={SearchResultScreen} />
           <Stack.Screen name="ListBookCategory" component={ListBookScreen} />

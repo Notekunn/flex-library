@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     width: '100%',
     backgroundColor: '#F5FCFF',
-    borderBottomWidth: 0.2,
+    borderBottomWidth: 0.4,
     borderColor: '#c1c1c1',
   },
 });

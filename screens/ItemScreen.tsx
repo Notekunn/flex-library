@@ -21,6 +21,7 @@ const ItemScreen: React.FC<RootStackScreenProps<'Item'>> = ({ navigation, route 
   const dispatch = useAppDispatch();
   const { id: bookId } = route.params;
   const book = useAppSelector(selectBook);
+  const owner = useAppSelector((state) => state.store.myStore);
   const handlePress = async () => {
     dispatch(UpdateOrderDetailAction({ bookId: book.id, quantity: 1, action: OrderDetailAction.ADD }));
   };
@@ -45,14 +46,26 @@ const ItemScreen: React.FC<RootStackScreenProps<'Item'>> = ({ navigation, route 
                 <Text style={styles.title}>{book.name}</Text>
                 <Text style={styles.price}>{moneyFormat(book.rentPrice)}/tuần</Text>
               </View>
-              <Button
-                title={'Thuê ngay'}
-                titleStyle={{ color: 'white' }}
-                buttonStyle={{ backgroundColor: mainColor, marginRight: 10 }}
-                onPress={() => {
-                  handlePress();
-                }}
-              />
+              {owner && book.store.id === owner.id ? (
+                <Button
+                  title={'Chỉnh sửa'}
+                  titleStyle={{ color: 'white' }}
+                  buttonStyle={{ backgroundColor: mainColor, marginRight: 10 }}
+                  onPress={() => {
+                    navigation.navigate('EditBook', { book: book });
+                  }}
+                />
+              ) : (
+                <Button
+                  title={book.numOfCopies > 0 ? 'Thuê ngay' : 'Hết hàng'}
+                  titleStyle={{ color: 'white' }}
+                  buttonStyle={{ backgroundColor: mainColor, marginRight: 10 }}
+                  disabled={book.numOfCopies <= 0}
+                  onPress={() => {
+                    handlePress();
+                  }}
+                />
+              )}
             </View>
             <View style={styles.extensions}>
               <View style={styles.rate}>
@@ -64,7 +77,7 @@ const ItemScreen: React.FC<RootStackScreenProps<'Item'>> = ({ navigation, route 
                 <Text style={{ paddingLeft: 7, fontSize: 15 }}>5</Text>
               </View>
               <View style={styles.border}></View>
-              <Text style={{ fontSize: 15 }}>Đã bán 2605</Text>
+              <Text style={{ fontSize: 15 }}>Đã cho thuê {book.rentCount}</Text>
               <View style={styles.action}>
                 <AntDesign name="hearto" size={25} color="gray" />
                 <MaterialCommunityIcons style={{ marginLeft: 10 }} name="share-outline" size={35} color="gray" />
