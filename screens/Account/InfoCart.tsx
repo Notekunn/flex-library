@@ -24,6 +24,7 @@ const InfoCart: React.FC<RootStackScreenProps<'InfoCart'>> = ({ navigation, rout
     { key: 'first', title: 'Chờ thanh toán', status: 'created' },
     { key: 'second', title: 'Chờ nhận hàng', status: 'purchased' },
     { key: 'three', title: 'Hoàn tất', status: 'completed' },
+    { key: 'four', title: 'Đã huỷ', status: 'cancelled' },
   ]);
   const [index, setIndex] = useState(0);
   const renderScene = ({ route }: { route: Record<'key' | 'title' | 'status', string> }) => {

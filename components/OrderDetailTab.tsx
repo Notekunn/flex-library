@@ -150,7 +150,7 @@ const CardItem: React.FC<IItemCarProps> = ({ item }) => {
     </View>
   );
 };
-export type OrderStatus = 'created' | 'purchased' | 'canceled' | 'completed';
+export type OrderStatus = 'created' | 'purchased' | 'cancelled' | 'completed';
 export interface OrderDetailTabProps {
   status: OrderStatus;
 }
@@ -161,7 +161,7 @@ export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status }) => {
   const [whatDate, setWhatDate] = useState(0);
   const [dateStart, setDateStart] = useState(new Date());
   const [dateEnd, setDateEnd] = useState(moment().add('7', 'days').toDate());
-  const orders = useAppSelector(selectOrder);
+  const orders = useAppSelector(selectOrder(status));
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
   const showDatePicker = () => {
@@ -178,7 +178,7 @@ export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status }) => {
     hideDatePicker();
   };
   useEffect(() => {
-    dispatch(GetOrderByUserAction());
+    dispatch(GetOrderByUserAction({ status }));
   }, []);
 
   if (orders.length == 0) {

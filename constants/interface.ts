@@ -78,6 +78,10 @@ export interface IOrderDetail {
   action?: OrderDetailAction;
 }
 
+export interface IOrderRequest {
+  status: 'created' | 'purchased' | 'cancelled' | 'completed';
+}
+
 export interface ISearchBook {
   page: number;
   take: number;
