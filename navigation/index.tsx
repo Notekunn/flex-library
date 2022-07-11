@@ -20,8 +20,6 @@ import MyStoreScreen from '../screens/Store/MyStoreScreen';
 import AccountScreen from '../screens/Account/AccountScreen';
 import ModalItem from '../modals/ModalItem';
 import ItemScreen from '../screens/ItemScreen';
-import TopBarNavigatorCart from './topBarNavigatorCart';
-import CartScreen from '../screens/CartScreen';
 import SearchScreen from '../screens/Search/SearchScreen';
 import AddItem from '../screens/AddItem';
 import { useAppDispatch, useAppSelector } from '../app/hook';
@@ -36,6 +34,8 @@ import ListBookScreen from '../screens/ListBookScreen';
 import { GetStoreByUserAction, selectUserStore } from '../reducers/storeSlice';
 import ViewMyStoreScreen from '../screens/Account/ViewMyStoreScreen';
 import SearchResultScreen from '../screens/Search/SearchResultScreen';
+import InfoCart from '../screens/Account/InfoCart';
+import { RentingScreen } from '../screens/RentingScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -50,7 +50,6 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootNavigator() {
   const loading = useAppSelector(selectLoading);
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
-  // const isLoggedIn = true;
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (!isLoggedIn) {
@@ -76,22 +75,6 @@ function RootNavigator() {
         <>
           <Stack.Screen name="Root" component={BottomTabNavigator} />
           <Stack.Screen
-            name="Cart"
-            component={CartScreen}
-            options={{
-              headerShown: true,
-              headerStyle: {
-                backgroundColor: mainColor,
-              },
-              headerTitleStyle: {
-                color: '#FFF',
-              },
-              headerBackTitle: '',
-              headerTitleAlign: 'center',
-              headerTintColor: '#fff',
-            }}
-          />
-          <Stack.Screen
             name="Item"
             component={ItemScreen}
             options={{
@@ -105,14 +88,14 @@ function RootNavigator() {
           <Stack.Screen name="Store" component={StoreScreen} />
           <Stack.Screen
             name="InfoCart"
-            component={TopBarNavigatorCart}
+            component={InfoCart}
             options={{
               headerShown: true,
               headerStyle: {
                 backgroundColor: mainColor,
               },
               headerTintColor: '#fff',
-              headerTitle: 'Giỏ hàng',
+              headerTitle: 'Đơn hàng',
             }}
           />
           <Stack.Screen
@@ -137,6 +120,18 @@ function RootNavigator() {
           <Stack.Screen name="Category" component={CategoryScreen} />
           <Stack.Screen name="ResultSearch" component={SearchResultScreen} />
           <Stack.Screen name="ListBookCategory" component={ListBookScreen} />
+          <Stack.Screen
+            name="Renting"
+            component={RentingScreen}
+            options={{
+              headerShown: true,
+              headerStyle: {
+                backgroundColor: mainColor,
+              },
+              headerTintColor: '#fff',
+              headerTitle: 'Sách đang mượn',
+            }}
+          />
           <Stack.Screen name="Search" component={SearchScreen} options={{ animation: 'fade' }} />
           <Stack.Group screenOptions={{ presentation: 'modal', animation: 'fade' }}>
             <Stack.Screen
@@ -219,7 +214,7 @@ function BottomTabNavigator() {
           component={MyStoreScreen}
           options={{
             headerShown: false,
-            title: 'MyStore',
+            title: 'Store',
             tabBarIcon: ({ color }) => <TabBarIcon name="shopping-cart" color={color} />,
           }}
         />
