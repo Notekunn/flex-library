@@ -96,13 +96,12 @@ const OrderSlice = createSlice({
       })
       .addCase(PurchaseOrderAction.fulfilled, (state, action) => {
         state.loading = 'success';
-        state.orderList.purchased.push(action.payload);
+        state.orderList.purchased.unshift(action.payload);
         state.orderList.created = state.orderList.created.filter((e) => e.id != action.payload.id);
       })
       .addCase(PurchaseOrderAction.rejected, (state, action) => {
         state.loading = 'error';
         state.message = action.error.message;
-        alert(action.error.message);
       });
   },
 });
