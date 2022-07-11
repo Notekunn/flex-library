@@ -20,7 +20,11 @@ const CardItem: React.FC<IItemCarProps> = ({ item }) => {
   const dispatch = useAppDispatch();
   const nav = useNavigation<RootStackScreenProps<'Item'>['navigation']>();
   const [quantity, setQuantity] = React.useState(item.quantity);
+  useEffect(() => {
+    setQuantity(item.quantity);
+  }, [item.quantity]);
   const handleMinus = () => {
+    setQuantity(quantity - 1);
     dispatch(
       UpdateOrderDetailAction({
         bookId: item.book.id,
@@ -30,6 +34,7 @@ const CardItem: React.FC<IItemCarProps> = ({ item }) => {
     );
   };
   const handlePlus = () => {
+    setQuantity(quantity + 1);
     dispatch(
       UpdateOrderDetailAction({
         bookId: item.book.id,

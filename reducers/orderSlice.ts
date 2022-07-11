@@ -72,12 +72,13 @@ const OrderSlice = createSlice({
 
         if (nOfOrder == -1) {
           state.orderList.created = [order, ...createdOrders];
-        } else {
+        } else {          
           state.orderList.created = [
             ...createdOrders.slice(0, nOfOrder),
             {
               ...createdOrders[nOfOrder],
               orderDetails: order.orderDetails,
+              totalAmount: order.totalAmount
             },
             ...createdOrders.slice(nOfOrder + 1),
           ];
