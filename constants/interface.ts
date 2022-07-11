@@ -1,22 +1,26 @@
 import { OrderStatus } from './enum';
 import { SearchSortTypes } from './SearchSort';
 
-export interface BaseEntity {
+export interface BaseEntity
+{
   createdAt: string;
   updatedAt: string;
 }
-export interface ICategory {
-  id?: number;
+export interface ICategory
+{
+  id: number;
   name: string;
 }
-export interface IUser {
+export interface IUser
+{
   id: string;
   name: string;
   email: string;
   avatar: string;
 }
 
-export interface IStore {
+export interface IStore
+{
   id?: number;
   name: string;
   address: string;
@@ -26,7 +30,8 @@ export interface IStore {
   avatarURL?: string;
 }
 
-export interface IBook {
+export interface IBook
+{
   id: number;
   name: string;
   author: string;
@@ -36,9 +41,11 @@ export interface IBook {
   description: string;
   images: string[];
   categories: number[];
+  rentCount: number;
 }
 
-export interface IBookResponse extends BaseEntity {
+export interface IBookResponse extends BaseEntity
+{
   id: number;
   name: string;
   author: string;
@@ -52,37 +59,43 @@ export interface IBookResponse extends BaseEntity {
   rentCount: number;
 }
 
-export interface IOrder {
+export interface IOrder
+{
   id: number;
   store: IStore;
   orderDetails: Array<IResponseOrderDetail>;
   totalAmount: number;
 }
 
-export interface IResponseOrderDetail {
+export interface IResponseOrderDetail
+{
   id: number;
   quantity: number;
   book: IBook;
 }
 
-export enum OrderDetailAction {
+export enum OrderDetailAction
+{
   SET = 'set',
   ADD = 'add',
   SUB = 'sub',
   REMOVE = 'remove',
 }
 
-export interface IOrderDetail {
+export interface IOrderDetail
+{
   quantity: number;
   bookId: number;
   action?: OrderDetailAction;
 }
 
-export interface IOrderRequest {
+export interface IOrderRequest
+{
   status: 'created' | 'purchased' | 'cancelled' | 'completed';
 }
 
-export interface ISearchBook {
+export interface ISearchBook
+{
   page: number;
   take: number;
   q: string;

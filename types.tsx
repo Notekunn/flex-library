@@ -6,6 +6,7 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { IBookResponse } from './constants/interface';
 import { SearchSortTypes } from './constants/SearchSort';
 
 declare global {
@@ -39,6 +40,7 @@ export type RootStackParamList = {
   ViewMyStore: undefined;
   Category: undefined;
   ListBookCategory: undefined;
+  EditBook: { book: IBookResponse };
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
@@ -57,6 +59,7 @@ export type RootTabParamList = {
   History: undefined;
   SignUp: undefined;
   Profile: undefined;
+  Splash: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<

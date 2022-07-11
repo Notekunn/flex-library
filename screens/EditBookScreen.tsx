@@ -18,22 +18,24 @@ import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useAppDispatch, useAppSelector } from '../app/hook';
-import { CreateBookAction } from '../reducers/bookSlice';
+import { UpdateBookAction } from '../reducers/bookSlice';
 import { uploadImage } from '../app/cloudinary';
+import { RootStackScreenProps } from '../types';
 
-const AddItem = () => {
+const EditBookScreen: React.FC<RootStackScreenProps<'EditBook'>> = ({ route }) => {
   const navigation = useNavigation<any>();
+  const { book } = route.params;
   const dispatch = useAppDispatch();
   const [status, requestPermission] = ImagePicker.useCameraPermissions();
-  const [imageList, setImageList] = useState<string[]>([]);
+  const [imageList, setImageList] = useState<string[]>(book.images);
   const [modalVisible, setModalVisible] = useState(false);
-  const [name, setName] = useState('');
-  const [author, setAuthor] = useState('');
-  const [desc, setDesc] = useState('');
-  const [chooseCategories, setChooseCategories] = useState<number[]>([]);
-  const [rentPrice, setRentPrice] = useState(0);
-  const [salePrice, setSalePrice] = useState(0);
-  const [numOfCopies, setNumOfCopies] = useState(0);
+  const [name, setName] = useState(book.name);
+  const [author, setAuthor] = useState(book.author);
+  const [desc, setDesc] = useState(book.description);
+  const [chooseCategories, setChooseCategories] = useState<number[]>(book.categories.map((category) => category.id));
+  const [rentPrice, setRentPrice] = useState(book.rentPrice);
+  const [salePrice, setSalePrice] = useState(book.salePrice);
+  const [numOfCopies, setNumOfCopies] = useState(book.numOfCopies);
 
   const onSubmit = () => {
     if (!name) {
@@ -45,6 +47,7 @@ const AddItem = () => {
       return;
     }
     const data = {
+      id: book.id,
       name,
       author,
       rentPrice,
@@ -53,10 +56,10 @@ const AddItem = () => {
       images: imageList,
       categories: chooseCategories,
       description: desc,
-      rentCount: 0,
+      rentCount: numOfCopies,
     };
-    dispatch(CreateBookAction(data));
-    navigation.goBack();
+    dispatch(UpdateBookAction(data));
+    navigation.navigate('MyStore');
   };
 
   // useEffect(() => {
@@ -230,7 +233,7 @@ const AddItem = () => {
             marginLeft: 100,
           }}
         >
-          Thêm sách
+          Chỉnh sửa thông tin
         </Text>
       </View>
 
@@ -258,28 +261,35 @@ const AddItem = () => {
               <Text>Tên sách</Text>
               <Text>{name.length}/120</Text>
             </View>
-            <TextInput style={styles.textInput} placeholder="Nhập tên sách" onChangeText={(value) => setName(value)} />
+            <TextInput
+              style={styles.textInput}
+              placeholder={'Nhập tên sách'}
+              defaultValue={name}
+              onChangeText={(value) => setName(value)}
+            />
           </View>
           <View style={styles.inputFrame}>
             <View style={styles.inputFrame_header}>
               <Text>Tác giả</Text>
-              <Text>{name.length}/120</Text>
+              <Text>{author.length}/120</Text>
             </View>
             <TextInput
               style={styles.textInput}
-              placeholder="Nhập tên tác giả"
+              placeholder={'Nhập tên tác giả'}
+              defaultValue={author}
               onChangeText={(value) => setAuthor(value)}
             />
           </View>
           <View style={styles.inputFrame}>
             <View style={styles.inputFrame_header}>
               <Text>Mô tả về sách</Text>
-              <Text>{desc.length}/3000</Text>
+              <Text>{desc.length || 0}/3000</Text>
             </View>
             <TextInput
               style={styles.textInput}
               placeholder="Tri thức có gì?"
               onChangeText={(value) => setDesc(value)}
+              defaultValue={desc}
             />
           </View>
           <View style={styles.optionFrame}>
@@ -363,7 +373,7 @@ const AddItem = () => {
     </View>
   );
 };
-export default AddItem;
+export default EditBookScreen;
 
 const styles = StyleSheet.create({
   container: { flex: 1, position: 'relative' },
