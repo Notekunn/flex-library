@@ -1,3 +1,17 @@
+# [1.22.0](https://github.com/Notekunn/flex-library/compare/v1.21.0...v1.22.0) (2022-07-10)
+
+
+### Features
+
+* add book description ([#44](https://github.com/Notekunn/flex-library/issues/44)) ([70e282d](https://github.com/Notekunn/flex-library/commit/70e282d5585c0863749cd1cf2e948e459b6fd26d))
+
+# [1.21.0](https://github.com/Notekunn/flex-library/compare/v1.20.0...v1.21.0) (2022-07-10)
+
+
+### Features
+
+* add order detail action ([#43](https://github.com/Notekunn/flex-library/issues/43)) ([70a1d93](https://github.com/Notekunn/flex-library/commit/70a1d93d2c42d11a0f782b70fe7a7b9322aaa297))
+
 # [1.20.0](https://github.com/Notekunn/flex-library/compare/v1.19.2...v1.20.0) (2022-07-10)
 
 

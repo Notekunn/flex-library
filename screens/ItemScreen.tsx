@@ -1,54 +1,35 @@
-import {
-  Dimensions,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  FlatList,
-  Linking,
-} from 'react-native';
+import { Dimensions, StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, Linking } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { RootStackScreenProps, RootTabScreenProps } from '../types';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AntDesign, Entypo, Feather, FontAwesome5, Fontisto, MaterialCommunityIcons } from '@expo/vector-icons';
-import { stringLength } from '@firebase/util';
 import BookList from '../components/Home/BookList';
-import BookCardFlex from '../components/BookCardFlex';
 import { mainColor } from '../constants/Colors';
-import { IBook } from '../constants/interface';
+import { IBook, OrderDetailAction } from '../constants/interface';
 import SearchHeader from '../components/Header';
-import { useNavigation, useRoute } from '@react-navigation/native';
 import { Button } from '@rneui/themed';
 import { useAppDispatch, useAppSelector } from '../app/hook';
-import { GetBookByIdAction, selectBook, selectBookStore } from '../reducers/bookSlice';
-import { OrderStatus } from '../constants/enum';
-import { GetStoreByIdAction, selectOwner } from '../reducers/storeSlice';
-import { CreateOrderDetailAction } from '../reducers/orderDetailSlice';
-import { selectOrder, GetOrderByUserAction, selectOrderLoading } from '../reducers/orderSlice';
+import { GetBookByIdAction, selectBook } from '../reducers/bookSlice';
+import { UpdateOrderDetailAction } from '../reducers/orderSlice';
 import { moneyFormat } from '../constants/Money';
+import moment from 'moment';
+import 'moment/locale/vi';
 
 const { width } = Dimensions.get('window');
 
-const ItemScreen = () => {
-  const nav = useNavigation<any>();
+const ItemScreen: React.FC<RootStackScreenProps<'Item'>> = ({ navigation, route }) => {
   const [showDetail, setShowDetail] = useState(false);
   const dispatch = useAppDispatch();
-  const owner = useAppSelector(selectOwner);
-  const bookInfo = useRoute<any>().params;
+  const { id: bookId } = route.params;
   const book = useAppSelector(selectBook);
   const handlePress = async () => {
-    dispatch(CreateOrderDetailAction({ bookId: book.id, quantity: 1 }));
-    dispatch(GetOrderByUserAction());
-    nav.navigate('Cart');
+    dispatch(UpdateOrderDetailAction({ bookId: book.id, quantity: 1, action: OrderDetailAction.ADD }));
   };
 
   useEffect(() => {
-    if (bookInfo && bookInfo.id) {
-      dispatch(GetBookByIdAction(bookInfo.id));
+    if (bookId) {
+      dispatch(GetBookByIdAction(bookId));
     }
-  }, [bookInfo]);
+  }, [bookId]);
 
   if (book.id) {
     return (
@@ -107,14 +88,16 @@ const ItemScreen = () => {
                   borderRadius: 30,
                 }}
                 source={{
-                  uri: owner?.avatar || 'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg',
+                  uri:
+                    book?.store?.avatarURL ||
+                    'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg',
                 }}
               />
               <View style={styles.text}>
                 <Text style={{ fontSize: 20 }}>{book.store.name}</Text>
                 <Text style={{ fontSize: 12, color: 'gray' }}>Online 11 giờ trước</Text>
               </View>
-              <TouchableOpacity onPress={() => nav.navigate('Store', book.store)}>
+              <TouchableOpacity onPress={() => navigation.navigate('Store', book.store)}>
                 <View style={styles.button}>
                   <Text style={{ color: '#4C4CD7' }}>Xem Shop</Text>
                 </View>
@@ -140,12 +123,12 @@ const ItemScreen = () => {
             <View style={styles.detail_header}>
               <Text style={{ marginRight: 10 }}>Chi tiết sản phẩm</Text>
               <AntDesign name="clockcircleo" size={12} color="black" />
-              <Text style={{ marginLeft: 7 }}>4 tháng</Text>
+              <Text style={{ marginLeft: 7 }}>{moment(book.updatedAt).locale('vi').fromNow()}</Text>
             </View>
             <View style={styles.detail_center}>
               <View style={styles.detail_center_infor}>
-                <Text style={{ width: 130 }}>Kho</Text>
-                <Text style={{ flex: 1 }}>2605</Text>
+                <Text style={{ width: 130 }}>Số lượng trong kho</Text>
+                <Text style={{ flex: 1 }}>{book.numOfCopies}</Text>
               </View>
               <View style={styles.detail_center_infor}>
                 <Text style={{ width: 130 }}>Thể loại</Text>
@@ -157,7 +140,7 @@ const ItemScreen = () => {
               </View>
               <View style={styles.detail_center_infor}>
                 <Text style={{ width: 130 }}>Tác giả</Text>
-                <Text style={{ flex: 1 }}>{book.author || 'Flex-library'}</Text>
+                <Text style={{ flex: 1 }}>{book.author || 'Đang cập nhật'}</Text>
               </View>
               <View style={styles.detail_center_infor}>
                 <Text style={{ width: 130 }}>Xuất bản năm</Text>
@@ -165,16 +148,7 @@ const ItemScreen = () => {
               </View>
             </View>
             <View style={showDetail ? styles.detail_bottom_T : styles.detail_bottom_F}>
-              <Text>
-                ✅ Sản phẩm arm nâng, tay nâng máy tính bảng, điện thoại (iPad, Galaxy Tab, Mi Pad, Kindle....) chân kẹp
-                cố định vào mặt bàn, giúp mở rộng không gian cho bàn làm việc + vững hơn trên mặt bàn chiều cao giá đỡ
-                lớn, linh hoạt hơn cho mọi nhu cầu và vị trí ✅ Độ dày của mặt bàn cần phù hợp độ rộng khe kẹp: - P60
-                PLus : dưới 6.4cm ✅ Kích thước tablet cần phù hợp với độ rộng của kẹp: - P60 PLUS: độ rộng kẹp 13 ~
-                22cm (phù hợp tablet 4~12.9 inch) ✅ Chất liệu: hợp kim ✅ Trọng lượng: khoảng ~ 800 gram ✅ Có các khớp
-                chỉnh góc tiện lợi, chắc chắn ✅ Đệm cao su chống trơn trượt và trầy xước máy tính bảng, điện thoại ✅
-                Kích thước: chi tiết hình đính kèm #giáđỡ #giáđỡlaptop #giáđỡipad #giáđỡmacbook #giáđỡtablet
-                #giáđỡmáytínhbảng
-              </Text>
+              <Text>{book.description || 'Chưa có mô tả sản phẩm'}</Text>
             </View>
             <TouchableOpacity onPress={() => setShowDetail(!showDetail)}>
               <View style={styles.detail_button}>

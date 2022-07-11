@@ -8,31 +8,31 @@ import { useAppDispatch, useAppSelector } from '../app/hook';
 import { GetOrderByUserAction, selectOrder } from '../reducers/orderSlice';
 import { moneyFormat } from '../constants/Money';
 import { RootStackScreenProps } from '../types';
-import { IResPonseOrderDetail } from '../constants/interface';
-import { CreateOrderDetailAction } from '../reducers/orderDetailSlice';
+import { IResponseOrderDetail, OrderDetailAction } from '../constants/interface';
+import { UpdateOrderDetailAction } from '../reducers/orderSlice';
 
 interface IItemCarProps {
-  item: IResPonseOrderDetail;
+  item: IResponseOrderDetail;
 }
 const CardItem: React.FC<IItemCarProps> = ({ item }) => {
   const dispatch = useAppDispatch();
   const nav = useNavigation<RootStackScreenProps<'Item'>['navigation']>();
   const [quantity, setQuantity] = React.useState(item.quantity);
   const handleMinus = () => {
-    setQuantity(quantity - 1);
     dispatch(
-      CreateOrderDetailAction({
+      UpdateOrderDetailAction({
         bookId: item.book.id,
-        quantity: quantity - 1,
+        quantity: 1,
+        action: OrderDetailAction.SUB,
       }),
     );
   };
   const handlePlus = () => {
-    setQuantity(quantity + 1);
     dispatch(
-      CreateOrderDetailAction({
+      UpdateOrderDetailAction({
         bookId: item.book.id,
-        quantity: quantity + 1,
+        quantity: 1,
+        action: OrderDetailAction.ADD,
       }),
     );
   };
@@ -42,7 +42,16 @@ const CardItem: React.FC<IItemCarProps> = ({ item }) => {
         leftContent={(reset) => (
           <Button
             title="Info"
-            onPress={() => reset()}
+            onPress={() => {
+              dispatch(
+                UpdateOrderDetailAction({
+                  bookId: item.book.id,
+                  quantity: 0,
+                  action: OrderDetailAction.REMOVE,
+                }),
+              );
+              reset();
+            }}
             icon={{
               name: 'info',
               type: 'feather',
@@ -199,10 +208,10 @@ const CartScreen: React.FC<RootStackScreenProps<'Cart'>> = ({ navigation }) => {
               <Image
                 style={styles.store_img}
                 source={{
-                  uri: order.store.avatarURL || 'https://tse1.mm.bing.net/th?q=solo%20leveling%20manga%20rock',
+                  uri: order?.store?.avatarURL || 'https://tse1.mm.bing.net/th?q=solo%20leveling%20manga%20rock',
                 }}
               />
-              <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{order.store.name}</Text>
+              <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{order?.store?.name}</Text>
               <MaterialIcons name="arrow-forward-ios" size={20} color="black" />
             </View>
           </TouchableOpacity>
