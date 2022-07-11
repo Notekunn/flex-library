@@ -1,3 +1,10 @@
+# [1.23.0](https://github.com/Notekunn/flex-library/compare/v1.22.0...v1.23.0) (2022-07-11)
+
+
+### Features
+
+* add order tab ([#45](https://github.com/Notekunn/flex-library/issues/45)) ([7d935cd](https://github.com/Notekunn/flex-library/commit/7d935cded8f734e31145dca175b4edb291694924))
+
 # [1.22.0](https://github.com/Notekunn/flex-library/compare/v1.21.0...v1.22.0) (2022-07-10)
 
 

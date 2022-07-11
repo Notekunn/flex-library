@@ -36,7 +36,6 @@ export interface IBook {
   description: string;
   images: string[];
   categories: number[];
-  rentCount: number;
 }
 
 export interface IBookResponse extends BaseEntity {
@@ -77,6 +76,10 @@ export interface IOrderDetail {
   quantity: number;
   bookId: number;
   action?: OrderDetailAction;
+}
+
+export interface IOrderRequest {
+  status: 'created' | 'purchased' | 'cancelled' | 'completed';
 }
 
 export interface ISearchBook {

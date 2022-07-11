@@ -7,8 +7,9 @@ import { mainColor, seconColor } from '../../constants/Colors';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { logoutAction, selectUser } from '../../reducers/authSlice';
 import { GetStoreByUserAction, selectUserStore } from '../../reducers/storeSlice';
+import { RootStackScreenProps } from '../../types';
 
-const AccountScreen = () => {
+const AccountScreen: React.FC<RootStackScreenProps<'Home'>> = ({ navigation }) => {
   const nav = useNavigation<any>();
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
@@ -92,7 +93,29 @@ const AccountScreen = () => {
                   marginLeft: 30,
                 }}
               >
-                <Text style={styles.text}>Giỏ hàng</Text>
+                <Text style={styles.text}>Đơn hàng</Text>
+              </View>
+              <Icon name="angle-right" type="font-awesome" style={{ flex: 1 }} color="#c1c1c1" />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.item} activeOpacity={0.8} onPress={() => navigation.navigate('Renting')}>
+              <View
+                style={{
+                  backgroundColor: '#000000',
+                  borderRadius: 5,
+                  padding: 5,
+                  width: 30,
+                  height: 30,
+                }}
+              >
+                <Icon name="archive" type="font-awesome" color="#fff" size={20} solid={true} />
+              </View>
+              <View
+                style={{
+                  flex: 2,
+                  marginLeft: 30,
+                }}
+              >
+                <Text style={styles.text}>Sách đang mượn</Text>
               </View>
               <Icon name="angle-right" type="font-awesome" style={{ flex: 1 }} color="#c1c1c1" />
             </TouchableOpacity>

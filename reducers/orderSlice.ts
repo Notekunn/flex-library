@@ -1,22 +1,33 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { apiInstance } from '../app/axiosClient';
 import { RootState } from '../app/store';
-import { IOrder, IOrderDetail, IResponseOrderDetail } from '../constants/interface';
+import { IOrder, IOrderDetail, IOrderRequest, IResponseOrderDetail } from '../constants/interface';
 
 interface OrderState {
   orders: IOrder[];
   loading: 'idle' | 'loading' | 'success' | 'error';
   message?: string;
+  orderList: {
+    [key in IOrderRequest['status']]: IOrder[];
+  };
 }
 
 const initialState: OrderState = {
   orders: [],
   loading: 'idle',
   message: undefined,
+  orderList: {
+    cancelled: [],
+    completed: [],
+    created: [],
+    purchased: [],
+  },
 };
 
-export const GetOrderByUserAction = createAsyncThunk('order/get-by-user', async () => {
-  const { data } = await apiInstance.get<IOrder[]>('/order');
+export const GetOrderByUserAction = createAsyncThunk('order/get-by-user', async (payload?: IOrderRequest) => {
+  const { data } = await apiInstance.get<IOrder[]>('/order', {
+    params: payload,
+  });
   return data.filter((e) => e.orderDetails.length > 0);
 });
 
@@ -37,7 +48,8 @@ const OrderSlice = createSlice({
       })
       .addCase(GetOrderByUserAction.fulfilled, (state, action) => {
         state.loading = 'success';
-        state.orders = action.payload;
+        const orderType = action.meta.arg?.status || 'created';
+        state.orderList[orderType] = action.payload;
       })
       .addCase(GetOrderByUserAction.rejected, (state, action) => {
         state.loading = 'error';
@@ -51,20 +63,21 @@ const OrderSlice = createSlice({
       })
       .addCase(UpdateOrderDetailAction.fulfilled, (state, action) => {
         state.loading = 'success';
+        const createdOrders = state.orderList.created;
         const order = action.payload;
 
-        const nOfOrder = state.orders.findIndex((e) => e.id === action.payload.id);
+        const nOfOrder = createdOrders.findIndex((e) => e.id === action.payload.id);
 
         if (nOfOrder == -1) {
-          state.orders = [order, ...state.orders];
+          state.orderList.created = [order, ...createdOrders];
         } else {
-          state.orders = [
-            ...state.orders.slice(0, nOfOrder),
+          state.orderList.created = [
+            ...createdOrders.slice(0, nOfOrder),
             {
-              ...state.orders[nOfOrder],
+              ...createdOrders[nOfOrder],
               orderDetails: order.orderDetails,
             },
-            ...state.orders.slice(nOfOrder + 1),
+            ...createdOrders.slice(nOfOrder + 1),
           ];
         }
       })
@@ -77,6 +90,6 @@ const OrderSlice = createSlice({
 
 export default OrderSlice.reducer;
 
-export const selectOrder = (state: RootState) => state.order.orders;
+export const selectOrder = (status: IOrderRequest['status']) => (state: RootState) => state.order.orderList[status];
 export const selectOrderLoading = (state: RootState) => state.order.loading;
 export const selectOrderMessage = (state: RootState) => state.order.message;
