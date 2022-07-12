@@ -5,8 +5,7 @@ import { IBook, IBookResponse, ISearchBook, IStore } from '../constants/interfac
 
 interface IBookState {
   books: IBook[];
-  book: IBookResponse;
-  store: IStore;
+  book?: IBookResponse;
   loading: 'idle' | 'loading' | 'success' | 'error';
   message?: string;
   searchQuery: string;
@@ -14,18 +13,16 @@ interface IBookState {
 
 const initialState: IBookState = {
   books: [],
-  book: {} as IBookResponse,
-  store: {} as IStore,
   loading: 'idle',
   searchQuery: '',
 };
 
-export const CreateBookAction = createAsyncThunk('book/create', async (payload: Omit<IBook, 'id' | 'rentCount'>) => {
+export const CreateBookAction = createAsyncThunk('book/create', async (payload: Omit<IBook, 'id'>) => {
   const { data } = await apiInstance.post('/book', payload);
   return data;
 });
 
-export const UpdateBookAction = createAsyncThunk('book/update', async (payload: Omit<IBook, 'rentCount'>) => {
+export const UpdateBookAction = createAsyncThunk('book/update', async (payload: IBook) => {
   const { id, ...dataUpdate } = payload;
   const { data } = await apiInstance.patch(`/book/${id}`, dataUpdate);
   return data;
@@ -78,32 +75,23 @@ const BookSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    [
-      CreateBookAction,
-      UpdateBookAction,
-      DeleteBookAction,
-      GetBookAction,
-      GetBookByStoreAction,
-      GetBookByCategoryAction,
-      SearchBookAction,
-    ].forEach((action) => {
+    [GetBookAction, GetBookByStoreAction, GetBookByCategoryAction, SearchBookAction].forEach((act) => {
       builder
-        .addCase(action.pending, (state, action) => {
-          state.loading = 'idle';
+        .addCase(act.pending, (state, action) => {
+          state.loading = 'loading';
           state.message = undefined;
         })
-        .addCase(action.fulfilled, (state, action) => {
+        .addCase(act.fulfilled, (state, action) => {
           state.loading = 'success';
           state.books = action.payload;
         })
-        .addCase(action.rejected, (state, action) => {
+        .addCase(act.rejected, (state, action) => {
           state.loading = 'error';
           state.message = action.error.message;
-          state.books = [];
         });
     });
-    builder.addCase(GetBookByIdAction.pending, (state, action) => {
-      state.loading = 'idle';
+    builder.addCase(GetBookByIdAction.pending, (state) => {
+      state.loading = 'loading';
       state.message = undefined;
     });
     builder.addCase(GetBookByIdAction.fulfilled, (state, action) => {
@@ -125,5 +113,4 @@ export const selectSearchQuery = (state: RootState) => state.book.searchQuery;
 export const selectBooks = (state: RootState) => state.book.books;
 export const selectBookLoading = (state: RootState) => state.book.loading;
 export const selectBookMessage = (state: RootState) => state.book.message;
-export const selectBookStore = (state: RootState) => state.book.store;
 export const selectBook = (state: RootState) => state.book.book;
