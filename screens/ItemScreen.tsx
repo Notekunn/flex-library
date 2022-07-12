@@ -13,6 +13,8 @@ import { UpdateOrderDetailAction } from '../reducers/orderSlice';
 import { moneyFormat } from '../constants/Money';
 import moment from 'moment';
 import 'moment/locale/vi';
+import SplashScreen from './SplashScreen';
+import NotFoundScreen from './NotFoundScreen';
 
 const { width } = Dimensions.get('window');
 
@@ -20,6 +22,7 @@ const ItemScreen: React.FC<RootStackScreenProps<'Item'>> = ({ navigation, route 
   const [showDetail, setShowDetail] = useState(false);
   const dispatch = useAppDispatch();
   const { id: bookId } = route.params;
+  const isLoading = useAppSelector((state) => state.book.loading);
   const book = useAppSelector(selectBook);
   const owner = useAppSelector((state) => state.store.myStore);
   const handlePress = async () => {
@@ -31,6 +34,9 @@ const ItemScreen: React.FC<RootStackScreenProps<'Item'>> = ({ navigation, route 
       dispatch(GetBookByIdAction(bookId));
     }
   }, [bookId]);
+
+  if (isLoading === 'idle') return <SplashScreen />;
+  if (isLoading === 'error') return <NotFoundScreen />;
 
   if (book.id) {
     return (

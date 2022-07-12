@@ -9,11 +9,14 @@ import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { GetStoreByIdAction, GetStoreByUserAction, selectOwner, selectUserStore } from '../../reducers/storeSlice';
 import { GetBookByStoreAction, selectBooks } from '../../reducers/bookSlice';
 import { RootStackScreenProps } from '../../types';
+import SplashScreen from '../SplashScreen';
+import NotFoundScreen from '../NotFoundScreen';
 const initialLayout = { width: Dimensions.get('window').width };
 
 const MyStoreScreen: React.FC<RootStackScreenProps<'MyStore'>> = ({ navigation }) => {
   const dispatch = useAppDispatch();
   const myStore = useAppSelector(selectUserStore);
+  const isLoading = useAppSelector((state) => state.store.loading);
   useEffect(() => {
     dispatch(GetStoreByUserAction());
   }, []);
@@ -28,6 +31,10 @@ const MyStoreScreen: React.FC<RootStackScreenProps<'MyStore'>> = ({ navigation }
     { key: 'first', title: 'Shop' },
     { key: 'second', title: 'Danh mục' },
   ]);
+
+  if (isLoading === 'idle') return <SplashScreen />;
+  if (isLoading === 'error') return <NotFoundScreen />;
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>

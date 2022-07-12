@@ -7,6 +7,8 @@ import { useAppDispatch, useAppSelector } from '../app/hook';
 import { useRoute } from '@react-navigation/native';
 import { mainColor } from '../constants/Colors';
 import { GetBookByCategoryAction, selectBooks } from '../reducers/bookSlice';
+import SplashScreen from './SplashScreen';
+import NotFoundScreen from './NotFoundScreen';
 
 const listOptions = [
   {
@@ -35,6 +37,7 @@ const ListBookScreen = () => {
   const dispatch = useAppDispatch();
   const route = useRoute<any>();
   const books = useAppSelector(selectBooks);
+  const isLoading = useAppSelector((state) => state.book.loading);
   useEffect(() => {
     if (route.params) {
       dispatch(GetBookByCategoryAction(route.params.id));
@@ -45,6 +48,10 @@ const ListBookScreen = () => {
   const handleOption = (option: string) => {
     setStatus(option);
   };
+
+  if (isLoading === 'idle') return <SplashScreen />;
+  if (isLoading === 'error') return <NotFoundScreen />;
+
   return (
     <View>
       <SearchHeader />

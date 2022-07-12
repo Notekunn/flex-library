@@ -4,7 +4,7 @@ import { RootTabScreenProps } from '../types';
 import LottieView from 'lottie-react-native';
 
 //TODO: make spinner
-export default function SplashScreen({ navigation }: RootTabScreenProps<'Splash'>) {
+export default function SplashScreen() {
   return (
     <View style={styles.container}>
       <LottieView source={require('../assets/intro/94295-loading-animation.json')} autoPlay loop />

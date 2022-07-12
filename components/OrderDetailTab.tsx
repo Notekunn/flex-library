@@ -13,10 +13,13 @@ import { UpdateOrderDetailAction } from '../reducers/orderSlice';
 
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import moment from 'moment';
+import SplashScreen from '../screens/SplashScreen';
+import NotFoundScreen from '../screens/NotFoundScreen';
 interface IItemCarProps {
   item: IResponseOrderDetail;
+  status: string;
 }
-const CardItem: React.FC<IItemCarProps> = ({ item }) => {
+const CardItem: React.FC<IItemCarProps> = ({ item, status }) => {
   const dispatch = useAppDispatch();
   const nav = useNavigation<RootStackScreenProps<'Item'>['navigation']>();
   const [quantity, setQuantity] = React.useState(item.quantity);
@@ -46,45 +49,45 @@ const CardItem: React.FC<IItemCarProps> = ({ item }) => {
   return (
     <View style={styles.itemInCart}>
       <ListItem.Swipeable
-        leftContent={(reset) => (
-          <Button
-            title="Info"
-            onPress={() => {
-              dispatch(
-                UpdateOrderDetailAction({
-                  bookId: item.book.id,
-                  quantity: 0,
-                  action: OrderDetailAction.REMOVE,
-                }),
-              );
-              reset();
-            }}
-            icon={{
-              name: 'info',
-              type: 'feather',
-              color: 'white',
-            }}
-            buttonStyle={{
-              minHeight: '100%',
-              backgroundColor: '#0052d1',
-            }}
-          />
-        )}
-        rightContent={(reset) => (
-          <Button
-            title="Delete"
-            onPress={() => reset()}
-            icon={{
-              name: 'trash',
-              type: 'feather',
-              color: 'white',
-            }}
-            buttonStyle={{
-              minHeight: '100%',
-              backgroundColor: '#f84b2f',
-            }}
-          />
-        )}
+      // leftContent={(reset) => (
+      //   <Button
+      //     title="Info"
+      //     onPress={() => {
+      //       dispatch(
+      //         UpdateOrderDetailAction({
+      //           bookId: item.book.id,
+      //           quantity: 0,
+      //           action: OrderDetailAction.REMOVE,
+      //         }),
+      //       );
+      //       reset();
+      //     }}
+      //     icon={{
+      //       name: 'info',
+      //       type: 'feather',
+      //       color: 'white',
+      //     }}
+      //     buttonStyle={{
+      //       minHeight: '100%',
+      //       backgroundColor: '#0052d1',
+      //     }}
+      //   />
+      // )}
+      // rightContent={(reset) => (
+      //   <Button
+      //     title="Delete"
+      //     onPress={() => reset()}
+      //     icon={{
+      //       name: 'trash',
+      //       type: 'feather',
+      //       color: 'white',
+      //     }}
+      //     buttonStyle={{
+      //       minHeight: '100%',
+      //       backgroundColor: '#f84b2f',
+      //     }}
+      //   />
+      // )}
       >
         <ListItem.Content>
           <View style={styles.item}>
@@ -130,6 +133,7 @@ const CardItem: React.FC<IItemCarProps> = ({ item }) => {
                   padding: 0,
                   height: 30,
                   width: 30,
+                  display: status == 'created' ? 'flex' : 'none',
                 }}
                 onPress={handleMinus}
               />
@@ -145,6 +149,7 @@ const CardItem: React.FC<IItemCarProps> = ({ item }) => {
                   padding: 0,
                   height: 30,
                   width: 30,
+                  display: status == 'created' ? 'flex' : 'none',
                 }}
                 onPress={handlePlus}
               />
@@ -167,6 +172,7 @@ export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status = 'create
   const [dateStart, setDateStart] = useState(new Date());
   const [dateEnd, setDateEnd] = useState(moment().add('7', 'days').toDate());
   const orders = useAppSelector(selectOrder(status));
+  const isLoading = useAppSelector((state) => state.order.loading);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
   const showDatePicker = () => {
@@ -186,11 +192,14 @@ export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status = 'create
     dispatch(GetOrderByUserAction({ status }));
   }, []);
 
+  if (isLoading === 'idle') return <SplashScreen />;
+  if (isLoading === 'error') return <NotFoundScreen />;
+
   if (orders.length == 0) {
     return (
       <View style={styles.container}>
         <View>
-          <Text style={styles.title}>Your Shopping cart is empty</Text>
+          <Text style={styles.title}>Giỏ hàng bạn trống</Text>
         </View>
         <View
           style={{
@@ -240,7 +249,7 @@ export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status = 'create
                     <Image
                       style={styles.store_img}
                       source={{
-                        uri: order.store.avatarURL || 'https://tse1.mm.bing.net/th?q=solo%20leveling%20manga%20rock',
+                        uri: order?.store?.avatarURL || 'https://tse1.mm.bing.net/th?q=solo%20leveling%20manga%20rock',
                       }}
                     />
                     <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{order.store.name}</Text>
@@ -249,7 +258,7 @@ export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status = 'create
                 </TouchableOpacity>
                 <View style={styles.store_list}>
                   {order.orderDetails.map((e, i) => (
-                    <CardItem item={e} key={i} />
+                    <CardItem item={e} key={i} status={status} />
                   ))}
                 </View>
 
