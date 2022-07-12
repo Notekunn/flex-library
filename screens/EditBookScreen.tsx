@@ -275,20 +275,20 @@ const EditBookScreen: React.FC<RootStackScreenProps<'EditBook'>> = ({ route }) =
             <TextInput
               style={styles.textInput}
               placeholder={'Nhập tên tác giả'}
-              defaultValue={author}
+              value={author}
               onChangeText={(value) => setAuthor(value)}
             />
           </View>
           <View style={styles.inputFrame}>
             <View style={styles.inputFrame_header}>
               <Text>Mô tả về sách</Text>
-              <Text>{'sadas'}/3000</Text>
+              <Text>{desc.length}/3000</Text>
             </View>
             <TextInput
               style={styles.textInput}
               placeholder="Tri thức có gì?"
               onChangeText={(value) => setDesc(value)}
-              defaultValue={desc}
+              value={desc}
             />
           </View>
           <View style={styles.optionFrame}>
@@ -321,11 +321,11 @@ const EditBookScreen: React.FC<RootStackScreenProps<'EditBook'>> = ({ route }) =
               />
               <Text style={{ padding: 10, minWidth: 100 }}>Giá thuê</Text>
               <TextInput
-                placeholder={`${rentPrice}`}
                 style={{ flexDirection: 'row', justifyContent: 'flex-end', marginLeft: 100, flex: 1 }}
                 keyboardType="number-pad"
                 accessibilityElementsHidden={true}
-                onChangeText={(value) => setRentPrice(parseInt(value))}
+                onChangeText={(value) => setRentPrice(+value)}
+                value={`${rentPrice}`}
               />
             </View>
             <View style={styles.optionItem}>
@@ -337,11 +337,11 @@ const EditBookScreen: React.FC<RootStackScreenProps<'EditBook'>> = ({ route }) =
               />
               <Text style={{ padding: 10, minWidth: 100 }}>Giá bán</Text>
               <TextInput
-                placeholder={`${salePrice}`}
+                value={`${salePrice}`}
                 style={{ flexDirection: 'row', justifyContent: 'flex-end', marginLeft: 100, flex: 1 }}
                 keyboardType="number-pad"
                 accessibilityElementsHidden={true}
-                onChangeText={(value) => setSalePrice(parseInt(value))}
+                onChangeText={(value) => setSalePrice(+value)}
               />
             </View>
             <View style={[styles.optionItem, styles.optionItemLast]}>
@@ -353,7 +353,7 @@ const EditBookScreen: React.FC<RootStackScreenProps<'EditBook'>> = ({ route }) =
               />
               <Text style={{ padding: 10, minWidth: 100 }}>Số lượng</Text>
               <TextInput
-                placeholder={`${numOfCopies}`}
+                value={`${numOfCopies}`}
                 keyboardType="number-pad"
                 style={{ flexDirection: 'row', justifyContent: 'flex-end', marginLeft: 100, flex: 1 }}
                 onChangeText={(value) => setNumOfCopies(parseInt(value))}
