@@ -1,11 +1,13 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Alert, Button, StyleSheet, Text, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { BarCodeScanner } from 'expo-barcode-scanner';
+import throttle from 'lodash/throttle';
+import { AppRegex } from '../../constants/regex';
+import { RootStackScreenProps } from '../../types';
 
-const ScanScreen = () => {
+const ScanScreen: React.FC<RootStackScreenProps<'Root'>> = ({ navigation }) => {
   const [hasPermission, setHasPermission] = useState<boolean>();
-  const [scanned, setScanned] = useState(false);
-  const [text, setText] = useState('Not yet scanned');
+  const [scanning, setScanning] = useState(true);
 
   const askForCameraPermission = () => {
     (async () => {
@@ -19,12 +21,36 @@ const ScanScreen = () => {
     askForCameraPermission();
   }, []);
 
-  // What happens when we scan the bar code
-  const handleBarCodeScanned = ({ type, data }: any) => {
-    setScanned(true);
-    setText(data);
-    console.log('Type: ' + type + '\nData: ' + data);
+  const handleBarCodeChange = ({ type, data }: Record<'type' | 'data', string>) => {
+    console.log('Type: ' + type + ' | Data: ' + data);
+    switch (type) {
+      case BarCodeScanner.Constants.BarCodeType.qr:
+        console.log('Detected QR Code');
+        if (!data.startsWith('flex-library:')) return;
+        if (AppRegex.ORDER_CONFIRM.test(data)) {
+          const [orderId] = data.match(/\d+/gi) as [string];
+          console.log(`Order id: ${orderId}`);
+          setScanning(false);
+          Alert.alert('Redirect', 'Do you want to redirect to order confirm page?', [
+            {
+              text: 'Yes',
+              onPress: () => {
+                navigation.navigate('OrderConfirm', { orderId: +orderId });
+              },
+            },
+            {
+              text: 'No',
+              onPress: () => {
+                setScanning(true);
+              },
+            },
+          ]);
+        }
+        break;
+    }
   };
+
+  const handleBarCodeScanned = throttle(handleBarCodeChange, 1000);
 
   // Check permissions and return the screens
   if (hasPermission === null) {
@@ -48,13 +74,12 @@ const ScanScreen = () => {
     <View style={styles.container}>
       <View style={styles.barcodebox}>
         <BarCodeScanner
-          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+          onBarCodeScanned={scanning ? handleBarCodeScanned : undefined}
           style={{ height: 400, width: 400 }}
         />
       </View>
-      <Text style={styles.maintext}>{text}</Text>
 
-      {scanned && <Button title={'Scan again?'} onPress={() => setScanned(false)} color="tomato" />}
+      {!scanning && <Button title={'Scan again?'} onPress={() => setScanning(true)} color="tomato" />}
     </View>
   );
 };
@@ -73,7 +98,7 @@ const styles = StyleSheet.create({
   barcodebox: {
     alignItems: 'center',
     justifyContent: 'center',
-    height: 400,
+    height: 300,
     width: 300,
     overflow: 'hidden',
     borderRadius: 30,

@@ -42,6 +42,7 @@ export type RootStackParamList = {
   ListBookCategory: undefined;
   EditBook: { book: IBookResponse };
   OrderQRCodeModal: { orderId: number };
+  OrderConfirm: { orderId: number };
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<

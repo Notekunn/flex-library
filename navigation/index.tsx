@@ -12,8 +12,7 @@ import LinkingConfiguration from './LinkingConfiguration';
 import SplashScreen from '../screens/SplashScreen';
 import SignInScreen from '../screens/Auth/SignInScreen';
 import HomeScreen from '../screens/Home/HomeScreen';
-import MyIdScreen from '../screens/MyIdScreen';
-import ScanScreen from '../screens/ScanScreen';
+import ScanScreen from '../screens/Admin/ScanScreen';
 import StoreScreen from '../screens/Store/StoreScreen';
 import MyStoreScreen from '../screens/Store/MyStoreScreen';
 import AccountScreen from '../screens/Account/AccountScreen';
@@ -37,6 +36,7 @@ import { OrderScreen } from '../screens/Account/OrderScreen';
 import { RentingScreen } from '../screens/RentingScreen';
 import { OrderQRCodeModal } from '../modals/OrderQRCode';
 import { UserRole } from '../constants/enum';
+import { OrderConfirmScreen } from '../screens/Admin/OrderConfirmScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -142,6 +142,19 @@ function RootNavigator() {
                 animation: 'slide_from_bottom',
               }}
               component={OrderQRCodeModal}
+            />
+            <Stack.Screen
+              name="OrderConfirm"
+              component={OrderConfirmScreen}
+              options={{
+                animation: 'slide_from_bottom',
+                headerShown: true,
+                headerStyle: {
+                  backgroundColor: mainColor,
+                },
+                headerTintColor: '#fff',
+                headerTitle: 'Xác nhận đơn hàng',
+              }}
             />
           </Stack.Group>
         </>
