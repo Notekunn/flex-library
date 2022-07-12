@@ -15,6 +15,7 @@ export interface IUser {
   email: string;
   avatar: string;
   role: UserRole;
+  coin: number;
 }
 
 export interface IUserResponse extends IUser {
