@@ -14,7 +14,7 @@ export interface IUser {
   name: string;
   email: string;
   avatar: string;
-  role: UserRole
+  role: UserRole;
 }
 
 export interface IStore {

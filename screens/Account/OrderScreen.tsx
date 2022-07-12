@@ -47,7 +47,6 @@ export const OrderScreen: React.FC<RootStackScreenProps<'Order'>> = ({ navigatio
   );
 };
 
-
 const styles = StyleSheet.create({
   container1: {},
 });
