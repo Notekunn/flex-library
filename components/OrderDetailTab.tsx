@@ -166,7 +166,7 @@ export interface OrderDetailTabProps {
 }
 
 export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status = 'created' }) => {
-  const nav = useNavigation<RootStackScreenProps<'InfoCart'>['navigation']>();
+  const nav = useNavigation<RootStackScreenProps<'Order'>['navigation']>();
   const dispatch = useAppDispatch();
   const [whatDate, setWhatDate] = useState(0);
   const [dateStart, setDateStart] = useState(new Date());
@@ -217,7 +217,7 @@ export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status = 'create
             style={styles.imageLogoEmty}
           />
         </View>
-        <Button
+        {/* <Button
           title="Đi thuê ngay"
           buttonStyle={{ backgroundColor: mainColor }}
           containerStyle={{
@@ -233,7 +233,7 @@ export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status = 'create
           onPress={() => {
             nav.navigate('ResultSearch', {});
           }}
-        />
+        /> */}
       </View>
     );
   }
@@ -314,6 +314,13 @@ export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status = 'create
                       <TouchableOpacity onPress={() => dispatch(PurchaseOrderAction(order.id))}>
                         <View style={styles.pay}>
                           <Text style={{ color: '#fff', fontSize: 17, fontWeight: 'bold' }}>Thuê truyện</Text>
+                        </View>
+                      </TouchableOpacity>
+                    )}
+                    {status === 'purchased' && (
+                      <TouchableOpacity onPress={() => nav.navigate('OrderQRCodeModal', { orderId: order.id })}>
+                        <View style={styles.pay}>
+                          <Text style={{ color: '#fff', fontSize: 17, fontWeight: 'bold' }}>Show QR</Text>
                         </View>
                       </TouchableOpacity>
                     )}
