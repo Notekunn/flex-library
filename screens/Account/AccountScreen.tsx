@@ -75,7 +75,7 @@ const AccountScreen: React.FC<RootStackScreenProps<'Home'>> = ({ navigation }) =
               <Icon name="angle-right" type="font-awesome" color="#c1c1c1" />
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.item} activeOpacity={0.8} onPress={() => nav.navigate('InfoCart')}>
+            <TouchableOpacity style={styles.item} activeOpacity={0.8} onPress={() => nav.navigate('Order')}>
               <View
                 style={{
                   backgroundColor: '#fff700b8',

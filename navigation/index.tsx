@@ -10,20 +10,17 @@ import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../typ
 import LinkingConfiguration from './LinkingConfiguration';
 
 import SplashScreen from '../screens/SplashScreen';
-import NotFoundScreen from '../screens/NotFoundScreen';
 import SignInScreen from '../screens/Auth/SignInScreen';
 import HomeScreen from '../screens/Home/HomeScreen';
-import MyIdScreen from '../screens/MyIdScreen';
-import ScanScreen from '../screens/ScanScreen';
+import ScanScreen from '../screens/Admin/ScanScreen';
 import StoreScreen from '../screens/Store/StoreScreen';
 import MyStoreScreen from '../screens/Store/MyStoreScreen';
 import AccountScreen from '../screens/Account/AccountScreen';
-import ModalItem from '../modals/ModalItem';
 import ItemScreen from '../screens/ItemScreen';
 import SearchScreen from '../screens/Search/SearchScreen';
 import AddItem from '../screens/AddItem';
 import { useAppDispatch, useAppSelector } from '../app/hook';
-import { profileAction, selectIsLoggedIn, selectLoading } from '../reducers/authSlice';
+import { profileAction, selectIsLoggedIn, selectLoading, selectUser } from '../reducers/authSlice';
 import { ItemHeaderRight } from '../components/Item/HeaderRight';
 import SignUpScreen from '../screens/Auth/SignUpScreen';
 import ProfileScreen from '../screens/Account/ProfileScreen';
@@ -35,8 +32,11 @@ import EditBookScreen from '../screens/EditBookScreen';
 import { GetStoreByUserAction, selectUserStore } from '../reducers/storeSlice';
 import ViewMyStoreScreen from '../screens/Account/ViewMyStoreScreen';
 import SearchResultScreen from '../screens/Search/SearchResultScreen';
-import InfoCart from '../screens/Account/InfoCart';
+import { OrderScreen } from '../screens/Account/OrderScreen';
 import { RentingScreen } from '../screens/RentingScreen';
+import { OrderQRCodeModal } from '../modals/OrderQRCode';
+import { UserRole } from '../constants/enum';
+import { OrderConfirmScreen } from '../screens/Admin/OrderConfirmScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -67,7 +67,7 @@ function RootNavigator() {
   }
   return (
     <Stack.Navigator screenOptions={{ headerShown: false, animation: 'none' }}>
-      {!isLoggedIn ? (
+      {!(isLoggedIn && loading === 'success') ? (
         <>
           <Stack.Screen name="SignIn" component={SignInScreen} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
@@ -88,8 +88,8 @@ function RootNavigator() {
           />
           <Stack.Screen name="Store" component={StoreScreen} />
           <Stack.Screen
-            name="InfoCart"
-            component={InfoCart}
+            name="Order"
+            component={OrderScreen}
             options={{
               headerShown: true,
               headerStyle: {
@@ -137,11 +137,24 @@ function RootNavigator() {
           <Stack.Screen name="Search" component={SearchScreen} options={{ animation: 'fade' }} />
           <Stack.Group screenOptions={{ presentation: 'modal', animation: 'fade' }}>
             <Stack.Screen
-              name="ModalItem"
+              name="OrderQRCodeModal"
               options={{
                 animation: 'slide_from_bottom',
               }}
-              component={ModalItem}
+              component={OrderQRCodeModal}
+            />
+            <Stack.Screen
+              name="OrderConfirm"
+              component={OrderConfirmScreen}
+              options={{
+                animation: 'slide_from_bottom',
+                headerShown: true,
+                headerStyle: {
+                  backgroundColor: mainColor,
+                },
+                headerTintColor: '#fff',
+                headerTitle: 'Xác nhận đơn hàng',
+              }}
             />
           </Stack.Group>
         </>
@@ -152,7 +165,8 @@ function RootNavigator() {
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 function BottomTabNavigator() {
-  const mystore = useAppSelector(selectUserStore);
+  const myStore = useAppSelector(selectUserStore);
+  const profile = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(GetStoreByUserAction());
@@ -180,37 +194,26 @@ function BottomTabNavigator() {
           headerTransparent: true,
         }}
       />
-      <BottomTab.Screen
-        name="MyID"
-        component={MyIdScreen}
-        options={{
-          title: 'My ID',
-          tabBarIcon: ({ color }) => <TabBarIcon name="id-badge" color={color} />,
-        }}
-        listeners={() => ({
-          tabPress: (event) => {
-            event.preventDefault();
-            navigation.navigate('ModalItem');
-          },
-        })}
-      />
-      <BottomTab.Screen
-        name="Scan"
-        component={ScanScreen}
-        options={{
-          headerStyle: {
-            backgroundColor: mainColor,
-          },
-          headerTitleStyle: {
-            color: '#fff',
-            fontSize: 20,
-          },
-          title: 'Scan Code',
-          tabBarIcon: ({ color }) => <TabBarIcon name="qrcode" color={color} />,
-        }}
-      />
 
-      {mystore && (
+      {profile?.role && [UserRole.Administrator, UserRole.Owner].includes(profile?.role) && (
+        <BottomTab.Screen
+          name="Scan"
+          component={ScanScreen}
+          options={{
+            headerStyle: {
+              backgroundColor: mainColor,
+            },
+            headerTitleStyle: {
+              color: '#fff',
+              fontSize: 20,
+            },
+            title: 'Scan Code',
+            tabBarIcon: ({ color }) => <TabBarIcon name="qrcode" color={color} />,
+          }}
+        />
+      )}
+
+      {myStore && (
         <BottomTab.Screen
           name="MyStore"
           component={MyStoreScreen}

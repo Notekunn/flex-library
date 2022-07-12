@@ -312,10 +312,10 @@ const AddItem = () => {
               />
               <Text style={{ padding: 10, minWidth: 100 }}>Giá thuê</Text>
               <TextInput
-                placeholder={`${rentPrice}`}
                 style={{ flexDirection: 'row', justifyContent: 'flex-end', marginLeft: 100, flex: 1 }}
                 keyboardType="number-pad"
                 accessibilityElementsHidden={true}
+                value={`${rentPrice}`}
                 onChangeText={(value) => setRentPrice(parseInt(value))}
               />
             </View>
@@ -328,11 +328,11 @@ const AddItem = () => {
               />
               <Text style={{ padding: 10, minWidth: 100 }}>Giá bán</Text>
               <TextInput
-                placeholder={`${salePrice}`}
                 style={{ flexDirection: 'row', justifyContent: 'flex-end', marginLeft: 100, flex: 1 }}
                 keyboardType="number-pad"
                 accessibilityElementsHidden={true}
-                onChangeText={(value) => setSalePrice(parseInt(value))}
+                value={`${salePrice}`}
+                onChangeText={(value) => setSalePrice(+value || 0)}
               />
             </View>
             <View style={[styles.optionItem, styles.optionItemLast]}>

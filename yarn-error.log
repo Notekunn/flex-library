@@ -1,29 +1,29 @@
 Arguments: 
-  /Users/notekunn/.nvm/versions/node/v16.14.0/bin/node /usr/local/bin/yarn add @redux/toolkit
+  /Users/notekunn/.nvm/versions/node/v16.15.1/bin/node /usr/local/bin/yarn add -D @types/react-native-custom-qr-codes-expo
 
 PATH: 
-  /Users/notekunn/.nvm/versions/node/v16.14.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/notekunn/.cargo/bin:/Users/notekunn/.local/bin:/Users/notekunn/.fig/bin:/Users/notekunn/.local/bin:/Users/notekunn/.local/bin
+  /Users/notekunn/.nvm/versions/node/v16.15.1/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/notekunn/.cargo/bin:/Users/notekunn/.local/bin:/Users/notekunn/go:/usr/local/go/bin
 
 Yarn version: 
   1.22.17
 
 Node version: 
-  16.14.0
+  16.15.1
 
 Platform: 
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@redux%2ftoolkit: Not found
+  Error: https://registry.yarnpkg.com/@types%2freact-native-custom-qr-codes-expo: Not found
       at Request.params.callback [as _callback] (/usr/local/lib/node_modules/yarn/lib/cli.js:67029:18)
       at Request.self.callback (/usr/local/lib/node_modules/yarn/lib/cli.js:140883:22)
-      at Request.emit (node:events:520:28)
+      at Request.emit (node:events:527:28)
       at Request.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:141855:10)
-      at Request.emit (node:events:520:28)
+      at Request.emit (node:events:527:28)
       at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:141777:12)
-      at Object.onceWrapper (node:events:639:28)
-      at IncomingMessage.emit (node:events:532:35)
-      at endReadableNT (node:internal/streams/readable:1346:12)
+      at Object.onceWrapper (node:events:641:28)
+      at IncomingMessage.emit (node:events:539:35)
+      at endReadableNT (node:internal/streams/readable:1345:12)
       at processTicksAndRejections (node:internal/process/task_queues:83:21)
 
 npm manifest: 
@@ -51,40 +51,54 @@ npm manifest:
       "preset": "jest-expo"
     },
     "dependencies": {
+      "@expo-google-fonts/inter": "^0.2.2",
       "@expo/vector-icons": "^13.0.0",
+      "@googlemaps/react-wrapper": "^1.1.35",
+      "@react-native-async-storage/async-storage": "~1.17.3",
+      "@react-native-community/datetimepicker": "6.1.2",
       "@react-navigation/bottom-tabs": "^6.0.5",
       "@react-navigation/material-top-tabs": "^6.2.1",
       "@react-navigation/native": "^6.0.2",
       "@react-navigation/native-stack": "^6.1.0",
+      "@reduxjs/toolkit": "^1.8.2",
       "@rneui/base": "^4.0.0-rc.2",
       "@rneui/themed": "^4.0.0-rc.2",
       "axios": "^0.27.2",
       "dotenv": "^16.0.1",
       "expo": "~45.0.0",
+      "expo-app-loading": "~2.0.0",
       "expo-asset": "~8.5.0",
       "expo-barcode-scanner": "~11.3.0",
       "expo-constants": "~13.1.1",
       "expo-font": "~10.1.0",
       "expo-image-picker": "~13.1.1",
       "expo-linking": "~3.1.0",
+      "expo-location": "~14.2.2",
       "expo-splash-screen": "~0.15.1",
       "expo-status-bar": "~1.3.0",
       "expo-system-ui": "~1.2.0",
-      "expo-web-browser": "~10.2.0",
+      "expo-web-browser": "~10.2.1",
       "firebase": "^9.8.0",
+      "intl": "^1.2.5",
       "lottie-ios": "3.2.3",
-      "lottie-react-native": "^5.0.1",
+      "lottie-react-native": "5.0.1",
+      "moment": "^2.29.4",
       "react": "17.0.2",
       "react-dom": "17.0.2",
       "react-native": "0.68.2",
+      "react-native-custom-qr-codes-expo": "^2.2.0",
       "react-native-gesture-handler": "~2.2.1",
       "react-native-image-picker": "^4.8.3",
+      "react-native-maps": "0.30.2",
+      "react-native-modal-datetime-picker": "^13.1.2",
       "react-native-pager-view": "5.4.15",
       "react-native-reanimated": "~2.8.0",
+      "react-native-root-toast": "^3.4.0",
       "react-native-safe-area-context": "4.2.4",
       "react-native-screens": "~3.11.1",
       "react-native-tab-view": "^3.1.1",
-      "react-native-web": "0.17.7"
+      "react-native-web": "0.17.7",
+      "react-redux": "^8.0.2"
     },
     "devDependencies": {
       "@babel/core": "^7.12.9",
@@ -93,6 +107,7 @@ npm manifest:
       "@semantic-release/git": "^10.0.1",
       "@semantic-release/github": "^8.0.4",
       "@semantic-release/release-notes-generator": "^10.0.3",
+      "@types/intl": "^1.2.0",
       "@types/react": "~17.0.21",
       "@types/react-native": "~0.66.13",
       "jest": "^26.6.3",
@@ -1173,6 +1188,13 @@ Lockfile:
       pirates "^4.0.5"
       source-map-support "^0.5.16"
   
+  "@babel/runtime@^7.12.1", "@babel/runtime@^7.9.2":
+    version "7.18.3"
+    resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.18.3.tgz#c7b654b57f6f63cf7f8b418ac9ca04408c4579f4"
+    integrity sha512-38Y8f7YUhce/K7RMwTp7m0uCumpv9hZkitCbBClqQIow1qSbCvGkcegKOXpEWCQLfWmevgRiWokZ1GkpfhbZug==
+    dependencies:
+      regenerator-runtime "^0.13.4"
+  
   "@babel/runtime@^7.14.0", "@babel/runtime@^7.8.4":
     version "7.17.9"
     resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.17.9.tgz"
@@ -1232,6 +1254,11 @@ Lockfile:
     integrity sha512-XQsZgjm2EcVUiZQf11UBJQfmZeEmOW8DpI1gsFeln6w0ae0ii4dMQEQ0kjl6DspdWX1aGY1/loyXnP0JS06e/A==
     dependencies:
       "@types/hammerjs" "^2.0.36"
+  
+  "@expo-google-fonts/inter@^0.2.2":
+    version "0.2.2"
+    resolved "https://registry.yarnpkg.com/@expo-google-fonts/inter/-/inter-0.2.2.tgz#bd5624be6c92e7621aa9ddb5bd72757604729121"
+    integrity sha512-dU6mSczI2xkRZbUhQQ5VB+D4AqLOF8ufCIfA1iBjrPZ/Qnka88E5Ez2Mvm41exdKR76norVvYD5GJIQYEEoO/Q==
   
   "@expo/bunyan@4.0.0", "@expo/bunyan@^4.0.0":
     version "4.0.0"
@@ -1919,6 +1946,20 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@gar/promisify/-/promisify-1.1.3.tgz#555193ab2e3bb3b6adc3d551c9c030d9e860daf6"
     integrity sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==
   
+  "@googlemaps/js-api-loader@^1.13.2":
+    version "1.14.3"
+    resolved "https://registry.yarnpkg.com/@googlemaps/js-api-loader/-/js-api-loader-1.14.3.tgz#d7a161cd547be04ad46a1cb176e6c2647f6d74a7"
+    integrity sha512-6iIb+qpGgQpgIHmIFO44WhE1rDUxPVHuezNFL30wRJnkvhwFm94tD291UvNg9L05hLDSoL16jd0lbqqmdy4C5g==
+    dependencies:
+      fast-deep-equal "^3.1.3"
+  
+  "@googlemaps/react-wrapper@^1.1.35":
+    version "1.1.35"
+    resolved "https://registry.yarnpkg.com/@googlemaps/react-wrapper/-/react-wrapper-1.1.35.tgz#fde9146b1ae02805dcad9c0fab56c4bc137b32ee"
+    integrity sha512-vK+BDQMHN0Oqr66cW3ZPWVK43BUmJJBu6P8T74tc6/fKpUJUlFEaZsupgIIRRRDW9ejB8uGagUmwOnA2gdcvbw==
+    dependencies:
+      "@googlemaps/js-api-loader" "^1.13.2"
+  
   "@graphql-typed-document-node/core@^3.1.0", "@graphql-typed-document-node/core@^3.1.1":
     version "3.1.1"
     resolved "https://registry.yarnpkg.com/@graphql-typed-document-node/core/-/core-3.1.1.tgz#076d78ce99822258cf813ecc1e7fa460fa74d052"
@@ -2411,6 +2452,13 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
     integrity sha1-p3c2C1s5oaLlEG+OhY8v0tBgxXA=
   
+  "@react-native-async-storage/async-storage@~1.17.3":
+    version "1.17.5"
+    resolved "https://registry.yarnpkg.com/@react-native-async-storage/async-storage/-/async-storage-1.17.5.tgz#8cc3edd305d09a3c252d88921f0d2846a0444f25"
+    integrity sha512-0XT5zZa3mh8XfAFYytq9hPyI6w0FJEBED4pjeLc17pkNF9tND86fsTX2pQFr15uV0nvfYeHisbd/mM7bpGrWKA==
+    dependencies:
+      merge-options "^3.0.4"
+  
   "@react-native-community/cli-debugger-ui@^7.0.3":
     version "7.0.3"
     resolved "https://registry.yarnpkg.com/@react-native-community/cli-debugger-ui/-/cli-debugger-ui-7.0.3.tgz#3eeeacc5a43513cbcae56e5e965d77726361bcb4"
@@ -2580,6 +2628,13 @@ Lockfile:
       sudo-prompt "^9.0.0"
       wcwidth "^1.0.1"
   
+  "@react-native-community/datetimepicker@6.1.2":
+    version "6.1.2"
+    resolved "https://registry.yarnpkg.com/@react-native-community/datetimepicker/-/datetimepicker-6.1.2.tgz#a897291bc8ff2394f922721f40692c812f9145a0"
+    integrity sha512-4D21x4eywCY2Ex4BI6tQhUEOOKSruz9uPbGK0azGKZap/etoiPtH3nuG56ACtpmUlu5d1R9zzTlumr02dp39hA==
+    dependencies:
+      invariant "^2.2.4"
+  
   "@react-native/assets@1.0.0":
     version "1.0.0"
     resolved "https://registry.npmjs.org/@react-native/assets/-/assets-1.0.0.tgz"
@@ -2652,6 +2707,16 @@ Lockfile:
     integrity sha512-8xJL+djIzpFdRW/sGlKojQ06fWgFk1c5jER9501HYJ12LF5DIJFr/tqBI2TJ6bk+y+QFu0nbNyeRC80OjRlmkA==
     dependencies:
       nanoid "^3.1.23"
+  
+  "@reduxjs/toolkit@^1.8.2":
+    version "1.8.2"
+    resolved "https://registry.yarnpkg.com/@reduxjs/toolkit/-/toolkit-1.8.2.tgz#352fd17bc858af51d21ce8d28183a930cab9e638"
+    integrity sha512-CtPw5TkN1pHRigMFCOS/0qg3b/yfPV5qGCsltVnIz7bx4PKTJlGHYfIxm97qskLknMzuGfjExaYdXJ77QTL0vg==
+    dependencies:
+      immer "^9.0.7"
+      redux "^4.1.2"
+      redux-thunk "^2.4.1"
+      reselect "^4.1.5"
   
   "@rneui/base@^4.0.0-rc.2":
     version "4.0.0-rc.2"
@@ -2837,6 +2902,11 @@ Lockfile:
     dependencies:
       "@babel/types" "^7.3.0"
   
+  "@types/geojson@^7946.0.7":
+    version "7946.0.8"
+    resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-7946.0.8.tgz#30744afdb385e2945e22f3b033f897f76b1f12ca"
+    integrity sha512-1rkryxURpr6aWP7R786/UQOkJ3PcpQiWkAXBmdWc7ryFWqN6a4xfK7BtjXvFBKO9LjQ+MWQSWxYeZX1OApnArA==
+  
   "@types/graceful-fs@^4.1.2":
     version "4.1.5"
     resolved "https://registry.npmjs.org/@types/graceful-fs/-/graceful-fs-4.1.5.tgz"
@@ -2848,6 +2918,19 @@ Lockfile:
     version "2.0.41"
     resolved "https://registry.yarnpkg.com/@types/hammerjs/-/hammerjs-2.0.41.tgz#f6ecf57d1b12d2befcce00e928a6a097c22980aa"
     integrity sha512-ewXv/ceBaJprikMcxCmWU1FKyMAQ2X7a9Gtmzw8fcg2kIePI1crERDM818W+XYrxqdBBOdlf2rm137bU+BltCA==
+  
+  "@types/hoist-non-react-statics@^3.3.1":
+    version "3.3.1"
+    resolved "https://registry.yarnpkg.com/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz#1124aafe5118cb591977aeb1ceaaed1070eb039f"
+    integrity sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==
+    dependencies:
+      "@types/react" "*"
+      hoist-non-react-statics "^3.3.0"
+  
+  "@types/intl@^1.2.0":
+    version "1.2.0"
+    resolved "https://registry.yarnpkg.com/@types/intl/-/intl-1.2.0.tgz#1245511f13064402087979f498764611a3c758fc"
+    integrity sha512-BP+KwmOvD9AR5aoxnbyyPr3fAtpjEI/bVImHsotmpuC43+z0NAmjJ9cQbX7vPCq8XcvCeAVc8E3KSQPYNaPsUQ==
   
   "@types/invariant@^2.2.35":
     version "2.2.35"
@@ -2948,6 +3031,11 @@ Lockfile:
     version "2.0.1"
     resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-2.0.1.tgz#20f18294f797f2209b5f65c8e3b5c8e8261d127c"
     integrity sha512-Hl219/BT5fLAaz6NDkSuhzasy49dwQS/DSdu4MdggFB8zcXv7vflBI3xp7FEmkmdDkBUI2bPUNeMttp2knYdxw==
+  
+  "@types/use-sync-external-store@^0.0.3":
+    version "0.0.3"
+    resolved "https://registry.yarnpkg.com/@types/use-sync-external-store/-/use-sync-external-store-0.0.3.tgz#b6725d5f4af24ace33b36fafd295136e75509f43"
+    integrity sha512-EwmlvuaxPNej9+T4v5AuBPJa2x2UOJVdjCtDHgcDqitUeOtjnJKJ+apYjVcAoBEMjKW1VVFGZLUb5+qqa09XFA==
   
   "@types/yargs-parser@*":
     version "21.0.0"
@@ -4284,7 +4372,7 @@ Lockfile:
   dedent@^0.6.0:
     version "0.6.0"
     resolved "https://registry.yarnpkg.com/dedent/-/dedent-0.6.0.tgz#0e6da8f0ce52838ef5cec5c8f9396b0c1b64a3cb"
-    integrity sha1-Dm2o8M5Sg471zsXI+TlrDBtko8s=
+    integrity sha512-cSfRWjXJtZQeRuZGVvDrJroCR5V2UvBNUMHsPCdNYzuAG8b9V8aAy3KUcdQrGQPXs17Y+ojbPh1aOCplg9YR9g==
   
   deep-extend@^0.6.0:
     version "0.6.0"
@@ -4659,6 +4747,13 @@ Lockfile:
       jest-message-util "^26.6.2"
       jest-regex-util "^26.0.0"
   
+  expo-app-loading@~2.0.0:
+    version "2.0.0"
+    resolved "https://registry.yarnpkg.com/expo-app-loading/-/expo-app-loading-2.0.0.tgz#4c91c787a7c8048eb273fb7d4d2e4b0bef5fc990"
+    integrity sha512-Ym0Xteo15642UGDh11nTRa/pmbIVvvEczG7nu0N+n3SKln6nZlLk7pmwI2hcdk1Jgo+2IkC/3n9NmQWvkgkPHA==
+    dependencies:
+      expo-splash-screen "~0.15.0"
+  
   expo-application@~4.1.0:
     version "4.1.0"
     resolved "https://registry.yarnpkg.com/expo-application/-/expo-application-4.1.0.tgz#e0214ff7cf73db5a5e97e609ffbab3cc98288030"
@@ -4740,6 +4835,13 @@ Lockfile:
       qs "^6.9.1"
       url-parse "^1.5.9"
   
+  expo-location@~14.2.2:
+    version "14.2.2"
+    resolved "https://registry.yarnpkg.com/expo-location/-/expo-location-14.2.2.tgz#5797f52be4e990b25e00bf6341be0c573c1393c1"
+    integrity sha512-P1v+huBWhuerV4okRhN0+Htx3Nw8LGWTUF66E5iwuZEWvLTYQEQ+Od0j2CvD4FY6rhncNpoIZcWVlIy5NmG4fg==
+    dependencies:
+      "@expo/config-plugins" "^4.0.14"
+  
   expo-modules-autolinking@0.7.1, expo-modules-autolinking@~0.7.0:
     version "0.7.1"
     resolved "https://registry.yarnpkg.com/expo-modules-autolinking/-/expo-modules-autolinking-0.7.1.tgz#edd6da36cc28112d054e82dbb176fe4dccd7d476"
@@ -4759,7 +4861,7 @@ Lockfile:
       compare-versions "^3.4.0"
       invariant "^2.2.4"
   
-  expo-splash-screen@~0.15.1:
+  expo-splash-screen@~0.15.0, expo-splash-screen@~0.15.1:
     version "0.15.1"
     resolved "https://registry.yarnpkg.com/expo-splash-screen/-/expo-splash-screen-0.15.1.tgz#bdfb2434bda7fb1cde97e029fc7a791d7b3e3125"
     integrity sha512-Yvz6p/ig+cQp9c1PLSm1YshpNJXRp/xtxajfwPq2kampf61zA+xnoMk+J6YcNeXeIlqHysj3ND2tMhEEQjM/ow==
@@ -4781,10 +4883,10 @@ Lockfile:
       "@react-native/normalize-color" "^2.0.0"
       debug "^4.3.2"
   
-  expo-web-browser@~10.2.0:
-    version "10.2.0"
-    resolved "https://registry.yarnpkg.com/expo-web-browser/-/expo-web-browser-10.2.0.tgz#e37450e5a0dd2eb1cf5ea5511589ed207da8aafe"
-    integrity sha512-Y8LCiktTUdPQVgO5BR6uHFU8FGu/8ysT2ynpO0WFeD4odX8JBX5JwQ9HokEa3XvRJNpefgQmXETDjzkMznXMvQ==
+  expo-web-browser@~10.2.1:
+    version "10.2.1"
+    resolved "https://registry.yarnpkg.com/expo-web-browser/-/expo-web-browser-10.2.1.tgz#4bd9214f7aefcd1af6ea26ae068a0e3e25a1e0bd"
+    integrity sha512-om34EL7OX5ouBM/hq2PrjHDLKmjVhAy+1H7YqRY6nS8dWsewnLFdLq4d8GPwWQBYb6kHKYVzwFRj+WLTfpAOBQ==
     dependencies:
       compare-urls "^2.0.0"
   
@@ -5546,6 +5648,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/immediate/-/immediate-3.0.6.tgz#9db1dbd0faf8de6fbe0f5dd5e56bb606280de69b"
     integrity sha1-nbHb0Pr43m++D13V5Wu2BigN5ps=
   
+  immer@^9.0.7:
+    version "9.0.14"
+    resolved "https://registry.yarnpkg.com/immer/-/immer-9.0.14.tgz#e05b83b63999d26382bb71676c9d827831248a48"
+    integrity sha512-ubBeqQutOSLIFCUBN03jGeOS6a3DoYlSYwYJTa+gSKEZKU5redJIqkIdZ3JVv/4RZpfcXdAWH5zCNLWPRv2WDw==
+  
   import-fresh@^2.0.0:
     version "2.0.0"
     resolved "https://registry.npmjs.org/import-fresh/-/import-fresh-2.0.0.tgz"
@@ -5619,6 +5726,11 @@ Lockfile:
     dependencies:
       default-gateway "^4.2.0"
       ipaddr.js "^1.9.0"
+  
+  intl@^1.2.5:
+    version "1.2.5"
+    resolved "https://registry.yarnpkg.com/intl/-/intl-1.2.5.tgz#82244a2190c4e419f8371f5aa34daa3420e2abde"
+    integrity sha512-rK0KcPHeBFBcqsErKSpvZnrOmWOj+EmDkyJ57e90YWaQNqbcivcqmKDlHEeNprDWOsKzPsh1BfSpPQdDvclHVw==
   
   into-stream@^6.0.0:
     version "6.0.0"
@@ -5829,6 +5941,11 @@ Lockfile:
     version "1.1.0"
     resolved "https://registry.yarnpkg.com/is-plain-obj/-/is-plain-obj-1.1.0.tgz#71a50c8429dfca773c92a390a4a03b39fcd51d3e"
     integrity sha1-caUMhCnfync8kqOQpKA7OfzVHT4=
+  
+  is-plain-obj@^2.1.0:
+    version "2.1.0"
+    resolved "https://registry.yarnpkg.com/is-plain-obj/-/is-plain-obj-2.1.0.tgz#45e42e37fccf1f40da8e5f76ee21515840c09287"
+    integrity sha512-YWnfyRwxL/+SsrWYfOpUtz5b3YD+nyfkHvjbcanzk8zgyO4ASD67uVMRt8k5bM4lLMDnXfriRhOpemw+NfT1eA==
   
   is-plain-object@^2.0.3, is-plain-object@^2.0.4:
     version "2.0.4"
@@ -6867,7 +6984,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/lottie-ios/-/lottie-ios-3.2.3.tgz#d5a029ccce611603d178ea7ba725c1446f2310b4"
     integrity sha512-mubYMN6+1HXa8z3EJKBvNBkl4UoVM4McjESeB2PgvRMSngmJtC5yUMRdhbbrIAn5Liu3hFGao/14s5hQIgtkRQ==
   
-  lottie-react-native@^5.0.1:
+  lottie-react-native@5.0.1:
     version "5.0.1"
     resolved "https://registry.yarnpkg.com/lottie-react-native/-/lottie-react-native-5.0.1.tgz#218a9e9cf0e25b2d30360958b00b85a4068a76b8"
     integrity sha512-V+ODPqiHOSRzEWg8VsfrJBicgc2k0ZPlCjk3J7ULUkh94smL1nrsF/n4OGukj4MLZwonpv+frVK7pPh5U7t3rQ==
@@ -6983,6 +7100,13 @@ Lockfile:
       trim-newlines "^3.0.0"
       type-fest "^0.18.0"
       yargs-parser "^20.2.3"
+  
+  merge-options@^3.0.4:
+    version "3.0.4"
+    resolved "https://registry.yarnpkg.com/merge-options/-/merge-options-3.0.4.tgz#84709c2aa2a4b24c1981f66c179fe5565cc6dbb7"
+    integrity sha512-2Sug1+knBjkaMsMgf1ctR1Ujx+Ayku4EdJN4Z+C2+JzoeF7A3OZ9KM2GY0CpQS51NR61LTurMJrRKPhSs3ZRTQ==
+    dependencies:
+      is-plain-obj "^2.1.0"
   
   merge-stream@^2.0.0:
     version "2.0.0"
@@ -7395,6 +7519,11 @@ Lockfile:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/modify-values/-/modify-values-1.0.1.tgz#b3939fa605546474e3e3e3c63d64bd43b4ee6022"
     integrity sha512-xV2bxeN6F7oYjZWTe/YPAy6MN2M+sL4u/Rlm2AHCIVGfo2p1yGmBHQ6vHehl4bRTZBdHu3TSkWdYgkwpYzAGSw==
+  
+  moment@^2.29.4:
+    version "2.29.4"
+    resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
+    integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
   
   ms@2.0.0:
     version "2.0.0"
@@ -8257,7 +8386,7 @@ Lockfile:
     resolved "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
     integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
   
-  "react-is@^16.12.0 || ^17.0.0 || ^18.0.0":
+  "react-is@^16.12.0 || ^17.0.0 || ^18.0.0", react-is@^18.0.0:
     version "18.1.0"
     resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.1.0.tgz#61aaed3096d30eacf2a2127118b5b41387d32a67"
     integrity sha512-Fl7FuabXsJnV5Q1qIOQwx/sagGF18kogb4gpfcG4gjLBWO0WDiiz1ko/ExayuxE7InyQkBLkxRFG5oxY6Uu3Kg==
@@ -8276,6 +8405,13 @@ Lockfile:
       flow-parser "^0.121.0"
       jscodeshift "^0.13.1"
       nullthrows "^1.1.1"
+  
+  react-native-custom-qr-codes-expo@^2.2.0:
+    version "2.2.0"
+    resolved "https://registry.yarnpkg.com/react-native-custom-qr-codes-expo/-/react-native-custom-qr-codes-expo-2.2.0.tgz#0286713160d9db13c82718ba3c4786ac7dfeb076"
+    integrity sha512-NWZqkdyZfdYlZcCqejshWRJJik7MVl+9r8AvsPPRxXsKfdEaqalQ2sb78Zyh3BELnyqr3ptP7CSxjtXiN77SjA==
+    dependencies:
+      prop-types "^15.7.2"
   
   react-native-gesture-handler@~2.2.1:
     version "2.2.1"
@@ -8297,6 +8433,21 @@ Lockfile:
     version "4.8.3"
     resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-4.8.3.tgz#a74801e8428325133a42dcd818fa54f08e6b20e6"
     integrity sha512-mA3xKN8TtXpLl3Aoo65ArZvusv3gCsbe3/hsOLKI1DcC+QcYPcDnsYK/ft05rWBj4BdiJ9E2JoveiHNtU8W9GA==
+  
+  react-native-maps@0.30.2:
+    version "0.30.2"
+    resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.30.2.tgz#2f1cf4ab79892a43060774bda8786ce6ab8e3616"
+    integrity sha512-WVv5e7aWdnNJugqNSG/87U+12Pg4RFWU7x/UigTPG1FEUZx2TbYKChL6xZCMGPOv5m5b4Z7bMeKJnZosg+yPyQ==
+    dependencies:
+      "@types/geojson" "^7946.0.7"
+      deprecated-react-native-prop-types "^2.3.0"
+  
+  react-native-modal-datetime-picker@^13.1.2:
+    version "13.1.2"
+    resolved "https://registry.yarnpkg.com/react-native-modal-datetime-picker/-/react-native-modal-datetime-picker-13.1.2.tgz#7c8bd3402acb4dcfbca49c926a7f18dd108c69c4"
+    integrity sha512-PZDkuY7HayRX1KE2X2dm29CvCLzwj/vn6B6QdPbjZea/GEKvHBMOLGdhFCcA9+gD64Y41+VqfytUh2fdvUvQ1g==
+    dependencies:
+      prop-types "^15.7.2"
   
   react-native-pager-view@5.4.15:
     version "5.4.15"
@@ -8322,6 +8473,20 @@ Lockfile:
       lodash.isequal "^4.5.0"
       setimmediate "^1.0.5"
       string-hash-64 "^1.0.3"
+  
+  react-native-root-siblings@^4.0.0:
+    version "4.1.1"
+    resolved "https://registry.yarnpkg.com/react-native-root-siblings/-/react-native-root-siblings-4.1.1.tgz#b7742db7634a87f507eb99a5fd699c4f10c46ab0"
+    integrity sha512-sdmLElNs5PDWqmZmj4/aNH4anyxreaPm61c4ZkRiR8SO/GzLg6KjAbb0e17RmMdnBdD0AIQbS38h/l55YKN4ZA==
+  
+  react-native-root-toast@^3.4.0:
+    version "3.4.0"
+    resolved "https://registry.yarnpkg.com/react-native-root-toast/-/react-native-root-toast-3.4.0.tgz#f5fedc06c80b0ed20a93be8832d32e9a67762187"
+    integrity sha512-2jv9XG9tK0rbXkD3IaO/clSJJQYXRnOCnGliZnYP/Z6I3u2QtdOp5xQ/ni8BbLqpPwSeKfCuO7R9H6iHuAN+Ig==
+    dependencies:
+      deprecated-react-native-prop-types "^2.3.0"
+      prop-types "^15.5.10"
+      react-native-root-siblings "^4.0.0"
   
   react-native-safe-area-context@4.2.4:
     version "4.2.4"
@@ -8403,6 +8568,18 @@ Lockfile:
       use-subscription ">=1.0.0 <1.6.0"
       whatwg-fetch "^3.0.0"
       ws "^6.1.4"
+  
+  react-redux@^8.0.2:
+    version "8.0.2"
+    resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-8.0.2.tgz#bc2a304bb21e79c6808e3e47c50fe1caf62f7aad"
+    integrity sha512-nBwiscMw3NoP59NFCXFf02f8xdo+vSHT/uZ1ldDwF7XaTpzm+Phk97VT4urYBl5TYAPNVaFm12UHAEyzkpNzRA==
+    dependencies:
+      "@babel/runtime" "^7.12.1"
+      "@types/hoist-non-react-statics" "^3.3.1"
+      "@types/use-sync-external-store" "^0.0.3"
+      hoist-non-react-statics "^3.3.2"
+      react-is "^18.0.0"
+      use-sync-external-store "^1.0.0"
   
   react-refresh@^0.4.0:
     version "0.4.3"
@@ -8506,6 +8683,18 @@ Lockfile:
     dependencies:
       indent-string "^4.0.0"
       strip-indent "^3.0.0"
+  
+  redux-thunk@^2.4.1:
+    version "2.4.1"
+    resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.4.1.tgz#0dd8042cf47868f4b29699941de03c9301a75714"
+    integrity sha512-OOYGNY5Jy2TWvTL1KgAlVy6dcx3siPJ1wTq741EPyUKfn6W6nChdICjZwCd0p8AZBs5kWpZlbkXW2nE/zjUa+Q==
+  
+  redux@^4.1.2:
+    version "4.2.0"
+    resolved "https://registry.yarnpkg.com/redux/-/redux-4.2.0.tgz#46f10d6e29b6666df758780437651eeb2b969f13"
+    integrity sha512-oSBmcKKIuIR4ME29/AeNUnl5L+hvBq7OaJWzaptTQJAntaPvxIJqfnjbaEiCzzaIz+XmVILfqAM3Ob0aXLPfjA==
+    dependencies:
+      "@babel/runtime" "^7.9.2"
   
   regenerate-unicode-properties@^10.0.1:
     version "10.0.1"
@@ -8612,7 +8801,7 @@ Lockfile:
     resolved "https://registry.npmjs.org/requires-port/-/requires-port-1.0.0.tgz"
     integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
   
-  reselect@^4.0.0:
+  reselect@^4.0.0, reselect@^4.1.5:
     version "4.1.5"
     resolved "https://registry.npmjs.org/reselect/-/reselect-4.1.5.tgz"
     integrity sha512-uVdlz8J7OO+ASpBYoz1Zypgx0KasCY20H+N8JD13oUMtPvSHQuscrHop4KbXrbsBcdB9Ds7lVK7eRkBIfO43vQ==
@@ -9798,6 +9987,11 @@ Lockfile:
     integrity sha512-Xv2a1P/yReAjAbhylMfFplFKj9GssgTwN7RlcTxBujFQcloStWNDQdc4g4NRWH9xS4i/FDk04vQBptAXoF3VcA==
     dependencies:
       object-assign "^4.1.1"
+  
+  use-sync-external-store@^1.0.0:
+    version "1.1.0"
+    resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.1.0.tgz#3343c3fe7f7e404db70f8c687adf5c1652d34e82"
+    integrity sha512-SEnieB2FPKEVne66NpXPd1Np4R1lTNKfjuy3XdIoPQKYBAFdzbzSZlSn1KJZUiihQLQC5Znot4SBz1EOTBwQAQ==
   
   use@^3.1.0:
     version "3.1.1"

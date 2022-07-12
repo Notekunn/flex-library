@@ -1,4 +1,4 @@
-import { OrderStatus } from './enum';
+import { OrderStatus, UserRole } from './enum';
 import { SearchSortTypes } from './SearchSort';
 
 export interface BaseEntity {
@@ -14,6 +14,7 @@ export interface IUser {
   name: string;
   email: string;
   avatar: string;
+  role: UserRole;
 }
 
 export interface IStore {
