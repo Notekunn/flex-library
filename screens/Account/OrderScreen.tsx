@@ -19,7 +19,7 @@ const renderTabBar = (props: any) => (
 );
 const initialLayout = { width: Dimensions.get('window').width };
 
-const InfoCart: React.FC<RootStackScreenProps<'InfoCart'>> = ({ navigation, route }) => {
+export const OrderScreen: React.FC<RootStackScreenProps<'Order'>> = ({ navigation, route }) => {
   const [routes] = React.useState([
     { key: 'first', title: 'Chờ thanh toán', status: 'created' },
     { key: 'second', title: 'Chờ nhận hàng', status: 'purchased' },
@@ -47,7 +47,6 @@ const InfoCart: React.FC<RootStackScreenProps<'InfoCart'>> = ({ navigation, rout
   );
 };
 
-export default InfoCart;
 
 const styles = StyleSheet.create({
   container1: {},

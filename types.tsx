@@ -28,11 +28,11 @@ export type RootStackParamList = {
   Item: { id: number };
   Store: { id?: number };
   MyStore: undefined;
-  InfoCart: undefined;
+  Order: undefined;
   BookCategory: undefined;
   Renting: undefined;
   Search: undefined;
-  ResultSearch: { sort?: SearchSortTypes; store?: number };
+  ResultSearch: { sort?: SearchSortTypes; store?: number; categoryId?: number };
   AddItem: undefined;
   Profile: undefined;
   ChangePassword: undefined;
@@ -41,6 +41,7 @@ export type RootStackParamList = {
   Category: undefined;
   ListBookCategory: undefined;
   EditBook: { book: IBookResponse };
+  OrderQRCodeModal: { orderId: number };
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
@@ -56,10 +57,7 @@ export type RootTabParamList = {
   Home: undefined;
   Store: undefined;
   MyStore: undefined;
-  History: undefined;
-  SignUp: undefined;
   Profile: undefined;
-  Splash: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<
