@@ -14,13 +14,12 @@ import SignInScreen from '../screens/Auth/SignInScreen';
 import HomeScreen from '../screens/Home/HomeScreen';
 import ScanScreen from '../screens/Admin/ScanScreen';
 import StoreScreen from '../screens/Store/StoreScreen';
-import MyStoreScreen from '../screens/Store/MyStoreScreen';
 import AccountScreen from '../screens/Account/AccountScreen';
 import ItemScreen from '../screens/ItemScreen';
 import SearchScreen from '../screens/Search/SearchScreen';
 import AddItem from '../screens/AddItem';
 import { useAppDispatch, useAppSelector } from '../app/hook';
-import { profileAction, selectIsLoggedIn, selectLoading, selectUser } from '../reducers/authSlice';
+import { profileAction, selectIsLoggedIn, selectLoading, selectOwnStore, selectUser } from '../reducers/authSlice';
 import { ItemHeaderRight } from '../components/Item/HeaderRight';
 import SignUpScreen from '../screens/Auth/SignUpScreen';
 import ProfileScreen from '../screens/Account/ProfileScreen';
@@ -29,7 +28,6 @@ import CreateStoreScreen from '../screens/Account/CreateStoreScreen';
 import CategoryScreen from '../screens/CategoryScreen';
 import ListBookScreen from '../screens/ListBookScreen';
 import EditBookScreen from '../screens/EditBookScreen';
-import { GetStoreByUserAction, selectUserStore } from '../reducers/storeSlice';
 import ViewMyStoreScreen from '../screens/Account/ViewMyStoreScreen';
 import SearchResultScreen from '../screens/Search/SearchResultScreen';
 import { OrderScreen } from '../screens/Account/OrderScreen';
@@ -165,15 +163,11 @@ function RootNavigator() {
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 function BottomTabNavigator() {
-  const myStore = useAppSelector(selectUserStore);
+  const ownStore = useAppSelector(selectOwnStore);
   const profile = useAppSelector(selectUser);
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(GetStoreByUserAction());
-  }, []);
 
   const colorScheme = useColorScheme();
-  const navigation = useNavigation<any>();
+  const navigation = useNavigation();
 
   return (
     <BottomTab.Navigator
@@ -213,14 +207,27 @@ function BottomTabNavigator() {
         />
       )}
 
-      {myStore && (
+      {ownStore && (
         <BottomTab.Screen
           name="MyStore"
-          component={MyStoreScreen}
+          component={StoreScreen}
           options={{
             headerShown: false,
             title: 'Store',
-            tabBarIcon: ({ color }) => <TabBarIcon name="shopping-cart" color={color} />,
+            tabBarIcon: ({ color }) => (
+              <TabBarIcon
+                name="shopping-cart"
+                color={color}
+                onPress={() =>
+                  navigation.navigate('Root', {
+                    screen: 'MyStore',
+                    params: {
+                      id: ownStore.id,
+                    },
+                  })
+                }
+              />
+            ),
           }}
         />
       )}
@@ -247,6 +254,10 @@ function BottomTabNavigator() {
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
-function TabBarIcon(props: { name: React.ComponentProps<typeof FontAwesome>['name']; color: string }) {
+function TabBarIcon(props: {
+  name: React.ComponentProps<typeof FontAwesome>['name'];
+  color: string;
+  onPress?: () => void;
+}) {
   return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
 }
