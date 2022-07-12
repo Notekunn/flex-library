@@ -1,3 +1,10 @@
+# [1.24.0](https://github.com/Notekunn/flex-library/compare/v1.23.0...v1.24.0) (2022-07-12)
+
+
+### Features
+
+* order admin confirm ([#48](https://github.com/Notekunn/flex-library/issues/48)) ([1ec6f42](https://github.com/Notekunn/flex-library/commit/1ec6f428811e44b19dddb86c300386e227e641f5))
+
 # [1.23.0](https://github.com/Notekunn/flex-library/compare/v1.22.0...v1.23.0) (2022-07-11)
 
 
