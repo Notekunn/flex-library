@@ -62,7 +62,7 @@ const SwipeSlide = () => {
         }}
       >
         <View style={styles.container}>
-          <Text style={styles.title}>Sách nổi bật trong tuần</Text>
+          {/* <Text style={styles.title}>Sách nổi bật trong tuần</Text> */}
           {/* <Text style={styles.title}>Discover</Text> */}
           {/* <View style={styles.flatList}>
         <FlatList
