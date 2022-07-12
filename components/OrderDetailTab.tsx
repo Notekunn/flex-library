@@ -17,7 +17,7 @@ import SplashScreen from '../screens/SplashScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 interface IItemCarProps {
   item: IResponseOrderDetail;
-  status: string;
+  status: 'created' | 'purchased' | 'cancelled' | 'completed';
 }
 const CardItem: React.FC<IItemCarProps> = ({ item, status }) => {
   const dispatch = useAppDispatch();
@@ -26,6 +26,8 @@ const CardItem: React.FC<IItemCarProps> = ({ item, status }) => {
   useEffect(() => {
     setQuantity(item.quantity);
   }, [item.quantity]);
+  console.log(item);
+  
   const handleMinus = () => {
     setQuantity(quantity - 1);
     dispatch(
@@ -46,48 +48,55 @@ const CardItem: React.FC<IItemCarProps> = ({ item, status }) => {
       }),
     );
   };
+  const leftContent = (reset: () => void) => (
+    <Button
+      title="Info"
+      onPress={() => {
+        reset();
+        nav.push('Item', {
+          id: item.book.id
+        })
+      }}
+      icon={{
+        name: 'info',
+        type: 'feather',
+        color: 'white',
+      }}
+      buttonStyle={{
+        minHeight: '100%',
+        backgroundColor: '#0052d1',
+      }}
+    />
+  );
+  const rightContent = (reset: () => void) => (
+    <Button
+      title="Delete"
+      onPress={() => {
+        dispatch(
+          UpdateOrderDetailAction({
+            bookId: item.book.id,
+            quantity: 0,
+            action: OrderDetailAction.REMOVE,
+          }),
+        );
+        reset()
+      }}
+      icon={{
+        name: 'trash',
+        type: 'feather',
+        color: 'white',
+      }}
+      buttonStyle={{
+        minHeight: '100%',
+        backgroundColor: '#f84b2f',
+      }}
+    />
+  );
   return (
     <View style={styles.itemInCart}>
       <ListItem.Swipeable
-      // leftContent={(reset) => (
-      //   <Button
-      //     title="Info"
-      //     onPress={() => {
-      //       dispatch(
-      //         UpdateOrderDetailAction({
-      //           bookId: item.book.id,
-      //           quantity: 0,
-      //           action: OrderDetailAction.REMOVE,
-      //         }),
-      //       );
-      //       reset();
-      //     }}
-      //     icon={{
-      //       name: 'info',
-      //       type: 'feather',
-      //       color: 'white',
-      //     }}
-      //     buttonStyle={{
-      //       minHeight: '100%',
-      //       backgroundColor: '#0052d1',
-      //     }}
-      //   />
-      // )}
-      // rightContent={(reset) => (
-      //   <Button
-      //     title="Delete"
-      //     onPress={() => reset()}
-      //     icon={{
-      //       name: 'trash',
-      //       type: 'feather',
-      //       color: 'white',
-      //     }}
-      //     buttonStyle={{
-      //       minHeight: '100%',
-      //       backgroundColor: '#f84b2f',
-      //     }}
-      //   />
-      // )}
+        leftContent={leftContent}
+        rightContent={status === 'created' && rightContent}
       >
         <ListItem.Content>
           <View style={styles.item}>
