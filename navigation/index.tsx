@@ -195,7 +195,7 @@ function BottomTabNavigator() {
         }}
       />
 
-      {profile?.role === UserRole.Administrator && (
+      {profile?.role && [UserRole.Administrator, UserRole.Owner].includes(profile?.role) && (
         <BottomTab.Screen
           name="Scan"
           component={ScanScreen}
