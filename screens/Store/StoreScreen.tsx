@@ -10,6 +10,7 @@ import { GetStoreByIdAction, selectCurrentStore } from '../../reducers/storeSlic
 import { RootStackScreenProps } from '../../types';
 import NotFoundScreen from '../NotFoundScreen';
 import { TextInput } from 'react-native-gesture-handler';
+import SplashScreen from '../SplashScreen';
 const initialLayout = { width: Dimensions.get('window').width };
 
 const StoreScreen: React.FC<RootStackScreenProps<'Store'>> = ({ route }) => {
@@ -17,7 +18,7 @@ const StoreScreen: React.FC<RootStackScreenProps<'Store'>> = ({ route }) => {
   const dispatch = useAppDispatch();
   const store = useAppSelector(selectCurrentStore);
   const [query, setQuery] = useState('');
-
+  const isLoading = useAppSelector((state) => state.store.loading);
   useEffect(() => {
     if (storeId) {
       dispatch(GetStoreByIdAction(storeId));
@@ -44,10 +45,14 @@ const StoreScreen: React.FC<RootStackScreenProps<'Store'>> = ({ route }) => {
     }
   };
 
+  if (isLoading === 'idle') return <SplashScreen />;
+  if (isLoading === 'error') return <NotFoundScreen />;
+
   const navigation = useNavigation();
   if (!storeId || !store) {
     return <NotFoundScreen />;
   }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>

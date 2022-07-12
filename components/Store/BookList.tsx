@@ -7,6 +7,8 @@ import { IBook } from '../../constants/interface';
 import { SearchSortOptions, SearchSortTypes } from '../../constants/SearchSort';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { GetBookByStoreAction, selectBooks } from '../../reducers/bookSlice';
+import SplashScreen from '../../screens/SplashScreen';
+import NotFoundScreen from '../../screens/NotFoundScreen';
 
 export interface BookListProps {
   storeId?: number;
@@ -17,6 +19,7 @@ const BookList: React.FC<BookListProps> = ({ storeId, q }) => {
   const books = useAppSelector(selectBooks);
   const dispatch = useAppDispatch();
   const [sort, setSort] = useState(SearchSortTypes.NEWEST);
+  const isLoading = useAppSelector((state) => state.book.loading);
   useEffect(() => {
     if (storeId && storeId > 0) {
       dispatch(
@@ -28,6 +31,10 @@ const BookList: React.FC<BookListProps> = ({ storeId, q }) => {
       );
     }
   }, [sort, storeId, q]);
+
+  if (isLoading === 'idle') return <SplashScreen />;
+  if (isLoading === 'error') return <NotFoundScreen />;
+
   return (
     <View style={styles.container}>
       <View>

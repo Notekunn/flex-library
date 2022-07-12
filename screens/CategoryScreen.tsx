@@ -10,6 +10,7 @@ import { GetAllCategoryAction, selectData } from '../reducers/categorySlice';
 const CategoryScreen = () => {
   const dispatch = useAppDispatch();
   const data = useAppSelector(selectData);
+
   useEffect(() => {
     dispatch(GetAllCategoryAction());
   }, []);
@@ -19,6 +20,7 @@ const CategoryScreen = () => {
   useEffect(() => {
     route.params.setChooseCategories(choose);
   }, [choose]);
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>

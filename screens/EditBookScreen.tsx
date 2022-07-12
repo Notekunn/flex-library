@@ -52,11 +52,10 @@ const EditBookScreen: React.FC<RootStackScreenProps<'EditBook'>> = ({ route }) =
       author,
       rentPrice,
       salePrice,
-      numOfCopies,
       images: imageList,
       categories: chooseCategories,
       description: desc,
-      rentCount: numOfCopies,
+      numOfCopies,
     };
     dispatch(UpdateBookAction(data));
     navigation.navigate('MyStore');
@@ -283,7 +282,7 @@ const EditBookScreen: React.FC<RootStackScreenProps<'EditBook'>> = ({ route }) =
           <View style={styles.inputFrame}>
             <View style={styles.inputFrame_header}>
               <Text>Mô tả về sách</Text>
-              <Text>{desc.length || 0}/3000</Text>
+              <Text>{'sadas'}/3000</Text>
             </View>
             <TextInput
               style={styles.textInput}

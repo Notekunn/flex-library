@@ -7,6 +7,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { selectUser, updateUserAction } from '../../reducers/authSlice';
 import { uploadImage } from '../../app/cloudinary';
+import SplashScreen from '../SplashScreen';
 
 const ProfileScreen = () => {
   const checkUrl = (image: string) => {
@@ -37,12 +38,16 @@ const ProfileScreen = () => {
 
   const updateProfile = async () => {
     const avaterUrl = await uploadImage(image);
+    if (!avaterUrl) {
+      return <SplashScreen />;
+    }
     const data = {
       ...route.params,
       avatar: avaterUrl.url,
       name: name,
     };
     dispatch(updateUserAction(data));
+    nav.goBack();
   };
 
   return (
