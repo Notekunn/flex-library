@@ -1,3 +1,10 @@
+## [1.24.2](https://github.com/Notekunn/flex-library/compare/v1.24.1...v1.24.2) (2022-07-12)
+
+
+### Bug Fixes
+
+* update book and store slice ([#50](https://github.com/Notekunn/flex-library/issues/50)) ([2bc9464](https://github.com/Notekunn/flex-library/commit/2bc9464dee43568cca13aeb99af5461641b45cc2))
+
 ## [1.24.1](https://github.com/Notekunn/flex-library/compare/v1.24.0...v1.24.1) (2022-07-12)
 
 

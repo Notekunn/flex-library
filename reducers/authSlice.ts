@@ -2,11 +2,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { apiInstance } from '../app/axiosClient';
 import { RootState } from '../app/store';
-import { IUser } from '../constants/interface';
+import { IUser, IUserResponse } from '../constants/interface';
 import { TOKEN_EXPIRED_STORAGE_KEY, TOKEN_STORAGE_KEY } from '../constants/storageKey';
 
 interface LoginOKResponse {
-  user: IUser;
+  user: IUserResponse;
   token: {
     accessToken: string;
     accessTokenExpired: string;
@@ -26,7 +26,7 @@ interface RegisterPayload extends LoginPayload {
 interface AuthState {
   isLoggedIn: boolean;
   loading: 'idle' | 'loading' | 'success' | 'error';
-  user?: IUser;
+  user?: IUserResponse;
   error?: string;
 }
 
@@ -45,7 +45,7 @@ export const registerAction = createAsyncThunk('auth/register', async (payload: 
 });
 
 export const profileAction = createAsyncThunk('auth/profile', async () => {
-  const { data } = await apiInstance.get<IUser>('/user/me');
+  const { data } = await apiInstance.get<IUserResponse>('/user/me');
   return data;
 });
 
@@ -56,12 +56,12 @@ export const logoutAction = createAsyncThunk('auth/logout', async () => {
 
 export const updateUserAction = createAsyncThunk('auth/updateUser', async (payload: IUser) => {
   console.log(payload);
-  const { data } = await apiInstance.post<IUser>(`/user/me`, payload);
+  const { data } = await apiInstance.post<IUserResponse>(`/user/me`, payload);
   return data;
 });
 
 export const changePasswordAction = createAsyncThunk('auth/changePassword', async (payload: { password: string }) => {
-  const { data } = await apiInstance.post<IUser>(`/user/me`, payload);
+  const { data } = await apiInstance.post<IUserResponse>(`/user/me`, payload);
   return data;
 });
 
@@ -147,3 +147,4 @@ export const selectLoading = (state: RootState) => state.auth.loading;
 export const selectIsLoggedIn = (state: RootState) => state.auth.isLoggedIn;
 export const selectUser = (state: RootState) => state.auth.user;
 export const selectError = (state: RootState) => state.auth.error;
+export const selectOwnStore = (state: RootState) => state.auth.user?.store;

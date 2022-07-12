@@ -11,14 +11,18 @@ import { RootStackScreenProps } from '../../types';
 import NotFoundScreen from '../NotFoundScreen';
 import { TextInput } from 'react-native-gesture-handler';
 import SplashScreen from '../SplashScreen';
+import { selectOwnStore } from '../../reducers/authSlice';
 const initialLayout = { width: Dimensions.get('window').width };
 
 const StoreScreen: React.FC<RootStackScreenProps<'Store'>> = ({ route }) => {
   const { id: storeId } = route.params;
   const dispatch = useAppDispatch();
+  const navigation = useNavigation();
   const store = useAppSelector(selectCurrentStore);
+  const ownStore = useAppSelector(selectOwnStore);
   const [query, setQuery] = useState('');
   const isLoading = useAppSelector((state) => state.store.loading);
+  const isOwnStore = store && store.id === ownStore?.id;
   useEffect(() => {
     if (storeId) {
       dispatch(GetStoreByIdAction(storeId));
@@ -47,8 +51,6 @@ const StoreScreen: React.FC<RootStackScreenProps<'Store'>> = ({ route }) => {
 
   if (isLoading === 'idle') return <SplashScreen />;
   if (isLoading === 'error') return <NotFoundScreen />;
-
-  const navigation = useNavigation();
   if (!storeId || !store) {
     return <NotFoundScreen />;
   }
@@ -85,7 +87,7 @@ const StoreScreen: React.FC<RootStackScreenProps<'Store'>> = ({ route }) => {
           </TouchableOpacity>
           <View style={{ flexDirection: 'row', paddingLeft: 15 }}>
             <Fontisto style={{ marginHorizontal: 5 }} name="share-a" size={24} color="#4C4CD7" />
-            <TouchableOpacity onPress={() => navigation.navigate('InfoCart')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Order')}>
               <Feather style={{ marginHorizontal: 5 }} name="shopping-cart" size={24} color="#4C4CD7" />
             </TouchableOpacity>
             <Entypo style={{ marginLeft: 5 }} name="dots-three-vertical" size={24} color="#4C4CD7" />
@@ -120,9 +122,9 @@ const StoreScreen: React.FC<RootStackScreenProps<'Store'>> = ({ route }) => {
                 <Text style={{ fontSize: 12, color: 'gray' }}>Online 11 giờ trước</Text>
               </View>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => isOwnStore && navigation.navigate('AddItem')}>
               <View style={styles.button_follow}>
-                <Text style={{ color: '#4C4CD7' }}>Theo dõi</Text>
+                <Text style={{ color: '#4C4CD7' }}>{isOwnStore ? 'Thêm sách' : 'Theo dõi'}</Text>
               </View>
             </TouchableOpacity>
           </View>

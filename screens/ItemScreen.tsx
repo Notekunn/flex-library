@@ -1,7 +1,7 @@
 import { Dimensions, StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, Linking } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { RootStackScreenProps, RootTabScreenProps } from '../types';
-import { AntDesign, Entypo, Feather, FontAwesome5, Fontisto, MaterialCommunityIcons } from '@expo/vector-icons';
+import { RootStackScreenProps } from '../types';
+import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import BookList from '../components/Home/BookList';
 import { mainColor } from '../constants/Colors';
 import { IBook, OrderDetailAction } from '../constants/interface';
@@ -26,7 +26,9 @@ const ItemScreen: React.FC<RootStackScreenProps<'Item'>> = ({ navigation, route 
   const book = useAppSelector(selectBook);
   const owner = useAppSelector((state) => state.store.myStore);
   const handlePress = async () => {
-    dispatch(UpdateOrderDetailAction({ bookId: book.id, quantity: 1, action: OrderDetailAction.ADD }));
+    if (book) {
+      dispatch(UpdateOrderDetailAction({ bookId: book.id, quantity: 1, action: OrderDetailAction.ADD }));
+    }
   };
 
   useEffect(() => {
@@ -35,168 +37,164 @@ const ItemScreen: React.FC<RootStackScreenProps<'Item'>> = ({ navigation, route 
     }
   }, [bookId]);
 
-  if (isLoading === 'idle') return <SplashScreen />;
-  if (isLoading === 'error') return <NotFoundScreen />;
+  if (isLoading === 'loading') return <SplashScreen />;
+  if (isLoading === 'error' || !book) return <NotFoundScreen />;
 
-  if (book.id) {
-    return (
-      <View style={styles.container}>
-        <SearchHeader />
-        <ScrollView>
-          <View style={{ marginTop: 10 }}>
-            <Image style={styles.image} source={{ uri: book.images[0] }} />
-          </View>
-          <View style={styles.desc}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-              <View>
-                <Text style={styles.title}>{book.name}</Text>
-                <Text style={styles.price}>{moneyFormat(book.rentPrice)}/tuần</Text>
-              </View>
-              {owner && book.store.id === owner.id ? (
-                <Button
-                  title={'Chỉnh sửa'}
-                  titleStyle={{ color: 'white' }}
-                  buttonStyle={{ backgroundColor: mainColor, marginRight: 10 }}
-                  onPress={() => {
-                    navigation.navigate('EditBook', { book: book });
-                  }}
-                />
-              ) : (
-                <Button
-                  title={book.numOfCopies > 0 ? 'Thuê ngay' : 'Hết hàng'}
-                  titleStyle={{ color: 'white' }}
-                  buttonStyle={{ backgroundColor: mainColor, marginRight: 10 }}
-                  disabled={book.numOfCopies <= 0}
-                  onPress={() => {
-                    handlePress();
-                  }}
-                />
-              )}
+  return (
+    <View style={styles.container}>
+      <SearchHeader />
+      <ScrollView>
+        <View style={{ marginTop: 10 }}>
+          <Image style={styles.image} source={{ uri: book.images[0] }} />
+        </View>
+        <View style={styles.desc}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+            <View>
+              <Text style={styles.title}>{book.name}</Text>
+              <Text style={styles.price}>{moneyFormat(book.rentPrice)}/tuần</Text>
             </View>
-            <View style={styles.extensions}>
-              <View style={styles.rate}>
-                <AntDesign name="star" size={17} color="yellow" />
-                <AntDesign name="star" size={17} color="yellow" />
-                <AntDesign name="star" size={17} color="yellow" />
-                <AntDesign name="star" size={17} color="yellow" />
-                <AntDesign name="star" size={17} color="yellow" />
-                <Text style={{ paddingLeft: 7, fontSize: 15 }}>5</Text>
-              </View>
-              <View style={styles.border}></View>
-              <Text style={{ fontSize: 15 }}>Đã cho thuê {book.rentCount}</Text>
-              <View style={styles.action}>
-                <AntDesign name="hearto" size={25} color="gray" />
-                <MaterialCommunityIcons style={{ marginLeft: 10 }} name="share-outline" size={35} color="gray" />
-                <MaterialCommunityIcons
-                  style={{ marginLeft: 10 }}
-                  name="facebook-messenger"
-                  size={25}
-                  color="blue"
-                  onPress={() => Linking.openURL('https://www.facebook.com/dodac.lip')}
-                />
-              </View>
-            </View>
-          </View>
-          <View style={styles.store}>
-            <View style={styles.store_header}>
-              <Image
-                style={{
-                  height: 60,
-                  width: 60,
-                  resizeMode: 'contain',
-                  borderRadius: 30,
-                }}
-                source={{
-                  uri:
-                    book?.store?.avatarURL ||
-                    'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg',
+            {owner && book.store.id === owner.id ? (
+              <Button
+                title={'Chỉnh sửa'}
+                titleStyle={{ color: 'white' }}
+                buttonStyle={{ backgroundColor: mainColor, marginRight: 10 }}
+                onPress={() => {
+                  navigation.navigate('EditBook', { book: book });
                 }}
               />
-              <View style={styles.text}>
-                <Text style={{ fontSize: 20 }}>{book.store.name}</Text>
-                <Text style={{ fontSize: 12, color: 'gray' }}>Online 11 giờ trước</Text>
-              </View>
-              <TouchableOpacity onPress={() => navigation.navigate('Store', book.store)}>
-                <View style={styles.button}>
-                  <Text style={{ color: '#4C4CD7' }}>Xem Shop</Text>
-                </View>
-              </TouchableOpacity>
+            ) : (
+              <Button
+                title={book.numOfCopies > 0 ? 'Thuê ngay' : 'Hết hàng'}
+                titleStyle={{ color: 'white' }}
+                buttonStyle={{ backgroundColor: mainColor, marginRight: 10 }}
+                disabled={book.numOfCopies <= 0}
+                onPress={() => {
+                  handlePress();
+                }}
+              />
+            )}
+          </View>
+          <View style={styles.extensions}>
+            <View style={styles.rate}>
+              <AntDesign name="star" size={17} color="yellow" />
+              <AntDesign name="star" size={17} color="yellow" />
+              <AntDesign name="star" size={17} color="yellow" />
+              <AntDesign name="star" size={17} color="yellow" />
+              <AntDesign name="star" size={17} color="yellow" />
+              <Text style={{ paddingLeft: 7, fontSize: 15 }}>5</Text>
             </View>
-            <View style={styles.store_bottom}>
-              <View style={{ flexDirection: 'row', marginRight: 10 }}>
-                <Text style={{ color: '#4C4CD7' }}>2,6k</Text>
-                <Text>Sản phẩm</Text>
-              </View>
-              <View style={{ flexDirection: 'row', marginRight: 10 }}>
-                <Text style={{ color: '#4C4CD7' }}>4,9</Text>
-                <Text>Đánh giá</Text>
-              </View>
-              <View style={{ flexDirection: 'row', marginRight: 10 }}>
-                <Text style={{ color: '#4C4CD7' }}>99%</Text>
-                <Text>Phản hồi Chat</Text>
-              </View>
+            <View style={styles.border}></View>
+            <Text style={{ fontSize: 15 }}>Đã cho thuê {book.rentCount}</Text>
+            <View style={styles.action}>
+              <AntDesign name="hearto" size={25} color="gray" />
+              <MaterialCommunityIcons style={{ marginLeft: 10 }} name="share-outline" size={35} color="gray" />
+              <MaterialCommunityIcons
+                style={{ marginLeft: 10 }}
+                name="facebook-messenger"
+                size={25}
+                color="blue"
+                onPress={() => Linking.openURL('https://www.facebook.com/dodac.lip')}
+              />
             </View>
           </View>
-          <BookList />
-          <View style={styles.detail}>
-            <View style={styles.detail_header}>
-              <Text style={{ marginRight: 10 }}>Chi tiết sản phẩm</Text>
-              <AntDesign name="clockcircleo" size={12} color="black" />
-              <Text style={{ marginLeft: 7 }}>{moment(book.updatedAt).locale('vi').fromNow()}</Text>
+        </View>
+        <View style={styles.store}>
+          <View style={styles.store_header}>
+            <Image
+              style={{
+                height: 60,
+                width: 60,
+                resizeMode: 'contain',
+                borderRadius: 30,
+              }}
+              source={{
+                uri:
+                  book?.store?.avatarURL ||
+                  'https://tuoitho.mobi/upload/truyen/tham-tu-lung-danh-conan-tap-1/anh-bia.jpg',
+              }}
+            />
+            <View style={styles.text}>
+              <Text style={{ fontSize: 20 }}>{book.store.name}</Text>
+              <Text style={{ fontSize: 12, color: 'gray' }}>Online 11 giờ trước</Text>
             </View>
-            <View style={styles.detail_center}>
-              <View style={styles.detail_center_infor}>
-                <Text style={{ width: 130 }}>Số lượng trong kho</Text>
-                <Text style={{ flex: 1 }}>{book.numOfCopies}</Text>
-              </View>
-              <View style={styles.detail_center_infor}>
-                <Text style={{ width: 130 }}>Thể loại</Text>
-                {book.categories.map((category, i) => (
-                  <Text style={{ flex: 1 }} key={i}>
-                    {category.name}
-                  </Text>
-                ))}
-              </View>
-              <View style={styles.detail_center_infor}>
-                <Text style={{ width: 130 }}>Tác giả</Text>
-                <Text style={{ flex: 1 }}>{book.author || 'Đang cập nhật'}</Text>
-              </View>
-              <View style={styles.detail_center_infor}>
-                <Text style={{ width: 130 }}>Xuất bản năm</Text>
-                <Text style={{ flex: 1 }}>2000</Text>
-              </View>
-            </View>
-            <View style={showDetail ? styles.detail_bottom_T : styles.detail_bottom_F}>
-              <Text>{book.description || 'Chưa có mô tả sản phẩm'}</Text>
-            </View>
-            <TouchableOpacity onPress={() => setShowDetail(!showDetail)}>
-              <View style={styles.detail_button}>
-                {showDetail ? (
-                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={{ color: '#4C4CD7' }}>Thu gọn</Text>
-                    <AntDesign name="up" size={20} color="#4C4CD7" />
-                  </View>
-                ) : (
-                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={{ color: '#4C4CD7' }}>Xem thêm</Text>
-                    <AntDesign name="down" size={20} color="#4C4CD7" />
-                  </View>
-                )}
+            <TouchableOpacity onPress={() => navigation.navigate('Store', book.store)}>
+              <View style={styles.button}>
+                <Text style={{ color: '#4C4CD7' }}>Xem Shop</Text>
               </View>
             </TouchableOpacity>
-            <View></View>
           </View>
-          {/* <View style={styles.otherBooks}>
+          <View style={styles.store_bottom}>
+            <View style={{ flexDirection: 'row', marginRight: 10 }}>
+              <Text style={{ color: '#4C4CD7' }}>2,6k</Text>
+              <Text>Sản phẩm</Text>
+            </View>
+            <View style={{ flexDirection: 'row', marginRight: 10 }}>
+              <Text style={{ color: '#4C4CD7' }}>4,9</Text>
+              <Text>Đánh giá</Text>
+            </View>
+            <View style={{ flexDirection: 'row', marginRight: 10 }}>
+              <Text style={{ color: '#4C4CD7' }}>99%</Text>
+              <Text>Phản hồi Chat</Text>
+            </View>
+          </View>
+        </View>
+        <BookList />
+        <View style={styles.detail}>
+          <View style={styles.detail_header}>
+            <Text style={{ marginRight: 10 }}>Chi tiết sản phẩm</Text>
+            <AntDesign name="clockcircleo" size={12} color="black" />
+            <Text style={{ marginLeft: 7 }}>{moment(book.updatedAt).locale('vi').fromNow()}</Text>
+          </View>
+          <View style={styles.detail_center}>
+            <View style={styles.detail_center_infor}>
+              <Text style={{ width: 130 }}>Số lượng trong kho</Text>
+              <Text style={{ flex: 1 }}>{book.numOfCopies}</Text>
+            </View>
+            <View style={styles.detail_center_infor}>
+              <Text style={{ width: 130 }}>Thể loại</Text>
+              {book.categories.map((category, i) => (
+                <Text style={{ flex: 1 }} key={i}>
+                  {category.name}
+                </Text>
+              ))}
+            </View>
+            <View style={styles.detail_center_infor}>
+              <Text style={{ width: 130 }}>Tác giả</Text>
+              <Text style={{ flex: 1 }}>{book.author || 'Đang cập nhật'}</Text>
+            </View>
+            <View style={styles.detail_center_infor}>
+              <Text style={{ width: 130 }}>Xuất bản năm</Text>
+              <Text style={{ flex: 1 }}>2000</Text>
+            </View>
+          </View>
+          <View style={showDetail ? styles.detail_bottom_T : styles.detail_bottom_F}>
+            <Text>{book.description || 'Chưa có mô tả sản phẩm'}</Text>
+          </View>
+          <TouchableOpacity onPress={() => setShowDetail(!showDetail)}>
+            <View style={styles.detail_button}>
+              {showDetail ? (
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Text style={{ color: '#4C4CD7' }}>Thu gọn</Text>
+                  <AntDesign name="up" size={20} color="#4C4CD7" />
+                </View>
+              ) : (
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Text style={{ color: '#4C4CD7' }}>Xem thêm</Text>
+                  <AntDesign name="down" size={20} color="#4C4CD7" />
+                </View>
+              )}
+            </View>
+          </TouchableOpacity>
+          <View></View>
+        </View>
+        {/* <View style={styles.otherBooks}>
         {books.map((item, index) => (
           <BookCardFlex book={item} key={index} />
         ))}
       </View> */}
-        </ScrollView>
-      </View>
-    );
-  } else {
-    return <></>;
-  }
+      </ScrollView>
+    </View>
+  );
 };
 
 export default ItemScreen;

@@ -17,6 +17,9 @@ export interface IUser {
   role: UserRole;
 }
 
+export interface IUserResponse extends IUser {
+  store: Omit<IStoreResponse, 'owner'>;
+}
 export interface IStore {
   id?: number;
   name: string;
@@ -27,6 +30,9 @@ export interface IStore {
   avatarURL?: string;
 }
 
+export interface IStoreResponse extends IStore {
+  owner: Omit<IUserResponse, 'owner'>;
+}
 export interface IBook {
   id: number;
   name: string;
@@ -37,7 +43,6 @@ export interface IBook {
   description: string;
   images: string[];
   categories: number[];
-  rentCount: number;
 }
 
 export interface IBookResponse extends BaseEntity {

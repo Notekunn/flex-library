@@ -36,7 +36,7 @@ apiInstance.interceptors.response.use(
     const errorMessage = `${data.message}`;
     console.log(`Error with status ${status}: ${data.message}`);
 
-    Toast.show(data.message || 'Some thing wrong happen', { duration: 1000, shadow: false });
+    Toast.show(data.message || 'Some thing wrong happen', { duration: 2000, shadow: false });
     return Promise.reject(new Error(errorMessage));
   },
 );
