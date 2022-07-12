@@ -6,14 +6,13 @@ import { mainColor } from '../../constants/Colors';
 import { useNavigation } from '@react-navigation/native';
 import GoogleMap from '../../components/Map/GoogleMap';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
-import { CreateStoreAction, selectLoading, selectMessage, selectUserStore } from '../../reducers/storeSlice';
+import { CreateStoreAction } from '../../reducers/storeSlice';
+import { selectOwnStore } from '../../reducers/authSlice';
 
 const CreateStoreScreen = () => {
   const dispatch = useAppDispatch();
   const nav = useNavigation();
-  const error = useAppSelector(selectMessage);
-  const loading = useAppSelector(selectLoading);
-  const mystore = useAppSelector(selectUserStore);
+  const ownStore = useAppSelector(selectOwnStore);
   const [name, setName] = useState('');
   const [editName, setEditName] = useState(false);
   const [address, setAddress] = useState('');
@@ -31,7 +30,7 @@ const CreateStoreScreen = () => {
     );
   };
 
-  if (mystore) {
+  if (ownStore) {
     nav.navigate('Home');
   }
 

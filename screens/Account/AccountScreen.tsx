@@ -1,23 +1,18 @@
 import { Alert, Button, StyleSheet, Text, View } from 'react-native';
 import { Icon, Image } from '@rneui/themed';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { mainColor, seconColor } from '../../constants/Colors';
+import { mainColor } from '../../constants/Colors';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
-import { logoutAction, selectUser } from '../../reducers/authSlice';
-import { GetStoreByUserAction, selectUserStore } from '../../reducers/storeSlice';
+import { logoutAction, selectOwnStore, selectUser } from '../../reducers/authSlice';
 import { RootStackScreenProps } from '../../types';
 
-const AccountScreen: React.FC<RootStackScreenProps<'Home'>> = ({ navigation }) => {
+const AccountScreen: React.FC<RootStackScreenProps<'Root'>> = ({ navigation }) => {
   const nav = useNavigation<any>();
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
-  const mystore = useAppSelector(selectUserStore);
-
-  useEffect(() => {
-    dispatch(GetStoreByUserAction());
-  }, []);
+  const ownStore = useAppSelector(selectOwnStore);
 
   const handleLogout = () => {
     Alert.alert('Đăng xuất', 'Bạn có chắc muốn đăng xuất?', [
@@ -163,57 +158,32 @@ const AccountScreen: React.FC<RootStackScreenProps<'Home'>> = ({ navigation }) =
               </View>
               <Icon name="angle-right" type="font-awesome" style={{ flex: 1 }} color="#c1c1c1" />
             </TouchableOpacity>
-            {!mystore ? (
-              <TouchableOpacity style={styles.item} activeOpacity={0.8} onPress={() => nav.navigate('CreateStore')}>
-                <View
-                  style={{
-                    backgroundColor: '#ea4335',
-                    borderRadius: 5,
-                    padding: 5,
-                    width: 30,
-                    height: 30,
-                  }}
-                >
-                  <Icon name="book-open" type="feather" color="#fff" size={20} solid={true} />
-                </View>
-                <View
-                  style={{
-                    flex: 2,
-                    marginLeft: 30,
-                  }}
-                >
-                  <Text style={styles.text}>Tạo cửa hàng</Text>
-                </View>
-                <Icon name="angle-right" type="font-awesome" style={{ flex: 1 }} color="#c1c1c1" />
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity
-                style={styles.item}
-                activeOpacity={0.8}
-                onPress={() => nav.navigate('ViewMyStore', mystore)}
+            <TouchableOpacity
+              style={styles.item}
+              activeOpacity={0.8}
+              onPress={() => (ownStore ? nav.navigate('ViewMyStore', ownStore) : nav.navigate('CreateStore'))}
+            >
+              <View
+                style={{
+                  backgroundColor: '#ea4335',
+                  borderRadius: 5,
+                  padding: 5,
+                  width: 30,
+                  height: 30,
+                }}
               >
-                <View
-                  style={{
-                    backgroundColor: '#ea4335',
-                    borderRadius: 5,
-                    padding: 5,
-                    width: 30,
-                    height: 30,
-                  }}
-                >
-                  <Icon name="book-open" type="feather" color="#fff" size={20} solid={true} />
-                </View>
-                <View
-                  style={{
-                    flex: 2,
-                    marginLeft: 30,
-                  }}
-                >
-                  <Text style={styles.text}>Cửa hàng của bạn</Text>
-                </View>
-                <Icon name="angle-right" type="font-awesome" style={{ flex: 1 }} color="#c1c1c1" />
-              </TouchableOpacity>
-            )}
+                <Icon name="book-open" type="feather" color="#fff" size={20} solid={true} />
+              </View>
+              <View
+                style={{
+                  flex: 2,
+                  marginLeft: 30,
+                }}
+              >
+                <Text style={styles.text}>{ownStore ? 'Cửa hàng của bạn' : 'Tạo cửa hàng'}</Text>
+              </View>
+              <Icon name="angle-right" type="font-awesome" style={{ flex: 1 }} color="#c1c1c1" />
+            </TouchableOpacity>
           </View>
         </View>
         <View>
