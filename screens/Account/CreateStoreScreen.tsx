@@ -31,7 +31,12 @@ const CreateStoreScreen = () => {
   };
 
   if (ownStore) {
-    nav.navigate('Home');
+    nav.navigate('Root', {
+      screen: 'MyStore',
+      params: {
+        id: ownStore.id,
+      },
+    });
   }
 
   return (
