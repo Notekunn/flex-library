@@ -38,7 +38,7 @@ const StoreSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(CreateStoreAction.pending, (state, action) => {
-        state.loading = 'idle';
+        state.loading = 'loading';
         state.message = undefined;
       })
       .addCase(CreateStoreAction.rejected, (state, action) => {
@@ -47,7 +47,7 @@ const StoreSlice = createSlice({
       });
     builder
       .addCase(GetStoreByIdAction.pending, (state, action) => {
-        state.loading = 'idle';
+        state.loading = 'loading';
       })
       .addCase(GetStoreByIdAction.fulfilled, (state, action) => {
         state.loading = 'success';
