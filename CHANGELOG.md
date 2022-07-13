@@ -1,3 +1,10 @@
+## [1.26.1](https://github.com/Notekunn/flex-library/compare/v1.26.0...v1.26.1) (2022-07-13)
+
+
+### Bug Fixes
+
+* navigate when create store ([c6242bd](https://github.com/Notekunn/flex-library/commit/c6242bd2674f957ea026d4453600ebab632223c7))
+
 # [1.26.0](https://github.com/Notekunn/flex-library/compare/v1.25.0...v1.26.0) (2022-07-13)
 
 
