@@ -8,8 +8,10 @@ import { store } from './app/store';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
 import { RootSiblingParent } from 'react-native-root-siblings';
+import { LogBox } from 'react-native';
 
 export default function App() {
+  LogBox.ignoreAllLogs(true);
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
   let [fontsLoaded] = useFonts({

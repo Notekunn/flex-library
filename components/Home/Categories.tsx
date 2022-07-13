@@ -1,6 +1,6 @@
 import { Dimensions, FlatList, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import Category from './Category';
+import CategoryItem from './Category';
 import { ICategory } from '../../constants/interface';
 
 const { width, height } = Dimensions.get('window');
@@ -9,7 +9,7 @@ interface CategoryProps {
   data: ICategory[];
 }
 
-const Categories: React.FC<CategoryProps> = ({ data }) => {
+const CategoryList: React.FC<CategoryProps> = ({ data }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Thể loại sách</Text>
@@ -32,14 +32,14 @@ const Categories: React.FC<CategoryProps> = ({ data }) => {
           decelerationRate={0.5}
           scrollEventThrottle={160}
           // showsHorizontalScrollIndicator={false}
-          renderItem={({ item }) => <Category data={item} />}
+          renderItem={({ item }) => <CategoryItem category={item} />}
         />
       </View>
     </View>
   );
 };
 
-export default Categories;
+export default CategoryList;
 
 const styles = StyleSheet.create({
   container: {

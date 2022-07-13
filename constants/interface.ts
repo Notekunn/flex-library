@@ -106,8 +106,10 @@ export interface IOrderRequest {
 }
 
 export interface ISearchBook {
-  page: number;
-  take: number;
-  q: string;
+  page?: number;
+  take?: number;
+  q?: string;
   sort: SearchSortTypes;
+  store?: number;
+  categories?: number[];
 }
