@@ -12,16 +12,18 @@ import {
   View,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { mainColor, seconColor, whiteColor } from '../constants/Colors';
-import { AntDesign, Entypo, Foundation, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { mainColor, seconColor, whiteColor } from '../../constants/Colors';
+import { AntDesign, Entypo, Foundation, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import { ScrollView } from 'react-native-gesture-handler';
-import { useAppDispatch, useAppSelector } from '../app/hook';
-import { CreateBookAction } from '../reducers/bookSlice';
-import { uploadImage } from '../app/cloudinary';
+import { useAppDispatch, useAppSelector } from '../../app/hook';
+import { CreateBookAction } from '../../reducers/bookSlice';
+import { uploadImage } from '../../app/cloudinary';
+import { IBook } from '../../constants/interface';
+import { RootStackScreenProps } from '../../types';
 
-const AddItem = () => {
+export const AddBookScreen: React.FC<RootStackScreenProps<'AddBook'>> = () => {
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
   const [status, requestPermission] = ImagePicker.useCameraPermissions();
@@ -29,7 +31,7 @@ const AddItem = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [name, setName] = useState('');
   const [author, setAuthor] = useState('');
-  const [desc, setDesc] = useState('');
+  const [description, setDescription] = useState('');
   const [chooseCategories, setChooseCategories] = useState<number[]>([]);
   const [rentPrice, setRentPrice] = useState(0);
   const [salePrice, setSalePrice] = useState(0);
@@ -44,19 +46,17 @@ const AddItem = () => {
       alert('Author is required');
       return;
     }
-    const data = {
+    const data: Omit<IBook, 'id'> = {
       name,
       author,
       rentPrice,
       salePrice,
-      numOfCopies,
       images: imageList,
-      categories: chooseCategories,
-      description: desc,
-      rentCount: 0,
+      categoryIds: chooseCategories,
+      description,
     };
     dispatch(CreateBookAction(data));
-    navigation.goBack();
+    navigation.navigate('Home');
   };
 
   // useEffect(() => {
@@ -258,28 +258,35 @@ const AddItem = () => {
               <Text>Tên sách</Text>
               <Text>{name.length}/120</Text>
             </View>
-            <TextInput style={styles.textInput} placeholder="Nhập tên sách" onChangeText={(value) => setName(value)} />
+            <TextInput
+              style={styles.textInput}
+              placeholder="Nhập tên sách"
+              value={name}
+              onChangeText={(value) => setName(value)}
+            />
           </View>
           <View style={styles.inputFrame}>
             <View style={styles.inputFrame_header}>
               <Text>Tác giả</Text>
-              <Text>{name.length}/120</Text>
+              <Text>{author.length}/120</Text>
             </View>
             <TextInput
               style={styles.textInput}
               placeholder="Nhập tên tác giả"
+              value={author}
               onChangeText={(value) => setAuthor(value)}
             />
           </View>
           <View style={styles.inputFrame}>
             <View style={styles.inputFrame_header}>
               <Text>Mô tả về sách</Text>
-              <Text>{desc.length}/3000</Text>
+              <Text>{description.length}/3000</Text>
             </View>
             <TextInput
               style={styles.textInput}
               placeholder="Tri thức có gì?"
-              onChangeText={(value) => setDesc(value)}
+              onChangeText={(value) => setDescription(value)}
+              value={description}
             />
           </View>
           <View style={styles.optionFrame}>
@@ -335,21 +342,6 @@ const AddItem = () => {
                 onChangeText={(value) => setSalePrice(+value || 0)}
               />
             </View>
-            <View style={[styles.optionItem, styles.optionItemLast]}>
-              <AntDesign
-                name="dropbox"
-                size={24}
-                color={mainColor}
-                style={{ width: 30, alignItems: 'center', justifyContent: 'center' }}
-              />
-              <Text style={{ padding: 10, minWidth: 100 }}>Số lượng</Text>
-              <TextInput
-                placeholder={`${numOfCopies}`}
-                keyboardType="number-pad"
-                style={{ flexDirection: 'row', justifyContent: 'flex-end', marginLeft: 100, flex: 1 }}
-                onChangeText={(value) => setNumOfCopies(parseInt(value))}
-              />
-            </View>
           </View>
         </View>
       </ScrollView>
@@ -363,7 +355,6 @@ const AddItem = () => {
     </View>
   );
 };
-export default AddItem;
 
 const styles = StyleSheet.create({
   container: { flex: 1, position: 'relative' },
@@ -477,6 +468,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     flex: 1,
+    paddingTop: 5,
   },
   optionFrame: { marginTop: 10, backgroundColor: whiteColor, paddingHorizontal: 10 },
   optionItem: {

@@ -40,10 +40,9 @@ export interface IBook {
   author: string;
   salePrice: number;
   rentPrice: number;
-  numOfCopies: number;
   description: string;
   images: string[];
-  categories: number[];
+  categoryIds: number[];
 }
 
 export interface IBookResponse extends BaseEntity {

@@ -1,30 +1,31 @@
 import { Dimensions, StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, Linking } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { RootStackScreenProps } from '../types';
+import { RootStackScreenProps } from '../../types';
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
-import BookList from '../components/Home/BookList';
-import { mainColor } from '../constants/Colors';
-import { IBook, OrderDetailAction } from '../constants/interface';
-import SearchHeader from '../components/Header';
+import BookList from '../../components/Home/BookList';
+import { mainColor } from '../../constants/Colors';
+import { IBook, OrderDetailAction } from '../../constants/interface';
+import SearchHeader from '../../components/Header';
 import { Button } from '@rneui/themed';
-import { useAppDispatch, useAppSelector } from '../app/hook';
-import { GetBookByIdAction, selectBook } from '../reducers/bookSlice';
-import { UpdateOrderDetailAction } from '../reducers/orderSlice';
-import { moneyFormat } from '../constants/Money';
+import { useAppDispatch, useAppSelector } from '../../app/hook';
+import { GetBookByIdAction, selectBook } from '../../reducers/bookSlice';
+import { UpdateOrderDetailAction } from '../../reducers/orderSlice';
+import { moneyFormat } from '../../constants/Money';
 import moment from 'moment';
 import 'moment/locale/vi';
-import SplashScreen from './SplashScreen';
-import NotFoundScreen from './NotFoundScreen';
+import SplashScreen from '../SplashScreen';
+import NotFoundScreen from '../NotFoundScreen';
+import { selectOwnStore } from '../../reducers/authSlice';
 
 const { width } = Dimensions.get('window');
 
-const ItemScreen: React.FC<RootStackScreenProps<'Item'>> = ({ navigation, route }) => {
+export const ViewBookScreen: React.FC<RootStackScreenProps<'ViewBook'>> = ({ navigation, route }) => {
   const [showDetail, setShowDetail] = useState(false);
   const dispatch = useAppDispatch();
   const { id: bookId } = route.params;
   const isLoading = useAppSelector((state) => state.book.loading);
   const book = useAppSelector(selectBook);
-  const owner = useAppSelector((state) => state.store.myStore);
+  const ownStore = useAppSelector(selectOwnStore);
   const handlePress = async () => {
     if (book) {
       dispatch(UpdateOrderDetailAction({ bookId: book.id, quantity: 1, action: OrderDetailAction.ADD }));
@@ -53,7 +54,7 @@ const ItemScreen: React.FC<RootStackScreenProps<'Item'>> = ({ navigation, route 
               <Text style={styles.title}>{book.name}</Text>
               <Text style={styles.price}>{moneyFormat(book.rentPrice)}/tuần</Text>
             </View>
-            {owner && book.store.id === owner.id ? (
+            {ownStore && ownStore.id === book.store.id ? (
               <Button
                 title={'Chỉnh sửa'}
                 titleStyle={{ color: 'white' }}
@@ -197,7 +198,7 @@ const ItemScreen: React.FC<RootStackScreenProps<'Item'>> = ({ navigation, route 
   );
 };
 
-export default ItemScreen;
+export default ViewBookScreen;
 
 const styles = StyleSheet.create({
   container: {

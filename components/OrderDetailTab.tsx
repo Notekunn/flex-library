@@ -22,13 +22,12 @@ interface IItemCarProps {
 }
 const CardItem: React.FC<IItemCarProps> = ({ item, status }) => {
   const dispatch = useAppDispatch();
-  const nav = useNavigation<RootStackScreenProps<'Item'>['navigation']>();
+  const nav = useNavigation<RootStackScreenProps<'ViewBook'>['navigation']>();
   const [quantity, setQuantity] = React.useState(item.quantity);
   useEffect(() => {
     setQuantity(item.quantity);
   }, [item.quantity]);
-  console.log(item);
-  
+
   const handleMinus = () => {
     setQuantity(quantity - 1);
     dispatch(
@@ -54,9 +53,9 @@ const CardItem: React.FC<IItemCarProps> = ({ item, status }) => {
       title="Info"
       onPress={() => {
         reset();
-        nav.push('Item', {
-          id: item.book.id
-        })
+        nav.push('ViewBook', {
+          id: item.book.id,
+        });
       }}
       icon={{
         name: 'info',
@@ -80,7 +79,7 @@ const CardItem: React.FC<IItemCarProps> = ({ item, status }) => {
             action: OrderDetailAction.REMOVE,
           }),
         );
-        reset()
+        reset();
       }}
       icon={{
         name: 'trash',
@@ -95,13 +94,10 @@ const CardItem: React.FC<IItemCarProps> = ({ item, status }) => {
   );
   return (
     <View style={styles.itemInCart}>
-      <ListItem.Swipeable
-        leftContent={leftContent}
-        rightContent={status === 'created' && rightContent}
-      >
+      <ListItem.Swipeable leftContent={leftContent} rightContent={status === 'created' && rightContent}>
         <ListItem.Content>
           <View style={styles.item}>
-            <TouchableOpacity onPress={() => nav.push('Item', { id: item.book.id })}>
+            <TouchableOpacity onPress={() => nav.push('ViewBook', { id: item.book.id })}>
               <View style={styles.info}>
                 <Image
                   source={{

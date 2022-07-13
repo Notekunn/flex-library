@@ -2,11 +2,10 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { apiInstance } from '../app/axiosClient';
 import { RootState } from '../app/store';
 import { IStore, IStoreResponse, IUser } from '../constants/interface';
+import { profileAction } from './authSlice';
 
 export interface StoreState {
-  myStore?: IStoreResponse;
   currentStore?: IStoreResponse;
-  owner?: IUser;
   loading: 'idle' | 'loading' | 'success' | 'error';
   message?: string;
 }
@@ -15,8 +14,9 @@ const initialState: StoreState = {
   loading: 'idle',
 };
 
-export const CreateStoreAction = createAsyncThunk('store/create', async (payload: IStore) => {
+export const CreateStoreAction = createAsyncThunk('store/create', async (payload: IStore, thunkApi) => {
   const data = await apiInstance.post<IStoreResponse>('/stores', payload);
+  thunkApi.dispatch(profileAction());
   return data;
 });
 
@@ -25,8 +25,9 @@ export const GetStoreByIdAction = createAsyncThunk('store/get-by-id', async (id:
   return data;
 });
 
-export const UpdateStoreAction = createAsyncThunk('store/update', async (payload: Partial<IStore>) => {
+export const UpdateStoreAction = createAsyncThunk('store/update', async (payload: Partial<IStore>, thunkApi) => {
   const { data } = await apiInstance.patch<IStoreResponse>(`/stores/${payload.id}`, payload);
+  thunkApi.dispatch(profileAction());
   return data;
 });
 
@@ -39,10 +40,6 @@ const StoreSlice = createSlice({
       .addCase(CreateStoreAction.pending, (state, action) => {
         state.loading = 'idle';
         state.message = undefined;
-      })
-      .addCase(CreateStoreAction.fulfilled, (state, action) => {
-        state.loading = 'success';
-        state.myStore = action.payload.data;
       })
       .addCase(CreateStoreAction.rejected, (state, action) => {
         state.loading = 'error';
@@ -65,10 +62,6 @@ const StoreSlice = createSlice({
         state.loading = 'idle';
         state.message = undefined;
       })
-      .addCase(UpdateStoreAction.fulfilled, (state, action) => {
-        state.loading = 'success';
-        state.myStore = action.payload;
-      })
       .addCase(UpdateStoreAction.rejected, (state, action) => {
         state.loading = 'error';
         state.message = action.error.message;
@@ -81,4 +74,3 @@ export default StoreSlice.reducer;
 export const selectLoading = (state: RootState) => state.store.loading;
 export const selectMessage = (state: RootState) => state.store.message;
 export const selectCurrentStore = (state: RootState) => state.store.currentStore;
-export const selectOwner = (state: RootState) => state.store.owner;

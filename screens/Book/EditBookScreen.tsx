@@ -11,28 +11,27 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import { mainColor, seconColor, whiteColor } from '../constants/Colors';
-import { AntDesign, Entypo, Foundation, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { mainColor, seconColor, whiteColor } from '../../constants/Colors';
+import { AntDesign, Entypo, Foundation, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { ScrollView } from 'react-native-gesture-handler';
-import { useAppDispatch, useAppSelector } from '../app/hook';
-import { UpdateBookAction } from '../reducers/bookSlice';
-import { uploadImage } from '../app/cloudinary';
-import { RootStackScreenProps } from '../types';
+import { useAppDispatch } from '../../app/hook';
+import { UpdateBookAction } from '../../reducers/bookSlice';
+import { uploadImage } from '../../app/cloudinary';
+import { RootStackScreenProps } from '../../types';
+import { IBook } from '../../constants/interface';
 
-const EditBookScreen: React.FC<RootStackScreenProps<'EditBook'>> = ({ route }) => {
-  const navigation = useNavigation<any>();
+export const EditBookScreen: React.FC<RootStackScreenProps<'EditBook'>> = ({ route, navigation }) => {
   const { book } = route.params;
   const dispatch = useAppDispatch();
   const [status, requestPermission] = ImagePicker.useCameraPermissions();
-  const [imageList, setImageList] = useState<string[]>(book.images);
+  const [imageList, setImageList] = useState(book.images);
   const [modalVisible, setModalVisible] = useState(false);
   const [name, setName] = useState(book.name);
   const [author, setAuthor] = useState(book.author);
-  const [desc, setDesc] = useState(book.description);
-  const [chooseCategories, setChooseCategories] = useState<number[]>(book.categories.map((category) => category.id));
+  const [description, setDescription] = useState(book.description || '');
+  const [chooseCategories, setChooseCategories] = useState(book.categories.map((category) => category.id));
   const [rentPrice, setRentPrice] = useState(book.rentPrice);
   const [salePrice, setSalePrice] = useState(book.salePrice);
   const [numOfCopies, setNumOfCopies] = useState(book.numOfCopies);
@@ -46,19 +45,18 @@ const EditBookScreen: React.FC<RootStackScreenProps<'EditBook'>> = ({ route }) =
       alert('Author is required');
       return;
     }
-    const data = {
+    const data: IBook = {
       id: book.id,
       name,
       author,
       rentPrice,
       salePrice,
       images: imageList,
-      categories: chooseCategories,
-      description: desc,
-      numOfCopies,
+      categoryIds: chooseCategories,
+      description: description,
     };
     dispatch(UpdateBookAction(data));
-    navigation.navigate('MyStore');
+    navigation.goBack();
   };
 
   // useEffect(() => {
@@ -282,13 +280,13 @@ const EditBookScreen: React.FC<RootStackScreenProps<'EditBook'>> = ({ route }) =
           <View style={styles.inputFrame}>
             <View style={styles.inputFrame_header}>
               <Text>Mô tả về sách</Text>
-              <Text>{desc.length}/3000</Text>
+              <Text>{description.length}/3000</Text>
             </View>
             <TextInput
               style={styles.textInput}
               placeholder="Tri thức có gì?"
-              onChangeText={(value) => setDesc(value)}
-              value={desc}
+              onChangeText={(value) => setDescription(value)}
+              value={description}
             />
           </View>
           <View style={styles.optionFrame}>
@@ -303,7 +301,11 @@ const EditBookScreen: React.FC<RootStackScreenProps<'EditBook'>> = ({ route }) =
                   style={{ width: 30, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
                 />
                 <Text style={{ padding: 10 }}>Danh mục</Text>
-                {chooseCategories.length ? <Text style={{ marginLeft: 150 }}>{chooseCategories.length} </Text> : <></>}
+                {chooseCategories.length ? (
+                  <Text style={{ marginLeft: 150 }}>{chooseCategories.length} selected </Text>
+                ) : (
+                  <></>
+                )}
                 <MaterialIcons
                   name="arrow-forward-ios"
                   size={24}
@@ -372,7 +374,6 @@ const EditBookScreen: React.FC<RootStackScreenProps<'EditBook'>> = ({ route }) =
     </View>
   );
 };
-export default EditBookScreen;
 
 const styles = StyleSheet.create({
   container: { flex: 1, position: 'relative' },

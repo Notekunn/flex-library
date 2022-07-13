@@ -122,7 +122,7 @@ const StoreScreen: React.FC<RootStackScreenProps<'Store'>> = ({ route }) => {
                 <Text style={{ fontSize: 12, color: 'gray' }}>Online 11 giờ trước</Text>
               </View>
             </View>
-            <TouchableOpacity onPress={() => isOwnStore && navigation.navigate('AddItem')}>
+            <TouchableOpacity onPress={() => isOwnStore && navigation.navigate('AddBook')}>
               <View style={styles.button_follow}>
                 <Text style={{ color: '#4C4CD7' }}>{isOwnStore ? 'Thêm sách' : 'Theo dõi'}</Text>
               </View>
