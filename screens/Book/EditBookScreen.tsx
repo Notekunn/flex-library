@@ -12,29 +12,29 @@ import {
   View,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { mainColor, seconColor, whiteColor } from '../constants/Colors';
-import { AntDesign, Entypo, Foundation, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { mainColor, seconColor, whiteColor } from '../../constants/Colors';
+import { AntDesign, Entypo, Foundation, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { ScrollView } from 'react-native-gesture-handler';
-import { useAppDispatch, useAppSelector } from '../app/hook';
-import { CreateBookAction } from '../reducers/bookSlice';
-import { uploadImage } from '../app/cloudinary';
-import { IBook } from '../constants/interface';
+import { useAppDispatch } from '../../app/hook';
+import { UpdateBookAction } from '../../reducers/bookSlice';
+import { uploadImage } from '../../app/cloudinary';
+import { RootStackScreenProps } from '../../types';
+import { IBook } from '../../constants/interface';
 
-const AddItem = () => {
-  const navigation = useNavigation<any>();
+export const EditBookScreen: React.FC<RootStackScreenProps<'EditBook'>> = ({ route, navigation }) => {
+  const { book } = route.params;
   const dispatch = useAppDispatch();
   const [status, requestPermission] = ImagePicker.useCameraPermissions();
-  const [imageList, setImageList] = useState<string[]>([]);
+  const [imageList, setImageList] = useState<string[]>(book.images);
   const [modalVisible, setModalVisible] = useState(false);
-  const [name, setName] = useState('');
-  const [author, setAuthor] = useState('');
-  const [desc, setDesc] = useState('');
-  const [chooseCategories, setChooseCategories] = useState<number[]>([]);
-  const [rentPrice, setRentPrice] = useState(0);
-  const [salePrice, setSalePrice] = useState(0);
-  const [numOfCopies, setNumOfCopies] = useState(0);
+  const [name, setName] = useState(book.name);
+  const [author, setAuthor] = useState(book.author);
+  const [desc, setDesc] = useState(book.description);
+  const [chooseCategories, setChooseCategories] = useState<number[]>(book.categories.map((category) => category.id));
+  const [rentPrice, setRentPrice] = useState(book.rentPrice);
+  const [salePrice, setSalePrice] = useState(book.salePrice);
+  const [numOfCopies, setNumOfCopies] = useState(book.numOfCopies);
 
   const onSubmit = () => {
     if (!name) {
@@ -45,7 +45,8 @@ const AddItem = () => {
       alert('Author is required');
       return;
     }
-    const data: Omit<IBook, 'id'> = {
+    const data: IBook = {
+      id: book.id,
       name,
       author,
       rentPrice,
@@ -54,7 +55,7 @@ const AddItem = () => {
       categoryIds: chooseCategories,
       description: desc,
     };
-    dispatch(CreateBookAction(data));
+    dispatch(UpdateBookAction(data));
     navigation.goBack();
   };
 
@@ -229,7 +230,7 @@ const AddItem = () => {
             marginLeft: 100,
           }}
         >
-          Thêm sách
+          Chỉnh sửa thông tin
         </Text>
       </View>
 
@@ -257,16 +258,22 @@ const AddItem = () => {
               <Text>Tên sách</Text>
               <Text>{name.length}/120</Text>
             </View>
-            <TextInput style={styles.textInput} placeholder="Nhập tên sách" onChangeText={(value) => setName(value)} />
+            <TextInput
+              style={styles.textInput}
+              placeholder={'Nhập tên sách'}
+              defaultValue={name}
+              onChangeText={(value) => setName(value)}
+            />
           </View>
           <View style={styles.inputFrame}>
             <View style={styles.inputFrame_header}>
               <Text>Tác giả</Text>
-              <Text>{name.length}/120</Text>
+              <Text>{author.length}/120</Text>
             </View>
             <TextInput
               style={styles.textInput}
-              placeholder="Nhập tên tác giả"
+              placeholder={'Nhập tên tác giả'}
+              value={author}
               onChangeText={(value) => setAuthor(value)}
             />
           </View>
@@ -279,6 +286,7 @@ const AddItem = () => {
               style={styles.textInput}
               placeholder="Tri thức có gì?"
               onChangeText={(value) => setDesc(value)}
+              value={desc}
             />
           </View>
           <View style={styles.optionFrame}>
@@ -314,8 +322,8 @@ const AddItem = () => {
                 style={{ flexDirection: 'row', justifyContent: 'flex-end', marginLeft: 100, flex: 1 }}
                 keyboardType="number-pad"
                 accessibilityElementsHidden={true}
+                onChangeText={(value) => setRentPrice(+value)}
                 value={`${rentPrice}`}
-                onChangeText={(value) => setRentPrice(parseInt(value))}
               />
             </View>
             <View style={styles.optionItem}>
@@ -327,11 +335,11 @@ const AddItem = () => {
               />
               <Text style={{ padding: 10, minWidth: 100 }}>Giá bán</Text>
               <TextInput
+                value={`${salePrice}`}
                 style={{ flexDirection: 'row', justifyContent: 'flex-end', marginLeft: 100, flex: 1 }}
                 keyboardType="number-pad"
                 accessibilityElementsHidden={true}
-                value={`${salePrice}`}
-                onChangeText={(value) => setSalePrice(+value || 0)}
+                onChangeText={(value) => setSalePrice(+value)}
               />
             </View>
             <View style={[styles.optionItem, styles.optionItemLast]}>
@@ -343,7 +351,7 @@ const AddItem = () => {
               />
               <Text style={{ padding: 10, minWidth: 100 }}>Số lượng</Text>
               <TextInput
-                placeholder={`${numOfCopies}`}
+                value={`${numOfCopies}`}
                 keyboardType="number-pad"
                 style={{ flexDirection: 'row', justifyContent: 'flex-end', marginLeft: 100, flex: 1 }}
                 onChangeText={(value) => setNumOfCopies(parseInt(value))}
@@ -362,7 +370,6 @@ const AddItem = () => {
     </View>
   );
 };
-export default AddItem;
 
 const styles = StyleSheet.create({
   container: { flex: 1, position: 'relative' },

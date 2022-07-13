@@ -12,29 +12,30 @@ import {
   View,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { mainColor, seconColor, whiteColor } from '../constants/Colors';
+import { mainColor, seconColor, whiteColor } from '../../constants/Colors';
 import { AntDesign, Entypo, Foundation, Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import { ScrollView } from 'react-native-gesture-handler';
-import { useAppDispatch } from '../app/hook';
-import { UpdateBookAction } from '../reducers/bookSlice';
-import { uploadImage } from '../app/cloudinary';
-import { RootStackScreenProps } from '../types';
-import { IBook } from '../constants/interface';
+import { useAppDispatch, useAppSelector } from '../../app/hook';
+import { CreateBookAction } from '../../reducers/bookSlice';
+import { uploadImage } from '../../app/cloudinary';
+import { IBook } from '../../constants/interface';
+import { RootStackScreenProps } from '../../types';
 
-const EditBookScreen: React.FC<RootStackScreenProps<'EditBook'>> = ({ route, navigation }) => {
-  const { book } = route.params;
+export const AddBookScreen: React.FC<RootStackScreenProps<'AddBook'>> = () => {
+  const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
   const [status, requestPermission] = ImagePicker.useCameraPermissions();
-  const [imageList, setImageList] = useState<string[]>(book.images);
+  const [imageList, setImageList] = useState<string[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
-  const [name, setName] = useState(book.name);
-  const [author, setAuthor] = useState(book.author);
-  const [desc, setDesc] = useState(book.description);
-  const [chooseCategories, setChooseCategories] = useState<number[]>(book.categories.map((category) => category.id));
-  const [rentPrice, setRentPrice] = useState(book.rentPrice);
-  const [salePrice, setSalePrice] = useState(book.salePrice);
-  const [numOfCopies, setNumOfCopies] = useState(book.numOfCopies);
+  const [name, setName] = useState('');
+  const [author, setAuthor] = useState('');
+  const [desc, setDesc] = useState('');
+  const [chooseCategories, setChooseCategories] = useState<number[]>([]);
+  const [rentPrice, setRentPrice] = useState(0);
+  const [salePrice, setSalePrice] = useState(0);
+  const [numOfCopies, setNumOfCopies] = useState(0);
 
   const onSubmit = () => {
     if (!name) {
@@ -45,8 +46,7 @@ const EditBookScreen: React.FC<RootStackScreenProps<'EditBook'>> = ({ route, nav
       alert('Author is required');
       return;
     }
-    const data: IBook = {
-      id: book.id,
+    const data: Omit<IBook, 'id'> = {
       name,
       author,
       rentPrice,
@@ -55,7 +55,7 @@ const EditBookScreen: React.FC<RootStackScreenProps<'EditBook'>> = ({ route, nav
       categoryIds: chooseCategories,
       description: desc,
     };
-    dispatch(UpdateBookAction(data));
+    dispatch(CreateBookAction(data));
     navigation.goBack();
   };
 
@@ -230,7 +230,7 @@ const EditBookScreen: React.FC<RootStackScreenProps<'EditBook'>> = ({ route, nav
             marginLeft: 100,
           }}
         >
-          Chỉnh sửa thông tin
+          Thêm sách
         </Text>
       </View>
 
@@ -258,22 +258,16 @@ const EditBookScreen: React.FC<RootStackScreenProps<'EditBook'>> = ({ route, nav
               <Text>Tên sách</Text>
               <Text>{name.length}/120</Text>
             </View>
-            <TextInput
-              style={styles.textInput}
-              placeholder={'Nhập tên sách'}
-              defaultValue={name}
-              onChangeText={(value) => setName(value)}
-            />
+            <TextInput style={styles.textInput} placeholder="Nhập tên sách" onChangeText={(value) => setName(value)} />
           </View>
           <View style={styles.inputFrame}>
             <View style={styles.inputFrame_header}>
               <Text>Tác giả</Text>
-              <Text>{author.length}/120</Text>
+              <Text>{name.length}/120</Text>
             </View>
             <TextInput
               style={styles.textInput}
-              placeholder={'Nhập tên tác giả'}
-              value={author}
+              placeholder="Nhập tên tác giả"
               onChangeText={(value) => setAuthor(value)}
             />
           </View>
@@ -286,7 +280,6 @@ const EditBookScreen: React.FC<RootStackScreenProps<'EditBook'>> = ({ route, nav
               style={styles.textInput}
               placeholder="Tri thức có gì?"
               onChangeText={(value) => setDesc(value)}
-              value={desc}
             />
           </View>
           <View style={styles.optionFrame}>
@@ -322,8 +315,8 @@ const EditBookScreen: React.FC<RootStackScreenProps<'EditBook'>> = ({ route, nav
                 style={{ flexDirection: 'row', justifyContent: 'flex-end', marginLeft: 100, flex: 1 }}
                 keyboardType="number-pad"
                 accessibilityElementsHidden={true}
-                onChangeText={(value) => setRentPrice(+value)}
                 value={`${rentPrice}`}
+                onChangeText={(value) => setRentPrice(parseInt(value))}
               />
             </View>
             <View style={styles.optionItem}>
@@ -335,11 +328,11 @@ const EditBookScreen: React.FC<RootStackScreenProps<'EditBook'>> = ({ route, nav
               />
               <Text style={{ padding: 10, minWidth: 100 }}>Giá bán</Text>
               <TextInput
-                value={`${salePrice}`}
                 style={{ flexDirection: 'row', justifyContent: 'flex-end', marginLeft: 100, flex: 1 }}
                 keyboardType="number-pad"
                 accessibilityElementsHidden={true}
-                onChangeText={(value) => setSalePrice(+value)}
+                value={`${salePrice}`}
+                onChangeText={(value) => setSalePrice(+value || 0)}
               />
             </View>
             <View style={[styles.optionItem, styles.optionItemLast]}>
@@ -351,7 +344,7 @@ const EditBookScreen: React.FC<RootStackScreenProps<'EditBook'>> = ({ route, nav
               />
               <Text style={{ padding: 10, minWidth: 100 }}>Số lượng</Text>
               <TextInput
-                value={`${numOfCopies}`}
+                placeholder={`${numOfCopies}`}
                 keyboardType="number-pad"
                 style={{ flexDirection: 'row', justifyContent: 'flex-end', marginLeft: 100, flex: 1 }}
                 onChangeText={(value) => setNumOfCopies(parseInt(value))}
@@ -370,7 +363,6 @@ const EditBookScreen: React.FC<RootStackScreenProps<'EditBook'>> = ({ route, nav
     </View>
   );
 };
-export default EditBookScreen;
 
 const styles = StyleSheet.create({
   container: { flex: 1, position: 'relative' },

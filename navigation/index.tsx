@@ -15,9 +15,10 @@ import HomeScreen from '../screens/Home/HomeScreen';
 import ScanScreen from '../screens/Admin/ScanScreen';
 import StoreScreen from '../screens/Store/StoreScreen';
 import AccountScreen from '../screens/Account/AccountScreen';
-import ItemScreen from '../screens/ItemScreen';
 import SearchScreen from '../screens/Search/SearchScreen';
-import AddItem from '../screens/AddItem';
+import { ViewBookScreen } from '../screens/Book/ViewBookScreen';
+import { AddBookScreen } from '../screens/Book/AddBookScreen';
+import { EditBookScreen } from '../screens/Book/EditBookScreen';
 import { useAppDispatch, useAppSelector } from '../app/hook';
 import { profileAction, selectIsLoggedIn, selectLoading, selectOwnStore, selectUser } from '../reducers/authSlice';
 import { ItemHeaderRight } from '../components/Item/HeaderRight';
@@ -27,7 +28,6 @@ import ChangePasswordScreen from '../screens/ChangePasswordScreen';
 import CreateStoreScreen from '../screens/Account/CreateStoreScreen';
 import CategoryScreen from '../screens/CategoryScreen';
 import ListBookScreen from '../screens/ListBookScreen';
-import EditBookScreen from '../screens/EditBookScreen';
 import ViewMyStoreScreen from '../screens/Account/ViewMyStoreScreen';
 import SearchResultScreen from '../screens/Search/SearchResultScreen';
 import { OrderScreen } from '../screens/Account/OrderScreen';
@@ -73,17 +73,6 @@ function RootNavigator() {
       ) : (
         <>
           <Stack.Screen name="Root" component={BottomTabNavigator} />
-          <Stack.Screen
-            name="Item"
-            component={ItemScreen}
-            options={{
-              headerShown: false,
-              headerTitle: '',
-              headerTintColor: '#4C4CD7',
-              headerBackTitle: '',
-              headerRight: ItemHeaderRight,
-            }}
-          />
           <Stack.Screen name="Store" component={StoreScreen} />
           <Stack.Screen
             name="Order"
@@ -115,7 +104,18 @@ function RootNavigator() {
           <Stack.Screen name="CreateStore" component={CreateStoreScreen} />
           <Stack.Screen name="ViewMyStore" component={ViewMyStoreScreen} />
           <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
-          <Stack.Screen name="AddItem" component={AddItem} />
+          <Stack.Screen
+            name="ViewBook"
+            component={ViewBookScreen}
+            options={{
+              headerShown: false,
+              headerTitle: '',
+              headerTintColor: '#4C4CD7',
+              headerBackTitle: '',
+              headerRight: ItemHeaderRight,
+            }}
+          />
+          <Stack.Screen name="AddBook" component={AddBookScreen} />
           <Stack.Screen name="EditBook" component={EditBookScreen} />
           <Stack.Screen name="Category" component={CategoryScreen} />
           <Stack.Screen name="ResultSearch" component={SearchResultScreen} />
