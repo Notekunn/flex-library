@@ -16,26 +16,28 @@ declare global {
 }
 
 export type RootStackParamList = {
+  AddBook: undefined;
+  EditBook: {
+    book: IBookResponse;
+  };
+  ViewBook: { id: number };
   ModalItem: undefined;
   Splash: undefined;
   SignIn: undefined;
   SignUp: undefined;
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
-  Item: { id: number };
   Store: { id?: number };
   Order: undefined;
   BookCategory: undefined;
   Renting: undefined;
   Search: undefined;
   ResultSearch: { sort?: SearchSortTypes; store?: number; categoryId?: number };
-  AddItem: undefined;
   Profile: undefined;
   ChangePassword: undefined;
   CreateStore: undefined;
   ViewMyStore: undefined;
-  Category: undefined;
+  Category: { chooseCategories: number[]; setChooseCategories: (n: number[]) => void };
   ListBookCategory: undefined;
-  EditBook: { book: IBookResponse };
   OrderQRCodeModal: { orderId: number };
   OrderConfirm: { orderId: number };
 };
@@ -47,7 +49,7 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> = Nati
 
 export type RootTabParamList = {
   Intro: undefined;
-  Scan: undefined;
+  Scan?: { action?: string };
   Account: undefined;
   Home: undefined;
   MyStore: { id?: number };

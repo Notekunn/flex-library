@@ -61,7 +61,7 @@ export default function SignUpScreen() {
     }
     dispatch(
       registerAction({
-        email,
+        email: email.toLocaleLowerCase(),
         password,
         name,
         avatar,
@@ -83,6 +83,7 @@ export default function SignUpScreen() {
         />
         <Input
           placeholder="Email"
+          autoCapitalize="none"
           onChangeText={(text) => setEmail(text)}
           inputStyle={{ color: '#FFF', height: 50 }}
           errorMessage={errorEmail}

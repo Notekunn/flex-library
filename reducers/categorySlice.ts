@@ -3,7 +3,7 @@ import { apiInstance } from '../app/axiosClient';
 import { RootState } from '../app/store';
 import { ICategory } from '../constants/interface';
 
-interface IUpdateCategoryPayload extends ICategory {
+interface IUpdateCategoryPayload extends Partial<ICategory> {
   id: number;
 }
 
@@ -49,13 +49,7 @@ const CategorySlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    [
-      GetAllCategoryAction,
-      GetOneCategoryAction,
-      CreateCategoryAction,
-      UpdateCategoryAction,
-      DeleteCategoryAction,
-    ].forEach((action) => {
+    [GetAllCategoryAction, GetOneCategoryAction].forEach((action) => {
       builder
         .addCase(action.pending, (state, action) => {
           state.loading = 'idle';

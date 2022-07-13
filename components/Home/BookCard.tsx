@@ -4,17 +4,23 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
 const { width, height } = Dimensions.get('window');
-interface props {
+interface BookCardProps {
   data: any;
 }
 
-const BookCard: React.FC<props> = ({ data }) => {
+const BookCard: React.FC<BookCardProps> = ({ data }) => {
   const navigation = useNavigation();
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('Item')}>
+    <TouchableOpacity
+      onPress={() =>
+        navigation.navigate('ViewBook', {
+          id: data.id,
+        })
+      }
+    >
       <View style={styles.container}>
         <Image source={{ uri: data.imageUrl }} style={styles.image} />
-        {/* <Text >{data.name}</Text> */}
+        <Text>{data.name}</Text>
         <Text style={styles.price}>{data.price}</Text>
       </View>
     </TouchableOpacity>
