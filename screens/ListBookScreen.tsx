@@ -49,7 +49,7 @@ const ListBookScreen = () => {
     setStatus(option);
   };
 
-  if (isLoading === 'idle') return <SplashScreen />;
+  if (isLoading === 'loading') return <SplashScreen />;
   if (isLoading === 'error') return <NotFoundScreen />;
 
   return (
@@ -70,7 +70,7 @@ const ListBookScreen = () => {
         })}
       </View>
       <ScrollView>
-        <View>
+        <View style={{ marginBottom: 130 }}>
           <View style={styles.otherBooks}>
             {books.map((e, i) => (
               <BookCardFlex book={e} key={i} />

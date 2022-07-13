@@ -1,3 +1,10 @@
+# [1.27.0](https://github.com/Notekunn/flex-library/compare/v1.26.1...v1.27.0) (2022-07-13)
+
+
+### Features
+
+* render book loan ([#54](https://github.com/Notekunn/flex-library/issues/54)) ([446a4e7](https://github.com/Notekunn/flex-library/commit/446a4e7328ae66b6c76dfe6bb5b3c39672fe40e7))
+
 ## [1.26.1](https://github.com/Notekunn/flex-library/compare/v1.26.0...v1.26.1) (2022-07-13)
 
 
