@@ -6,19 +6,20 @@ import { Button } from '@rneui/themed';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useAppDispatch, useAppSelector } from '../app/hook';
 import { GetAllCategoryAction, selectData } from '../reducers/categorySlice';
+import { RootStackScreenProps } from '../types';
 
-const CategoryScreen = () => {
+const CategoryScreen: React.FC<RootStackScreenProps<'Category'>> = ({ navigation, route }) => {
   const dispatch = useAppDispatch();
   const data = useAppSelector(selectData);
+  const { chooseCategories, setChooseCategories } = route.params;
 
   useEffect(() => {
     dispatch(GetAllCategoryAction());
   }, []);
-  const route = useRoute<any>();
   const nav = useNavigation();
-  const [choose, setChoose] = React.useState<number[]>(route.params.chooseCategories);
+  const [choose, setChoose] = React.useState<number[]>(chooseCategories);
   useEffect(() => {
-    route.params.setChooseCategories(choose);
+    setChooseCategories(choose);
   }, [choose]);
 
   return (

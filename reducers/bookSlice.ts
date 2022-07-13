@@ -22,7 +22,7 @@ export const CreateBookAction = createAsyncThunk('book/create', async (payload: 
   return data;
 });
 
-export const UpdateBookAction = createAsyncThunk('book/update', async (payload: IBook) => {
+export const UpdateBookAction = createAsyncThunk('book/update', async (payload: Partial<IBook>) => {
   const { id, ...dataUpdate } = payload;
   const { data } = await apiInstance.patch(`/book/${id}`, dataUpdate);
   return data;

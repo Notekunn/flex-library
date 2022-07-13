@@ -13,17 +13,16 @@ import {
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { mainColor, seconColor, whiteColor } from '../constants/Colors';
-import { AntDesign, Entypo, Foundation, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { AntDesign, Entypo, Foundation, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { ScrollView } from 'react-native-gesture-handler';
-import { useAppDispatch, useAppSelector } from '../app/hook';
+import { useAppDispatch } from '../app/hook';
 import { UpdateBookAction } from '../reducers/bookSlice';
 import { uploadImage } from '../app/cloudinary';
 import { RootStackScreenProps } from '../types';
+import { IBook } from '../constants/interface';
 
-const EditBookScreen: React.FC<RootStackScreenProps<'EditBook'>> = ({ route }) => {
-  const navigation = useNavigation<any>();
+const EditBookScreen: React.FC<RootStackScreenProps<'EditBook'>> = ({ route, navigation }) => {
   const { book } = route.params;
   const dispatch = useAppDispatch();
   const [status, requestPermission] = ImagePicker.useCameraPermissions();
@@ -46,19 +45,18 @@ const EditBookScreen: React.FC<RootStackScreenProps<'EditBook'>> = ({ route }) =
       alert('Author is required');
       return;
     }
-    const data = {
+    const data: IBook = {
       id: book.id,
       name,
       author,
       rentPrice,
       salePrice,
       images: imageList,
-      categories: chooseCategories,
+      categoryIds: chooseCategories,
       description: desc,
-      numOfCopies,
     };
     dispatch(UpdateBookAction(data));
-    navigation.navigate('MyStore');
+    navigation.goBack();
   };
 
   // useEffect(() => {

@@ -15,6 +15,7 @@ import moment from 'moment';
 import 'moment/locale/vi';
 import SplashScreen from './SplashScreen';
 import NotFoundScreen from './NotFoundScreen';
+import { selectOwnStore } from '../reducers/authSlice';
 
 const { width } = Dimensions.get('window');
 
@@ -24,7 +25,7 @@ const ItemScreen: React.FC<RootStackScreenProps<'Item'>> = ({ navigation, route 
   const { id: bookId } = route.params;
   const isLoading = useAppSelector((state) => state.book.loading);
   const book = useAppSelector(selectBook);
-  const owner = useAppSelector((state) => state.store.myStore);
+  const ownStore = useAppSelector(selectOwnStore);
   const handlePress = async () => {
     if (book) {
       dispatch(UpdateOrderDetailAction({ bookId: book.id, quantity: 1, action: OrderDetailAction.ADD }));
@@ -53,7 +54,7 @@ const ItemScreen: React.FC<RootStackScreenProps<'Item'>> = ({ navigation, route 
               <Text style={styles.title}>{book.name}</Text>
               <Text style={styles.price}>{moneyFormat(book.rentPrice)}/tuần</Text>
             </View>
-            {owner && book.store.id === owner.id ? (
+            {ownStore && ownStore.id === book.store.id ? (
               <Button
                 title={'Chỉnh sửa'}
                 titleStyle={{ color: 'white' }}

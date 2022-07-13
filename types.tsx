@@ -33,7 +33,7 @@ export type RootStackParamList = {
   ChangePassword: undefined;
   CreateStore: undefined;
   ViewMyStore: undefined;
-  Category: undefined;
+  Category: { chooseCategories: number[]; setChooseCategories: (n: number[]) => void };
   ListBookCategory: undefined;
   EditBook: { book: IBookResponse };
   OrderQRCodeModal: { orderId: number };

@@ -20,6 +20,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { useAppDispatch, useAppSelector } from '../app/hook';
 import { CreateBookAction } from '../reducers/bookSlice';
 import { uploadImage } from '../app/cloudinary';
+import { IBook } from '../constants/interface';
 
 const AddItem = () => {
   const navigation = useNavigation<any>();
@@ -44,16 +45,14 @@ const AddItem = () => {
       alert('Author is required');
       return;
     }
-    const data = {
+    const data: Omit<IBook, 'id'> = {
       name,
       author,
       rentPrice,
       salePrice,
-      numOfCopies,
       images: imageList,
-      categories: chooseCategories,
+      categoryIds: chooseCategories,
       description: desc,
-      rentCount: 0,
     };
     dispatch(CreateBookAction(data));
     navigation.goBack();
