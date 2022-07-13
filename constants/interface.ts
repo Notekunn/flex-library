@@ -1,4 +1,4 @@
-import { OrderStatus, UserRole } from './enum';
+import { BookStatus, OrderStatus, ReturnBookType, UserRole } from './enum';
 import { SearchSortTypes } from './SearchSort';
 
 export interface BaseEntity {
@@ -79,6 +79,22 @@ export enum OrderDetailAction {
   REMOVE = 'remove',
 }
 
+export interface IBookCopy {
+  barcode: string;
+  status: BookStatus;
+}
+
+export interface IBookLoanResponse extends BaseEntity {
+  id: number;
+  dueDate: string;
+  order: Omit<IOrder, 'orderDetails' | 'store'>;
+  bookCopy: IBookCopy;
+}
+
+export interface IReturnBook {
+  status: ReturnBookType;
+  barcode: string;
+}
 export interface IOrderDetail {
   quantity: number;
   bookId: number;
