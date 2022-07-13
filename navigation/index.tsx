@@ -51,9 +51,7 @@ function RootNavigator() {
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    if (!isLoggedIn) {
-      dispatch(profileAction());
-    }
+    dispatch(profileAction());
   }, []);
 
   if (loading == 'loading') {

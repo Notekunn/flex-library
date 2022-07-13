@@ -4,7 +4,7 @@ import { RootState } from '../app/store';
 import { IBook, IBookResponse, ISearchBook, IStore } from '../constants/interface';
 
 interface IBookState {
-  books: IBook[];
+  books: IBookResponse[];
   book?: IBookResponse;
   loading: 'idle' | 'loading' | 'success' | 'error';
   message?: string;

@@ -27,8 +27,7 @@ const CardItem: React.FC<IItemCarProps> = ({ item, status }) => {
   useEffect(() => {
     setQuantity(item.quantity);
   }, [item.quantity]);
-  console.log(item);
-  
+
   const handleMinus = () => {
     setQuantity(quantity - 1);
     dispatch(
@@ -55,8 +54,8 @@ const CardItem: React.FC<IItemCarProps> = ({ item, status }) => {
       onPress={() => {
         reset();
         nav.push('ViewBook', {
-          id: item.book.id
-        })
+          id: item.book.id,
+        });
       }}
       icon={{
         name: 'info',
@@ -80,7 +79,7 @@ const CardItem: React.FC<IItemCarProps> = ({ item, status }) => {
             action: OrderDetailAction.REMOVE,
           }),
         );
-        reset()
+        reset();
       }}
       icon={{
         name: 'trash',
@@ -95,10 +94,7 @@ const CardItem: React.FC<IItemCarProps> = ({ item, status }) => {
   );
   return (
     <View style={styles.itemInCart}>
-      <ListItem.Swipeable
-        leftContent={leftContent}
-        rightContent={status === 'created' && rightContent}
-      >
+      <ListItem.Swipeable leftContent={leftContent} rightContent={status === 'created' && rightContent}>
         <ListItem.Content>
           <View style={styles.item}>
             <TouchableOpacity onPress={() => nav.push('ViewBook', { id: item.book.id })}>
