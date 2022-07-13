@@ -15,7 +15,7 @@ import { selectOwnStore } from '../../reducers/authSlice';
 const initialLayout = { width: Dimensions.get('window').width };
 
 const StoreScreen: React.FC<RootStackScreenProps<'Store'>> = ({ route }) => {
-  const { id: storeId } = route.params;
+  const { id: storeId } = route.params || {};
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const store = useAppSelector(selectCurrentStore);

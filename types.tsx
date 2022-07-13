@@ -49,7 +49,7 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> = Nati
 
 export type RootTabParamList = {
   Intro: undefined;
-  Scan: undefined;
+  Scan?: { action?: string };
   Account: undefined;
   Home: undefined;
   MyStore: { id?: number };
