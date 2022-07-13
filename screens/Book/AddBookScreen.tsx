@@ -31,7 +31,7 @@ export const AddBookScreen: React.FC<RootStackScreenProps<'AddBook'>> = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [name, setName] = useState('');
   const [author, setAuthor] = useState('');
-  const [desc, setDesc] = useState('');
+  const [description, setDescription] = useState('');
   const [chooseCategories, setChooseCategories] = useState<number[]>([]);
   const [rentPrice, setRentPrice] = useState(0);
   const [salePrice, setSalePrice] = useState(0);
@@ -53,10 +53,10 @@ export const AddBookScreen: React.FC<RootStackScreenProps<'AddBook'>> = () => {
       salePrice,
       images: imageList,
       categoryIds: chooseCategories,
-      description: desc,
+      description,
     };
     dispatch(CreateBookAction(data));
-    navigation.goBack();
+    navigation.navigate('Home');
   };
 
   // useEffect(() => {
@@ -258,28 +258,35 @@ export const AddBookScreen: React.FC<RootStackScreenProps<'AddBook'>> = () => {
               <Text>Tên sách</Text>
               <Text>{name.length}/120</Text>
             </View>
-            <TextInput style={styles.textInput} placeholder="Nhập tên sách" onChangeText={(value) => setName(value)} />
+            <TextInput
+              style={styles.textInput}
+              placeholder="Nhập tên sách"
+              value={name}
+              onChangeText={(value) => setName(value)}
+            />
           </View>
           <View style={styles.inputFrame}>
             <View style={styles.inputFrame_header}>
               <Text>Tác giả</Text>
-              <Text>{name.length}/120</Text>
+              <Text>{author.length}/120</Text>
             </View>
             <TextInput
               style={styles.textInput}
               placeholder="Nhập tên tác giả"
+              value={author}
               onChangeText={(value) => setAuthor(value)}
             />
           </View>
           <View style={styles.inputFrame}>
             <View style={styles.inputFrame_header}>
               <Text>Mô tả về sách</Text>
-              <Text>{desc.length}/3000</Text>
+              <Text>{description.length}/3000</Text>
             </View>
             <TextInput
               style={styles.textInput}
               placeholder="Tri thức có gì?"
-              onChangeText={(value) => setDesc(value)}
+              onChangeText={(value) => setDescription(value)}
+              value={description}
             />
           </View>
           <View style={styles.optionFrame}>
@@ -333,21 +340,6 @@ export const AddBookScreen: React.FC<RootStackScreenProps<'AddBook'>> = () => {
                 accessibilityElementsHidden={true}
                 value={`${salePrice}`}
                 onChangeText={(value) => setSalePrice(+value || 0)}
-              />
-            </View>
-            <View style={[styles.optionItem, styles.optionItemLast]}>
-              <AntDesign
-                name="dropbox"
-                size={24}
-                color={mainColor}
-                style={{ width: 30, alignItems: 'center', justifyContent: 'center' }}
-              />
-              <Text style={{ padding: 10, minWidth: 100 }}>Số lượng</Text>
-              <TextInput
-                placeholder={`${numOfCopies}`}
-                keyboardType="number-pad"
-                style={{ flexDirection: 'row', justifyContent: 'flex-end', marginLeft: 100, flex: 1 }}
-                onChangeText={(value) => setNumOfCopies(parseInt(value))}
               />
             </View>
           </View>
@@ -476,6 +468,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     flex: 1,
+    paddingTop: 5,
   },
   optionFrame: { marginTop: 10, backgroundColor: whiteColor, paddingHorizontal: 10 },
   optionItem: {
