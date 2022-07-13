@@ -1,3 +1,10 @@
+# [1.26.0](https://github.com/Notekunn/flex-library/compare/v1.25.0...v1.26.0) (2022-07-13)
+
+
+### Features
+
+* update ([#53](https://github.com/Notekunn/flex-library/issues/53)) ([ef6de98](https://github.com/Notekunn/flex-library/commit/ef6de98f53f0919f67ffee9056787bb9957d33d7))
+
 # [1.25.0](https://github.com/Notekunn/flex-library/compare/v1.24.2...v1.25.0) (2022-07-13)
 
 
