@@ -3,8 +3,20 @@ import React from 'react';
 import { seconColor } from '../constants/Colors';
 import { Button } from '@rneui/base';
 import { RootStackScreenProps } from '../types';
+import { useAppDispatch, useAppSelector } from '../app/hook';
+import { returnAction, selectLoading, selectLoans } from '../reducers/loanSlice';
+import SplashScreen from './SplashScreen';
+import { IBookLoanResponse } from '../constants/interface';
+import moment from 'moment';
+import { BookStatus, ReturnBookType } from '../constants/enum';
+import { moneyFormat } from '../constants/Money';
 
-const RentingBook = () => {
+interface RentingBookProps {
+  loan: IBookLoanResponse;
+  onReturn: () => void;
+  onLost: () => void;
+}
+const RentingBook: React.FC<RentingBookProps> = ({ loan, onReturn, onLost }) => {
   return (
     <View style={styles.container}>
       <View style={styles.info}>
@@ -15,35 +27,24 @@ const RentingBook = () => {
           style={styles.imageLogoStore}
         />
         <View style={{ marginHorizontal: 15 }}>
-          <Text style={styles.nameStore}>Wibu Store Book</Text>
+          <Text style={styles.nameStore}>{loan?.bookCopy?.barcode}</Text>
           <View style={styles.infoDate}>
             <View style={{ flexDirection: 'row' }}>
               <Text style={{ minWidth: 150 }}>Ngày thuê sách</Text>
-              <Text style={styles.date}>10/07/2022</Text>
+              <Text style={styles.date}>{moment(loan.createdAt).format('DD/MM/YYYY')}</Text>
             </View>
             <View style={{ flexDirection: 'row' }}>
               <Text style={{ minWidth: 150 }}>Hạn trả sách</Text>
-              <Text style={styles.date}>10/07/2022</Text>
+              <Text style={styles.date}>{moment(loan.dueDate).format('DD/MM/YYYY')}</Text>
             </View>
             <View style={{ flexDirection: 'row' }}>
-              <Text style={{ minWidth: 150, color: '#E74C3C', fontWeight: 'bold' }}>Tổng thanh toán</Text>
-              <Text style={{ color: '#E74C3C', fontWeight: 'bold' }}>1,000,000 VND</Text>
+              <Text style={{ minWidth: 150, fontWeight: 'bold' }}>Tổng thanh toán</Text>
+              <Text style={{ color: '#E74C3C', fontWeight: 'bold' }}>{moneyFormat(loan.order.totalAmount)}</Text>
             </View>
           </View>
         </View>
       </View>
       <View style={styles.action}>
-        <Button
-          title={'Chi Tiết'}
-          containerStyle={{}}
-          buttonStyle={{
-            width: 100,
-            height: 40,
-            borderRadius: 15,
-            backgroundColor: '#F1948A',
-          }}
-          //   onPress={btnCreateStore}
-        />
         <Button
           title={'Trả sách'}
           containerStyle={{}}
@@ -53,9 +54,9 @@ const RentingBook = () => {
             borderRadius: 15,
             backgroundColor: '#AF7AC5',
           }}
-          //   onPress={btnCreateStore}
+          onPress={onReturn}
         />
-        <Button
+        {/* <Button
           title={'Gia hạn'}
           containerStyle={{}}
           buttonStyle={{
@@ -64,7 +65,18 @@ const RentingBook = () => {
             borderRadius: 15,
             backgroundColor: '#58D68D',
           }}
-          //   onPress={btnCreateStore}
+        /> */}
+
+        <Button
+          title="Báo mất"
+          containerStyle={{}}
+          buttonStyle={{
+            width: 100,
+            height: 40,
+            borderRadius: 15,
+            backgroundColor: '#58D68D',
+          }}
+          onPress={onLost}
         />
       </View>
     </View>
@@ -72,11 +84,36 @@ const RentingBook = () => {
 };
 
 export const RentingScreen: React.FC<RootStackScreenProps<'Renting'>> = () => {
+  const loans = useAppSelector(selectLoans);
+  const loading = useAppSelector(selectLoading);
+  const dispatch = useAppDispatch();
+  if (loading == 'loading') {
+    return <SplashScreen />;
+  }
   return (
     <View>
-      <RentingBook />
-      <RentingBook />
-      <RentingBook />
+      {loans.length == 0 && <Text style={[styles.emptyText]}>Bạn chưa thuê quyển nào</Text>}
+      {loans.map((loan) => (
+        <RentingBook
+          loan={loan}
+          onReturn={() =>
+            dispatch(
+              returnAction({
+                barcode: loan?.bookCopy?.barcode,
+                status: ReturnBookType.RETURN,
+              }),
+            )
+          }
+          onLost={() =>
+            dispatch(
+              returnAction({
+                barcode: loan?.bookCopy?.barcode,
+                status: ReturnBookType.LOST,
+              }),
+            )
+          }
+        />
+      ))}
     </View>
   );
 };
@@ -110,5 +147,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   infoDate: {},
-  date: {},
+  date: {
+    fontWeight: 'bold',
+  },
+  expiredDate: {
+    color: '#E74C3C',
+  },
+  emptyText: {
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
 });
