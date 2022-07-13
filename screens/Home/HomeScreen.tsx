@@ -15,7 +15,7 @@ export default function HomeScreen() {
   const dispatch = useAppDispatch();
   const categories = useAppSelector(selectData);
   console.log(categories);
-  
+
   useEffect(() => {
     dispatch(GetAllCategoryAction());
   }, []);
