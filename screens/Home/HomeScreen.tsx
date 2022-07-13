@@ -4,7 +4,7 @@ import { Search } from '../../components/Home/SearchBar';
 import SwipeSlide from '../../components/Home/Carsousel';
 import CardList from '../../components/Home/CardList';
 import SearchHeader from '../../components/Header';
-import Categories from '../../components/Home/Categories';
+import CategoryList from '../../components/Home/Categories';
 import BookList from '../../components/Home/BookList';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
@@ -13,7 +13,9 @@ import { GetAllCategoryAction, selectData } from '../../reducers/categorySlice';
 export default function HomeScreen() {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
-  const CategoriesData = useAppSelector(selectData);
+  const categories = useAppSelector(selectData);
+  console.log(categories);
+
   useEffect(() => {
     dispatch(GetAllCategoryAction());
   }, []);
@@ -27,7 +29,7 @@ export default function HomeScreen() {
       </ScrollView> */}
       <View style={styles.body}>
         <SwipeSlide />
-        <Categories data={CategoriesData} />
+        <CategoryList data={categories} />
         {/* <BookList /> */}
         {/* <CardList /> */}
       </View>

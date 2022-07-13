@@ -2,6 +2,7 @@ import axios from 'axios';
 import Constants from 'expo-constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-root-toast';
+import qs from 'qs';
 import { TOKEN_STORAGE_KEY } from '../constants/storageKey';
 
 export const apiInstance = axios.create({
@@ -10,6 +11,10 @@ export const apiInstance = axios.create({
     'Content-Type': 'application/json',
   },
   onUploadProgress: ({ loaded, total }) => loaded / total,
+  paramsSerializer: (param) =>
+    qs.stringify(param, {
+      arrayFormat: 'repeat',
+    }),
 });
 
 apiInstance.interceptors.request.use(async (config) => {

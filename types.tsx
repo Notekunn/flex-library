@@ -31,7 +31,7 @@ export type RootStackParamList = {
   BookCategory: undefined;
   Renting: undefined;
   Search: undefined;
-  ResultSearch: { sort?: SearchSortTypes; store?: number; categoryId?: number };
+  ResultSearch: { sort?: SearchSortTypes; store?: number; categories?: number[] };
   Profile: undefined;
   ChangePassword: undefined;
   CreateStore: undefined;

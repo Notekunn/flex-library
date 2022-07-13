@@ -27,7 +27,6 @@ import ProfileScreen from '../screens/Account/ProfileScreen';
 import ChangePasswordScreen from '../screens/ChangePasswordScreen';
 import CreateStoreScreen from '../screens/Account/CreateStoreScreen';
 import CategoryScreen from '../screens/CategoryScreen';
-import ListBookScreen from '../screens/ListBookScreen';
 import ViewMyStoreScreen from '../screens/Account/ViewMyStoreScreen';
 import SearchResultScreen from '../screens/Search/SearchResultScreen';
 import { OrderScreen } from '../screens/Account/OrderScreen';
@@ -117,7 +116,6 @@ function RootNavigator() {
           <Stack.Screen name="EditBook" component={EditBookScreen} />
           <Stack.Screen name="Category" component={CategoryScreen} />
           <Stack.Screen name="ResultSearch" component={SearchResultScreen} />
-          <Stack.Screen name="ListBookCategory" component={ListBookScreen} />
           <Stack.Screen
             name="Renting"
             component={RentingScreen}
