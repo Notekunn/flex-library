@@ -3,28 +3,30 @@ import React from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { ICategory } from '../Store/CategoryItem';
-interface categoryProps {
-  data: any;
+interface CategoryItemProps {
+  category: ICategory;
 }
 const { width, height } = Dimensions.get('window');
-const Category: React.FC<categoryProps> = ({ data }) => {
+const CategoryItem: React.FC<CategoryItemProps> = ({ category }) => {
   const navigation = useNavigation();
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate('ListBookCategory', data);
+        navigation.navigate('ResultSearch', {
+          categories: [category.id],
+        });
       }}
     >
       <View style={styles.container}>
         <AntDesign name="qrcode" size={24} color="black" />
         {/* <Image source={{ uri: data.imageUrl }} /> */}
-        <Text>{data.name}</Text>
+        <Text>{category.name}</Text>
       </View>
     </TouchableOpacity>
   );
 };
 
-export default Category;
+export default CategoryItem;
 
 const styles = StyleSheet.create({
   container: {

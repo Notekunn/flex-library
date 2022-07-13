@@ -6,7 +6,7 @@ import { mainColor } from '../../constants/Colors';
 import { IBook } from '../../constants/interface';
 import { SearchSortOptions, SearchSortTypes } from '../../constants/SearchSort';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
-import { GetBookByStoreAction, selectBooks } from '../../reducers/bookSlice';
+import { GetBookByStoreAction, SearchBookAction, selectBooks } from '../../reducers/bookSlice';
 import SplashScreen from '../../screens/SplashScreen';
 import NotFoundScreen from '../../screens/NotFoundScreen';
 
@@ -23,8 +23,8 @@ const BookList: React.FC<BookListProps> = ({ storeId, q }) => {
   useEffect(() => {
     if (storeId && storeId > 0) {
       dispatch(
-        GetBookByStoreAction({
-          id: storeId,
+        SearchBookAction({
+          store: storeId,
           sort,
           q,
         }),
