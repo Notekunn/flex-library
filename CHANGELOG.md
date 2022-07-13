@@ -1,3 +1,10 @@
+# [1.28.0](https://github.com/Notekunn/flex-library/compare/v1.27.0...v1.28.0) (2022-07-13)
+
+
+### Features
+
+* category search ([#56](https://github.com/Notekunn/flex-library/issues/56)) ([32270ca](https://github.com/Notekunn/flex-library/commit/32270caed8511af5dddb6297dcf8155fd5aafb4a))
+
 # [1.27.0](https://github.com/Notekunn/flex-library/compare/v1.26.1...v1.27.0) (2022-07-13)
 
 
