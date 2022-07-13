@@ -35,7 +35,7 @@ const SearchResultScreen: React.FC<RootStackScreenProps<'ResultSearch'>> = ({ ro
         {SearchSortOptions.map((option, i) => {
           return (
             <TouchableOpacity onPress={() => handleOption(option.sortBy)} key={i}>
-              <Text style={[styles.option_title, sortType === option.title && styles.option_title_color]}>
+              <Text style={[styles.option_title, sortType === option.sortBy && styles.option_title_color]}>
                 {option.title}
               </Text>
             </TouchableOpacity>
