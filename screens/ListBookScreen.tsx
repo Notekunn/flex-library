@@ -49,8 +49,8 @@ const ListBookScreen = () => {
     setStatus(option);
   };
 
-  if (isLoading === 'loading') return <SplashScreen />;
-  if (isLoading === 'error') return <NotFoundScreen />;
+  if (isLoading === 'idle') return <SplashScreen />;
+  // if (isLoading === 'error') return <NotFoundScreen />;
 
   return (
     <View>

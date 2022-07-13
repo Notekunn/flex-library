@@ -6,7 +6,7 @@ import { ICategory } from '../Store/CategoryItem';
 interface CategoryItemProps {
   category: ICategory;
 }
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 const CategoryItem: React.FC<CategoryItemProps> = ({ category }) => {
   const navigation = useNavigation();
   return (

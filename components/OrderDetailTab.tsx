@@ -200,7 +200,7 @@ export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status = 'create
   }, []);
 
   if (isLoading === 'idle') return <SplashScreen />;
-  if (isLoading === 'error') return <NotFoundScreen />;
+  // if (isLoading === 'error') return <NotFoundScreen />;
 
   if (orders.length == 0) {
     return (
