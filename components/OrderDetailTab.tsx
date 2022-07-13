@@ -22,7 +22,7 @@ interface IItemCarProps {
 }
 const CardItem: React.FC<IItemCarProps> = ({ item, status }) => {
   const dispatch = useAppDispatch();
-  const nav = useNavigation<RootStackScreenProps<'Item'>['navigation']>();
+  const nav = useNavigation<RootStackScreenProps<'ViewBook'>['navigation']>();
   const [quantity, setQuantity] = React.useState(item.quantity);
   useEffect(() => {
     setQuantity(item.quantity);
@@ -54,7 +54,7 @@ const CardItem: React.FC<IItemCarProps> = ({ item, status }) => {
       title="Info"
       onPress={() => {
         reset();
-        nav.push('Item', {
+        nav.push('ViewBook', {
           id: item.book.id
         })
       }}
@@ -101,7 +101,7 @@ const CardItem: React.FC<IItemCarProps> = ({ item, status }) => {
       >
         <ListItem.Content>
           <View style={styles.item}>
-            <TouchableOpacity onPress={() => nav.push('Item', { id: item.book.id })}>
+            <TouchableOpacity onPress={() => nav.push('ViewBook', { id: item.book.id })}>
               <View style={styles.info}>
                 <Image
                   source={{

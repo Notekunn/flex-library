@@ -3,17 +3,17 @@ import React from 'react';
 import Navigation from '../navigation';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackScreenProps, RootTabScreenProps } from '../types';
-import { IBook } from '../constants/interface';
+import { IBook, IBookResponse } from '../constants/interface';
 import { moneyFormat } from '../constants/Money';
 
 const { height, width } = Dimensions.get('window');
 interface BookCardFlexProps {
-  book: IBook;
+  book: IBookResponse;
 }
 const BookCardFlex: React.FC<BookCardFlexProps> = ({ book }) => {
-  const navigation = useNavigation<RootStackScreenProps<'Item'>['navigation']>();
+  const navigation = useNavigation<RootStackScreenProps<'ViewBook'>['navigation']>();
   return (
-    <TouchableOpacity onPress={() => navigation.push('Item', { id: book.id })}>
+    <TouchableOpacity onPress={() => navigation.push('ViewBook', { id: book.id })}>
       <View style={styles.container}>
         <Image
           style={styles.image}

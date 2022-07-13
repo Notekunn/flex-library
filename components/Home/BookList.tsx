@@ -45,7 +45,8 @@ const listImage = [
   },
 ];
 const { width, height } = Dimensions.get('window');
-const BookList = () => {
+export interface BookListProps {}
+const BookList: React.FC<BookListProps> = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Những cuốn sách nổi bật</Text>
@@ -53,7 +54,7 @@ const BookList = () => {
         data={listImage}
         horizontal={true}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => <BookCard data={item} />}
+        renderItem={({ item, index }) => <BookCard data={{ ...item, id: index }} />}
       />
     </View>
   );
