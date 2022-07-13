@@ -200,7 +200,17 @@ function BottomTabNavigator() {
               fontSize: 20,
             },
             title: 'Scan Code',
-            tabBarIcon: ({ color }) => <TabBarIcon name="qrcode" color={color} />,
+            tabBarIcon: ({ color }) => (
+              <TabBarIcon
+                name="qrcode"
+                color={color}
+                onPress={() =>
+                  navigation.navigate('Root', {
+                    screen: 'Scan',
+                  })
+                }
+              />
+            ),
           }}
         />
       )}
