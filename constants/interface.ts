@@ -64,7 +64,7 @@ export interface IOrder {
   store: IStore;
   orderDetails: Array<IResponseOrderDetail>;
   totalAmount: number;
-  status: OrderStatus
+  status: OrderStatus;
 }
 
 export interface IResponseOrderDetail {

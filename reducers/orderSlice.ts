@@ -54,7 +54,7 @@ export const PurchaseOrderAction = createAsyncThunk('order/purchase', async (id:
       status: 'purchased',
     }),
   );
-  thunkApi.dispatch(profileAction())
+  thunkApi.dispatch(profileAction());
   return data;
 });
 
