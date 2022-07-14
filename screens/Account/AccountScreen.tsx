@@ -5,7 +5,7 @@ import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { mainColor } from '../../constants/Colors';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
-import { logoutAction, selectOwnStore, selectUser } from '../../reducers/authSlice';
+import { logoutAction, profileAction, selectOwnStore, selectUser } from '../../reducers/authSlice';
 import { RootStackScreenProps } from '../../types';
 import { moneyFormat } from '../../constants/Money';
 
@@ -139,7 +139,7 @@ const AccountScreen: React.FC<RootStackScreenProps<'Root'>> = ({ navigation }) =
               <Icon name="angle-right" type="font-awesome" style={{ flex: 1 }} color="#c1c1c1" />
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.item} activeOpacity={0.8}>
+            <TouchableOpacity style={styles.item} activeOpacity={0.8} onPress={() => dispatch(profileAction())}>
               <View
                 style={{
                   backgroundColor: '#ff00e885',

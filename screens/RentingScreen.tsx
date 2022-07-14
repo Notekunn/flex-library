@@ -1,15 +1,16 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
-import { seconColor } from '../constants/Colors';
+import React, { useEffect } from 'react';
+import { mainColor, seconColor } from '../constants/Colors';
 import { Button } from '@rneui/base';
 import { RootStackScreenProps } from '../types';
 import { useAppDispatch, useAppSelector } from '../app/hook';
-import { returnAction, selectLoading, selectLoans } from '../reducers/loanSlice';
+import { getAllAction, returnAction, selectLoading, selectLoans } from '../reducers/loanSlice';
 import SplashScreen from './SplashScreen';
 import { IBookLoanResponse } from '../constants/interface';
 import moment from 'moment';
 import { BookStatus, ReturnBookType } from '../constants/enum';
 import { moneyFormat } from '../constants/Money';
+import { useNavigation } from '@react-navigation/native';
 
 interface RentingBookProps {
   loan: IBookLoanResponse;
@@ -83,10 +84,13 @@ const RentingBook: React.FC<RentingBookProps> = ({ loan, onReturn, onLost }) => 
   );
 };
 
-export const RentingScreen: React.FC<RootStackScreenProps<'Renting'>> = () => {
+export const RentingScreen: React.FC<RootStackScreenProps<'Renting'>> = ({ navigation }) => {
   const loans = useAppSelector(selectLoans);
   const loading = useAppSelector(selectLoading);
   const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getAllAction());
+  }, []);
   if (loading == 'loading') {
     return <SplashScreen />;
   }
@@ -95,7 +99,7 @@ export const RentingScreen: React.FC<RootStackScreenProps<'Renting'>> = () => {
       {loans.length == 0 && (
         <View style={styles.container}>
           <View>
-            <Text style={styles.title}>Giỏ hàng bạn trống</Text>
+            <Text style={styles.title}>Bạn chưa mượn quyển nào</Text>
           </View>
           <View
             style={{
@@ -113,23 +117,23 @@ export const RentingScreen: React.FC<RootStackScreenProps<'Renting'>> = () => {
               style={styles.imageLogoEmty}
             />
           </View>
-          {/* <Button
-              title="Đi thuê ngay"
-              buttonStyle={{ backgroundColor: mainColor }}
-              containerStyle={{
-                marginHorizontal: 50,
-                marginVertical: 20,
-                borderRadius: 15,
-              }}
-              titleStyle={{
-                color: 'white',
-                marginHorizontal: 20,
-                fontSize: 20,
-              }}
-              onPress={() => {
-                nav.navigate('ResultSearch', {});
-              }}
-            /> */}
+          <Button
+            title="Đi thuê ngay"
+            buttonStyle={{ backgroundColor: mainColor }}
+            containerStyle={{
+              marginHorizontal: 50,
+              marginVertical: 20,
+              borderRadius: 15,
+            }}
+            titleStyle={{
+              color: 'white',
+              marginHorizontal: 20,
+              fontSize: 20,
+            }}
+            onPress={() => {
+              navigation.navigate('ResultSearch', {});
+            }}
+          />
         </View>
       )}
       {loans.map((loan) => (
@@ -200,8 +204,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontWeight: '500',
-    color: '#c4c4c4',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   imageLogoEmty: {
     height: 300,

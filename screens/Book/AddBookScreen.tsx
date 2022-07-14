@@ -323,7 +323,7 @@ export const AddBookScreen: React.FC<RootStackScreenProps<'AddBook'>> = () => {
                 keyboardType="number-pad"
                 accessibilityElementsHidden={true}
                 value={`${rentPrice}`}
-                onChangeText={(value) => setRentPrice(parseInt(value))}
+                onChangeText={(value) => setRentPrice(+value || 0)}
               />
             </View>
             <View style={styles.optionItem}>

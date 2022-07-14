@@ -64,6 +64,7 @@ export interface IOrder {
   store: IStore;
   orderDetails: Array<IResponseOrderDetail>;
   totalAmount: number;
+  status: OrderStatus
 }
 
 export interface IResponseOrderDetail {
@@ -89,6 +90,11 @@ export interface IBookLoanResponse extends BaseEntity {
   dueDate: string;
   order: Omit<IOrder, 'orderDetails' | 'store'>;
   bookCopy: IBookCopy;
+}
+
+export interface IOrderBookLoanResponse {
+  order: Omit<IOrder, 'orderDetails'>;
+  bookLoans: IBookLoanResponse[];
 }
 
 export interface IReturnBook {
