@@ -44,6 +44,7 @@ export interface IBook {
   images: string[];
   categoryIds: number[];
   numOfCopies: number;
+  barcode?: string;
 }
 
 export interface IBookResponse extends BaseEntity {
@@ -66,6 +67,7 @@ export interface IOrder {
   orderDetails: Array<IResponseOrderDetail>;
   totalAmount: number;
   status: OrderStatus;
+  user: IUser;
 }
 
 export interface IResponseOrderDetail {
@@ -81,26 +83,20 @@ export enum OrderDetailAction {
   REMOVE = 'remove',
 }
 
-export interface IBookCopy {
-  barcode: string;
-  status: BookStatus;
-}
-
 export interface IBookLoanResponse extends BaseEntity {
   id: number;
   dueDate: string;
-  order: Omit<IOrder, 'orderDetails' | 'store'>;
-  bookCopy: IBookCopy;
+  order: IOrder;
+  book: IBook;
 }
 
 export interface IOrderBookLoanResponse {
-  order: Omit<IOrder, 'orderDetails'>;
+  order: IOrder;
   bookLoans: IBookLoanResponse[];
 }
 
 export interface IReturnBook {
   status: ReturnBookType;
-  barcode: string;
 }
 export interface IOrderDetail {
   quantity: number;
