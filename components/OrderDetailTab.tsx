@@ -178,7 +178,7 @@ export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status = 'create
   const [dateStart, setDateStart] = useState(new Date());
   const [dateEnd, setDateEnd] = useState(moment().add('7', 'days').toDate());
   const orders = useAppSelector(selectOrder(status));
-  const my = useAppSelector(selectUser);
+  const profile = useAppSelector(selectUser);
   const isLoading = useAppSelector((state) => state.order.loading);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
@@ -195,6 +195,9 @@ export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status = 'create
     else setDateEnd(date);
     hideDatePicker();
   };
+
+  const handlePurchase = () => {};
+
   useEffect(() => {
     dispatch(GetOrderByUserAction({ status }));
   }, []);
@@ -342,7 +345,7 @@ export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status = 'create
           )}
         </View>
       </ScrollView>
-      {status == 'created' && my && (
+      {status == 'created' && profile && (
         <View
           style={{
             justifyContent: 'flex-start',
@@ -352,7 +355,7 @@ export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status = 'create
           }}
         >
           <Text style={{ color: '#fff', fontSize: 18, fontWeight: '600' }}>
-            Bạn có {moneyFormat(my.coin)} trong ví{' '}
+            Bạn có {moneyFormat(profile.coin)} trong ví{' '}
           </Text>
         </View>
       )}

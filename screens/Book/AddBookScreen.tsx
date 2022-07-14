@@ -54,6 +54,7 @@ export const AddBookScreen: React.FC<RootStackScreenProps<'AddBook'>> = () => {
       images: imageList,
       categoryIds: chooseCategories,
       description,
+      numOfCopies,
     };
     dispatch(CreateBookAction(data));
     navigation.navigate('Home');
@@ -340,6 +341,22 @@ export const AddBookScreen: React.FC<RootStackScreenProps<'AddBook'>> = () => {
                 accessibilityElementsHidden={true}
                 value={`${salePrice}`}
                 onChangeText={(value) => setSalePrice(+value || 0)}
+              />
+            </View>
+
+            <View style={[styles.optionItem, styles.optionItemLast]}>
+              <AntDesign
+                name="dropbox"
+                size={24}
+                color={mainColor}
+                style={{ width: 30, alignItems: 'center', justifyContent: 'center' }}
+              />
+              <Text style={{ padding: 10, minWidth: 100 }}>Số lượng</Text>
+              <TextInput
+                value={`${numOfCopies}`}
+                keyboardType="number-pad"
+                style={{ flexDirection: 'row', justifyContent: 'flex-end', marginLeft: 100, flex: 1 }}
+                onChangeText={(value) => setNumOfCopies(+value || 0)}
               />
             </View>
           </View>

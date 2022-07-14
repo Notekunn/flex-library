@@ -1,6 +1,6 @@
 export enum SearchSortTypes {
   NEWEST = 'createdAt:desc',
-  HOSTEST = 'id:asc',
+  HOSTEST = 'rentCount:desc',
   LOWEST_PRICE = 'rentPrice:asc',
   HIGHEST_PRICE = 'rentPrice:desc',
 }
@@ -11,7 +11,7 @@ export const SearchSortOptions = [
     sortBy: SearchSortTypes.NEWEST,
   },
   {
-    title: 'Bán chạy',
+    title: 'Thuê nhiều',
     sortBy: SearchSortTypes.HOSTEST,
   },
   {
