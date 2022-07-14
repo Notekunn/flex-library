@@ -92,7 +92,46 @@ export const RentingScreen: React.FC<RootStackScreenProps<'Renting'>> = () => {
   }
   return (
     <View>
-      {loans.length == 0 && <Text style={[styles.emptyText]}>Bạn chưa thuê quyển nào</Text>}
+      {loans.length == 0 && (
+        <View style={styles.container}>
+          <View>
+            <Text style={styles.title}>Giỏ hàng bạn trống</Text>
+          </View>
+          <View
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '100%',
+              marginTop: 20,
+              marginBottom: 20,
+            }}
+          >
+            <Image
+              source={{
+                uri: 'https://cdni.iconscout.com/illustration/premium/thumb/empty-cart-2130356-1800917.png',
+              }}
+              style={styles.imageLogoEmty}
+            />
+          </View>
+          {/* <Button
+              title="Đi thuê ngay"
+              buttonStyle={{ backgroundColor: mainColor }}
+              containerStyle={{
+                marginHorizontal: 50,
+                marginVertical: 20,
+                borderRadius: 15,
+              }}
+              titleStyle={{
+                color: 'white',
+                marginHorizontal: 20,
+                fontSize: 20,
+              }}
+              onPress={() => {
+                nav.navigate('ResultSearch', {});
+              }}
+            /> */}
+        </View>
+      )}
       {loans.map((loan) => (
         <RentingBook
           loan={loan}
@@ -158,5 +197,15 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center',
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: '500',
+    color: '#c4c4c4',
+  },
+  imageLogoEmty: {
+    height: 300,
+    resizeMode: 'stretch',
+    width: '100%',
   },
 });
