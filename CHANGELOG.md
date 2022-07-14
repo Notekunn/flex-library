@@ -1,3 +1,10 @@
+# [1.29.0](https://github.com/Notekunn/flex-library/compare/v1.28.1...v1.29.0) (2022-07-14)
+
+
+### Features
+
+* loan layout ([422c483](https://github.com/Notekunn/flex-library/commit/422c4832fdb0f8be2282524d6178b15a8b283e26))
+
 ## [1.28.1](https://github.com/Notekunn/flex-library/compare/v1.28.0...v1.28.1) (2022-07-14)
 
 
