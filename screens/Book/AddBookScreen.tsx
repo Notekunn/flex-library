@@ -13,7 +13,15 @@ import {
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { mainColor, seconColor, whiteColor } from '../../constants/Colors';
-import { AntDesign, Entypo, Foundation, Ionicons, MaterialIcons } from '@expo/vector-icons';
+import {
+  AntDesign,
+  Entypo,
+  FontAwesome,
+  Foundation,
+  Ionicons,
+  MaterialCommunityIcons,
+  MaterialIcons,
+} from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -22,12 +30,16 @@ import { CreateBookAction } from '../../reducers/bookSlice';
 import { uploadImage } from '../../app/cloudinary';
 import { IBook } from '../../constants/interface';
 import { RootStackScreenProps } from '../../types';
+import { BarCodeScanner } from 'expo-barcode-scanner';
+import { AppRegex } from '../../constants/regex';
+import { throttle } from 'lodash';
 
 export const AddBookScreen: React.FC<RootStackScreenProps<'AddBook'>> = () => {
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
   const [status, requestPermission] = ImagePicker.useCameraPermissions();
   const [imageList, setImageList] = useState<string[]>([]);
+  const [imageShowList, setImageShowList] = useState<string[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [name, setName] = useState('');
   const [author, setAuthor] = useState('');
@@ -36,7 +48,9 @@ export const AddBookScreen: React.FC<RootStackScreenProps<'AddBook'>> = () => {
   const [rentPrice, setRentPrice] = useState(0);
   const [salePrice, setSalePrice] = useState(0);
   const [numOfCopies, setNumOfCopies] = useState(0);
-
+  const [modalBarCodeVisible, setModalBarCodeVisible] = useState(false);
+  const [scanning, setScanning] = useState(true);
+  const [barCode, setBarCode] = useState('');
   const onSubmit = () => {
     if (!name) {
       alert('Name is required');
@@ -83,6 +97,7 @@ export const AddBookScreen: React.FC<RootStackScreenProps<'AddBook'>> = () => {
 
     if (!result.cancelled) {
       const { secure_url: newImageUrl } = await uploadImage(result);
+      // setImageShowList([...imageShowList, result.uri]);
       setImageList([...imageList, newImageUrl]);
     }
   };
@@ -102,6 +117,7 @@ export const AddBookScreen: React.FC<RootStackScreenProps<'AddBook'>> = () => {
     });
     if (!result.cancelled) {
       const { secure_url: newImageUrl } = await uploadImage(result);
+      // setImageShowList([...imageShowList, result.uri]);
       setImageList([...imageList, newImageUrl]);
     }
   };
@@ -184,7 +200,26 @@ export const AddBookScreen: React.FC<RootStackScreenProps<'AddBook'>> = () => {
       </View>
     );
   };
+  const handleBarCodeChange = ({ type, data }: Record<'type' | 'data', string>) => {
+    console.log('Type: ' + type + ' | Data: ' + data);
+    switch (type) {
+      case BarCodeScanner.Constants.BarCodeType.ean13:
+        setBarCode(data);
+        setModalBarCodeVisible(false);
+        break;
+      case BarCodeScanner.Constants.BarCodeType.qr:
+        console.log('Detected QR Code');
+        if (!data.startsWith('flex-library:')) return;
+        if (AppRegex.ORDER_CONFIRM.test(data)) {
+          const [orderId] = data.match(/\d+/gi) as [string];
+          setScanning(false);
+          alert('Vui lòng quét mã BarCode !');
+        }
+        break;
+    }
+  };
 
+  const handleBarCodeScanned = throttle(handleBarCodeChange, 1000);
   const ModalPopUp = () => {
     return (
       <Modal
@@ -215,10 +250,43 @@ export const AddBookScreen: React.FC<RootStackScreenProps<'AddBook'>> = () => {
       </Modal>
     );
   };
+  const ModalBarCodePopUp = () => {
+    return (
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalBarCodeVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setModalBarCodeVisible(!modalBarCodeVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <View style={styles.barcodebox}>
+              <BarCodeScanner
+                onBarCodeScanned={scanning ? handleBarCodeScanned : undefined}
+                style={{ height: 300, width: 300 }}
+              />
+            </View>
+
+            {!scanning && <Button title={'Scan again?'} onPress={() => setScanning(true)} color="tomato" />}
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalBarCodeVisible(!modalBarCodeVisible)}
+            >
+              <Text style={styles.textStyle}>Cancel</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+    );
+  };
 
   return (
     <View style={styles.container}>
       <ModalPopUp />
+      <ModalBarCodePopUp />
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Entypo name="chevron-left" size={35} color="white" />
@@ -228,7 +296,7 @@ export const AddBookScreen: React.FC<RootStackScreenProps<'AddBook'>> = () => {
             color: '#fff',
             fontSize: 20,
             fontWeight: 'bold',
-            marginLeft: 100,
+            marginLeft: 120,
           }}
         >
           Thêm sách
@@ -301,16 +369,29 @@ export const AddBookScreen: React.FC<RootStackScreenProps<'AddBook'>> = () => {
                   color={mainColor}
                   style={{ width: 30, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
                 />
-                <Text style={{ padding: 10 }}>Danh mục</Text>
-                {chooseCategories.length ? <Text style={{ marginLeft: 150 }}>{chooseCategories.length} </Text> : <></>}
+                <Text style={{ minWidth: 200 }}>Danh mục</Text>
+                {chooseCategories.length ? <Text style={{ flex: 1 }}>{chooseCategories.length} </Text> : <></>}
                 <MaterialIcons
                   name="arrow-forward-ios"
                   size={24}
                   color="black"
-                  style={{ position: 'absolute', right: 0 }}
+                  style={{ position: 'absolute', right: 0, paddingRight: 10 }}
                 />
               </View>
             </TouchableOpacity>
+            <View style={styles.optionItem}>
+              <MaterialCommunityIcons
+                name="barcode-scan"
+                size={24}
+                color={mainColor}
+                style={{ width: 30, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
+              />
+              <Text style={{ minWidth: 200 }}>Mã Bar-Code</Text>
+              <Text style={{ flex: 1 }}>{barCode}</Text>
+              <TouchableOpacity onPress={() => setModalBarCodeVisible(true)}>
+                <FontAwesome name="camera-retro" size={24} color="black" style={{ paddingRight: 10 }} />
+              </TouchableOpacity>
+            </View>
             <View style={styles.optionItem}>
               <Foundation
                 name="pricetag-multiple"
@@ -318,9 +399,9 @@ export const AddBookScreen: React.FC<RootStackScreenProps<'AddBook'>> = () => {
                 color={mainColor}
                 style={{ width: 30, alignItems: 'center', justifyContent: 'center' }}
               />
-              <Text style={{ padding: 10, minWidth: 100 }}>Giá thuê</Text>
+              <Text style={{ minWidth: 200 }}>Giá thuê</Text>
               <TextInput
-                style={{ flexDirection: 'row', justifyContent: 'flex-end', marginLeft: 100, flex: 1 }}
+                style={{ flexDirection: 'row', justifyContent: 'flex-end', flex: 1 }}
                 keyboardType="number-pad"
                 accessibilityElementsHidden={true}
                 value={`${rentPrice}`}
@@ -334,9 +415,9 @@ export const AddBookScreen: React.FC<RootStackScreenProps<'AddBook'>> = () => {
                 color={mainColor}
                 style={{ width: 30, alignItems: 'center', justifyContent: 'center' }}
               />
-              <Text style={{ padding: 10, minWidth: 100 }}>Giá bán</Text>
+              <Text style={{ minWidth: 200 }}>Giá bán</Text>
               <TextInput
-                style={{ flexDirection: 'row', justifyContent: 'flex-end', marginLeft: 100, flex: 1 }}
+                style={{ flexDirection: 'row', justifyContent: 'flex-end', flex: 1 }}
                 keyboardType="number-pad"
                 accessibilityElementsHidden={true}
                 value={`${salePrice}`}
@@ -413,7 +494,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     backgroundColor: 'white',
-    borderRadius: 20,
+    borderRadius: 30,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
@@ -513,5 +594,14 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  barcodebox: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 300,
+    width: 300,
+    overflow: 'hidden',
+    borderRadius: 30,
+    backgroundColor: 'tomato',
   },
 });
