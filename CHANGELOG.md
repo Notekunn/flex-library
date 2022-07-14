@@ -1,3 +1,10 @@
+# [1.30.0](https://github.com/Notekunn/flex-library/compare/v1.29.0...v1.30.0) (2022-07-14)
+
+
+### Features
+
+* oder confirm form ([#58](https://github.com/Notekunn/flex-library/issues/58)) ([17de2f9](https://github.com/Notekunn/flex-library/commit/17de2f92fc31cc1bbdbcb848b3858de2eed74b80))
+
 # [1.29.0](https://github.com/Notekunn/flex-library/compare/v1.28.1...v1.29.0) (2022-07-14)
 
 
