@@ -174,8 +174,6 @@ export interface OrderDetailTabProps {
 export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status = 'created' }) => {
   const nav = useNavigation<RootStackScreenProps<'Order'>['navigation']>();
   const dispatch = useAppDispatch();
-  const [whatDate, setWhatDate] = useState(0);
-  const [dateStart, setDateStart] = useState(new Date());
   const [dateEnd, setDateEnd] = useState(moment().add('7', 'days').toDate());
   const orders = useAppSelector(selectOrder(status));
   const profile = useAppSelector(selectUser);
@@ -191,12 +189,9 @@ export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status = 'create
   };
 
   const handleConfirm = (date: any) => {
-    if (whatDate == 0) setDateStart(date);
-    else setDateEnd(date);
+    setDateEnd(date);
     hideDatePicker();
   };
-
-  const handlePurchase = () => {};
 
   useEffect(() => {
     dispatch(GetOrderByUserAction({ status }));
@@ -279,25 +274,10 @@ export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status = 'create
                       <>
                         <View style={styles.dates}>
                           <View style={styles.date}>
-                            <Text style={styles.dateText}>Ngày mượn sách :</Text>
-                            <Text style={{ flex: 1 }}>{moment(dateStart).format('DD/MM/YYYY')}</Text>
-                            <TouchableOpacity
-                              onPress={() => {
-                                setWhatDate(0);
-                                showDatePicker();
-                              }}
-                            >
-                              <View style={styles.dateIcon}>
-                                <FontAwesome5 name="calendar-alt" size={35} color={mainColor} />
-                              </View>
-                            </TouchableOpacity>
-                          </View>
-                          <View style={styles.date}>
                             <Text style={styles.dateText}>Ngày trả sách :</Text>
                             <Text style={{ flex: 1 }}>{moment(dateEnd).format('DD/MM/YYYY')}</Text>
                             <TouchableOpacity
                               onPress={() => {
-                                setWhatDate(1);
                                 showDatePicker();
                               }}
                             >
@@ -312,6 +292,7 @@ export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status = 'create
                           mode="date"
                           onConfirm={handleConfirm}
                           onCancel={hideDatePicker}
+                          minimumDate={moment().add('1', 'd').toDate()}
                         />
                       </>
                     )}
