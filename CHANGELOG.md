@@ -1,3 +1,10 @@
+## [1.28.1](https://github.com/Notekunn/flex-library/compare/v1.28.0...v1.28.1) (2022-07-14)
+
+
+### Bug Fixes
+
+* order add item ([31f85d1](https://github.com/Notekunn/flex-library/commit/31f85d19f5cec8b5e6359b25585137c3c5c5e038))
+
 # [1.28.0](https://github.com/Notekunn/flex-library/compare/v1.27.0...v1.28.0) (2022-07-13)
 
 
