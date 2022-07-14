@@ -197,7 +197,7 @@ export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status = 'create
   };
 
   const handlePurchase = () => {};
-  
+
   useEffect(() => {
     dispatch(GetOrderByUserAction({ status }));
   }, []);
