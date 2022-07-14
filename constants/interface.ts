@@ -43,6 +43,7 @@ export interface IBook {
   description: string;
   images: string[];
   categoryIds: number[];
+  numOfCopies: number;
 }
 
 export interface IBookResponse extends BaseEntity {
