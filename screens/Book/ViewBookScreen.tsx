@@ -1,4 +1,15 @@
-import { Dimensions, StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, Linking } from 'react-native';
+import {
+  Dimensions,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  Linking,
+  Clipboard,
+  Alert,
+} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { RootStackScreenProps } from '../../types';
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -24,6 +35,7 @@ export const ViewBookScreen: React.FC<RootStackScreenProps<'ViewBook'>> = ({ nav
   const dispatch = useAppDispatch();
   const { id: bookId } = route.params;
   const isLoading = useAppSelector((state) => state.book.loading);
+  const [like, setLike] = useState(false);
   const book = useAppSelector(selectBook);
   const ownStore = useAppSelector(selectOwnStore);
   const handlePress = async () => {
@@ -40,6 +52,11 @@ export const ViewBookScreen: React.FC<RootStackScreenProps<'ViewBook'>> = ({ nav
 
   if (isLoading === 'loading') return <SplashScreen />;
   if (isLoading === 'error' || !book) return <NotFoundScreen />;
+
+  const shareUrlImage = (image: string) => {
+    Clipboard.setString(image);
+    Alert.alert('Sao chép ', image);
+  };
 
   return (
     <View style={styles.container}>
@@ -87,8 +104,19 @@ export const ViewBookScreen: React.FC<RootStackScreenProps<'ViewBook'>> = ({ nav
             <View style={styles.border}></View>
             <Text style={{ fontSize: 15 }}>Đã cho thuê {book.rentCount}</Text>
             <View style={styles.action}>
-              <AntDesign name="hearto" size={25} color="gray" />
-              <MaterialCommunityIcons style={{ marginLeft: 10 }} name="share-outline" size={35} color="gray" />
+              <AntDesign
+                name={like ? 'hearto' : 'heart'}
+                size={25}
+                color={like ? 'gray' : '#f81d22'}
+                onPress={() => setLike(!like)}
+              />
+              <MaterialCommunityIcons
+                style={{ marginLeft: 10 }}
+                name="share-outline"
+                size={35}
+                color="gray"
+                onPress={() => shareUrlImage(book.images[0])}
+              />
               <MaterialCommunityIcons
                 style={{ marginLeft: 10 }}
                 name="facebook-messenger"
@@ -154,7 +182,7 @@ export const ViewBookScreen: React.FC<RootStackScreenProps<'ViewBook'>> = ({ nav
             <View style={styles.detail_center_infor}>
               <Text style={{ width: 130 }}>Thể loại</Text>
               {book.categories.map((category, i) => (
-                <Text style={{ flex: 1 }} key={i}>
+                <Text style={{ flex: 1, textTransform: 'capitalize' }} key={i}>
                   {category.name}
                 </Text>
               ))}

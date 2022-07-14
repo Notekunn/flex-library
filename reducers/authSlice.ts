@@ -55,7 +55,6 @@ export const logoutAction = createAsyncThunk('auth/logout', async () => {
 });
 
 export const updateUserAction = createAsyncThunk('auth/updateUser', async (payload: IUser) => {
-  console.log(payload);
   const { data } = await apiInstance.post<IUserResponse>(`/user/me`, payload);
   return data;
 });

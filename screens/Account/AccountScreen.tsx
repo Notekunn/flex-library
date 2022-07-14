@@ -95,7 +95,7 @@ const AccountScreen: React.FC<RootStackScreenProps<'Root'>> = ({ navigation }) =
             <TouchableOpacity style={styles.item} activeOpacity={0.8} onPress={() => navigation.navigate('Renting')}>
               <View
                 style={{
-                  backgroundColor: '#000000',
+                  backgroundColor: '#ff9b30',
                   borderRadius: 5,
                   padding: 5,
                   width: 30,
