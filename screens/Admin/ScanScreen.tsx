@@ -29,7 +29,6 @@ const ScanScreen: React.FC<RootStackScreenProps<'Root'>> = ({ navigation }) => {
         if (!data.startsWith('flex-library:')) return;
         if (AppRegex.ORDER_CONFIRM.test(data)) {
           const [orderId] = data.match(/\d+/gi) as [string];
-          console.log(`Order id: ${orderId}`);
           setScanning(false);
           Alert.alert('Redirect', 'Do you want to redirect to order confirm page?', [
             {

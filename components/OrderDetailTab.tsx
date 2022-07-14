@@ -261,7 +261,7 @@ export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status = 'create
                             order?.store?.avatarURL || 'https://tse1.mm.bing.net/th?q=solo%20leveling%20manga%20rock',
                         }}
                       />
-                      <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{order.store.name}</Text>
+                      <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{order?.store?.name}</Text>
                       <MaterialIcons name="arrow-forward-ios" size={20} color="black" />
                     </View>
                   </TouchableOpacity>
