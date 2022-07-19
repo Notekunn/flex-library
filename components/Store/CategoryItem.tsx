@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     fontFamily: 'SansPro',
     color: '#000',
     padding: 10,
-    textTransform: 'uppercase',
+    textTransform: 'capitalize',
     width: '100%',
     backgroundColor: '#F5FCFF',
     borderBottomWidth: 0.4,

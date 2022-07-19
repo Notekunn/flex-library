@@ -22,11 +22,15 @@ export const CreateBookAction = createAsyncThunk('book/create', async (payload: 
   return data;
 });
 
-export const UpdateBookAction = createAsyncThunk('book/update', async (payload: Partial<IBook>) => {
-  const { id, ...dataUpdate } = payload;
-  const { data } = await apiInstance.patch(`/book/${id}`, dataUpdate);
-  return data;
-});
+export const UpdateBookAction = createAsyncThunk(
+  'book/update',
+  async (payload: Partial<IBook> & { id: number }, thunkApi) => {
+    const { id, ...dataUpdate } = payload;
+    const { data } = await apiInstance.patch(`/book/${id}`, dataUpdate);
+    thunkApi.dispatch(GetBookByIdAction(id));
+    return data;
+  },
+);
 
 export const DeleteBookAction = createAsyncThunk('book/delete', async (id: number) => {
   const { data } = await apiInstance.delete(`/book/${id}`);

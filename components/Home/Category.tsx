@@ -20,7 +20,7 @@ const CategoryItem: React.FC<CategoryItemProps> = ({ category }) => {
       <View style={styles.container}>
         <AntDesign name="qrcode" size={24} color="black" />
         {/* <Image source={{ uri: data.imageUrl }} /> */}
-        <Text>{category.name}</Text>
+        <Text style={{ textTransform: 'capitalize' }}>{category.name}</Text>
       </View>
     </TouchableOpacity>
   );

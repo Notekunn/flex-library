@@ -31,9 +31,8 @@ const BookList: React.FC<BookListProps> = ({ storeId, q }) => {
       );
     }
   }, [sort, storeId, q]);
-
-  if (isLoading === 'idle') return <SplashScreen />;
-  if (isLoading === 'error') return <NotFoundScreen />;
+  if (isLoading == 'loading') return <SplashScreen />;
+  if (isLoading == 'error') return <NotFoundScreen />;
 
   return (
     <View style={styles.container}>

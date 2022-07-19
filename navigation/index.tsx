@@ -129,20 +129,13 @@ function RootNavigator() {
             }}
           />
           <Stack.Screen name="Search" component={SearchScreen} options={{ animation: 'fade' }} />
-          <Stack.Group screenOptions={{ presentation: 'modal', animation: 'fade' }}>
-            <Stack.Screen
-              name="OrderQRCodeModal"
-              options={{
-                animation: 'slide_from_bottom',
-              }}
-              component={OrderQRCodeModal}
-            />
+          <Stack.Group screenOptions={{ presentation: 'modal', animation: 'slide_from_bottom' }}>
+            <Stack.Screen name="OrderQRCodeModal" component={OrderQRCodeModal} />
             <Stack.Screen
               name="OrderConfirm"
               component={OrderConfirmScreen}
               options={{
                 animation: 'slide_from_bottom',
-                headerShown: true,
                 headerStyle: {
                   backgroundColor: mainColor,
                 },

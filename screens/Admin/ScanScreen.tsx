@@ -4,11 +4,11 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 import throttle from 'lodash/throttle';
 import { AppRegex } from '../../constants/regex';
 import { RootStackScreenProps } from '../../types';
+import { useNavigation } from '@react-navigation/native';
 
 const ScanScreen: React.FC<RootStackScreenProps<'Root'>> = ({ navigation }) => {
   const [hasPermission, setHasPermission] = useState<boolean>();
   const [scanning, setScanning] = useState(true);
-
   const askForCameraPermission = () => {
     (async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
@@ -24,12 +24,13 @@ const ScanScreen: React.FC<RootStackScreenProps<'Root'>> = ({ navigation }) => {
   const handleBarCodeChange = ({ type, data }: Record<'type' | 'data', string>) => {
     console.log('Type: ' + type + ' | Data: ' + data);
     switch (type) {
+      case BarCodeScanner.Constants.BarCodeType.ean13:
+        navigation.goBack();
       case BarCodeScanner.Constants.BarCodeType.qr:
         console.log('Detected QR Code');
         if (!data.startsWith('flex-library:')) return;
         if (AppRegex.ORDER_CONFIRM.test(data)) {
           const [orderId] = data.match(/\d+/gi) as [string];
-          console.log(`Order id: ${orderId}`);
           setScanning(false);
           Alert.alert('Redirect', 'Do you want to redirect to order confirm page?', [
             {

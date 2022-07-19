@@ -54,6 +54,7 @@ export const EditBookScreen: React.FC<RootStackScreenProps<'EditBook'>> = ({ rou
       images: imageList,
       categoryIds: chooseCategories,
       description: description,
+      numOfCopies,
     };
     dispatch(UpdateBookAction(data));
     navigation.goBack();

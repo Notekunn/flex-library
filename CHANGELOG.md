@@ -1,3 +1,52 @@
+# [1.33.0](https://github.com/Notekunn/flex-library/compare/v1.32.0...v1.33.0) (2022-07-14)
+
+
+### Features
+
+* order confirm ([#61](https://github.com/Notekunn/flex-library/issues/61)) ([75d4ebf](https://github.com/Notekunn/flex-library/commit/75d4ebff40eb5bf2106c61a1a4e481c9e9fb42ec))
+
+# [1.32.0](https://github.com/Notekunn/flex-library/compare/v1.31.0...v1.32.0) (2022-07-14)
+
+
+### Features
+
+* scan screen ([#60](https://github.com/Notekunn/flex-library/issues/60)) ([58979e0](https://github.com/Notekunn/flex-library/commit/58979e04dde972b08d0288c42afd9efc703e7c5d))
+
+# [1.31.0](https://github.com/Notekunn/flex-library/compare/v1.30.0...v1.31.0) (2022-07-14)
+
+
+### Features
+
+* add book screen ([#59](https://github.com/Notekunn/flex-library/issues/59)) ([1c39b55](https://github.com/Notekunn/flex-library/commit/1c39b55d9e45d50e6d8f0820a9d66e8fbab9625c))
+
+# [1.30.0](https://github.com/Notekunn/flex-library/compare/v1.29.0...v1.30.0) (2022-07-14)
+
+
+### Features
+
+* oder confirm form ([#58](https://github.com/Notekunn/flex-library/issues/58)) ([17de2f9](https://github.com/Notekunn/flex-library/commit/17de2f92fc31cc1bbdbcb848b3858de2eed74b80))
+
+# [1.29.0](https://github.com/Notekunn/flex-library/compare/v1.28.1...v1.29.0) (2022-07-14)
+
+
+### Features
+
+* loan layout ([422c483](https://github.com/Notekunn/flex-library/commit/422c4832fdb0f8be2282524d6178b15a8b283e26))
+
+## [1.28.1](https://github.com/Notekunn/flex-library/compare/v1.28.0...v1.28.1) (2022-07-14)
+
+
+### Bug Fixes
+
+* order add item ([31f85d1](https://github.com/Notekunn/flex-library/commit/31f85d19f5cec8b5e6359b25585137c3c5c5e038))
+
+# [1.28.0](https://github.com/Notekunn/flex-library/compare/v1.27.0...v1.28.0) (2022-07-13)
+
+
+### Features
+
+* category search ([#56](https://github.com/Notekunn/flex-library/issues/56)) ([32270ca](https://github.com/Notekunn/flex-library/commit/32270caed8511af5dddb6297dcf8155fd5aafb4a))
+
 # [1.27.0](https://github.com/Notekunn/flex-library/compare/v1.26.1...v1.27.0) (2022-07-13)
 
 

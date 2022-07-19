@@ -1,15 +1,16 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
-import { seconColor } from '../constants/Colors';
+import React, { useEffect } from 'react';
+import { mainColor, seconColor } from '../constants/Colors';
 import { Button } from '@rneui/base';
 import { RootStackScreenProps } from '../types';
 import { useAppDispatch, useAppSelector } from '../app/hook';
-import { returnAction, selectLoading, selectLoans } from '../reducers/loanSlice';
+import { getAllAction, returnAction, selectLoading, selectLoans } from '../reducers/loanSlice';
 import SplashScreen from './SplashScreen';
 import { IBookLoanResponse } from '../constants/interface';
 import moment from 'moment';
 import { BookStatus, ReturnBookType } from '../constants/enum';
 import { moneyFormat } from '../constants/Money';
+import { useNavigation } from '@react-navigation/native';
 
 interface RentingBookProps {
   loan: IBookLoanResponse;
@@ -83,16 +84,58 @@ const RentingBook: React.FC<RentingBookProps> = ({ loan, onReturn, onLost }) => 
   );
 };
 
-export const RentingScreen: React.FC<RootStackScreenProps<'Renting'>> = () => {
+export const RentingScreen: React.FC<RootStackScreenProps<'Renting'>> = ({ navigation }) => {
   const loans = useAppSelector(selectLoans);
   const loading = useAppSelector(selectLoading);
   const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getAllAction());
+  }, []);
   if (loading == 'loading') {
     return <SplashScreen />;
   }
   return (
     <View>
-      {loans.length == 0 && <Text style={[styles.emptyText]}>Bạn chưa thuê quyển nào</Text>}
+      {loans.length == 0 && (
+        <View style={styles.container}>
+          <View>
+            <Text style={styles.title}>Bạn chưa mượn quyển nào</Text>
+          </View>
+          <View
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '100%',
+              marginTop: 20,
+              marginBottom: 20,
+            }}
+          >
+            <Image
+              source={{
+                uri: 'https://cdni.iconscout.com/illustration/premium/thumb/empty-cart-2130356-1800917.png',
+              }}
+              style={styles.imageLogoEmty}
+            />
+          </View>
+          <Button
+            title="Đi thuê ngay"
+            buttonStyle={{ backgroundColor: mainColor }}
+            containerStyle={{
+              marginHorizontal: 50,
+              marginVertical: 20,
+              borderRadius: 15,
+            }}
+            titleStyle={{
+              color: 'white',
+              marginHorizontal: 20,
+              fontSize: 20,
+            }}
+            onPress={() => {
+              navigation.navigate('ResultSearch', {});
+            }}
+          />
+        </View>
+      )}
       {loans.map((loan) => (
         <RentingBook
           loan={loan}
@@ -158,5 +201,15 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center',
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  imageLogoEmty: {
+    height: 300,
+    resizeMode: 'stretch',
+    width: '100%',
   },
 });

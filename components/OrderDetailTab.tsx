@@ -174,11 +174,9 @@ export interface OrderDetailTabProps {
 export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status = 'created' }) => {
   const nav = useNavigation<RootStackScreenProps<'Order'>['navigation']>();
   const dispatch = useAppDispatch();
-  const [whatDate, setWhatDate] = useState(0);
-  const [dateStart, setDateStart] = useState(new Date());
   const [dateEnd, setDateEnd] = useState(moment().add('7', 'days').toDate());
   const orders = useAppSelector(selectOrder(status));
-  const my = useAppSelector(selectUser);
+  const profile = useAppSelector(selectUser);
   const isLoading = useAppSelector((state) => state.order.loading);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
@@ -191,10 +189,10 @@ export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status = 'create
   };
 
   const handleConfirm = (date: any) => {
-    if (whatDate == 0) setDateStart(date);
-    else setDateEnd(date);
+    setDateEnd(date);
     hideDatePicker();
   };
+
   useEffect(() => {
     dispatch(GetOrderByUserAction({ status }));
   }, []);
@@ -261,7 +259,7 @@ export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status = 'create
                             order?.store?.avatarURL || 'https://tse1.mm.bing.net/th?q=solo%20leveling%20manga%20rock',
                         }}
                       />
-                      <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{order.store.name}</Text>
+                      <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{order?.store?.name}</Text>
                       <MaterialIcons name="arrow-forward-ios" size={20} color="black" />
                     </View>
                   </TouchableOpacity>
@@ -276,25 +274,10 @@ export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status = 'create
                       <>
                         <View style={styles.dates}>
                           <View style={styles.date}>
-                            <Text style={styles.dateText}>Ngày mượn sách :</Text>
-                            <Text style={{ flex: 1 }}>{moment(dateStart).format('DD/MM/YYYY')}</Text>
-                            <TouchableOpacity
-                              onPress={() => {
-                                setWhatDate(0);
-                                showDatePicker();
-                              }}
-                            >
-                              <View style={styles.dateIcon}>
-                                <FontAwesome5 name="calendar-alt" size={35} color={mainColor} />
-                              </View>
-                            </TouchableOpacity>
-                          </View>
-                          <View style={styles.date}>
                             <Text style={styles.dateText}>Ngày trả sách :</Text>
                             <Text style={{ flex: 1 }}>{moment(dateEnd).format('DD/MM/YYYY')}</Text>
                             <TouchableOpacity
                               onPress={() => {
-                                setWhatDate(1);
                                 showDatePicker();
                               }}
                             >
@@ -309,6 +292,7 @@ export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status = 'create
                           mode="date"
                           onConfirm={handleConfirm}
                           onCancel={hideDatePicker}
+                          minimumDate={moment().add('1', 'd').toDate()}
                         />
                       </>
                     )}
@@ -342,7 +326,7 @@ export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status = 'create
           )}
         </View>
       </ScrollView>
-      {status == 'created' && my && (
+      {status == 'created' && profile && (
         <View
           style={{
             justifyContent: 'flex-start',
@@ -352,7 +336,7 @@ export const OrderDetailTab: React.FC<OrderDetailTabProps> = ({ status = 'create
           }}
         >
           <Text style={{ color: '#fff', fontSize: 18, fontWeight: '600' }}>
-            Bạn có {moneyFormat(my.coin)} trong ví{' '}
+            Bạn có {moneyFormat(profile.coin)} trong ví{' '}
           </Text>
         </View>
       )}
