@@ -37,6 +37,7 @@ export default BookCardFlex;
 
 const styles = StyleSheet.create({
   container: {
+    borderRadius: 10,
     alignItems: 'center',
     width: (width - 30) / 2,
     backgroundColor: '#E5E6F8',
@@ -44,6 +45,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   image: {
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
     height: (width - 20) / 2,
     width: (width - 30) / 2,
     resizeMode: 'cover',

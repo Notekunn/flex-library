@@ -34,6 +34,7 @@ import { RentingScreen } from '../screens/RentingScreen';
 import { OrderQRCodeModal } from '../modals/OrderQRCode';
 import { UserRole } from '../constants/enum';
 import { OrderConfirmScreen } from '../screens/Admin/OrderConfirmScreen';
+import { OrderManagementScreen } from '../screens/Store/OrderManagementScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -81,6 +82,18 @@ function RootNavigator() {
               },
               headerTintColor: '#fff',
               headerTitle: 'Đơn hàng',
+            }}
+          />
+          <Stack.Screen
+            name="OrderManagement"
+            component={OrderManagementScreen}
+            options={{
+              headerShown: true,
+              headerStyle: {
+                backgroundColor: mainColor,
+              },
+              headerTintColor: '#fff',
+              headerTitle: 'Quản lí đơn hàng',
             }}
           />
           <Stack.Screen
@@ -162,7 +175,7 @@ function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName="Home"
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarActiveTintColor: Colors['light'].tint,
         headerTransparent: true,
         headerShown: false,
       }}

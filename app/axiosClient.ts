@@ -6,7 +6,7 @@ import qs from 'qs';
 import { TOKEN_STORAGE_KEY } from '../constants/storageKey';
 
 export const apiInstance = axios.create({
-  baseURL: Constants?.manifest?.extra?.apiURL,
+  baseURL: 'https://926a-183-80-57-165.ap.ngrok.io/v1',
   headers: {
     'Content-Type': 'application/json',
   },
