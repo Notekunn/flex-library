@@ -78,7 +78,7 @@ const StoreScreen: React.FC<RootStackScreenProps<'Store'>> = ({ route }) => {
             >
               <FontAwesome5 name="search" size={16} color={mainColor} />
               <TextInput
-                style={{ color: 'gray', marginLeft: 5 }}
+                style={{ color: 'black', marginLeft: 5 }}
                 placeholder="Tìm kiếm trên cửa hàng"
                 value={query}
                 onChangeText={setQuery}
@@ -87,7 +87,7 @@ const StoreScreen: React.FC<RootStackScreenProps<'Store'>> = ({ route }) => {
           </TouchableOpacity>
           <View style={{ flexDirection: 'row', paddingLeft: 15 }}>
             <Fontisto style={{ marginHorizontal: 5 }} name="share-a" size={24} color="#4C4CD7" />
-            <TouchableOpacity onPress={() => navigation.navigate('Order')}>
+            <TouchableOpacity onPress={() => navigation.navigate('OrderManagement')}>
               <Feather style={{ marginHorizontal: 5 }} name="shopping-cart" size={24} color="#4C4CD7" />
             </TouchableOpacity>
             <Entypo style={{ marginLeft: 5 }} name="dots-three-vertical" size={24} color="#4C4CD7" />

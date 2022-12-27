@@ -45,6 +45,7 @@ export default CategoryItem;
 
 const styles = StyleSheet.create({
   container: {
+    height: 45,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',

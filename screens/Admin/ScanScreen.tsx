@@ -25,10 +25,27 @@ const ScanScreen: React.FC<RootStackScreenProps<'Root'>> = ({ navigation }) => {
     console.log('Type: ' + type + ' | Data: ' + data);
     switch (type) {
       case BarCodeScanner.Constants.BarCodeType.ean13:
-        navigation.goBack();
+        console.log('data : ' + data);
+        setScanning(false);
+        Alert.alert('Redirect', 'Do you want to redirect to order confirm page?', [
+          {
+            text: 'Yes',
+            onPress: () => {
+              navigation.navigate('ResultSearch', { barcode: data });
+            },
+          },
+          {
+            text: 'No',
+            onPress: () => {
+              setScanning(true);
+            },
+          },
+        ]);
+
+      // console.log(data);
       case BarCodeScanner.Constants.BarCodeType.qr:
         console.log('Detected QR Code');
-        if (!data.startsWith('flex-library:')) return;
+        // if (!data.startsWith('flex-library:')) return;
         if (AppRegex.ORDER_CONFIRM.test(data)) {
           const [orderId] = data.match(/\d+/gi) as [string];
           setScanning(false);
@@ -36,6 +53,7 @@ const ScanScreen: React.FC<RootStackScreenProps<'Root'>> = ({ navigation }) => {
             {
               text: 'Yes',
               onPress: () => {
+                console.log(orderId);
                 navigation.navigate('OrderConfirm', { orderId: +orderId });
               },
             },

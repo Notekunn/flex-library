@@ -9,7 +9,7 @@ import { RootStackScreenProps } from '../../types';
 import { SearchSortOptions, SearchSortTypes } from '../../constants/SearchSort';
 
 const SearchResultScreen: React.FC<RootStackScreenProps<'ResultSearch'>> = ({ route }) => {
-  const { sort = SearchSortTypes.NEWEST, store, categories } = route.params;
+  const { sort = SearchSortTypes.NEWEST, store, categories, barcode } = route.params;
   const q = useAppSelector(selectSearchQuery);
   const dispatch = useAppDispatch();
   const [sortType, setSortType] = useState<SearchSortTypes>(sort);
@@ -17,6 +17,7 @@ const SearchResultScreen: React.FC<RootStackScreenProps<'ResultSearch'>> = ({ ro
     setSortType(option);
   };
   const books = useAppSelector(selectBooks);
+  console.log(route.params);
   useEffect(() => {
     dispatch(
       SearchBookAction({
@@ -26,9 +27,10 @@ const SearchResultScreen: React.FC<RootStackScreenProps<'ResultSearch'>> = ({ ro
         take: 40,
         store,
         categories,
+        barcode,
       }),
     );
-  }, [sortType, q, categories]);
+  }, [sortType, q, categories, barcode]);
 
   return (
     <View>

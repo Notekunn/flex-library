@@ -5,6 +5,7 @@ import storeReducer from '../reducers/storeSlice';
 import bookReducer from '../reducers/bookSlice';
 import orderReducer from '../reducers/orderSlice';
 import loanReducer from '../reducers/loanSlice';
+import orderManagementReducer from '../reducers/orderManagementSlice';
 export const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -13,6 +14,7 @@ export const store = configureStore({
     book: bookReducer,
     order: orderReducer,
     loan: loanReducer,
+    orderManagement: orderManagementReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
