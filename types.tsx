@@ -31,7 +31,7 @@ export type RootStackParamList = {
   BookCategory: undefined;
   Renting: undefined;
   Search: undefined;
-  ResultSearch: { sort?: SearchSortTypes; store?: number; categories?: number[] };
+  ResultSearch: { sort?: SearchSortTypes; store?: number; categories?: number[]; barcode?: string };
   Profile: undefined;
   ChangePassword: undefined;
   CreateStore: undefined;
@@ -40,6 +40,7 @@ export type RootStackParamList = {
   ListBookCategory: undefined;
   OrderQRCodeModal: { orderId: number };
   OrderConfirm: { orderId: number };
+  OrderManagement: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<

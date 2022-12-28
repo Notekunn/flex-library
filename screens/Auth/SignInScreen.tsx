@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { Button, Input } from '@rneui/themed';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Image, Text, View, TouchableOpacity, Alert } from 'react-native';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { mainColor } from '../../constants/Colors';
@@ -8,7 +8,7 @@ import { loginAction, selectError } from '../../reducers/authSlice';
 
 import { RootTabScreenProps } from '../../types';
 
-export default function SignInScreen({ navigation }: RootTabScreenProps<'SignIn'>) {
+export default function SignInScreen() {
   const nav = useNavigation();
   const [email, setEmail] = useState('admin@gmail.com');
   const [emailError, setEmailError] = useState('');
@@ -30,6 +30,7 @@ export default function SignInScreen({ navigation }: RootTabScreenProps<'SignIn'
     }
     dispatch(loginAction({ email, password }));
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.image}>
@@ -47,6 +48,7 @@ export default function SignInScreen({ navigation }: RootTabScreenProps<'SignIn'
             color: '#FFF',
             size: 20,
           }}
+          // value="admin@gmail.com"
           onChangeText={(text) => setEmail(text.toLowerCase())}
           autoFocus={true}
           inputStyle={{ color: '#FFF', height: 50 }}
@@ -54,6 +56,7 @@ export default function SignInScreen({ navigation }: RootTabScreenProps<'SignIn'
         />
         <Input
           placeholder="Password"
+          // value="password"
           secureTextEntry={hidePassword}
           leftIcon={{
             type: 'font-awesome',

@@ -59,6 +59,7 @@ export interface IBookResponse extends BaseEntity {
   categories: ICategory[];
   store: IStore;
   rentCount: number;
+  barcode: string;
 }
 
 export interface IOrder {
@@ -115,4 +116,5 @@ export interface ISearchBook {
   sort: SearchSortTypes;
   store?: number;
   categories?: number[];
+  barcode?: string;
 }

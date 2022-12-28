@@ -1,3 +1,10 @@
+# [1.34.0](https://github.com/Notekunn/flex-library/compare/v1.33.0...v1.34.0) (2022-12-27)
+
+
+### Features
+
+* order-manager scan barcode ([#62](https://github.com/Notekunn/flex-library/issues/62)) ([e78355f](https://github.com/Notekunn/flex-library/commit/e78355f98f795b0ea466bb3fb6693bebd9184e1e))
+
 # [1.33.0](https://github.com/Notekunn/flex-library/compare/v1.32.0...v1.33.0) (2022-07-14)
 
 

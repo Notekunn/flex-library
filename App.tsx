@@ -30,7 +30,7 @@ export default function App() {
       <Provider store={store}>
         <SafeAreaProvider>
           <RootSiblingParent>
-            <Navigation colorScheme={colorScheme} />
+            <Navigation colorScheme="light" />
             <StatusBar hidden />
           </RootSiblingParent>
         </SafeAreaProvider>

@@ -20,7 +20,7 @@ interface IItemCarProps {
   item: IResponseOrderDetail;
   status: 'created' | 'purchased' | 'cancelled' | 'completed';
 }
-const CardItem: React.FC<IItemCarProps> = ({ item, status }) => {
+export const CardItem: React.FC<IItemCarProps> = ({ item, status }) => {
   const dispatch = useAppDispatch();
   const nav = useNavigation<RootStackScreenProps<'ViewBook'>['navigation']>();
   const [quantity, setQuantity] = React.useState(item.quantity);
