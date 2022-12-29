@@ -116,7 +116,7 @@ const AccountScreen: React.FC<RootStackScreenProps<'Root'>> = ({ navigation }) =
               </View>
               <Icon name="angle-right" type="font-awesome" style={{ flex: 1 }} color="#c1c1c1" />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.item} activeOpacity={0.8} >
+            <TouchableOpacity style={styles.item} activeOpacity={0.8}>
               <View
                 style={{
                   backgroundColor: '#ff000085',
@@ -139,7 +139,7 @@ const AccountScreen: React.FC<RootStackScreenProps<'Root'>> = ({ navigation }) =
               <Icon name="angle-right" type="font-awesome" style={{ flex: 1 }} color="#c1c1c1" />
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.item} activeOpacity={0.8} onPress={() => navigation.navigate("CoinScreen")}>
+            <TouchableOpacity style={styles.item} activeOpacity={0.8} onPress={() => navigation.navigate('CoinScreen')}>
               <View
                 style={{
                   backgroundColor: '#ff00e885',

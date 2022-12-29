@@ -1,4 +1,4 @@
-import { Alert, StyleSheet, Text, TextInput, View,PermissionsAndroid } from 'react-native';
+import { Alert, StyleSheet, Text, TextInput, View, PermissionsAndroid } from 'react-native';
 import React, { useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import { Button, Icon, Image } from '@rneui/themed';
@@ -19,14 +19,11 @@ const ViewMyStoreScreen = () => {
 
   const requestLocationPermission = async () => {
     try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        {
-          title: 'Location Permission',
-          message: 'This app needs access to your location ',
-          buttonPositive: 'OK',
-        },
-      );
+      const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION, {
+        title: 'Location Permission',
+        message: 'This app needs access to your location ',
+        buttonPositive: 'OK',
+      });
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
         console.log('You can use the location');
       } else {
@@ -35,7 +32,7 @@ const ViewMyStoreScreen = () => {
     } catch (err) {
       console.warn(err);
     }
-  }
+  };
 
   const btnUpdateStore = () => {
     if (!name) {
