@@ -42,6 +42,7 @@ export const ViewBookScreen: React.FC<RootStackScreenProps<'ViewBook'>> = ({ nav
     if (book) {
       dispatch(UpdateOrderDetailAction({ bookId: book.id, quantity: 1, action: OrderDetailAction.ADD }));
     }
+    navigation.navigate('Order');
   };
 
   useEffect(() => {

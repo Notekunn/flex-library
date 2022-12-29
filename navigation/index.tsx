@@ -35,6 +35,7 @@ import { OrderQRCodeModal } from '../modals/OrderQRCode';
 import { UserRole } from '../constants/enum';
 import { OrderConfirmScreen } from '../screens/Admin/OrderConfirmScreen';
 import { OrderManagementScreen } from '../screens/Store/OrderManagementScreen';
+import { CoinScreen } from '../screens/Account/CoinScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -109,6 +110,18 @@ function RootNavigator() {
                 backgroundColor: mainColor,
               },
               headerTintColor: '#fff',
+            }}
+          />
+          <Stack.Screen
+            name="CoinScreen"
+            component={CoinScreen}
+            options={{
+              headerShown: true,
+              headerStyle: {
+                backgroundColor: mainColor,
+              },
+              headerTintColor: '#fff',
+              headerTitle: 'Coin',
             }}
           />
           <Stack.Screen name="CreateStore" component={CreateStoreScreen} />

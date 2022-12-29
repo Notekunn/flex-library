@@ -1,4 +1,4 @@
-import { Alert, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Alert, StyleSheet, Text, TextInput, View,PermissionsAndroid } from 'react-native';
 import React, { useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import { Button, Icon, Image } from '@rneui/themed';
@@ -11,11 +11,31 @@ import { CreateStoreAction, selectLoading, selectMessage, UpdateStoreAction } fr
 const ViewMyStoreScreen = () => {
   const dispatch = useAppDispatch();
   const mystore = useRoute<any>().params;
-  const nav = useNavigation();
+  const nav = useNavigation<any>();
   const [name, setName] = useState('');
   const [editName, setEditName] = useState(false);
   const [address, setAddress] = useState('');
   const [editAddress, setEditAddress] = useState(false);
+
+  const requestLocationPermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: 'Location Permission',
+          message: 'This app needs access to your location ',
+          buttonPositive: 'OK',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log('You can use the location');
+      } else {
+        console.log('Location permission denied');
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  }
 
   const btnUpdateStore = () => {
     if (!name) {
@@ -115,7 +135,7 @@ const ViewMyStoreScreen = () => {
             buttonStyle={{
               backgroundColor: '#faad14',
             }}
-            onPress={() => btnUpdateStore()}
+            onPress={() => requestLocationPermission()}
           />
         </View>
       </View>

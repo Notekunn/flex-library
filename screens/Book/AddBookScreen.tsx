@@ -83,7 +83,7 @@ export const AddBookScreen: React.FC<RootStackScreenProps<'AddBook'>> = () => {
   //   check();
   // }, []);
   const pickImageWithCamera = async () => {
-    // await requestPermission();
+    await requestPermission();
     if (status?.granted === false) {
       alert('No permission');
       return;

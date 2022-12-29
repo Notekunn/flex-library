@@ -41,6 +41,7 @@ export type RootStackParamList = {
   OrderQRCodeModal: { orderId: number };
   OrderConfirm: { orderId: number };
   OrderManagement: undefined;
+  CoinScreen: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<

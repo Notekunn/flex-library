@@ -9,6 +9,8 @@ import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
 import { RootSiblingParent } from 'react-native-root-siblings';
 import { LogBox } from 'react-native';
+import { StripeProvider } from '@stripe/stripe-react-native';
+import Constants from 'expo-constants';
 
 export default function App() {
   LogBox.ignoreAllLogs(true);
