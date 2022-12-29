@@ -125,3 +125,11 @@ export interface IPackagePayment {
   coin: number;
   avatarURL: string;
 }
+
+export interface IPaymentPackage {
+  id: number;
+  name: string;
+  coin: number;
+  price: number;
+  imageUrl: string;
+}

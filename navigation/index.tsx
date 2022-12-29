@@ -35,7 +35,8 @@ import { OrderQRCodeModal } from '../modals/OrderQRCode';
 import { UserRole } from '../constants/enum';
 import { OrderConfirmScreen } from '../screens/Admin/OrderConfirmScreen';
 import { OrderManagementScreen } from '../screens/Store/OrderManagementScreen';
-import { CoinScreen } from '../screens/Account/CoinScreen';
+import { CoinScreen } from '../screens/Account/CoinScreen/CoinScreen';
+import { PaymentScreen } from '../screens/Account/CoinScreen/PaymentModal';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -124,6 +125,7 @@ function RootNavigator() {
               headerTitle: 'Coin',
             }}
           />
+          <Stack.Screen name="PaymentScreen" component={PaymentScreen} />
           <Stack.Screen name="CreateStore" component={CreateStoreScreen} />
           <Stack.Screen name="ViewMyStore" component={ViewMyStoreScreen} />
           <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />

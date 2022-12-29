@@ -50,4 +50,4 @@ export const selectLoading = (state: RootState) => state.payment.loading;
 export const selectMessage = (state: RootState) => state.payment.message;
 export const selectData = (state: RootState) => state.payment.data;
 
-export const PaymentReducer = PaymentSlice.reducer;
+export default PaymentSlice.reducer;

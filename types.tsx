@@ -6,7 +6,7 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { IBookResponse } from './constants/interface';
+import { IBookResponse, IPackagePayment, IPaymentPackage } from './constants/interface';
 import { SearchSortTypes } from './constants/SearchSort';
 
 declare global {
@@ -42,6 +42,9 @@ export type RootStackParamList = {
   OrderConfirm: { orderId: number };
   OrderManagement: undefined;
   CoinScreen: undefined;
+  PaymentScreen: {
+    item: IPaymentPackage;
+  };
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<

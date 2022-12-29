@@ -29,14 +29,16 @@ export default function App() {
     return null;
   } else {
     return (
-      <Provider store={store}>
-        <SafeAreaProvider>
-          <RootSiblingParent>
-            <Navigation colorScheme="light" />
-            <StatusBar hidden />
-          </RootSiblingParent>
-        </SafeAreaProvider>
-      </Provider>
+      <StripeProvider publishableKey={Constants?.manifest?.extra?.stripe_pk}>
+        <Provider store={store}>
+          <SafeAreaProvider>
+            <RootSiblingParent>
+              <Navigation colorScheme="light" />
+              <StatusBar hidden />
+            </RootSiblingParent>
+          </SafeAreaProvider>
+        </Provider>
+      </StripeProvider>
     );
   }
 }
