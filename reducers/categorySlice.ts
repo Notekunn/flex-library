@@ -52,7 +52,7 @@ const CategorySlice = createSlice({
     [GetAllCategoryAction, GetOneCategoryAction].forEach((action) => {
       builder
         .addCase(action.pending, (state, action) => {
-          state.loading = 'idle';
+          state.loading = 'loading';
           state.message = undefined;
         })
         .addCase(action.fulfilled, (state, action) => {

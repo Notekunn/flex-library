@@ -59,8 +59,12 @@ const StoreSlice = createSlice({
       });
     builder
       .addCase(UpdateStoreAction.pending, (state, action) => {
-        state.loading = 'idle';
+        state.loading = 'loading';
         state.message = undefined;
+      })
+      .addCase(UpdateStoreAction.fulfilled, (state, action) => {
+        state.loading = 'success';
+        state.currentStore = action.payload;
       })
       .addCase(UpdateStoreAction.rejected, (state, action) => {
         state.loading = 'error';

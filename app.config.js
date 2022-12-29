@@ -39,6 +39,7 @@ module.exports = {
       messagingSenderId: process.env.MESSAGING_SENDER_ID,
       appId: process.env.APP_ID,
       apiURL: process.env.API_URL,
+      stripe_pk: process.env.STRIPE_PK,
       cloudinary: {
         cloudName: process.env.CLOUDINARY_CLOUD_NAME,
         apiKey: process.env.CLOUDINARY_API_KEY,

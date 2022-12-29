@@ -118,3 +118,18 @@ export interface ISearchBook {
   categories?: number[];
   barcode?: string;
 }
+
+export interface IPackagePayment {
+  id: number;
+  name: string;
+  coin: number;
+  avatarURL: string;
+}
+
+export interface IPaymentPackage {
+  id: number;
+  name: string;
+  coin: number;
+  price: number;
+  imageUrl: string;
+}

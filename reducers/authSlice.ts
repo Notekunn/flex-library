@@ -64,6 +64,11 @@ export const changePasswordAction = createAsyncThunk('auth/changePassword', asyn
   return data;
 });
 
+export const updateCoinUserAction = createAsyncThunk('auth/updateCoinUser', async (payload: { coin: number }) => {
+  const { data } = await apiInstance.post<IUserResponse>(`/user/me`, payload);
+  return data;
+});
+
 export const authSlice = createSlice({
   name: 'auth',
   initialState,

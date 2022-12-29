@@ -139,7 +139,7 @@ const AccountScreen: React.FC<RootStackScreenProps<'Root'>> = ({ navigation }) =
               <Icon name="angle-right" type="font-awesome" style={{ flex: 1 }} color="#c1c1c1" />
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.item} activeOpacity={0.8} onPress={() => dispatch(profileAction())}>
+            <TouchableOpacity style={styles.item} activeOpacity={0.8} onPress={() => navigation.navigate('CoinScreen')}>
               <View
                 style={{
                   backgroundColor: '#ff00e885',
@@ -159,7 +159,7 @@ const AccountScreen: React.FC<RootStackScreenProps<'Root'>> = ({ navigation }) =
               >
                 <Text style={styles.text}>WibuCoin: {moneyFormat(profile?.coin || 0, false)}</Text>
               </View>
-              {/* <Icon name="money" type="font-awesome" style={{ flex: 1 }} color="#c1c1c1" /> */}
+              <Icon name="angle-right" type="font-awesome" style={{ flex: 1 }} color="#c1c1c1" />
             </TouchableOpacity>
             <TouchableOpacity style={styles.item} activeOpacity={0.8}>
               <View

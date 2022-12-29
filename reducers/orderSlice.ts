@@ -65,7 +65,7 @@ const OrderSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(GetOrderByUserAction.pending, (state, action) => {
-        state.loading = 'idle';
+        state.loading = 'loading';
         state.message = undefined;
       })
       .addCase(GetOrderByUserAction.fulfilled, (state, action) => {
