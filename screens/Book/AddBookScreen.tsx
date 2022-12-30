@@ -10,6 +10,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  KeyboardAvoidingView,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { mainColor, seconColor, whiteColor } from '../../constants/Colors';
@@ -69,6 +70,7 @@ export const AddBookScreen: React.FC<RootStackScreenProps<'AddBook'>> = () => {
       categoryIds: chooseCategories,
       description,
       numOfCopies,
+      barcode: barCode,
     };
     dispatch(CreateBookAction(data));
     navigation.navigate('Home');
@@ -81,7 +83,7 @@ export const AddBookScreen: React.FC<RootStackScreenProps<'AddBook'>> = () => {
   //   check();
   // }, []);
   const pickImageWithCamera = async () => {
-    // await requestPermission();
+    await requestPermission();
     if (status?.granted === false) {
       alert('No permission');
       return;
@@ -285,164 +287,166 @@ export const AddBookScreen: React.FC<RootStackScreenProps<'AddBook'>> = () => {
 
   return (
     <View style={styles.container}>
-      <ModalPopUp />
-      <ModalBarCodePopUp />
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Entypo name="chevron-left" size={35} color="white" />
-        </TouchableOpacity>
-        <Text
-          style={{
-            color: '#fff',
-            fontSize: 20,
-            fontWeight: 'bold',
-            marginLeft: 120,
-          }}
-        >
-          Thêm sách
-        </Text>
-      </View>
+      <KeyboardAvoidingView style={styles.container} behavior="position">
+        <ModalPopUp />
+        <ModalBarCodePopUp />
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Entypo name="chevron-left" size={35} color="white" />
+          </TouchableOpacity>
+          <Text
+            style={{
+              color: '#fff',
+              fontSize: 20,
+              fontWeight: 'bold',
+              marginLeft: 120,
+            }}
+          >
+            Thêm sách
+          </Text>
+        </View>
 
-      <ScrollView>
-        <View style={styles.content}>
-          <View style={styles.addImage}>
-            {/* {imageList.map((e: any, index: number) => {
-            return <ImageFrame uri={e} index={index} />;
-          })} */}
-            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-              <View style={[styles.frameAdd, styles.frameImage]}>
-                <Text style={{ color: mainColor, fontWeight: 'bold' }}>Thêm ảnh</Text>
+        <ScrollView>
+          <View style={styles.content}>
+            <View style={styles.addImage}>
+              {/* {imageList.map((e: any, index: number) => {
+              return <ImageFrame uri={e} index={index} />;
+            })} */}
+              <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+                <View style={[styles.frameAdd, styles.frameImage]}>
+                  <Text style={{ color: mainColor, fontWeight: 'bold' }}>Thêm ảnh</Text>
+                </View>
+              </TouchableOpacity>
+              <FlatList
+                data={imageList}
+                horizontal={true}
+                style={{ position: 'relative', flex: 1, height: 100 }}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={({ item, index }) => <ImageFrame uri={item} index={index} />}
+              />
+            </View>
+            <View style={styles.inputFrame}>
+              <View style={styles.inputFrame_header}>
+                <Text>Tên sách</Text>
+                <Text>{name.length}/120</Text>
               </View>
-            </TouchableOpacity>
-            <FlatList
-              data={imageList}
-              horizontal={true}
-              style={{ position: 'relative', flex: 1, height: 100 }}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={({ item, index }) => <ImageFrame uri={item} index={index} />}
-            />
-          </View>
-          <View style={styles.inputFrame}>
-            <View style={styles.inputFrame_header}>
-              <Text>Tên sách</Text>
-              <Text>{name.length}/120</Text>
+              <TextInput
+                style={styles.textInput}
+                placeholder="Nhập tên sách"
+                value={name}
+                onChangeText={(value) => setName(value)}
+              />
             </View>
-            <TextInput
-              style={styles.textInput}
-              placeholder="Nhập tên sách"
-              value={name}
-              onChangeText={(value) => setName(value)}
-            />
-          </View>
-          <View style={styles.inputFrame}>
-            <View style={styles.inputFrame_header}>
-              <Text>Tác giả</Text>
-              <Text>{author.length}/120</Text>
+            <View style={styles.inputFrame}>
+              <View style={styles.inputFrame_header}>
+                <Text>Tác giả</Text>
+                <Text>{author.length}/120</Text>
+              </View>
+              <TextInput
+                style={styles.textInput}
+                placeholder="Nhập tên tác giả"
+                value={author}
+                onChangeText={(value) => setAuthor(value)}
+              />
             </View>
-            <TextInput
-              style={styles.textInput}
-              placeholder="Nhập tên tác giả"
-              value={author}
-              onChangeText={(value) => setAuthor(value)}
-            />
-          </View>
-          <View style={styles.inputFrame}>
-            <View style={styles.inputFrame_header}>
-              <Text>Mô tả về sách</Text>
-              <Text>{description.length}/3000</Text>
+            <View style={styles.inputFrame}>
+              <View style={styles.inputFrame_header}>
+                <Text>Mô tả về sách</Text>
+                <Text>{description.length}/3000</Text>
+              </View>
+              <TextInput
+                style={styles.textInput}
+                placeholder="Tri thức có gì?"
+                onChangeText={(value) => setDescription(value)}
+                value={description}
+              />
             </View>
-            <TextInput
-              style={styles.textInput}
-              placeholder="Tri thức có gì?"
-              onChangeText={(value) => setDescription(value)}
-              value={description}
-            />
-          </View>
-          <View style={styles.optionFrame}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('Category', { chooseCategories, setChooseCategories })}
-            >
+            <View style={styles.optionFrame}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('Category', { chooseCategories, setChooseCategories })}
+              >
+                <View style={styles.optionItem}>
+                  <AntDesign
+                    name="menu-fold"
+                    size={24}
+                    color={mainColor}
+                    style={{ width: 30, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
+                  />
+                  <Text style={{ minWidth: 200 }}>Danh mục</Text>
+                  {chooseCategories.length ? <Text style={{ flex: 1 }}>{chooseCategories.length} </Text> : <></>}
+                  <MaterialIcons
+                    name="arrow-forward-ios"
+                    size={24}
+                    color="black"
+                    style={{ position: 'absolute', right: 0, paddingRight: 10 }}
+                  />
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => setModalBarCodeVisible(true)}>
+                <View style={styles.optionItem}>
+                  <MaterialCommunityIcons
+                    name="barcode-scan"
+                    size={24}
+                    color={mainColor}
+                    style={{ width: 30, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
+                  />
+                  <Text style={{ minWidth: 200 }}>Mã Bar-Code</Text>
+                  <Text style={{ flex: 1 }}>{barCode}</Text>
+                  <FontAwesome name="camera-retro" size={24} color="black" style={{ paddingRight: 10 }} />
+                </View>
+              </TouchableOpacity>
               <View style={styles.optionItem}>
-                <AntDesign
-                  name="menu-fold"
+                <Foundation
+                  name="pricetag-multiple"
                   size={24}
                   color={mainColor}
-                  style={{ width: 30, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
+                  style={{ width: 30, alignItems: 'center', justifyContent: 'center' }}
                 />
-                <Text style={{ minWidth: 200 }}>Danh mục</Text>
-                {chooseCategories.length ? <Text style={{ flex: 1 }}>{chooseCategories.length} </Text> : <></>}
-                <MaterialIcons
-                  name="arrow-forward-ios"
-                  size={24}
-                  color="black"
-                  style={{ position: 'absolute', right: 0, paddingRight: 10 }}
+                <Text style={{ minWidth: 200 }}>Giá thuê</Text>
+                <TextInput
+                  style={{ flexDirection: 'row', justifyContent: 'flex-end', flex: 1 }}
+                  keyboardType="number-pad"
+                  accessibilityElementsHidden={true}
+                  value={`${rentPrice}`}
+                  onChangeText={(value) => setRentPrice(+value || 0)}
                 />
               </View>
-            </TouchableOpacity>
-            <View style={styles.optionItem}>
-              <MaterialCommunityIcons
-                name="barcode-scan"
-                size={24}
-                color={mainColor}
-                style={{ width: 30, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
-              />
-              <Text style={{ minWidth: 200 }}>Mã Bar-Code</Text>
-              <Text style={{ flex: 1 }}>{barCode}</Text>
-              <TouchableOpacity onPress={() => setModalBarCodeVisible(true)}>
-                <FontAwesome name="camera-retro" size={24} color="black" style={{ paddingRight: 10 }} />
-              </TouchableOpacity>
-            </View>
-            <View style={styles.optionItem}>
-              <Foundation
-                name="pricetag-multiple"
-                size={24}
-                color={mainColor}
-                style={{ width: 30, alignItems: 'center', justifyContent: 'center' }}
-              />
-              <Text style={{ minWidth: 200 }}>Giá thuê</Text>
-              <TextInput
-                style={{ flexDirection: 'row', justifyContent: 'flex-end', flex: 1 }}
-                keyboardType="number-pad"
-                accessibilityElementsHidden={true}
-                value={`${rentPrice}`}
-                onChangeText={(value) => setRentPrice(+value || 0)}
-              />
-            </View>
-            <View style={styles.optionItem}>
-              <Foundation
-                name="pricetag-multiple"
-                size={24}
-                color={mainColor}
-                style={{ width: 30, alignItems: 'center', justifyContent: 'center' }}
-              />
-              <Text style={{ minWidth: 200 }}>Giá bán</Text>
-              <TextInput
-                style={{ flexDirection: 'row', justifyContent: 'flex-end', flex: 1 }}
-                keyboardType="number-pad"
-                accessibilityElementsHidden={true}
-                value={`${salePrice}`}
-                onChangeText={(value) => setSalePrice(+value || 0)}
-              />
-            </View>
+              <View style={styles.optionItem}>
+                <Foundation
+                  name="pricetag-multiple"
+                  size={24}
+                  color={mainColor}
+                  style={{ width: 30, alignItems: 'center', justifyContent: 'center' }}
+                />
+                <Text style={{ minWidth: 200 }}>Giá bán</Text>
+                <TextInput
+                  style={{ flexDirection: 'row', justifyContent: 'flex-end', flex: 1 }}
+                  keyboardType="number-pad"
+                  accessibilityElementsHidden={true}
+                  value={`${salePrice}`}
+                  onChangeText={(value) => setSalePrice(+value || 0)}
+                />
+              </View>
 
-            <View style={[styles.optionItem, styles.optionItemLast]}>
-              <AntDesign
-                name="dropbox"
-                size={24}
-                color={mainColor}
-                style={{ width: 30, alignItems: 'center', justifyContent: 'center' }}
-              />
-              <Text style={{ padding: 10, minWidth: 100 }}>Số lượng</Text>
-              <TextInput
-                value={`${numOfCopies}`}
-                keyboardType="number-pad"
-                style={{ flexDirection: 'row', justifyContent: 'flex-end', marginLeft: 100, flex: 1 }}
-                onChangeText={(value) => setNumOfCopies(+value || 0)}
-              />
+              <View style={[styles.optionItem, styles.optionItemLast]}>
+                <AntDesign
+                  name="dropbox"
+                  size={24}
+                  color={mainColor}
+                  style={{ width: 30, alignItems: 'center', justifyContent: 'center' }}
+                />
+                <Text style={{ padding: 10, minWidth: 100 }}>Số lượng</Text>
+                <TextInput
+                  value={`${numOfCopies}`}
+                  keyboardType="number-pad"
+                  style={{ flexDirection: 'row', justifyContent: 'flex-end', marginLeft: 100, flex: 1 }}
+                  onChangeText={(value) => setNumOfCopies(+value || 0)}
+                />
+              </View>
             </View>
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </KeyboardAvoidingView>
       <View style={styles.buttonFrame}>
         <TouchableOpacity onPress={onSubmit}>
           <View style={styles.submitBtn}>
@@ -465,7 +469,10 @@ const styles = StyleSheet.create({
     paddingTop: 32,
     backgroundColor: mainColor,
   },
-  content: { backgroundColor: seconColor, flex: 1 },
+  content: {
+    // backgroundColor: seconColor,
+    flex: 1,
+  },
   addImage: {
     flexDirection: 'row',
     height: 150,
@@ -581,10 +588,10 @@ const styles = StyleSheet.create({
   },
   buttonFrame: {
     bottom: 0,
-    backgroundColor: whiteColor,
+    // backgroundColor: whiteColor,
     flexDirection: 'row',
     justifyContent: 'center',
-    padding: 10,
+    padding: 20,
     alignItems: 'center',
   },
   submitBtn: {

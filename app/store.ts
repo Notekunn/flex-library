@@ -5,6 +5,9 @@ import storeReducer from '../reducers/storeSlice';
 import bookReducer from '../reducers/bookSlice';
 import orderReducer from '../reducers/orderSlice';
 import loanReducer from '../reducers/loanSlice';
+import orderManagementReducer from '../reducers/orderManagementSlice';
+import PaymentReducer from '../reducers/paymentSlice';
+import PaymentPackageSlice from '../reducers/paymentPackageSlice';
 export const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -13,6 +16,9 @@ export const store = configureStore({
     book: bookReducer,
     order: orderReducer,
     loan: loanReducer,
+    orderManagement: orderManagementReducer,
+    payment: PaymentReducer,
+    paymentPackage: PaymentPackageSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

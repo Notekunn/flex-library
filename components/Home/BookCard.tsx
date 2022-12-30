@@ -20,7 +20,7 @@ const BookCard: React.FC<BookCardProps> = ({ data }) => {
     >
       <View style={styles.container}>
         <Image source={{ uri: data.imageUrl }} style={styles.image} />
-        <Text>{data.name}</Text>
+        <Text style={{ marginLeft: 7 }}>{data.name}</Text>
         <Text style={styles.price}>{data.price}</Text>
       </View>
     </TouchableOpacity>
@@ -33,16 +33,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: (width - 40) / 4,
-    height: 150,
+    // height: 150,
+    paddingBottom: 5,
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    alignItems: 'center',
+    // alignItems: 'center',
     marginRight: 5,
     paddingTop: 5,
     backgroundColor: '#1ABC9C',
     borderRadius: 10,
   },
   image: {
+    alignSelf: 'center',
     resizeMode: 'stretch',
     height: 120,
     width: (width - 90) / 4,
@@ -50,7 +52,7 @@ const styles = StyleSheet.create({
   },
   price: {
     // alignSelf: 'flex-start',
-    // marginLeft: 5,
+    marginLeft: 7,
     marginTop: 5,
   },
 });

@@ -34,6 +34,9 @@ import { RentingScreen } from '../screens/RentingScreen';
 import { OrderQRCodeModal } from '../modals/OrderQRCode';
 import { UserRole } from '../constants/enum';
 import { OrderConfirmScreen } from '../screens/Admin/OrderConfirmScreen';
+import { OrderManagementScreen } from '../screens/Store/OrderManagementScreen';
+import { CoinScreen } from '../screens/Account/CoinScreen/CoinScreen';
+import { PaymentScreen } from '../screens/Account/CoinScreen/PaymentModal';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -84,6 +87,18 @@ function RootNavigator() {
             }}
           />
           <Stack.Screen
+            name="OrderManagement"
+            component={OrderManagementScreen}
+            options={{
+              headerShown: true,
+              headerStyle: {
+                backgroundColor: mainColor,
+              },
+              headerTintColor: '#fff',
+              headerTitle: 'Quản lí đơn hàng',
+            }}
+          />
+          <Stack.Screen
             name="Profile"
             component={ProfileScreen}
             options={{
@@ -98,6 +113,19 @@ function RootNavigator() {
               headerTintColor: '#fff',
             }}
           />
+          <Stack.Screen
+            name="CoinScreen"
+            component={CoinScreen}
+            options={{
+              headerShown: true,
+              headerStyle: {
+                backgroundColor: mainColor,
+              },
+              headerTintColor: '#fff',
+              headerTitle: 'Coin',
+            }}
+          />
+          <Stack.Screen name="PaymentScreen" component={PaymentScreen} />
           <Stack.Screen name="CreateStore" component={CreateStoreScreen} />
           <Stack.Screen name="ViewMyStore" component={ViewMyStoreScreen} />
           <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
@@ -162,7 +190,7 @@ function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName="Home"
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarActiveTintColor: Colors['light'].tint,
         headerTransparent: true,
         headerShown: false,
       }}

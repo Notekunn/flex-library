@@ -42,6 +42,7 @@ export const ViewBookScreen: React.FC<RootStackScreenProps<'ViewBook'>> = ({ nav
     if (book) {
       dispatch(UpdateOrderDetailAction({ bookId: book.id, quantity: 1, action: OrderDetailAction.ADD }));
     }
+    navigation.navigate('Order');
   };
 
   useEffect(() => {
@@ -234,8 +235,11 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
   },
   image: {
+    borderRadius: 10,
     height: 400,
-    width: width,
+    width: 400,
+    overflow: 'hidden',
+    alignSelf: 'center',
     resizeMode: 'contain',
   },
   title: {
@@ -269,7 +273,7 @@ const styles = StyleSheet.create({
   desc: {
     backgroundColor: '#FADBD8',
     borderRadius: 10,
-    marginHorizontal: 10,
+    marginHorizontal: 13,
     marginTop: 10,
     paddingVertical: 10,
     paddingHorizontal: 10,
@@ -279,7 +283,7 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     backgroundColor: '#FADBD8',
     borderRadius: 10,
-    marginHorizontal: 10,
+    marginHorizontal: 13,
     marginTop: 10,
     paddingVertical: 10,
     paddingHorizontal: 10,
@@ -309,7 +313,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FAD8',
     borderRadius: 10,
-    marginHorizontal: 10,
+    marginHorizontal: 13,
     marginTop: 10,
     paddingVertical: 10,
     paddingHorizontal: 10,
