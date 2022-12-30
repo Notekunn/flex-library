@@ -1,3 +1,10 @@
+# [1.35.0](https://github.com/Notekunn/flex-library/compare/v1.34.0...v1.35.0) (2022-12-30)
+
+
+### Features
+
+* payment coin ([#64](https://github.com/Notekunn/flex-library/issues/64)) ([c0a73e1](https://github.com/Notekunn/flex-library/commit/c0a73e1be03333eb2c84f725a039179aeee558d1))
+
 # [1.34.0](https://github.com/Notekunn/flex-library/compare/v1.33.0...v1.34.0) (2022-12-27)
 
 
