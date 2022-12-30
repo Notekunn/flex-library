@@ -2,6 +2,7 @@ import { CardField, useStripe, ConfirmPaymentResult } from '@stripe/stripe-react
 import { FC, useEffect, useMemo, useState } from 'react';
 import { Alert, Button, Modal, View } from 'react-native';
 import { useAppDispatch, useAppSelector } from '../../../app/hook';
+import { updateCoinUserAction } from '../../../reducers/authSlice';
 import { CreatePaymentAction } from '../../../reducers/paymentSlice';
 import { RootStackScreenProps } from '../../../types';
 
@@ -11,7 +12,6 @@ export const PaymentScreen: FC<RootStackScreenProps<'PaymentScreen'>> = ({ navig
   const data = useAppSelector((state) => state.payment.data);
   const [clientSecret, setClientSecret] = useState('');
   const dispath = useAppDispatch();
-
   useEffect(() => {
     dispath(CreatePaymentAction({ amount: item.price, currency: 'usd', payment_method_types: ['card'] }));
   }, []);
@@ -32,7 +32,7 @@ export const PaymentScreen: FC<RootStackScreenProps<'PaymentScreen'>> = ({ navig
     if (error) {
       Alert.alert(`Error code: ${error.code}`, error.message);
     } else if (paymentIntent) {
-      dispath(CreatePaymentAction({ amount: item.price, currency: 'usd', payment_method_types: ['card'] }));
+      dispath(updateCoinUserAction({ coin: item.coin }));
       navigation.goBack();
     }
   };

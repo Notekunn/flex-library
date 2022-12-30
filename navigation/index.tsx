@@ -125,7 +125,18 @@ function RootNavigator() {
               headerTitle: 'Coin',
             }}
           />
-          <Stack.Screen name="PaymentScreen" component={PaymentScreen} />
+          <Stack.Screen
+            name="PaymentScreen"
+            component={PaymentScreen}
+            options={{
+              headerShown: true,
+              headerStyle: {
+                backgroundColor: mainColor,
+              },
+              headerTintColor: '#fff',
+              headerTitle: 'Payment',
+            }}
+          />
           <Stack.Screen name="CreateStore" component={CreateStoreScreen} />
           <Stack.Screen name="ViewMyStore" component={ViewMyStoreScreen} />
           <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />

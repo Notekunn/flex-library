@@ -13,6 +13,7 @@ interface IPayMentState {
   data: any;
   loading: 'idle' | 'loading' | 'success' | 'error';
   message?: string;
+  historyPayment?: PaymentIntent[];
 }
 
 const initialState: IPayMentState = {
@@ -22,6 +23,11 @@ const initialState: IPayMentState = {
 
 export const CreatePaymentAction = createAsyncThunk('payment/create', async (payload: IPayMentIntentParams) => {
   const { data } = await apiInstance.post('/payment', payload);
+  return data;
+});
+
+export const GetHistoryPaymentAction = createAsyncThunk('payment', async () => {
+  const { data } = await apiInstance.get<any[]>(`/payment`);
   return data;
 });
 
@@ -42,6 +48,19 @@ const PaymentSlice = createSlice({
       .addCase(CreatePaymentAction.rejected, (state, action) => {
         state.loading = 'error';
         state.message = action.error.message;
+      });
+    builder
+      .addCase(GetHistoryPaymentAction.pending, (state) => {
+        state.loading = 'loading';
+        state.message = undefined;
+      })
+      .addCase(GetHistoryPaymentAction.fulfilled, (state, payload) => {
+        state.loading = 'success';
+        state.historyPayment = payload.payload;
+      })
+      .addCase(GetHistoryPaymentAction.rejected, (state, payload) => {
+        state.loading = 'error';
+        state.message = payload.error.message;
       });
   },
 });
