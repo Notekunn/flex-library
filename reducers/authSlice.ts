@@ -4,6 +4,7 @@ import { apiInstance } from '../app/axiosClient';
 import { RootState } from '../app/store';
 import { IUser, IUserResponse } from '../constants/interface';
 import { TOKEN_EXPIRED_STORAGE_KEY, TOKEN_STORAGE_KEY } from '../constants/storageKey';
+import * as Stripe from '@stripe/stripe-js';
 
 interface LoginOKResponse {
   user: IUserResponse;
@@ -27,6 +28,7 @@ interface AuthState {
   isLoggedIn: boolean;
   loading: 'idle' | 'loading' | 'success' | 'error';
   user?: IUserResponse;
+  historyPayment?: Stripe.PaymentIntent[];
   error?: string;
 }
 
@@ -64,10 +66,14 @@ export const changePasswordAction = createAsyncThunk('auth/changePassword', asyn
   return data;
 });
 
-export const updateCoinUserAction = createAsyncThunk('auth/updateCoinUser', async (payload: { coin: number }) => {
-  const { data } = await apiInstance.post<IUserResponse>(`/user/me`, payload);
-  return data;
-});
+export const updateCoinUserAction = createAsyncThunk(
+  'auth/updateCoinUser',
+  async (payload: { coin: number }, thunk) => {
+    const { data } = await apiInstance.patch<IUserResponse>(`/user/coin`, payload);
+    thunk.dispatch(profileAction());
+    return data;
+  },
+);
 
 export const authSlice = createSlice({
   name: 'auth',
@@ -118,18 +124,7 @@ export const authSlice = createSlice({
       .addCase(logoutAction.rejected, (state) => {
         state.loading = 'error';
       });
-    buidler
-      .addCase(updateUserAction.pending, (state) => {
-        state.loading = 'loading';
-      })
-      .addCase(updateUserAction.fulfilled, (state, payload) => {
-        state.loading = 'success';
-        state.user = payload.payload;
-      })
-      .addCase(updateUserAction.rejected, (state, payload) => {
-        state.loading = 'error';
-        state.error = payload.error.message;
-      });
+
     buidler
       .addCase(changePasswordAction.pending, (state) => {
         state.loading = 'loading';
