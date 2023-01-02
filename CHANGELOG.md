@@ -1,3 +1,10 @@
+# [1.36.0](https://github.com/Notekunn/flex-library/compare/v1.35.0...v1.36.0) (2023-01-02)
+
+
+### Features
+
+* test local authentication ([#65](https://github.com/Notekunn/flex-library/issues/65)) ([56590b2](https://github.com/Notekunn/flex-library/commit/56590b2ea5e3421e18d201ba7a3c0ba39debd9f1))
+
 # [1.35.0](https://github.com/Notekunn/flex-library/compare/v1.34.0...v1.35.0) (2022-12-30)
 
 
