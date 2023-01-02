@@ -21,6 +21,9 @@ module.exports = {
     assetBundlePatterns: ['**/*'],
     ios: {
       supportsTablet: true,
+      infoPlist: {
+        NSCameraUsageDescription: 'This app uses the camera to scan barcodes on event tickets.',
+      },
     },
     android: {
       adaptiveIcon: {

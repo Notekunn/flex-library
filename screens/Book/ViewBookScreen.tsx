@@ -27,6 +27,7 @@ import 'moment/locale/vi';
 import SplashScreen from '../SplashScreen';
 import NotFoundScreen from '../NotFoundScreen';
 import { selectOwnStore } from '../../reducers/authSlice';
+import * as LocalAuthentication from 'expo-local-authentication';
 
 const { width } = Dimensions.get('window');
 
@@ -39,6 +40,8 @@ export const ViewBookScreen: React.FC<RootStackScreenProps<'ViewBook'>> = ({ nav
   const book = useAppSelector(selectBook);
   const ownStore = useAppSelector(selectOwnStore);
   const handlePress = async () => {
+    // const result = await LocalAuthentication.authenticateAsync();
+    // console.log('12312321' + result);
     if (book) {
       dispatch(UpdateOrderDetailAction({ bookId: book.id, quantity: 1, action: OrderDetailAction.ADD }));
     }
